@@ -1,0 +1,1629 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** CY_ISR_PROTO(ISR_UART_rx_handler);
+  15:main.c        **** void handleByteReceived(uint8_t byteReceived);
+  16:main.c        **** void decreaseSpeed(void);
+  17:main.c        **** void increaseSpeed(void);
+  18:main.c        **** void driveForwards(void);
+  19:main.c        **** void driveBackwards(void);
+  20:main.c        **** void stop(void);
+  21:main.c        **** 
+  22:main.c        **** int main(void)
+  23:main.c        **** {
+  28              		.loc 1 23 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 2
+
+
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  24:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  37              		.loc 1 24 0
+  38              		.syntax unified
+  39              	@ 24 "main.c" 1
+  40 0002 62B6     		CPSIE   i
+  41              	@ 0 "" 2
+  25:main.c        **** 
+  26:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  27:main.c        ****     isr_uart_rx_StartEx(ISR_UART_rx_handler);
+  42              		.loc 1 27 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0004 0C48     		ldr	r0, .L4
+  46 0006 FFF7FEFF 		bl	isr_uart_rx_StartEx
+  47              	.LVL0:
+  28:main.c        ****     UART_1_Start();
+  48              		.loc 1 28 0
+  49 000a FFF7FEFF 		bl	UART_1_Start
+  50              	.LVL1:
+  29:main.c        ****     PWM_1_Start();
+  51              		.loc 1 29 0
+  52 000e FFF7FEFF 		bl	PWM_1_Start
+  53              	.LVL2:
+  30:main.c        ****     
+  31:main.c        ****     UART_1_PutString("DC-Motor-PWM application started\r\n");
+  54              		.loc 1 31 0
+  55 0012 0A48     		ldr	r0, .L4+4
+  56 0014 FFF7FEFF 		bl	UART_1_PutString
+  57              	.LVL3:
+  32:main.c        ****     UART_1_PutString("0: Stop\r\n");
+  58              		.loc 1 32 0
+  59 0018 0948     		ldr	r0, .L4+8
+  60 001a FFF7FEFF 		bl	UART_1_PutString
+  61              	.LVL4:
+  33:main.c        ****     UART_1_PutString("1: Drive forwards\r\n");
+  62              		.loc 1 33 0
+  63 001e 0948     		ldr	r0, .L4+12
+  64 0020 FFF7FEFF 		bl	UART_1_PutString
+  65              	.LVL5:
+  34:main.c        ****     UART_1_PutString("2: Drive backwards\r\n");
+  66              		.loc 1 34 0
+  67 0024 0848     		ldr	r0, .L4+16
+  68 0026 FFF7FEFF 		bl	UART_1_PutString
+  69              	.LVL6:
+  35:main.c        ****     UART_1_PutString("q: Decrease speed\r\n");
+  70              		.loc 1 35 0
+  71 002a 0848     		ldr	r0, .L4+20
+  72 002c FFF7FEFF 		bl	UART_1_PutString
+  73              	.LVL7:
+  36:main.c        ****     UART_1_PutString("w: Increase speed\r\n");
+  74              		.loc 1 36 0
+  75 0030 0748     		ldr	r0, .L4+24
+  76 0032 FFF7FEFF 		bl	UART_1_PutString
+  77              	.LVL8:
+  78              	.L2:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 3
+
+
+  79 0036 FEE7     		b	.L2
+  80              	.L5:
+  81              		.align	2
+  82              	.L4:
+  83 0038 00000000 		.word	ISR_UART_rx_handler
+  84 003c 00000000 		.word	.LC0
+  85 0040 24000000 		.word	.LC1
+  86 0044 30000000 		.word	.LC2
+  87 0048 44000000 		.word	.LC3
+  88 004c 5C000000 		.word	.LC4
+  89 0050 70000000 		.word	.LC5
+  90              		.cfi_endproc
+  91              	.LFE63:
+  92              		.size	main, .-main
+  93              		.section	.text.decreaseSpeed,"ax",%progbits
+  94              		.align	2
+  95              		.global	decreaseSpeed
+  96              		.thumb
+  97              		.thumb_func
+  98              		.type	decreaseSpeed, %function
+  99              	decreaseSpeed:
+ 100              	.LFB66:
+  37:main.c        **** 
+  38:main.c        ****     for(;;)
+  39:main.c        ****     {
+  40:main.c        ****         /* Place your application code here. */
+  41:main.c        ****     }
+  42:main.c        **** }
+  43:main.c        **** 
+  44:main.c        **** CY_ISR(ISR_UART_rx_handler)
+  45:main.c        **** {
+  46:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+  47:main.c        ****     while (bytesToRead > 0)
+  48:main.c        ****     {
+  49:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();
+  50:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+  51:main.c        ****         
+  52:main.c        ****         handleByteReceived(byteReceived);
+  53:main.c        ****         
+  54:main.c        ****         bytesToRead--;
+  55:main.c        ****     }
+  56:main.c        **** }
+  57:main.c        **** 
+  58:main.c        **** void handleByteReceived(uint8_t byteReceived)
+  59:main.c        **** {
+  60:main.c        ****     switch(byteReceived)
+  61:main.c        ****     {
+  62:main.c        ****         case 'q' :
+  63:main.c        ****         {
+  64:main.c        ****             decreaseSpeed();
+  65:main.c        ****         }
+  66:main.c        ****         break;
+  67:main.c        ****         case 'w' :
+  68:main.c        ****         {
+  69:main.c        ****             increaseSpeed();
+  70:main.c        ****         }
+  71:main.c        ****         break;
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 4
+
+
+  72:main.c        ****         case '1' :
+  73:main.c        ****         {
+  74:main.c        ****             driveForwards();
+  75:main.c        ****         }
+  76:main.c        ****         break;
+  77:main.c        ****         case '2' :
+  78:main.c        ****         {
+  79:main.c        ****             driveBackwards();
+  80:main.c        ****         }
+  81:main.c        ****         break;
+  82:main.c        ****         case '0' :
+  83:main.c        ****         {
+  84:main.c        ****             stop();
+  85:main.c        ****             
+  86:main.c        ****         }
+  87:main.c        ****         break;
+  88:main.c        ****         default :
+  89:main.c        ****         {
+  90:main.c        ****             // nothing
+  91:main.c        ****         }
+  92:main.c        ****         break;
+  93:main.c        ****     }
+  94:main.c        **** }
+  95:main.c        **** 
+  96:main.c        **** void decreaseSpeed()
+  97:main.c        **** {
+ 101              		.loc 1 97 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 0
+ 104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 105 0000 08B5     		push	{r3, lr}
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 3, -8
+ 108              		.cfi_offset 14, -4
+  98:main.c        ****     UART_1_PutString("Decreasing speed\r\n");
+ 109              		.loc 1 98 0
+ 110 0002 0248     		ldr	r0, .L8
+ 111 0004 FFF7FEFF 		bl	UART_1_PutString
+ 112              	.LVL9:
+ 113 0008 08BD     		pop	{r3, pc}
+ 114              	.L9:
+ 115 000a 00BF     		.align	2
+ 116              	.L8:
+ 117 000c 84000000 		.word	.LC6
+ 118              		.cfi_endproc
+ 119              	.LFE66:
+ 120              		.size	decreaseSpeed, .-decreaseSpeed
+ 121              		.section	.text.increaseSpeed,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	increaseSpeed
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.type	increaseSpeed, %function
+ 127              	increaseSpeed:
+ 128              	.LFB67:
+  99:main.c        **** }
+ 100:main.c        **** 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 5
+
+
+ 101:main.c        **** void increaseSpeed()
+ 102:main.c        **** {
+ 129              		.loc 1 102 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133 0000 08B5     		push	{r3, lr}
+ 134              		.cfi_def_cfa_offset 8
+ 135              		.cfi_offset 3, -8
+ 136              		.cfi_offset 14, -4
+ 103:main.c        ****     UART_1_PutString("Increasing speed\r\n");
+ 137              		.loc 1 103 0
+ 138 0002 0248     		ldr	r0, .L12
+ 139 0004 FFF7FEFF 		bl	UART_1_PutString
+ 140              	.LVL10:
+ 141 0008 08BD     		pop	{r3, pc}
+ 142              	.L13:
+ 143 000a 00BF     		.align	2
+ 144              	.L12:
+ 145 000c 98000000 		.word	.LC7
+ 146              		.cfi_endproc
+ 147              	.LFE67:
+ 148              		.size	increaseSpeed, .-increaseSpeed
+ 149              		.section	.text.driveForwards,"ax",%progbits
+ 150              		.align	2
+ 151              		.global	driveForwards
+ 152              		.thumb
+ 153              		.thumb_func
+ 154              		.type	driveForwards, %function
+ 155              	driveForwards:
+ 156              	.LFB68:
+ 104:main.c        **** }
+ 105:main.c        **** 
+ 106:main.c        **** void driveForwards()
+ 107:main.c        **** {
+ 157              		.loc 1 107 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161 0000 08B5     		push	{r3, lr}
+ 162              		.cfi_def_cfa_offset 8
+ 163              		.cfi_offset 3, -8
+ 164              		.cfi_offset 14, -4
+ 108:main.c        ****     UART_1_PutString("Set direction: forwards\r\n");
+ 165              		.loc 1 108 0
+ 166 0002 0248     		ldr	r0, .L16
+ 167 0004 FFF7FEFF 		bl	UART_1_PutString
+ 168              	.LVL11:
+ 169 0008 08BD     		pop	{r3, pc}
+ 170              	.L17:
+ 171 000a 00BF     		.align	2
+ 172              	.L16:
+ 173 000c AC000000 		.word	.LC8
+ 174              		.cfi_endproc
+ 175              	.LFE68:
+ 176              		.size	driveForwards, .-driveForwards
+ 177              		.section	.text.driveBackwards,"ax",%progbits
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 6
+
+
+ 178              		.align	2
+ 179              		.global	driveBackwards
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.type	driveBackwards, %function
+ 183              	driveBackwards:
+ 184              	.LFB69:
+ 109:main.c        **** }
+ 110:main.c        **** 
+ 111:main.c        **** void driveBackwards()
+ 112:main.c        **** {
+ 185              		.loc 1 112 0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189 0000 08B5     		push	{r3, lr}
+ 190              		.cfi_def_cfa_offset 8
+ 191              		.cfi_offset 3, -8
+ 192              		.cfi_offset 14, -4
+ 113:main.c        ****     UART_1_PutString("Set direction: backwards\r\n");
+ 193              		.loc 1 113 0
+ 194 0002 0248     		ldr	r0, .L20
+ 195 0004 FFF7FEFF 		bl	UART_1_PutString
+ 196              	.LVL12:
+ 197 0008 08BD     		pop	{r3, pc}
+ 198              	.L21:
+ 199 000a 00BF     		.align	2
+ 200              	.L20:
+ 201 000c C8000000 		.word	.LC9
+ 202              		.cfi_endproc
+ 203              	.LFE69:
+ 204              		.size	driveBackwards, .-driveBackwards
+ 205              		.section	.text.stop,"ax",%progbits
+ 206              		.align	2
+ 207              		.global	stop
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.type	stop, %function
+ 211              	stop:
+ 212              	.LFB70:
+ 114:main.c        **** }
+ 115:main.c        **** 
+ 116:main.c        **** void stop()
+ 117:main.c        **** {
+ 213              		.loc 1 117 0
+ 214              		.cfi_startproc
+ 215              		@ args = 0, pretend = 0, frame = 0
+ 216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217 0000 08B5     		push	{r3, lr}
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 3, -8
+ 220              		.cfi_offset 14, -4
+ 118:main.c        ****     UART_1_PutString("Stop\r\n");
+ 221              		.loc 1 118 0
+ 222 0002 0248     		ldr	r0, .L24
+ 223 0004 FFF7FEFF 		bl	UART_1_PutString
+ 224              	.LVL13:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 7
+
+
+ 225 0008 08BD     		pop	{r3, pc}
+ 226              	.L25:
+ 227 000a 00BF     		.align	2
+ 228              	.L24:
+ 229 000c E4000000 		.word	.LC10
+ 230              		.cfi_endproc
+ 231              	.LFE70:
+ 232              		.size	stop, .-stop
+ 233              		.section	.text.handleByteReceived,"ax",%progbits
+ 234              		.align	2
+ 235              		.global	handleByteReceived
+ 236              		.thumb
+ 237              		.thumb_func
+ 238              		.type	handleByteReceived, %function
+ 239              	handleByteReceived:
+ 240              	.LFB65:
+  59:main.c        ****     switch(byteReceived)
+ 241              		.loc 1 59 0
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 0
+ 244              		@ frame_needed = 0, uses_anonymous_args = 0
+ 245              	.LVL14:
+ 246 0000 08B5     		push	{r3, lr}
+ 247              		.cfi_def_cfa_offset 8
+ 248              		.cfi_offset 3, -8
+ 249              		.cfi_offset 14, -4
+  60:main.c        ****     {
+ 250              		.loc 1 60 0
+ 251 0002 3228     		cmp	r0, #50
+ 252 0004 13D0     		beq	.L28
+ 253 0006 04D8     		bhi	.L29
+ 254 0008 3028     		cmp	r0, #48
+ 255 000a 13D0     		beq	.L30
+ 256 000c 3128     		cmp	r0, #49
+ 257 000e 0BD0     		beq	.L31
+ 258 0010 08BD     		pop	{r3, pc}
+ 259              	.L29:
+ 260 0012 7128     		cmp	r0, #113
+ 261 0014 02D0     		beq	.L32
+ 262 0016 7728     		cmp	r0, #119
+ 263 0018 03D0     		beq	.L33
+ 264 001a 08BD     		pop	{r3, pc}
+ 265              	.L32:
+  64:main.c        ****         }
+ 266              		.loc 1 64 0
+ 267 001c FFF7FEFF 		bl	decreaseSpeed
+ 268              	.LVL15:
+  66:main.c        ****         case 'w' :
+ 269              		.loc 1 66 0
+ 270 0020 08BD     		pop	{r3, pc}
+ 271              	.LVL16:
+ 272              	.L33:
+  69:main.c        ****         }
+ 273              		.loc 1 69 0
+ 274 0022 FFF7FEFF 		bl	increaseSpeed
+ 275              	.LVL17:
+  71:main.c        ****         case '1' :
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 8
+
+
+ 276              		.loc 1 71 0
+ 277 0026 08BD     		pop	{r3, pc}
+ 278              	.LVL18:
+ 279              	.L31:
+  74:main.c        ****         }
+ 280              		.loc 1 74 0
+ 281 0028 FFF7FEFF 		bl	driveForwards
+ 282              	.LVL19:
+  76:main.c        ****         case '2' :
+ 283              		.loc 1 76 0
+ 284 002c 08BD     		pop	{r3, pc}
+ 285              	.LVL20:
+ 286              	.L28:
+  79:main.c        ****         }
+ 287              		.loc 1 79 0
+ 288 002e FFF7FEFF 		bl	driveBackwards
+ 289              	.LVL21:
+  81:main.c        ****         case '0' :
+ 290              		.loc 1 81 0
+ 291 0032 08BD     		pop	{r3, pc}
+ 292              	.LVL22:
+ 293              	.L30:
+  84:main.c        ****             
+ 294              		.loc 1 84 0
+ 295 0034 FFF7FEFF 		bl	stop
+ 296              	.LVL23:
+ 297 0038 08BD     		pop	{r3, pc}
+ 298              		.cfi_endproc
+ 299              	.LFE65:
+ 300              		.size	handleByteReceived, .-handleByteReceived
+ 301 003a 00BF     		.section	.text.ISR_UART_rx_handler,"ax",%progbits
+ 302              		.align	2
+ 303              		.global	ISR_UART_rx_handler
+ 304              		.thumb
+ 305              		.thumb_func
+ 306              		.type	ISR_UART_rx_handler, %function
+ 307              	ISR_UART_rx_handler:
+ 308              	.LFB64:
+  45:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+ 309              		.loc 1 45 0
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313 0000 38B5     		push	{r3, r4, r5, lr}
+ 314              		.cfi_def_cfa_offset 16
+ 315              		.cfi_offset 3, -16
+ 316              		.cfi_offset 4, -12
+ 317              		.cfi_offset 5, -8
+ 318              		.cfi_offset 14, -4
+  46:main.c        ****     while (bytesToRead > 0)
+ 319              		.loc 1 46 0
+ 320 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
+ 321              	.LVL24:
+ 322 0006 0446     		mov	r4, r0
+ 323              	.LVL25:
+  47:main.c        ****     {
+ 324              		.loc 1 47 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 9
+
+
+ 325 0008 09E0     		b	.L36
+ 326              	.L37:
+ 327              	.LBB2:
+  49:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+ 328              		.loc 1 49 0
+ 329 000a FFF7FEFF 		bl	UART_1_ReadRxData
+ 330              	.LVL26:
+ 331 000e 0546     		mov	r5, r0
+ 332              	.LVL27:
+  50:main.c        ****         
+ 333              		.loc 1 50 0
+ 334 0010 FFF7FEFF 		bl	UART_1_WriteTxData
+ 335              	.LVL28:
+  52:main.c        ****         
+ 336              		.loc 1 52 0
+ 337 0014 2846     		mov	r0, r5
+ 338 0016 FFF7FEFF 		bl	handleByteReceived
+ 339              	.LVL29:
+  54:main.c        ****     }
+ 340              		.loc 1 54 0
+ 341 001a 013C     		subs	r4, r4, #1
+ 342              	.LVL30:
+ 343 001c E4B2     		uxtb	r4, r4
+ 344              	.LVL31:
+ 345              	.L36:
+ 346              	.LBE2:
+  47:main.c        ****     {
+ 347              		.loc 1 47 0
+ 348 001e 002C     		cmp	r4, #0
+ 349 0020 F3D1     		bne	.L37
+  56:main.c        **** 
+ 350              		.loc 1 56 0
+ 351 0022 38BD     		pop	{r3, r4, r5, pc}
+ 352              		.cfi_endproc
+ 353              	.LFE64:
+ 354              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
+ 355              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 356              		.align	2
+ 357              	.LC0:
+ 358 0000 44432D4D 		.ascii	"DC-Motor-PWM application started\015\012\000"
+ 358      6F746F72 
+ 358      2D50574D 
+ 358      20617070 
+ 358      6C696361 
+ 359 0023 00       		.space	1
+ 360              	.LC1:
+ 361 0024 303A2053 		.ascii	"0: Stop\015\012\000"
+ 361      746F700D 
+ 361      0A00
+ 362 002e 0000     		.space	2
+ 363              	.LC2:
+ 364 0030 313A2044 		.ascii	"1: Drive forwards\015\012\000"
+ 364      72697665 
+ 364      20666F72 
+ 364      77617264 
+ 364      730D0A00 
+ 365              	.LC3:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 10
+
+
+ 366 0044 323A2044 		.ascii	"2: Drive backwards\015\012\000"
+ 366      72697665 
+ 366      20626163 
+ 366      6B776172 
+ 366      64730D0A 
+ 367 0059 000000   		.space	3
+ 368              	.LC4:
+ 369 005c 713A2044 		.ascii	"q: Decrease speed\015\012\000"
+ 369      65637265 
+ 369      61736520 
+ 369      73706565 
+ 369      640D0A00 
+ 370              	.LC5:
+ 371 0070 773A2049 		.ascii	"w: Increase speed\015\012\000"
+ 371      6E637265 
+ 371      61736520 
+ 371      73706565 
+ 371      640D0A00 
+ 372              	.LC6:
+ 373 0084 44656372 		.ascii	"Decreasing speed\015\012\000"
+ 373      65617369 
+ 373      6E672073 
+ 373      70656564 
+ 373      0D0A00
+ 374 0097 00       		.space	1
+ 375              	.LC7:
+ 376 0098 496E6372 		.ascii	"Increasing speed\015\012\000"
+ 376      65617369 
+ 376      6E672073 
+ 376      70656564 
+ 376      0D0A00
+ 377 00ab 00       		.space	1
+ 378              	.LC8:
+ 379 00ac 53657420 		.ascii	"Set direction: forwards\015\012\000"
+ 379      64697265 
+ 379      6374696F 
+ 379      6E3A2066 
+ 379      6F727761 
+ 380 00c6 0000     		.space	2
+ 381              	.LC9:
+ 382 00c8 53657420 		.ascii	"Set direction: backwards\015\012\000"
+ 382      64697265 
+ 382      6374696F 
+ 382      6E3A2062 
+ 382      61636B77 
+ 383 00e3 00       		.space	1
+ 384              	.LC10:
+ 385 00e4 53746F70 		.ascii	"Stop\015\012\000"
+ 385      0D0A00
+ 386              		.text
+ 387              	.Letext0:
+ 388              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 389              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 390              		.file 4 "Generated_Source\\PSoC5/isr_uart_rx.h"
+ 391              		.file 5 "Generated_Source\\PSoC5/UART_1.h"
+ 392              		.file 6 "Generated_Source\\PSoC5/PWM_1.h"
+ 393              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 11
+
+
+ 394              		.section	.debug_info,"",%progbits
+ 395              	.Ldebug_info0:
+ 396 0000 75030000 		.4byte	0x375
+ 397 0004 0400     		.2byte	0x4
+ 398 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 399 000a 04       		.byte	0x4
+ 400 000b 01       		.uleb128 0x1
+ 401 000c 7E000000 		.4byte	.LASF34
+ 402 0010 0C       		.byte	0xc
+ 403 0011 53020000 		.4byte	.LASF35
+ 404 0015 C6010000 		.4byte	.LASF36
+ 405 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 406 001d 00000000 		.4byte	0
+ 407 0021 00000000 		.4byte	.Ldebug_line0
+ 408 0025 02       		.uleb128 0x2
+ 409 0026 01       		.byte	0x1
+ 410 0027 06       		.byte	0x6
+ 411 0028 8C020000 		.4byte	.LASF0
+ 412 002c 03       		.uleb128 0x3
+ 413 002d 21000000 		.4byte	.LASF4
+ 414 0031 02       		.byte	0x2
+ 415 0032 1D       		.byte	0x1d
+ 416 0033 37000000 		.4byte	0x37
+ 417 0037 02       		.uleb128 0x2
+ 418 0038 01       		.byte	0x1
+ 419 0039 08       		.byte	0x8
+ 420 003a 70000000 		.4byte	.LASF1
+ 421 003e 02       		.uleb128 0x2
+ 422 003f 02       		.byte	0x2
+ 423 0040 05       		.byte	0x5
+ 424 0041 6D020000 		.4byte	.LASF2
+ 425 0045 02       		.uleb128 0x2
+ 426 0046 02       		.byte	0x2
+ 427 0047 07       		.byte	0x7
+ 428 0048 43000000 		.4byte	.LASF3
+ 429 004c 03       		.uleb128 0x3
+ 430 004d 2B000000 		.4byte	.LASF5
+ 431 0051 02       		.byte	0x2
+ 432 0052 3F       		.byte	0x3f
+ 433 0053 57000000 		.4byte	0x57
+ 434 0057 02       		.uleb128 0x2
+ 435 0058 04       		.byte	0x4
+ 436 0059 05       		.byte	0x5
+ 437 005a 77020000 		.4byte	.LASF6
+ 438 005e 02       		.uleb128 0x2
+ 439 005f 04       		.byte	0x4
+ 440 0060 07       		.byte	0x7
+ 441 0061 20010000 		.4byte	.LASF7
+ 442 0065 02       		.uleb128 0x2
+ 443 0066 08       		.byte	0x8
+ 444 0067 05       		.byte	0x5
+ 445 0068 45020000 		.4byte	.LASF8
+ 446 006c 02       		.uleb128 0x2
+ 447 006d 08       		.byte	0x8
+ 448 006e 07       		.byte	0x7
+ 449 006f AF010000 		.4byte	.LASF9
+ 450 0073 04       		.uleb128 0x4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 12
+
+
+ 451 0074 04       		.byte	0x4
+ 452 0075 05       		.byte	0x5
+ 453 0076 696E7400 		.ascii	"int\000"
+ 454 007a 02       		.uleb128 0x2
+ 455 007b 04       		.byte	0x4
+ 456 007c 07       		.byte	0x7
+ 457 007d 94010000 		.4byte	.LASF10
+ 458 0081 03       		.uleb128 0x3
+ 459 0082 56000000 		.4byte	.LASF11
+ 460 0086 03       		.byte	0x3
+ 461 0087 18       		.byte	0x18
+ 462 0088 2C000000 		.4byte	0x2c
+ 463 008c 03       		.uleb128 0x3
+ 464 008d 25020000 		.4byte	.LASF12
+ 465 0091 03       		.byte	0x3
+ 466 0092 2C       		.byte	0x2c
+ 467 0093 4C000000 		.4byte	0x4c
+ 468 0097 02       		.uleb128 0x2
+ 469 0098 04       		.byte	0x4
+ 470 0099 04       		.byte	0x4
+ 471 009a 6A000000 		.4byte	.LASF13
+ 472 009e 02       		.uleb128 0x2
+ 473 009f 08       		.byte	0x8
+ 474 00a0 04       		.byte	0x4
+ 475 00a1 75010000 		.4byte	.LASF14
+ 476 00a5 02       		.uleb128 0x2
+ 477 00a6 01       		.byte	0x1
+ 478 00a7 08       		.byte	0x8
+ 479 00a8 5A020000 		.4byte	.LASF15
+ 480 00ac 02       		.uleb128 0x2
+ 481 00ad 08       		.byte	0x8
+ 482 00ae 04       		.byte	0x4
+ 483 00af 80020000 		.4byte	.LASF16
+ 484 00b3 02       		.uleb128 0x2
+ 485 00b4 04       		.byte	0x4
+ 486 00b5 07       		.byte	0x7
+ 487 00b6 3C020000 		.4byte	.LASF17
+ 488 00ba 05       		.uleb128 0x5
+ 489 00bb 7C010000 		.4byte	.LASF37
+ 490 00bf 01       		.byte	0x1
+ 491 00c0 16       		.byte	0x16
+ 492 00c1 73000000 		.4byte	0x73
+ 493 00c5 00000000 		.4byte	.LFB63
+ 494 00c9 54000000 		.4byte	.LFE63-.LFB63
+ 495 00cd 01       		.uleb128 0x1
+ 496 00ce 9C       		.byte	0x9c
+ 497 00cf 83010000 		.4byte	0x183
+ 498 00d3 06       		.uleb128 0x6
+ 499 00d4 0A000000 		.4byte	.LVL0
+ 500 00d8 2B030000 		.4byte	0x32b
+ 501 00dc EA000000 		.4byte	0xea
+ 502 00e0 07       		.uleb128 0x7
+ 503 00e1 01       		.uleb128 0x1
+ 504 00e2 50       		.byte	0x50
+ 505 00e3 05       		.uleb128 0x5
+ 506 00e4 03       		.byte	0x3
+ 507 00e5 00000000 		.4byte	ISR_UART_rx_handler
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 13
+
+
+ 508 00e9 00       		.byte	0
+ 509 00ea 08       		.uleb128 0x8
+ 510 00eb 0E000000 		.4byte	.LVL1
+ 511 00ef 36030000 		.4byte	0x336
+ 512 00f3 08       		.uleb128 0x8
+ 513 00f4 12000000 		.4byte	.LVL2
+ 514 00f8 41030000 		.4byte	0x341
+ 515 00fc 06       		.uleb128 0x6
+ 516 00fd 18000000 		.4byte	.LVL3
+ 517 0101 4C030000 		.4byte	0x34c
+ 518 0105 13010000 		.4byte	0x113
+ 519 0109 07       		.uleb128 0x7
+ 520 010a 01       		.uleb128 0x1
+ 521 010b 50       		.byte	0x50
+ 522 010c 05       		.uleb128 0x5
+ 523 010d 03       		.byte	0x3
+ 524 010e 00000000 		.4byte	.LC0
+ 525 0112 00       		.byte	0
+ 526 0113 06       		.uleb128 0x6
+ 527 0114 1E000000 		.4byte	.LVL4
+ 528 0118 4C030000 		.4byte	0x34c
+ 529 011c 2A010000 		.4byte	0x12a
+ 530 0120 07       		.uleb128 0x7
+ 531 0121 01       		.uleb128 0x1
+ 532 0122 50       		.byte	0x50
+ 533 0123 05       		.uleb128 0x5
+ 534 0124 03       		.byte	0x3
+ 535 0125 24000000 		.4byte	.LC1
+ 536 0129 00       		.byte	0
+ 537 012a 06       		.uleb128 0x6
+ 538 012b 24000000 		.4byte	.LVL5
+ 539 012f 4C030000 		.4byte	0x34c
+ 540 0133 41010000 		.4byte	0x141
+ 541 0137 07       		.uleb128 0x7
+ 542 0138 01       		.uleb128 0x1
+ 543 0139 50       		.byte	0x50
+ 544 013a 05       		.uleb128 0x5
+ 545 013b 03       		.byte	0x3
+ 546 013c 30000000 		.4byte	.LC2
+ 547 0140 00       		.byte	0
+ 548 0141 06       		.uleb128 0x6
+ 549 0142 2A000000 		.4byte	.LVL6
+ 550 0146 4C030000 		.4byte	0x34c
+ 551 014a 58010000 		.4byte	0x158
+ 552 014e 07       		.uleb128 0x7
+ 553 014f 01       		.uleb128 0x1
+ 554 0150 50       		.byte	0x50
+ 555 0151 05       		.uleb128 0x5
+ 556 0152 03       		.byte	0x3
+ 557 0153 44000000 		.4byte	.LC3
+ 558 0157 00       		.byte	0
+ 559 0158 06       		.uleb128 0x6
+ 560 0159 30000000 		.4byte	.LVL7
+ 561 015d 4C030000 		.4byte	0x34c
+ 562 0161 6F010000 		.4byte	0x16f
+ 563 0165 07       		.uleb128 0x7
+ 564 0166 01       		.uleb128 0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 14
+
+
+ 565 0167 50       		.byte	0x50
+ 566 0168 05       		.uleb128 0x5
+ 567 0169 03       		.byte	0x3
+ 568 016a 5C000000 		.4byte	.LC4
+ 569 016e 00       		.byte	0
+ 570 016f 09       		.uleb128 0x9
+ 571 0170 36000000 		.4byte	.LVL8
+ 572 0174 4C030000 		.4byte	0x34c
+ 573 0178 07       		.uleb128 0x7
+ 574 0179 01       		.uleb128 0x1
+ 575 017a 50       		.byte	0x50
+ 576 017b 05       		.uleb128 0x5
+ 577 017c 03       		.byte	0x3
+ 578 017d 70000000 		.4byte	.LC5
+ 579 0181 00       		.byte	0
+ 580 0182 00       		.byte	0
+ 581 0183 0A       		.uleb128 0xa
+ 582 0184 5F020000 		.4byte	.LASF18
+ 583 0188 01       		.byte	0x1
+ 584 0189 60       		.byte	0x60
+ 585 018a 00000000 		.4byte	.LFB66
+ 586 018e 10000000 		.4byte	.LFE66-.LFB66
+ 587 0192 01       		.uleb128 0x1
+ 588 0193 9C       		.byte	0x9c
+ 589 0194 AC010000 		.4byte	0x1ac
+ 590 0198 09       		.uleb128 0x9
+ 591 0199 08000000 		.4byte	.LVL9
+ 592 019d 4C030000 		.4byte	0x34c
+ 593 01a1 07       		.uleb128 0x7
+ 594 01a2 01       		.uleb128 0x1
+ 595 01a3 50       		.byte	0x50
+ 596 01a4 05       		.uleb128 0x5
+ 597 01a5 03       		.byte	0x3
+ 598 01a6 84000000 		.4byte	.LC6
+ 599 01aa 00       		.byte	0
+ 600 01ab 00       		.byte	0
+ 601 01ac 0A       		.uleb128 0xa
+ 602 01ad 35000000 		.4byte	.LASF19
+ 603 01b1 01       		.byte	0x1
+ 604 01b2 65       		.byte	0x65
+ 605 01b3 00000000 		.4byte	.LFB67
+ 606 01b7 10000000 		.4byte	.LFE67-.LFB67
+ 607 01bb 01       		.uleb128 0x1
+ 608 01bc 9C       		.byte	0x9c
+ 609 01bd D5010000 		.4byte	0x1d5
+ 610 01c1 09       		.uleb128 0x9
+ 611 01c2 08000000 		.4byte	.LVL10
+ 612 01c6 4C030000 		.4byte	0x34c
+ 613 01ca 07       		.uleb128 0x7
+ 614 01cb 01       		.uleb128 0x1
+ 615 01cc 50       		.byte	0x50
+ 616 01cd 05       		.uleb128 0x5
+ 617 01ce 03       		.byte	0x3
+ 618 01cf 98000000 		.4byte	.LC7
+ 619 01d3 00       		.byte	0
+ 620 01d4 00       		.byte	0
+ 621 01d5 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 15
+
+
+ 622 01d6 A1010000 		.4byte	.LASF20
+ 623 01da 01       		.byte	0x1
+ 624 01db 6A       		.byte	0x6a
+ 625 01dc 00000000 		.4byte	.LFB68
+ 626 01e0 10000000 		.4byte	.LFE68-.LFB68
+ 627 01e4 01       		.uleb128 0x1
+ 628 01e5 9C       		.byte	0x9c
+ 629 01e6 FE010000 		.4byte	0x1fe
+ 630 01ea 09       		.uleb128 0x9
+ 631 01eb 08000000 		.4byte	.LVL11
+ 632 01ef 4C030000 		.4byte	0x34c
+ 633 01f3 07       		.uleb128 0x7
+ 634 01f4 01       		.uleb128 0x1
+ 635 01f5 50       		.byte	0x50
+ 636 01f6 05       		.uleb128 0x5
+ 637 01f7 03       		.byte	0x3
+ 638 01f8 AC000000 		.4byte	.LC8
+ 639 01fc 00       		.byte	0
+ 640 01fd 00       		.byte	0
+ 641 01fe 0A       		.uleb128 0xa
+ 642 01ff 2D020000 		.4byte	.LASF21
+ 643 0203 01       		.byte	0x1
+ 644 0204 6F       		.byte	0x6f
+ 645 0205 00000000 		.4byte	.LFB69
+ 646 0209 10000000 		.4byte	.LFE69-.LFB69
+ 647 020d 01       		.uleb128 0x1
+ 648 020e 9C       		.byte	0x9c
+ 649 020f 27020000 		.4byte	0x227
+ 650 0213 09       		.uleb128 0x9
+ 651 0214 08000000 		.4byte	.LVL12
+ 652 0218 4C030000 		.4byte	0x34c
+ 653 021c 07       		.uleb128 0x7
+ 654 021d 01       		.uleb128 0x1
+ 655 021e 50       		.byte	0x50
+ 656 021f 05       		.uleb128 0x5
+ 657 0220 03       		.byte	0x3
+ 658 0221 C8000000 		.4byte	.LC9
+ 659 0225 00       		.byte	0
+ 660 0226 00       		.byte	0
+ 661 0227 0A       		.uleb128 0xa
+ 662 0228 50010000 		.4byte	.LASF22
+ 663 022c 01       		.byte	0x1
+ 664 022d 74       		.byte	0x74
+ 665 022e 00000000 		.4byte	.LFB70
+ 666 0232 10000000 		.4byte	.LFE70-.LFB70
+ 667 0236 01       		.uleb128 0x1
+ 668 0237 9C       		.byte	0x9c
+ 669 0238 50020000 		.4byte	0x250
+ 670 023c 09       		.uleb128 0x9
+ 671 023d 08000000 		.4byte	.LVL13
+ 672 0241 4C030000 		.4byte	0x34c
+ 673 0245 07       		.uleb128 0x7
+ 674 0246 01       		.uleb128 0x1
+ 675 0247 50       		.byte	0x50
+ 676 0248 05       		.uleb128 0x5
+ 677 0249 03       		.byte	0x3
+ 678 024a E4000000 		.4byte	.LC10
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 16
+
+
+ 679 024e 00       		.byte	0
+ 680 024f 00       		.byte	0
+ 681 0250 0A       		.uleb128 0xa
+ 682 0251 81010000 		.4byte	.LASF23
+ 683 0255 01       		.byte	0x1
+ 684 0256 3A       		.byte	0x3a
+ 685 0257 00000000 		.4byte	.LFB65
+ 686 025b 3A000000 		.4byte	.LFE65-.LFB65
+ 687 025f 01       		.uleb128 0x1
+ 688 0260 9C       		.byte	0x9c
+ 689 0261 A2020000 		.4byte	0x2a2
+ 690 0265 0B       		.uleb128 0xb
+ 691 0266 A9020000 		.4byte	.LASF26
+ 692 026a 01       		.byte	0x1
+ 693 026b 3A       		.byte	0x3a
+ 694 026c 81000000 		.4byte	0x81
+ 695 0270 00000000 		.4byte	.LLST0
+ 696 0274 08       		.uleb128 0x8
+ 697 0275 20000000 		.4byte	.LVL15
+ 698 0279 83010000 		.4byte	0x183
+ 699 027d 08       		.uleb128 0x8
+ 700 027e 26000000 		.4byte	.LVL17
+ 701 0282 AC010000 		.4byte	0x1ac
+ 702 0286 08       		.uleb128 0x8
+ 703 0287 2C000000 		.4byte	.LVL19
+ 704 028b D5010000 		.4byte	0x1d5
+ 705 028f 08       		.uleb128 0x8
+ 706 0290 32000000 		.4byte	.LVL21
+ 707 0294 FE010000 		.4byte	0x1fe
+ 708 0298 08       		.uleb128 0x8
+ 709 0299 38000000 		.4byte	.LVL23
+ 710 029d 27020000 		.4byte	0x227
+ 711 02a1 00       		.byte	0
+ 712 02a2 0A       		.uleb128 0xa
+ 713 02a3 0C010000 		.4byte	.LASF24
+ 714 02a7 01       		.byte	0x1
+ 715 02a8 2C       		.byte	0x2c
+ 716 02a9 00000000 		.4byte	.LFB64
+ 717 02ad 24000000 		.4byte	.LFE64-.LFB64
+ 718 02b1 01       		.uleb128 0x1
+ 719 02b2 9C       		.byte	0x9c
+ 720 02b3 1A030000 		.4byte	0x31a
+ 721 02b7 0C       		.uleb128 0xc
+ 722 02b8 5E000000 		.4byte	.LASF25
+ 723 02bc 01       		.byte	0x1
+ 724 02bd 2E       		.byte	0x2e
+ 725 02be 81000000 		.4byte	0x81
+ 726 02c2 85000000 		.4byte	.LLST1
+ 727 02c6 0D       		.uleb128 0xd
+ 728 02c7 0A000000 		.4byte	.LBB2
+ 729 02cb 14000000 		.4byte	.LBE2-.LBB2
+ 730 02cf 10030000 		.4byte	0x310
+ 731 02d3 0C       		.uleb128 0xc
+ 732 02d4 A9020000 		.4byte	.LASF26
+ 733 02d8 01       		.byte	0x1
+ 734 02d9 31       		.byte	0x31
+ 735 02da 81000000 		.4byte	0x81
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 17
+
+
+ 736 02de A3000000 		.4byte	.LLST2
+ 737 02e2 08       		.uleb128 0x8
+ 738 02e3 0E000000 		.4byte	.LVL26
+ 739 02e7 57030000 		.4byte	0x357
+ 740 02eb 06       		.uleb128 0x6
+ 741 02ec 14000000 		.4byte	.LVL28
+ 742 02f0 62030000 		.4byte	0x362
+ 743 02f4 FF020000 		.4byte	0x2ff
+ 744 02f8 07       		.uleb128 0x7
+ 745 02f9 01       		.uleb128 0x1
+ 746 02fa 50       		.byte	0x50
+ 747 02fb 02       		.uleb128 0x2
+ 748 02fc 75       		.byte	0x75
+ 749 02fd 00       		.sleb128 0
+ 750 02fe 00       		.byte	0
+ 751 02ff 09       		.uleb128 0x9
+ 752 0300 1A000000 		.4byte	.LVL29
+ 753 0304 50020000 		.4byte	0x250
+ 754 0308 07       		.uleb128 0x7
+ 755 0309 01       		.uleb128 0x1
+ 756 030a 50       		.byte	0x50
+ 757 030b 02       		.uleb128 0x2
+ 758 030c 75       		.byte	0x75
+ 759 030d 00       		.sleb128 0
+ 760 030e 00       		.byte	0
+ 761 030f 00       		.byte	0
+ 762 0310 08       		.uleb128 0x8
+ 763 0311 06000000 		.4byte	.LVL24
+ 764 0315 6D030000 		.4byte	0x36d
+ 765 0319 00       		.byte	0
+ 766 031a 0E       		.uleb128 0xe
+ 767 031b 55010000 		.4byte	.LASF38
+ 768 031f 07       		.byte	0x7
+ 769 0320 9606     		.2byte	0x696
+ 770 0322 26030000 		.4byte	0x326
+ 771 0326 0F       		.uleb128 0xf
+ 772 0327 8C000000 		.4byte	0x8c
+ 773 032b 10       		.uleb128 0x10
+ 774 032c 00000000 		.4byte	.LASF27
+ 775 0330 00000000 		.4byte	.LASF27
+ 776 0334 04       		.byte	0x4
+ 777 0335 18       		.byte	0x18
+ 778 0336 10       		.uleb128 0x10
+ 779 0337 14000000 		.4byte	.LASF28
+ 780 033b 14000000 		.4byte	.LASF28
+ 781 033f 05       		.byte	0x5
+ 782 0340 54       		.byte	0x54
+ 783 0341 10       		.uleb128 0x10
+ 784 0342 44010000 		.4byte	.LASF29
+ 785 0346 44010000 		.4byte	.LASF29
+ 786 034a 06       		.byte	0x6
+ 787 034b 92       		.byte	0x92
+ 788 034c 10       		.uleb128 0x10
+ 789 034d 98020000 		.4byte	.LASF30
+ 790 0351 98020000 		.4byte	.LASF30
+ 791 0355 05       		.byte	0x5
+ 792 0356 8B       		.byte	0x8b
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 18
+
+
+ 793 0357 10       		.uleb128 0x10
+ 794 0358 32010000 		.4byte	.LASF31
+ 795 035c 32010000 		.4byte	.LASF31
+ 796 0360 05       		.byte	0x5
+ 797 0361 6F       		.byte	0x6f
+ 798 0362 10       		.uleb128 0x10
+ 799 0363 62010000 		.4byte	.LASF32
+ 800 0367 62010000 		.4byte	.LASF32
+ 801 036b 05       		.byte	0x5
+ 802 036c 88       		.byte	0x88
+ 803 036d 10       		.uleb128 0x10
+ 804 036e 0E020000 		.4byte	.LASF33
+ 805 0372 0E020000 		.4byte	.LASF33
+ 806 0376 05       		.byte	0x5
+ 807 0377 73       		.byte	0x73
+ 808 0378 00       		.byte	0
+ 809              		.section	.debug_abbrev,"",%progbits
+ 810              	.Ldebug_abbrev0:
+ 811 0000 01       		.uleb128 0x1
+ 812 0001 11       		.uleb128 0x11
+ 813 0002 01       		.byte	0x1
+ 814 0003 25       		.uleb128 0x25
+ 815 0004 0E       		.uleb128 0xe
+ 816 0005 13       		.uleb128 0x13
+ 817 0006 0B       		.uleb128 0xb
+ 818 0007 03       		.uleb128 0x3
+ 819 0008 0E       		.uleb128 0xe
+ 820 0009 1B       		.uleb128 0x1b
+ 821 000a 0E       		.uleb128 0xe
+ 822 000b 55       		.uleb128 0x55
+ 823 000c 17       		.uleb128 0x17
+ 824 000d 11       		.uleb128 0x11
+ 825 000e 01       		.uleb128 0x1
+ 826 000f 10       		.uleb128 0x10
+ 827 0010 17       		.uleb128 0x17
+ 828 0011 00       		.byte	0
+ 829 0012 00       		.byte	0
+ 830 0013 02       		.uleb128 0x2
+ 831 0014 24       		.uleb128 0x24
+ 832 0015 00       		.byte	0
+ 833 0016 0B       		.uleb128 0xb
+ 834 0017 0B       		.uleb128 0xb
+ 835 0018 3E       		.uleb128 0x3e
+ 836 0019 0B       		.uleb128 0xb
+ 837 001a 03       		.uleb128 0x3
+ 838 001b 0E       		.uleb128 0xe
+ 839 001c 00       		.byte	0
+ 840 001d 00       		.byte	0
+ 841 001e 03       		.uleb128 0x3
+ 842 001f 16       		.uleb128 0x16
+ 843 0020 00       		.byte	0
+ 844 0021 03       		.uleb128 0x3
+ 845 0022 0E       		.uleb128 0xe
+ 846 0023 3A       		.uleb128 0x3a
+ 847 0024 0B       		.uleb128 0xb
+ 848 0025 3B       		.uleb128 0x3b
+ 849 0026 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 19
+
+
+ 850 0027 49       		.uleb128 0x49
+ 851 0028 13       		.uleb128 0x13
+ 852 0029 00       		.byte	0
+ 853 002a 00       		.byte	0
+ 854 002b 04       		.uleb128 0x4
+ 855 002c 24       		.uleb128 0x24
+ 856 002d 00       		.byte	0
+ 857 002e 0B       		.uleb128 0xb
+ 858 002f 0B       		.uleb128 0xb
+ 859 0030 3E       		.uleb128 0x3e
+ 860 0031 0B       		.uleb128 0xb
+ 861 0032 03       		.uleb128 0x3
+ 862 0033 08       		.uleb128 0x8
+ 863 0034 00       		.byte	0
+ 864 0035 00       		.byte	0
+ 865 0036 05       		.uleb128 0x5
+ 866 0037 2E       		.uleb128 0x2e
+ 867 0038 01       		.byte	0x1
+ 868 0039 3F       		.uleb128 0x3f
+ 869 003a 19       		.uleb128 0x19
+ 870 003b 03       		.uleb128 0x3
+ 871 003c 0E       		.uleb128 0xe
+ 872 003d 3A       		.uleb128 0x3a
+ 873 003e 0B       		.uleb128 0xb
+ 874 003f 3B       		.uleb128 0x3b
+ 875 0040 0B       		.uleb128 0xb
+ 876 0041 27       		.uleb128 0x27
+ 877 0042 19       		.uleb128 0x19
+ 878 0043 49       		.uleb128 0x49
+ 879 0044 13       		.uleb128 0x13
+ 880 0045 8701     		.uleb128 0x87
+ 881 0047 19       		.uleb128 0x19
+ 882 0048 11       		.uleb128 0x11
+ 883 0049 01       		.uleb128 0x1
+ 884 004a 12       		.uleb128 0x12
+ 885 004b 06       		.uleb128 0x6
+ 886 004c 40       		.uleb128 0x40
+ 887 004d 18       		.uleb128 0x18
+ 888 004e 9742     		.uleb128 0x2117
+ 889 0050 19       		.uleb128 0x19
+ 890 0051 01       		.uleb128 0x1
+ 891 0052 13       		.uleb128 0x13
+ 892 0053 00       		.byte	0
+ 893 0054 00       		.byte	0
+ 894 0055 06       		.uleb128 0x6
+ 895 0056 898201   		.uleb128 0x4109
+ 896 0059 01       		.byte	0x1
+ 897 005a 11       		.uleb128 0x11
+ 898 005b 01       		.uleb128 0x1
+ 899 005c 31       		.uleb128 0x31
+ 900 005d 13       		.uleb128 0x13
+ 901 005e 01       		.uleb128 0x1
+ 902 005f 13       		.uleb128 0x13
+ 903 0060 00       		.byte	0
+ 904 0061 00       		.byte	0
+ 905 0062 07       		.uleb128 0x7
+ 906 0063 8A8201   		.uleb128 0x410a
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 20
+
+
+ 907 0066 00       		.byte	0
+ 908 0067 02       		.uleb128 0x2
+ 909 0068 18       		.uleb128 0x18
+ 910 0069 9142     		.uleb128 0x2111
+ 911 006b 18       		.uleb128 0x18
+ 912 006c 00       		.byte	0
+ 913 006d 00       		.byte	0
+ 914 006e 08       		.uleb128 0x8
+ 915 006f 898201   		.uleb128 0x4109
+ 916 0072 00       		.byte	0
+ 917 0073 11       		.uleb128 0x11
+ 918 0074 01       		.uleb128 0x1
+ 919 0075 31       		.uleb128 0x31
+ 920 0076 13       		.uleb128 0x13
+ 921 0077 00       		.byte	0
+ 922 0078 00       		.byte	0
+ 923 0079 09       		.uleb128 0x9
+ 924 007a 898201   		.uleb128 0x4109
+ 925 007d 01       		.byte	0x1
+ 926 007e 11       		.uleb128 0x11
+ 927 007f 01       		.uleb128 0x1
+ 928 0080 31       		.uleb128 0x31
+ 929 0081 13       		.uleb128 0x13
+ 930 0082 00       		.byte	0
+ 931 0083 00       		.byte	0
+ 932 0084 0A       		.uleb128 0xa
+ 933 0085 2E       		.uleb128 0x2e
+ 934 0086 01       		.byte	0x1
+ 935 0087 3F       		.uleb128 0x3f
+ 936 0088 19       		.uleb128 0x19
+ 937 0089 03       		.uleb128 0x3
+ 938 008a 0E       		.uleb128 0xe
+ 939 008b 3A       		.uleb128 0x3a
+ 940 008c 0B       		.uleb128 0xb
+ 941 008d 3B       		.uleb128 0x3b
+ 942 008e 0B       		.uleb128 0xb
+ 943 008f 27       		.uleb128 0x27
+ 944 0090 19       		.uleb128 0x19
+ 945 0091 11       		.uleb128 0x11
+ 946 0092 01       		.uleb128 0x1
+ 947 0093 12       		.uleb128 0x12
+ 948 0094 06       		.uleb128 0x6
+ 949 0095 40       		.uleb128 0x40
+ 950 0096 18       		.uleb128 0x18
+ 951 0097 9742     		.uleb128 0x2117
+ 952 0099 19       		.uleb128 0x19
+ 953 009a 01       		.uleb128 0x1
+ 954 009b 13       		.uleb128 0x13
+ 955 009c 00       		.byte	0
+ 956 009d 00       		.byte	0
+ 957 009e 0B       		.uleb128 0xb
+ 958 009f 05       		.uleb128 0x5
+ 959 00a0 00       		.byte	0
+ 960 00a1 03       		.uleb128 0x3
+ 961 00a2 0E       		.uleb128 0xe
+ 962 00a3 3A       		.uleb128 0x3a
+ 963 00a4 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 21
+
+
+ 964 00a5 3B       		.uleb128 0x3b
+ 965 00a6 0B       		.uleb128 0xb
+ 966 00a7 49       		.uleb128 0x49
+ 967 00a8 13       		.uleb128 0x13
+ 968 00a9 02       		.uleb128 0x2
+ 969 00aa 17       		.uleb128 0x17
+ 970 00ab 00       		.byte	0
+ 971 00ac 00       		.byte	0
+ 972 00ad 0C       		.uleb128 0xc
+ 973 00ae 34       		.uleb128 0x34
+ 974 00af 00       		.byte	0
+ 975 00b0 03       		.uleb128 0x3
+ 976 00b1 0E       		.uleb128 0xe
+ 977 00b2 3A       		.uleb128 0x3a
+ 978 00b3 0B       		.uleb128 0xb
+ 979 00b4 3B       		.uleb128 0x3b
+ 980 00b5 0B       		.uleb128 0xb
+ 981 00b6 49       		.uleb128 0x49
+ 982 00b7 13       		.uleb128 0x13
+ 983 00b8 02       		.uleb128 0x2
+ 984 00b9 17       		.uleb128 0x17
+ 985 00ba 00       		.byte	0
+ 986 00bb 00       		.byte	0
+ 987 00bc 0D       		.uleb128 0xd
+ 988 00bd 0B       		.uleb128 0xb
+ 989 00be 01       		.byte	0x1
+ 990 00bf 11       		.uleb128 0x11
+ 991 00c0 01       		.uleb128 0x1
+ 992 00c1 12       		.uleb128 0x12
+ 993 00c2 06       		.uleb128 0x6
+ 994 00c3 01       		.uleb128 0x1
+ 995 00c4 13       		.uleb128 0x13
+ 996 00c5 00       		.byte	0
+ 997 00c6 00       		.byte	0
+ 998 00c7 0E       		.uleb128 0xe
+ 999 00c8 34       		.uleb128 0x34
+ 1000 00c9 00       		.byte	0
+ 1001 00ca 03       		.uleb128 0x3
+ 1002 00cb 0E       		.uleb128 0xe
+ 1003 00cc 3A       		.uleb128 0x3a
+ 1004 00cd 0B       		.uleb128 0xb
+ 1005 00ce 3B       		.uleb128 0x3b
+ 1006 00cf 05       		.uleb128 0x5
+ 1007 00d0 49       		.uleb128 0x49
+ 1008 00d1 13       		.uleb128 0x13
+ 1009 00d2 3F       		.uleb128 0x3f
+ 1010 00d3 19       		.uleb128 0x19
+ 1011 00d4 3C       		.uleb128 0x3c
+ 1012 00d5 19       		.uleb128 0x19
+ 1013 00d6 00       		.byte	0
+ 1014 00d7 00       		.byte	0
+ 1015 00d8 0F       		.uleb128 0xf
+ 1016 00d9 35       		.uleb128 0x35
+ 1017 00da 00       		.byte	0
+ 1018 00db 49       		.uleb128 0x49
+ 1019 00dc 13       		.uleb128 0x13
+ 1020 00dd 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 22
+
+
+ 1021 00de 00       		.byte	0
+ 1022 00df 10       		.uleb128 0x10
+ 1023 00e0 2E       		.uleb128 0x2e
+ 1024 00e1 00       		.byte	0
+ 1025 00e2 3F       		.uleb128 0x3f
+ 1026 00e3 19       		.uleb128 0x19
+ 1027 00e4 3C       		.uleb128 0x3c
+ 1028 00e5 19       		.uleb128 0x19
+ 1029 00e6 6E       		.uleb128 0x6e
+ 1030 00e7 0E       		.uleb128 0xe
+ 1031 00e8 03       		.uleb128 0x3
+ 1032 00e9 0E       		.uleb128 0xe
+ 1033 00ea 3A       		.uleb128 0x3a
+ 1034 00eb 0B       		.uleb128 0xb
+ 1035 00ec 3B       		.uleb128 0x3b
+ 1036 00ed 0B       		.uleb128 0xb
+ 1037 00ee 00       		.byte	0
+ 1038 00ef 00       		.byte	0
+ 1039 00f0 00       		.byte	0
+ 1040              		.section	.debug_loc,"",%progbits
+ 1041              	.Ldebug_loc0:
+ 1042              	.LLST0:
+ 1043 0000 00000000 		.4byte	.LVL14
+ 1044 0004 1F000000 		.4byte	.LVL15-1
+ 1045 0008 0100     		.2byte	0x1
+ 1046 000a 50       		.byte	0x50
+ 1047 000b 1F000000 		.4byte	.LVL15-1
+ 1048 000f 22000000 		.4byte	.LVL16
+ 1049 0013 0400     		.2byte	0x4
+ 1050 0015 F3       		.byte	0xf3
+ 1051 0016 01       		.uleb128 0x1
+ 1052 0017 50       		.byte	0x50
+ 1053 0018 9F       		.byte	0x9f
+ 1054 0019 22000000 		.4byte	.LVL16
+ 1055 001d 25000000 		.4byte	.LVL17-1
+ 1056 0021 0100     		.2byte	0x1
+ 1057 0023 50       		.byte	0x50
+ 1058 0024 25000000 		.4byte	.LVL17-1
+ 1059 0028 28000000 		.4byte	.LVL18
+ 1060 002c 0400     		.2byte	0x4
+ 1061 002e F3       		.byte	0xf3
+ 1062 002f 01       		.uleb128 0x1
+ 1063 0030 50       		.byte	0x50
+ 1064 0031 9F       		.byte	0x9f
+ 1065 0032 28000000 		.4byte	.LVL18
+ 1066 0036 2B000000 		.4byte	.LVL19-1
+ 1067 003a 0100     		.2byte	0x1
+ 1068 003c 50       		.byte	0x50
+ 1069 003d 2B000000 		.4byte	.LVL19-1
+ 1070 0041 2E000000 		.4byte	.LVL20
+ 1071 0045 0400     		.2byte	0x4
+ 1072 0047 F3       		.byte	0xf3
+ 1073 0048 01       		.uleb128 0x1
+ 1074 0049 50       		.byte	0x50
+ 1075 004a 9F       		.byte	0x9f
+ 1076 004b 2E000000 		.4byte	.LVL20
+ 1077 004f 31000000 		.4byte	.LVL21-1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 23
+
+
+ 1078 0053 0100     		.2byte	0x1
+ 1079 0055 50       		.byte	0x50
+ 1080 0056 31000000 		.4byte	.LVL21-1
+ 1081 005a 34000000 		.4byte	.LVL22
+ 1082 005e 0400     		.2byte	0x4
+ 1083 0060 F3       		.byte	0xf3
+ 1084 0061 01       		.uleb128 0x1
+ 1085 0062 50       		.byte	0x50
+ 1086 0063 9F       		.byte	0x9f
+ 1087 0064 34000000 		.4byte	.LVL22
+ 1088 0068 37000000 		.4byte	.LVL23-1
+ 1089 006c 0100     		.2byte	0x1
+ 1090 006e 50       		.byte	0x50
+ 1091 006f 37000000 		.4byte	.LVL23-1
+ 1092 0073 3A000000 		.4byte	.LFE65
+ 1093 0077 0400     		.2byte	0x4
+ 1094 0079 F3       		.byte	0xf3
+ 1095 007a 01       		.uleb128 0x1
+ 1096 007b 50       		.byte	0x50
+ 1097 007c 9F       		.byte	0x9f
+ 1098 007d 00000000 		.4byte	0
+ 1099 0081 00000000 		.4byte	0
+ 1100              	.LLST1:
+ 1101 0085 08000000 		.4byte	.LVL25
+ 1102 0089 1C000000 		.4byte	.LVL30
+ 1103 008d 0100     		.2byte	0x1
+ 1104 008f 54       		.byte	0x54
+ 1105 0090 1E000000 		.4byte	.LVL31
+ 1106 0094 24000000 		.4byte	.LFE64
+ 1107 0098 0100     		.2byte	0x1
+ 1108 009a 54       		.byte	0x54
+ 1109 009b 00000000 		.4byte	0
+ 1110 009f 00000000 		.4byte	0
+ 1111              	.LLST2:
+ 1112 00a3 10000000 		.4byte	.LVL27
+ 1113 00a7 1E000000 		.4byte	.LVL31
+ 1114 00ab 0100     		.2byte	0x1
+ 1115 00ad 55       		.byte	0x55
+ 1116 00ae 00000000 		.4byte	0
+ 1117 00b2 00000000 		.4byte	0
+ 1118              		.section	.debug_aranges,"",%progbits
+ 1119 0000 54000000 		.4byte	0x54
+ 1120 0004 0200     		.2byte	0x2
+ 1121 0006 00000000 		.4byte	.Ldebug_info0
+ 1122 000a 04       		.byte	0x4
+ 1123 000b 00       		.byte	0
+ 1124 000c 0000     		.2byte	0
+ 1125 000e 0000     		.2byte	0
+ 1126 0010 00000000 		.4byte	.LFB63
+ 1127 0014 54000000 		.4byte	.LFE63-.LFB63
+ 1128 0018 00000000 		.4byte	.LFB66
+ 1129 001c 10000000 		.4byte	.LFE66-.LFB66
+ 1130 0020 00000000 		.4byte	.LFB67
+ 1131 0024 10000000 		.4byte	.LFE67-.LFB67
+ 1132 0028 00000000 		.4byte	.LFB68
+ 1133 002c 10000000 		.4byte	.LFE68-.LFB68
+ 1134 0030 00000000 		.4byte	.LFB69
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 24
+
+
+ 1135 0034 10000000 		.4byte	.LFE69-.LFB69
+ 1136 0038 00000000 		.4byte	.LFB70
+ 1137 003c 10000000 		.4byte	.LFE70-.LFB70
+ 1138 0040 00000000 		.4byte	.LFB65
+ 1139 0044 3A000000 		.4byte	.LFE65-.LFB65
+ 1140 0048 00000000 		.4byte	.LFB64
+ 1141 004c 24000000 		.4byte	.LFE64-.LFB64
+ 1142 0050 00000000 		.4byte	0
+ 1143 0054 00000000 		.4byte	0
+ 1144              		.section	.debug_ranges,"",%progbits
+ 1145              	.Ldebug_ranges0:
+ 1146 0000 00000000 		.4byte	.LFB63
+ 1147 0004 54000000 		.4byte	.LFE63
+ 1148 0008 00000000 		.4byte	.LFB66
+ 1149 000c 10000000 		.4byte	.LFE66
+ 1150 0010 00000000 		.4byte	.LFB67
+ 1151 0014 10000000 		.4byte	.LFE67
+ 1152 0018 00000000 		.4byte	.LFB68
+ 1153 001c 10000000 		.4byte	.LFE68
+ 1154 0020 00000000 		.4byte	.LFB69
+ 1155 0024 10000000 		.4byte	.LFE69
+ 1156 0028 00000000 		.4byte	.LFB70
+ 1157 002c 10000000 		.4byte	.LFE70
+ 1158 0030 00000000 		.4byte	.LFB65
+ 1159 0034 3A000000 		.4byte	.LFE65
+ 1160 0038 00000000 		.4byte	.LFB64
+ 1161 003c 24000000 		.4byte	.LFE64
+ 1162 0040 00000000 		.4byte	0
+ 1163 0044 00000000 		.4byte	0
+ 1164              		.section	.debug_line,"",%progbits
+ 1165              	.Ldebug_line0:
+ 1166 0000 0F020000 		.section	.debug_str,"MS",%progbits,1
+ 1166      02006701 
+ 1166      00000201 
+ 1166      FB0E0D00 
+ 1166      01010101 
+ 1167              	.LASF27:
+ 1168 0000 6973725F 		.ascii	"isr_uart_rx_StartEx\000"
+ 1168      75617274 
+ 1168      5F72785F 
+ 1168      53746172 
+ 1168      74457800 
+ 1169              	.LASF28:
+ 1170 0014 55415254 		.ascii	"UART_1_Start\000"
+ 1170      5F315F53 
+ 1170      74617274 
+ 1170      00
+ 1171              	.LASF4:
+ 1172 0021 5F5F7569 		.ascii	"__uint8_t\000"
+ 1172      6E74385F 
+ 1172      7400
+ 1173              	.LASF5:
+ 1174 002b 5F5F696E 		.ascii	"__int32_t\000"
+ 1174      7433325F 
+ 1174      7400
+ 1175              	.LASF19:
+ 1176 0035 696E6372 		.ascii	"increaseSpeed\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 25
+
+
+ 1176      65617365 
+ 1176      53706565 
+ 1176      6400
+ 1177              	.LASF3:
+ 1178 0043 73686F72 		.ascii	"short unsigned int\000"
+ 1178      7420756E 
+ 1178      7369676E 
+ 1178      65642069 
+ 1178      6E7400
+ 1179              	.LASF11:
+ 1180 0056 75696E74 		.ascii	"uint8_t\000"
+ 1180      385F7400 
+ 1181              	.LASF25:
+ 1182 005e 62797465 		.ascii	"bytesToRead\000"
+ 1182      73546F52 
+ 1182      65616400 
+ 1183              	.LASF13:
+ 1184 006a 666C6F61 		.ascii	"float\000"
+ 1184      7400
+ 1185              	.LASF1:
+ 1186 0070 756E7369 		.ascii	"unsigned char\000"
+ 1186      676E6564 
+ 1186      20636861 
+ 1186      7200
+ 1187              	.LASF34:
+ 1188 007e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1188      43313120 
+ 1188      352E342E 
+ 1188      31203230 
+ 1188      31363036 
+ 1189 00b1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1189      20726576 
+ 1189      6973696F 
+ 1189      6E203233 
+ 1189      37373135 
+ 1190 00e4 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1190      66756E63 
+ 1190      74696F6E 
+ 1190      2D736563 
+ 1190      74696F6E 
+ 1191              	.LASF24:
+ 1192 010c 4953525F 		.ascii	"ISR_UART_rx_handler\000"
+ 1192      55415254 
+ 1192      5F72785F 
+ 1192      68616E64 
+ 1192      6C657200 
+ 1193              	.LASF7:
+ 1194 0120 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1194      20756E73 
+ 1194      69676E65 
+ 1194      6420696E 
+ 1194      7400
+ 1195              	.LASF31:
+ 1196 0132 55415254 		.ascii	"UART_1_ReadRxData\000"
+ 1196      5F315F52 
+ 1196      65616452 
+ 1196      78446174 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 26
+
+
+ 1196      6100
+ 1197              	.LASF29:
+ 1198 0144 50574D5F 		.ascii	"PWM_1_Start\000"
+ 1198      315F5374 
+ 1198      61727400 
+ 1199              	.LASF22:
+ 1200 0150 73746F70 		.ascii	"stop\000"
+ 1200      00
+ 1201              	.LASF38:
+ 1202 0155 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1202      52784275 
+ 1202      66666572 
+ 1202      00
+ 1203              	.LASF32:
+ 1204 0162 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 1204      5F315F57 
+ 1204      72697465 
+ 1204      54784461 
+ 1204      746100
+ 1205              	.LASF14:
+ 1206 0175 646F7562 		.ascii	"double\000"
+ 1206      6C6500
+ 1207              	.LASF37:
+ 1208 017c 6D61696E 		.ascii	"main\000"
+ 1208      00
+ 1209              	.LASF23:
+ 1210 0181 68616E64 		.ascii	"handleByteReceived\000"
+ 1210      6C654279 
+ 1210      74655265 
+ 1210      63656976 
+ 1210      656400
+ 1211              	.LASF10:
+ 1212 0194 756E7369 		.ascii	"unsigned int\000"
+ 1212      676E6564 
+ 1212      20696E74 
+ 1212      00
+ 1213              	.LASF20:
+ 1214 01a1 64726976 		.ascii	"driveForwards\000"
+ 1214      65466F72 
+ 1214      77617264 
+ 1214      7300
+ 1215              	.LASF9:
+ 1216 01af 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1216      206C6F6E 
+ 1216      6720756E 
+ 1216      7369676E 
+ 1216      65642069 
+ 1217              	.LASF36:
+ 1218 01c6 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\Semester-3\\I3GFV-01\\Le"
+ 1218      73657273 
+ 1218      5C53696D 
+ 1218      6F6E5C44 
+ 1218      65736B74 
+ 1219 01f3 6B74696F 		.ascii	"ktion 2\\DC-Motor-PWM.cydsn\000"
+ 1219      6E20325C 
+ 1219      44432D4D 
+ 1219      6F746F72 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 27
+
+
+ 1219      2D50574D 
+ 1220              	.LASF33:
+ 1221 020e 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
+ 1221      5F315F47 
+ 1221      65745278 
+ 1221      42756666 
+ 1221      65725369 
+ 1222              	.LASF12:
+ 1223 0225 696E7433 		.ascii	"int32_t\000"
+ 1223      325F7400 
+ 1224              	.LASF21:
+ 1225 022d 64726976 		.ascii	"driveBackwards\000"
+ 1225      65426163 
+ 1225      6B776172 
+ 1225      647300
+ 1226              	.LASF17:
+ 1227 023c 73697A65 		.ascii	"sizetype\000"
+ 1227      74797065 
+ 1227      00
+ 1228              	.LASF8:
+ 1229 0245 6C6F6E67 		.ascii	"long long int\000"
+ 1229      206C6F6E 
+ 1229      6720696E 
+ 1229      7400
+ 1230              	.LASF35:
+ 1231 0253 6D61696E 		.ascii	"main.c\000"
+ 1231      2E6300
+ 1232              	.LASF15:
+ 1233 025a 63686172 		.ascii	"char\000"
+ 1233      00
+ 1234              	.LASF18:
+ 1235 025f 64656372 		.ascii	"decreaseSpeed\000"
+ 1235      65617365 
+ 1235      53706565 
+ 1235      6400
+ 1236              	.LASF2:
+ 1237 026d 73686F72 		.ascii	"short int\000"
+ 1237      7420696E 
+ 1237      7400
+ 1238              	.LASF6:
+ 1239 0277 6C6F6E67 		.ascii	"long int\000"
+ 1239      20696E74 
+ 1239      00
+ 1240              	.LASF16:
+ 1241 0280 6C6F6E67 		.ascii	"long double\000"
+ 1241      20646F75 
+ 1241      626C6500 
+ 1242              	.LASF0:
+ 1243 028c 7369676E 		.ascii	"signed char\000"
+ 1243      65642063 
+ 1243      68617200 
+ 1244              	.LASF30:
+ 1245 0298 55415254 		.ascii	"UART_1_PutString\000"
+ 1245      5F315F50 
+ 1245      75745374 
+ 1245      72696E67 
+ 1245      00
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccduVEz2.s 			page 28
+
+
+ 1246              	.LASF26:
+ 1247 02a9 62797465 		.ascii	"byteReceived\000"
+ 1247      52656365 
+ 1247      69766564 
+ 1247      00
+ 1248              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
