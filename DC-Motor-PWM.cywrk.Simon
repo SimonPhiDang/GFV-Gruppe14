@@ -204,6 +204,7 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
+<name v=".\DC-Motor-PWM.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\DC-Motor-PWM.cydsn\DC-Motor-PWM.cydwr" />
 <name v=".\DC-Motor-PWM.cydsn\main.c" />
 </OpenDocs>
@@ -213,7 +214,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="4a4a7922-0cfd-42b7-bbb8-c732156c232f"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\Semester-3\I3GFV-01\Lektion 2\DC-Motor-PWM.cydsn\DC-Motor-PWM.cydwr" Guid="19b9c25f-0d81-414e-ada8-f6c5ce1dd5ff" /><DocumentWindow Key="C:\Users\Simon\Desktop\Semester-3\I3GFV-01\Lektion 2\DC-Motor-PWM.cydsn\main.c" Guid="4a4a7922-0cfd-42b7-bbb8-c732156c232f" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="a9b2a156-6b08-44be-b066-72acf6ccef48"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\DC-Motor-PWM.cydsn\TopDesign\TopDesign.cysch" Guid="24f03fb7-12c4-4012-a2f0-78abde164857" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\DC-Motor-PWM.cydsn\DC-Motor-PWM.cydwr" Guid="9fd5091e-7bac-4c1e-b22b-17e9b2f581a6" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\DC-Motor-PWM.cydsn\main.c" Guid="a9b2a156-6b08-44be-b066-72acf6ccef48" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

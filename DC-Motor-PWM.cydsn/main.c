@@ -11,6 +11,7 @@
 */
 #include "project.h"
 
+// Prototyper
 CY_ISR_PROTO(ISR_UART_rx_handler);
 void handleByteReceived(uint8_t byteReceived);
 void decreaseSpeed(void);
@@ -18,6 +19,9 @@ void increaseSpeed(void);
 void driveForwards(void);
 void driveBackwards(void);
 void stop(void);
+
+uint8_t mode = 0;
+uint8 currentSpeed = 0;
 
 int main(void)
 {
@@ -38,6 +42,35 @@ int main(void)
     for(;;)
     {
         /* Place your application code here. */
+        switch(mode)
+        {
+            case 1:
+            //decrease speed
+           
+            if(currentSpeed != 0)
+            {
+                currentSpeed = currentSpeed - 20;
+                PWM_1_WriteCompare(currentSpeed);
+            }
+            break;
+            case 2:
+            //Increase speed
+            if(currentSpeed != 0)
+            {
+                currentSpeed = currentSpeed + 20;
+                PWM_1_WriteCompare(currentSpeed);
+            }
+            break;
+            case 3:
+            //Drive Forwards
+            break;
+            case 4:
+            //Drive backwards
+            break;
+            case 5:
+            //Stop
+            break;
+        }
     }
 }
 
@@ -96,26 +129,31 @@ void handleByteReceived(uint8_t byteReceived)
 void decreaseSpeed()
 {
     UART_1_PutString("Decreasing speed\r\n");
+    mode = 1;
 }
 
 void increaseSpeed()
 {
     UART_1_PutString("Increasing speed\r\n");
+    mode = 2;
 }
 
 void driveForwards()
 {
     UART_1_PutString("Set direction: forwards\r\n");
+    mode = 3;
 }
 
 void driveBackwards()
 {
     UART_1_PutString("Set direction: backwards\r\n");
+    mode = 4;
 }
 
 void stop()
 {
     UART_1_PutString("Stop\r\n");
+    mode = 5;
 }
 
 /* [] END OF FILE */
