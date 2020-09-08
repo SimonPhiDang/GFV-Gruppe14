@@ -22,6 +22,7 @@ void stop(void);
 
 uint8_t mode = 0;
 uint8 currentSpeed = 0;
+uint8 IN1,IN2 = 0;
 
 int main(void)
 {
@@ -46,8 +47,7 @@ int main(void)
         {
             case 1:
             //decrease speed
-           
-            if(currentSpeed != 0)
+            if(currentSpeed != 0 && currentSpeed < 255)
             {
                 currentSpeed = currentSpeed - 20;
                 PWM_1_WriteCompare(currentSpeed);
@@ -55,7 +55,7 @@ int main(void)
             break;
             case 2:
             //Increase speed
-            if(currentSpeed != 0)
+            if(currentSpeed != 0 && currentSpeed < 255)
             {
                 currentSpeed = currentSpeed + 20;
                 PWM_1_WriteCompare(currentSpeed);
@@ -63,12 +63,29 @@ int main(void)
             break;
             case 3:
             //Drive Forwards
+            currentSpeed = 200;
+            PWM_1_WriteCompare(currentSpeed);
+            
+            //Styrelsen af H-Bro
+            Pin_IN1_Write(IN1);
+            Pin_IN2_Write(IN2);
+            
             break;
             case 4:
             //Drive backwards
+            currentSpeed = 200;
+            PWM_1_WriteCompare(currentSpeed);
+            
+            //Styrelsen af H-Bro
+            Pin_IN1_Write(IN1);
+            Pin_IN2_Write(IN2);
+            
             break;
             case 5:
             //Stop
+            currentSpeed = 0;   // Stop PWM
+            PWM_1_WriteCompare(currentSpeed);
+            
             break;
         }
     }
@@ -142,12 +159,16 @@ void driveForwards()
 {
     UART_1_PutString("Set direction: forwards\r\n");
     mode = 3;
+    IN1 = 1;
+    IN2 = 0;
 }
 
 void driveBackwards()
 {
     UART_1_PutString("Set direction: backwards\r\n");
     mode = 4;
+    IN2 = 1;
+    IN1 = 0;
 }
 
 void stop()

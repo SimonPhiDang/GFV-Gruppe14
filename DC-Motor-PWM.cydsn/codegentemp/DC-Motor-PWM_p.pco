@@ -46,3 +46,5 @@ set_location "ClockBlock" clockblockcell -1 -1 0
 # Note: port 12 is the logical name for port 7
 set_io "Tx_1(0)" iocell 12 7
 set_location "isr_uart_rx" interrupt -1 -1 0
+set_io "Pin_IN1(0)" iocell 1 7
+set_io "Pin_IN2(0)" iocell 1 6

@@ -1,6 +1,6 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
- (DATE "2020-09-07T08:28:20Z")
+ (DATE "2020-09-08T20:42:54Z")
  (DESIGN "DC-Motor-PWM")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")
@@ -201,6 +201,8 @@
     (INTERCONNECT Tx_1\(0\)_PAD Tx_1\(0\).pad_in (0.000:0.000:0.000))
     (INTERCONNECT Pin_PWM\(0\).pad_out Pin_PWM\(0\)_PAD (0.000:0.000:0.000))
     (INTERCONNECT Pin_PWM\(0\)_PAD Pin_PWM\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_IN1\(0\)_PAD Pin_IN1\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Pin_IN2\(0\)_PAD Pin_IN2\(0\).pad_in (0.000:0.000:0.000))
    )
   )
  )
