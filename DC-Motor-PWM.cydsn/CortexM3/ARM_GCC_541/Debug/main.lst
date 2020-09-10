@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 1
   28:main.c        **** {
   28              		.loc 1 28 0
   29              		.cfi_startproc
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 2
 
 
   30              		@ Volatile: function does not return.
@@ -80,7 +80,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 1
   42              		.loc 1 32 0
   43              		.thumb
   44              		.syntax unified
-  45 0004 2E48     		ldr	r0, .L12
+  45 0004 0C48     		ldr	r0, .L4
   46 0006 FFF7FEFF 		bl	isr_uart_rx_StartEx
   47              	.LVL0:
   33:main.c        ****     UART_1_Start();
@@ -94,1946 +94,1885 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 1
   35:main.c        ****     
   36:main.c        ****     UART_1_PutString("DC-Motor-PWM application started\r\n");
   54              		.loc 1 36 0
-  55 0012 2C48     		ldr	r0, .L12+4
+  55 0012 0A48     		ldr	r0, .L4+4
   56 0014 FFF7FEFF 		bl	UART_1_PutString
   57              	.LVL3:
   37:main.c        ****     UART_1_PutString("0: Stop\r\n");
   58              		.loc 1 37 0
-  59 0018 2B48     		ldr	r0, .L12+8
+  59 0018 0948     		ldr	r0, .L4+8
   60 001a FFF7FEFF 		bl	UART_1_PutString
   61              	.LVL4:
   38:main.c        ****     UART_1_PutString("1: Drive forwards\r\n");
   62              		.loc 1 38 0
-  63 001e 2B48     		ldr	r0, .L12+12
+  63 001e 0948     		ldr	r0, .L4+12
   64 0020 FFF7FEFF 		bl	UART_1_PutString
   65              	.LVL5:
   39:main.c        ****     UART_1_PutString("2: Drive backwards\r\n");
   66              		.loc 1 39 0
-  67 0024 2A48     		ldr	r0, .L12+16
+  67 0024 0848     		ldr	r0, .L4+16
   68 0026 FFF7FEFF 		bl	UART_1_PutString
   69              	.LVL6:
   40:main.c        ****     UART_1_PutString("q: Decrease speed\r\n");
   70              		.loc 1 40 0
-  71 002a 2A48     		ldr	r0, .L12+20
+  71 002a 0848     		ldr	r0, .L4+20
   72 002c FFF7FEFF 		bl	UART_1_PutString
   73              	.LVL7:
   41:main.c        ****     UART_1_PutString("w: Increase speed\r\n");
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 3
 
 
   74              		.loc 1 41 0
-  75 0030 2948     		ldr	r0, .L12+24
+  75 0030 0748     		ldr	r0, .L4+24
   76 0032 FFF7FEFF 		bl	UART_1_PutString
   77              	.LVL8:
-  78              	.L3:
+  78              	.L2:
+  79 0036 FEE7     		b	.L2
+  80              	.L5:
+  81              		.align	2
+  82              	.L4:
+  83 0038 00000000 		.word	ISR_UART_rx_handler
+  84 003c 00000000 		.word	.LC0
+  85 0040 24000000 		.word	.LC1
+  86 0044 30000000 		.word	.LC2
+  87 0048 44000000 		.word	.LC3
+  88 004c 5C000000 		.word	.LC4
+  89 0050 70000000 		.word	.LC5
+  90              		.cfi_endproc
+  91              	.LFE63:
+  92              		.size	main, .-main
+  93              		.section	.text.decreaseSpeed,"ax",%progbits
+  94              		.align	2
+  95              		.global	decreaseSpeed
+  96              		.thumb
+  97              		.thumb_func
+  98              		.type	decreaseSpeed, %function
+  99              	decreaseSpeed:
+ 100              	.LFB66:
   42:main.c        **** 
   43:main.c        ****     for(;;)
   44:main.c        ****     {
   45:main.c        ****         /* Place your application code here. */
-  46:main.c        ****         switch(mode)
-  79              		.loc 1 46 0
-  80 0036 294B     		ldr	r3, .L12+28
-  81 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  82 003a 013B     		subs	r3, r3, #1
-  83 003c 042B     		cmp	r3, #4
-  84 003e FAD8     		bhi	.L3
-  85 0040 DFE803F0 		tbb	[pc, r3]
-  86              	.L5:
-  87 0044 03       		.byte	(.L4-.L5)/2
-  88 0045 10       		.byte	(.L6-.L5)/2
-  89 0046 1D       		.byte	(.L7-.L5)/2
-  90 0047 2A       		.byte	(.L8-.L5)/2
-  91 0048 37       		.byte	(.L9-.L5)/2
-  92 0049 00       		.p2align 1
-  93              	.L4:
-  47:main.c        ****         {
-  48:main.c        ****             case 1:
-  49:main.c        ****             //decrease speed
-  50:main.c        ****             if(currentSpeed != 0 && currentSpeed < 255)
-  94              		.loc 1 50 0
-  95 004a 244B     		ldr	r3, .L12+28
-  96 004c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
-  97 004e 531E     		subs	r3, r2, #1
-  98 0050 DBB2     		uxtb	r3, r3
-  99 0052 FD2B     		cmp	r3, #253
- 100 0054 EFD8     		bhi	.L3
-  51:main.c        ****             {
-  52:main.c        ****                 currentSpeed = currentSpeed - 20;
- 101              		.loc 1 52 0
- 102 0056 143A     		subs	r2, r2, #20
- 103 0058 D0B2     		uxtb	r0, r2
- 104 005a 204B     		ldr	r3, .L12+28
- 105 005c 5870     		strb	r0, [r3, #1]
-  53:main.c        ****                 PWM_1_WriteCompare(currentSpeed);
- 106              		.loc 1 53 0
- 107 005e FFF7FEFF 		bl	PWM_1_WriteCompare
- 108              	.LVL9:
- 109 0062 E8E7     		b	.L3
- 110              	.L6:
-  54:main.c        ****             }
-  55:main.c        ****             break;
-  56:main.c        ****             case 2:
-  57:main.c        ****             //Increase speed
-  58:main.c        ****             if(currentSpeed != 0 && currentSpeed < 255)
- 111              		.loc 1 58 0
- 112 0064 1D4B     		ldr	r3, .L12+28
- 113 0066 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 4
+  46:main.c        ****     }
+  47:main.c        **** }
+  48:main.c        **** 
+  49:main.c        **** CY_ISR(ISR_UART_rx_handler)
+  50:main.c        **** {
+  51:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+  52:main.c        ****     while (bytesToRead > 0)
+  53:main.c        ****     {
+  54:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();
+  55:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+  56:main.c        ****         
+  57:main.c        ****         handleByteReceived(byteReceived);
+  58:main.c        ****         
+  59:main.c        ****         bytesToRead--;
+  60:main.c        ****     }
+  61:main.c        **** }
+  62:main.c        **** 
+  63:main.c        **** void handleByteReceived(uint8_t byteReceived)
+  64:main.c        **** {
+  65:main.c        ****     switch(byteReceived)
+  66:main.c        ****     {
+  67:main.c        ****         case 'q' :
+  68:main.c        ****         {
+  69:main.c        ****             decreaseSpeed();
+  70:main.c        ****         }
+  71:main.c        ****         break;
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 4
 
 
- 114 0068 531E     		subs	r3, r2, #1
- 115 006a DBB2     		uxtb	r3, r3
- 116 006c FD2B     		cmp	r3, #253
- 117 006e E2D8     		bhi	.L3
-  59:main.c        ****             {
-  60:main.c        ****                 currentSpeed = currentSpeed + 20;
- 118              		.loc 1 60 0
- 119 0070 1432     		adds	r2, r2, #20
- 120 0072 D0B2     		uxtb	r0, r2
- 121 0074 194B     		ldr	r3, .L12+28
- 122 0076 5870     		strb	r0, [r3, #1]
-  61:main.c        ****                 PWM_1_WriteCompare(currentSpeed);
- 123              		.loc 1 61 0
- 124 0078 FFF7FEFF 		bl	PWM_1_WriteCompare
- 125              	.LVL10:
- 126 007c DBE7     		b	.L3
- 127              	.L7:
-  62:main.c        ****             }
-  63:main.c        ****             break;
-  64:main.c        ****             case 3:
-  65:main.c        ****             //Drive Forwards
-  66:main.c        ****             currentSpeed = 200;
- 128              		.loc 1 66 0
- 129 007e 174C     		ldr	r4, .L12+28
- 130 0080 C820     		movs	r0, #200
- 131 0082 6070     		strb	r0, [r4, #1]
-  67:main.c        ****             PWM_1_WriteCompare(currentSpeed);
- 132              		.loc 1 67 0
- 133 0084 FFF7FEFF 		bl	PWM_1_WriteCompare
- 134              	.LVL11:
-  68:main.c        ****             
-  69:main.c        ****             //Styrelsen af H-Bro
-  70:main.c        ****             Pin_IN1_Write(IN1);
- 135              		.loc 1 70 0
- 136 0088 154B     		ldr	r3, .L12+32
- 137 008a 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
- 138 008c FFF7FEFF 		bl	Pin_IN1_Write
- 139              	.LVL12:
-  71:main.c        ****             Pin_IN2_Write(IN2);
- 140              		.loc 1 71 0
- 141 0090 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
- 142 0092 FFF7FEFF 		bl	Pin_IN2_Write
- 143              	.LVL13:
-  72:main.c        ****             
-  73:main.c        ****             break;
- 144              		.loc 1 73 0
- 145 0096 CEE7     		b	.L3
- 146              	.L8:
-  74:main.c        ****             case 4:
-  75:main.c        ****             //Drive backwards
-  76:main.c        ****             currentSpeed = 200;
- 147              		.loc 1 76 0
- 148 0098 104C     		ldr	r4, .L12+28
- 149 009a C820     		movs	r0, #200
- 150 009c 6070     		strb	r0, [r4, #1]
-  77:main.c        ****             PWM_1_WriteCompare(currentSpeed);
- 151              		.loc 1 77 0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 5
+  72:main.c        ****         case 'w' :
+  73:main.c        ****         {
+  74:main.c        ****             increaseSpeed();
+  75:main.c        ****         }
+  76:main.c        ****         break;
+  77:main.c        ****         case '1' :
+  78:main.c        ****         {
+  79:main.c        ****             driveForwards();
+  80:main.c        ****             
+  81:main.c        ****         }
+  82:main.c        ****         break;
+  83:main.c        ****         case '2' :
+  84:main.c        ****         {
+  85:main.c        ****             driveBackwards();
+  86:main.c        ****         }
+  87:main.c        ****         break;
+  88:main.c        ****         case '0' :
+  89:main.c        ****         {
+  90:main.c        ****             stop();
+  91:main.c        ****             
+  92:main.c        ****         }
+  93:main.c        ****         break;
+  94:main.c        ****         default :
+  95:main.c        ****         {
+  96:main.c        ****             // nothing
+  97:main.c        ****         }
+  98:main.c        ****         break;
+  99:main.c        ****     }
+ 100:main.c        **** }
+ 101:main.c        **** 
+ 102:main.c        **** void decreaseSpeed()
+ 103:main.c        **** {
+ 101              		.loc 1 103 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 0
+ 104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 105 0000 08B5     		push	{r3, lr}
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 3, -8
+ 108              		.cfi_offset 14, -4
+ 104:main.c        ****     UART_1_PutString("Decreasing speed\r\n");
+ 109              		.loc 1 104 0
+ 110 0002 0848     		ldr	r0, .L9
+ 111 0004 FFF7FEFF 		bl	UART_1_PutString
+ 112              	.LVL9:
+ 105:main.c        ****     
+ 106:main.c        ****     if(currentSpeed > 0 && currentSpeed <= 100)
+ 113              		.loc 1 106 0
+ 114 0008 074B     		ldr	r3, .L9+4
+ 115 000a 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 116 000c 431E     		subs	r3, r0, #1
+ 117 000e DBB2     		uxtb	r3, r3
+ 118 0010 632B     		cmp	r3, #99
+ 119 0012 05D8     		bhi	.L6
+ 107:main.c        ****       {
+ 108:main.c        ****         currentSpeed = currentSpeed - 10;
+ 120              		.loc 1 108 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 5
 
 
- 152 009e FFF7FEFF 		bl	PWM_1_WriteCompare
- 153              	.LVL14:
-  78:main.c        ****             
-  79:main.c        ****             //Styrelsen af H-Bro
-  80:main.c        ****             Pin_IN1_Write(IN1);
- 154              		.loc 1 80 0
- 155 00a2 0F4B     		ldr	r3, .L12+32
- 156 00a4 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
- 157 00a6 FFF7FEFF 		bl	Pin_IN1_Write
- 158              	.LVL15:
-  81:main.c        ****             Pin_IN2_Write(IN2);
- 159              		.loc 1 81 0
- 160 00aa A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
- 161 00ac FFF7FEFF 		bl	Pin_IN2_Write
- 162              	.LVL16:
-  82:main.c        ****             
-  83:main.c        ****             break;
- 163              		.loc 1 83 0
- 164 00b0 C1E7     		b	.L3
- 165              	.L9:
-  84:main.c        ****             case 5:
-  85:main.c        ****             //Stop
-  86:main.c        ****             currentSpeed = 0;   // Stop PWM
- 166              		.loc 1 86 0
- 167 00b2 0020     		movs	r0, #0
- 168 00b4 094B     		ldr	r3, .L12+28
- 169 00b6 5870     		strb	r0, [r3, #1]
-  87:main.c        ****             PWM_1_WriteCompare(currentSpeed);
- 170              		.loc 1 87 0
- 171 00b8 FFF7FEFF 		bl	PWM_1_WriteCompare
- 172              	.LVL17:
-  88:main.c        ****             
-  89:main.c        ****             break;
- 173              		.loc 1 89 0
- 174 00bc BBE7     		b	.L3
- 175              	.L13:
- 176 00be 00BF     		.align	2
- 177              	.L12:
- 178 00c0 00000000 		.word	ISR_UART_rx_handler
- 179 00c4 00000000 		.word	.LC0
- 180 00c8 24000000 		.word	.LC1
- 181 00cc 30000000 		.word	.LC2
- 182 00d0 44000000 		.word	.LC3
- 183 00d4 5C000000 		.word	.LC4
- 184 00d8 70000000 		.word	.LC5
- 185 00dc 00000000 		.word	.LANCHOR0
- 186 00e0 00000000 		.word	IN1
- 187              		.cfi_endproc
- 188              	.LFE63:
- 189              		.size	main, .-main
- 190              		.section	.text.decreaseSpeed,"ax",%progbits
- 191              		.align	2
- 192              		.global	decreaseSpeed
- 193              		.thumb
- 194              		.thumb_func
- 195              		.type	decreaseSpeed, %function
- 196              	decreaseSpeed:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 6
+ 121 0014 0A38     		subs	r0, r0, #10
+ 122 0016 C0B2     		uxtb	r0, r0
+ 123 0018 034B     		ldr	r3, .L9+4
+ 124 001a 1870     		strb	r0, [r3]
+ 109:main.c        ****         PWM_1_WriteCompare(currentSpeed);
+ 125              		.loc 1 109 0
+ 126 001c FFF7FEFF 		bl	PWM_1_WriteCompare
+ 127              	.LVL10:
+ 128              	.L6:
+ 129 0020 08BD     		pop	{r3, pc}
+ 130              	.L10:
+ 131 0022 00BF     		.align	2
+ 132              	.L9:
+ 133 0024 84000000 		.word	.LC6
+ 134 0028 00000000 		.word	.LANCHOR0
+ 135              		.cfi_endproc
+ 136              	.LFE66:
+ 137              		.size	decreaseSpeed, .-decreaseSpeed
+ 138              		.section	.text.increaseSpeed,"ax",%progbits
+ 139              		.align	2
+ 140              		.global	increaseSpeed
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.type	increaseSpeed, %function
+ 144              	increaseSpeed:
+ 145              	.LFB67:
+ 110:main.c        ****       }
+ 111:main.c        **** 
+ 112:main.c        **** }
+ 113:main.c        **** 
+ 114:main.c        **** void increaseSpeed()
+ 115:main.c        **** {
+ 146              		.loc 1 115 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150 0000 08B5     		push	{r3, lr}
+ 151              		.cfi_def_cfa_offset 8
+ 152              		.cfi_offset 3, -8
+ 153              		.cfi_offset 14, -4
+ 116:main.c        ****     UART_1_PutString("Increasing speed\r\n");
+ 154              		.loc 1 116 0
+ 155 0002 0648     		ldr	r0, .L14
+ 156 0004 FFF7FEFF 		bl	UART_1_PutString
+ 157              	.LVL11:
+ 117:main.c        ****     
+ 118:main.c        ****     if(currentSpeed >= 0 && currentSpeed < 100)
+ 158              		.loc 1 118 0
+ 159 0008 054B     		ldr	r3, .L14+4
+ 160 000a 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 161 000c 6328     		cmp	r0, #99
+ 162 000e 04D8     		bhi	.L11
+ 119:main.c        ****     {
+ 120:main.c        ****         currentSpeed = currentSpeed + 10;
+ 163              		.loc 1 120 0
+ 164 0010 0A30     		adds	r0, r0, #10
+ 165 0012 C0B2     		uxtb	r0, r0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 6
 
 
- 197              	.LFB66:
-  90:main.c        ****         }
-  91:main.c        ****     }
-  92:main.c        **** }
-  93:main.c        **** 
-  94:main.c        **** CY_ISR(ISR_UART_rx_handler)
-  95:main.c        **** {
-  96:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
-  97:main.c        ****     while (bytesToRead > 0)
-  98:main.c        ****     {
-  99:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();
- 100:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
- 101:main.c        ****         
- 102:main.c        ****         handleByteReceived(byteReceived);
- 103:main.c        ****         
- 104:main.c        ****         bytesToRead--;
- 105:main.c        ****     }
- 106:main.c        **** }
- 107:main.c        **** 
- 108:main.c        **** void handleByteReceived(uint8_t byteReceived)
- 109:main.c        **** {
- 110:main.c        ****     switch(byteReceived)
- 111:main.c        ****     {
- 112:main.c        ****         case 'q' :
- 113:main.c        ****         {
- 114:main.c        ****             decreaseSpeed();
- 115:main.c        ****         }
- 116:main.c        ****         break;
- 117:main.c        ****         case 'w' :
- 118:main.c        ****         {
- 119:main.c        ****             increaseSpeed();
- 120:main.c        ****         }
- 121:main.c        ****         break;
- 122:main.c        ****         case '1' :
- 123:main.c        ****         {
- 124:main.c        ****             driveForwards();
- 125:main.c        ****         }
- 126:main.c        ****         break;
- 127:main.c        ****         case '2' :
- 128:main.c        ****         {
- 129:main.c        ****             driveBackwards();
- 130:main.c        ****         }
- 131:main.c        ****         break;
- 132:main.c        ****         case '0' :
- 133:main.c        ****         {
- 134:main.c        ****             stop();
- 135:main.c        ****             
- 136:main.c        ****         }
- 137:main.c        ****         break;
- 138:main.c        ****         default :
- 139:main.c        ****         {
- 140:main.c        ****             // nothing
- 141:main.c        ****         }
- 142:main.c        ****         break;
- 143:main.c        ****     }
- 144:main.c        **** }
- 145:main.c        **** 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 7
+ 166 0014 1870     		strb	r0, [r3]
+ 121:main.c        ****         PWM_1_WriteCompare(currentSpeed);
+ 167              		.loc 1 121 0
+ 168 0016 FFF7FEFF 		bl	PWM_1_WriteCompare
+ 169              	.LVL12:
+ 170              	.L11:
+ 171 001a 08BD     		pop	{r3, pc}
+ 172              	.L15:
+ 173              		.align	2
+ 174              	.L14:
+ 175 001c 98000000 		.word	.LC7
+ 176 0020 00000000 		.word	.LANCHOR0
+ 177              		.cfi_endproc
+ 178              	.LFE67:
+ 179              		.size	increaseSpeed, .-increaseSpeed
+ 180              		.section	.text.driveForwards,"ax",%progbits
+ 181              		.align	2
+ 182              		.global	driveForwards
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.type	driveForwards, %function
+ 186              	driveForwards:
+ 187              	.LFB68:
+ 122:main.c        ****     }
+ 123:main.c        **** }
+ 124:main.c        **** 
+ 125:main.c        **** void driveForwards()
+ 126:main.c        **** {
+ 188              		.loc 1 126 0
+ 189              		.cfi_startproc
+ 190              		@ args = 0, pretend = 0, frame = 0
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 192 0000 10B5     		push	{r4, lr}
+ 193              		.cfi_def_cfa_offset 8
+ 194              		.cfi_offset 4, -8
+ 195              		.cfi_offset 14, -4
+ 127:main.c        ****     UART_1_PutString("Set direction: forwards\r\n");
+ 196              		.loc 1 127 0
+ 197 0002 0948     		ldr	r0, .L18
+ 198 0004 FFF7FEFF 		bl	UART_1_PutString
+ 199              	.LVL13:
+ 128:main.c        ****     IN1 = 0;
+ 200              		.loc 1 128 0
+ 201 0008 0020     		movs	r0, #0
+ 202 000a 084B     		ldr	r3, .L18+4
+ 203 000c 1870     		strb	r0, [r3]
+ 129:main.c        ****     IN2 = 1;
+ 204              		.loc 1 129 0
+ 205 000e 084C     		ldr	r4, .L18+8
+ 206 0010 0123     		movs	r3, #1
+ 207 0012 6370     		strb	r3, [r4, #1]
+ 130:main.c        **** 
+ 131:main.c        ****     //Styrelsen af H-Bro
+ 132:main.c        ****     Pin_IN1_Write(IN1);
+ 208              		.loc 1 132 0
+ 209 0014 FFF7FEFF 		bl	Pin_IN1_Write
+ 210              	.LVL14:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 7
 
 
- 146:main.c        **** void decreaseSpeed()
- 147:main.c        **** {
- 198              		.loc 1 147 0
- 199              		.cfi_startproc
- 200              		@ args = 0, pretend = 0, frame = 0
- 201              		@ frame_needed = 0, uses_anonymous_args = 0
- 202 0000 08B5     		push	{r3, lr}
- 203              		.cfi_def_cfa_offset 8
- 204              		.cfi_offset 3, -8
- 205              		.cfi_offset 14, -4
- 148:main.c        ****     UART_1_PutString("Decreasing speed\r\n");
- 206              		.loc 1 148 0
- 207 0002 0348     		ldr	r0, .L16
- 208 0004 FFF7FEFF 		bl	UART_1_PutString
- 209              	.LVL18:
- 149:main.c        ****     mode = 1;
- 210              		.loc 1 149 0
- 211 0008 0122     		movs	r2, #1
- 212 000a 024B     		ldr	r3, .L16+4
- 213 000c 1A70     		strb	r2, [r3]
- 214 000e 08BD     		pop	{r3, pc}
- 215              	.L17:
- 216              		.align	2
- 217              	.L16:
- 218 0010 84000000 		.word	.LC6
- 219 0014 00000000 		.word	.LANCHOR0
- 220              		.cfi_endproc
- 221              	.LFE66:
- 222              		.size	decreaseSpeed, .-decreaseSpeed
- 223              		.section	.text.increaseSpeed,"ax",%progbits
- 224              		.align	2
- 225              		.global	increaseSpeed
- 226              		.thumb
- 227              		.thumb_func
- 228              		.type	increaseSpeed, %function
- 229              	increaseSpeed:
- 230              	.LFB67:
- 150:main.c        **** }
- 151:main.c        **** 
- 152:main.c        **** void increaseSpeed()
- 153:main.c        **** {
- 231              		.loc 1 153 0
- 232              		.cfi_startproc
- 233              		@ args = 0, pretend = 0, frame = 0
- 234              		@ frame_needed = 0, uses_anonymous_args = 0
- 235 0000 08B5     		push	{r3, lr}
- 236              		.cfi_def_cfa_offset 8
- 237              		.cfi_offset 3, -8
- 238              		.cfi_offset 14, -4
- 154:main.c        ****     UART_1_PutString("Increasing speed\r\n");
- 239              		.loc 1 154 0
- 240 0002 0348     		ldr	r0, .L20
- 241 0004 FFF7FEFF 		bl	UART_1_PutString
- 242              	.LVL19:
- 155:main.c        ****     mode = 2;
- 243              		.loc 1 155 0
- 244 0008 0222     		movs	r2, #2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 8
+ 133:main.c        ****     Pin_IN2_Write(IN2);
+ 211              		.loc 1 133 0
+ 212 0018 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 213 001a FFF7FEFF 		bl	Pin_IN2_Write
+ 214              	.LVL15:
+ 134:main.c        ****     
+ 135:main.c        ****     currentSpeed = 50;
+ 215              		.loc 1 135 0
+ 216 001e 3220     		movs	r0, #50
+ 217 0020 2070     		strb	r0, [r4]
+ 136:main.c        ****     PWM_1_WriteCompare(currentSpeed);    
+ 218              		.loc 1 136 0
+ 219 0022 FFF7FEFF 		bl	PWM_1_WriteCompare
+ 220              	.LVL16:
+ 221 0026 10BD     		pop	{r4, pc}
+ 222              	.L19:
+ 223              		.align	2
+ 224              	.L18:
+ 225 0028 AC000000 		.word	.LC8
+ 226 002c 00000000 		.word	IN1
+ 227 0030 00000000 		.word	.LANCHOR0
+ 228              		.cfi_endproc
+ 229              	.LFE68:
+ 230              		.size	driveForwards, .-driveForwards
+ 231              		.section	.text.driveBackwards,"ax",%progbits
+ 232              		.align	2
+ 233              		.global	driveBackwards
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.type	driveBackwards, %function
+ 237              	driveBackwards:
+ 238              	.LFB69:
+ 137:main.c        ****     
+ 138:main.c        **** }
+ 139:main.c        **** 
+ 140:main.c        **** void driveBackwards()
+ 141:main.c        **** {
+ 239              		.loc 1 141 0
+ 240              		.cfi_startproc
+ 241              		@ args = 0, pretend = 0, frame = 0
+ 242              		@ frame_needed = 0, uses_anonymous_args = 0
+ 243 0000 38B5     		push	{r3, r4, r5, lr}
+ 244              		.cfi_def_cfa_offset 16
+ 245              		.cfi_offset 3, -16
+ 246              		.cfi_offset 4, -12
+ 247              		.cfi_offset 5, -8
+ 248              		.cfi_offset 14, -4
+ 142:main.c        ****     UART_1_PutString("Set direction: backwards\r\n");
+ 249              		.loc 1 142 0
+ 250 0002 0A48     		ldr	r0, .L22
+ 251 0004 FFF7FEFF 		bl	UART_1_PutString
+ 252              	.LVL17:
+ 143:main.c        ****     IN1 = 1;
+ 253              		.loc 1 143 0
+ 254 0008 094D     		ldr	r5, .L22+4
+ 255 000a 0123     		movs	r3, #1
+ 256 000c 2B70     		strb	r3, [r5]
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 8
 
 
- 245 000a 024B     		ldr	r3, .L20+4
- 246 000c 1A70     		strb	r2, [r3]
- 247 000e 08BD     		pop	{r3, pc}
- 248              	.L21:
- 249              		.align	2
- 250              	.L20:
- 251 0010 98000000 		.word	.LC7
- 252 0014 00000000 		.word	.LANCHOR0
- 253              		.cfi_endproc
- 254              	.LFE67:
- 255              		.size	increaseSpeed, .-increaseSpeed
- 256              		.section	.text.driveForwards,"ax",%progbits
- 257              		.align	2
- 258              		.global	driveForwards
- 259              		.thumb
- 260              		.thumb_func
- 261              		.type	driveForwards, %function
- 262              	driveForwards:
- 263              	.LFB68:
- 156:main.c        **** }
+ 144:main.c        ****     IN2 = 0;
+ 257              		.loc 1 144 0
+ 258 000e 094C     		ldr	r4, .L22+8
+ 259 0010 0023     		movs	r3, #0
+ 260 0012 6370     		strb	r3, [r4, #1]
+ 145:main.c        ****     
+ 146:main.c        ****     currentSpeed = 50;
+ 261              		.loc 1 146 0
+ 262 0014 3220     		movs	r0, #50
+ 263 0016 2070     		strb	r0, [r4]
+ 147:main.c        ****     PWM_1_WriteCompare(currentSpeed);
+ 264              		.loc 1 147 0
+ 265 0018 FFF7FEFF 		bl	PWM_1_WriteCompare
+ 266              	.LVL18:
+ 148:main.c        ****     
+ 149:main.c        ****     //Styrelsen af H-Bro
+ 150:main.c        ****     Pin_IN1_Write(IN1);
+ 267              		.loc 1 150 0
+ 268 001c 2878     		ldrb	r0, [r5]	@ zero_extendqisi2
+ 269 001e FFF7FEFF 		bl	Pin_IN1_Write
+ 270              	.LVL19:
+ 151:main.c        ****     Pin_IN2_Write(IN2);
+ 271              		.loc 1 151 0
+ 272 0022 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 273 0024 FFF7FEFF 		bl	Pin_IN2_Write
+ 274              	.LVL20:
+ 275 0028 38BD     		pop	{r3, r4, r5, pc}
+ 276              	.L23:
+ 277 002a 00BF     		.align	2
+ 278              	.L22:
+ 279 002c C8000000 		.word	.LC9
+ 280 0030 00000000 		.word	IN1
+ 281 0034 00000000 		.word	.LANCHOR0
+ 282              		.cfi_endproc
+ 283              	.LFE69:
+ 284              		.size	driveBackwards, .-driveBackwards
+ 285              		.section	.text.stop,"ax",%progbits
+ 286              		.align	2
+ 287              		.global	stop
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.type	stop, %function
+ 291              	stop:
+ 292              	.LFB70:
+ 152:main.c        **** }
+ 153:main.c        **** 
+ 154:main.c        **** void stop()
+ 155:main.c        **** {
+ 293              		.loc 1 155 0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297 0000 08B5     		push	{r3, lr}
+ 298              		.cfi_def_cfa_offset 8
+ 299              		.cfi_offset 3, -8
+ 300              		.cfi_offset 14, -4
+ 156:main.c        ****     UART_1_PutString("Stop\r\n");
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 9
+
+
+ 301              		.loc 1 156 0
+ 302 0002 0448     		ldr	r0, .L26
+ 303 0004 FFF7FEFF 		bl	UART_1_PutString
+ 304              	.LVL21:
  157:main.c        **** 
- 158:main.c        **** void driveForwards()
- 159:main.c        **** {
- 264              		.loc 1 159 0
- 265              		.cfi_startproc
- 266              		@ args = 0, pretend = 0, frame = 0
- 267              		@ frame_needed = 0, uses_anonymous_args = 0
- 268 0000 08B5     		push	{r3, lr}
- 269              		.cfi_def_cfa_offset 8
- 270              		.cfi_offset 3, -8
- 271              		.cfi_offset 14, -4
- 160:main.c        ****     UART_1_PutString("Set direction: forwards\r\n");
- 272              		.loc 1 160 0
- 273 0002 0648     		ldr	r0, .L24
- 274 0004 FFF7FEFF 		bl	UART_1_PutString
- 275              	.LVL20:
- 161:main.c        ****     mode = 3;
- 276              		.loc 1 161 0
- 277 0008 054B     		ldr	r3, .L24+4
- 278 000a 0322     		movs	r2, #3
- 279 000c 1A70     		strb	r2, [r3]
- 162:main.c        ****     IN1 = 1;
- 280              		.loc 1 162 0
- 281 000e 0121     		movs	r1, #1
- 282 0010 044A     		ldr	r2, .L24+8
- 283 0012 1170     		strb	r1, [r2]
- 163:main.c        ****     IN2 = 0;
- 284              		.loc 1 163 0
- 285 0014 0022     		movs	r2, #0
- 286 0016 9A70     		strb	r2, [r3, #2]
- 287 0018 08BD     		pop	{r3, pc}
- 288              	.L25:
- 289 001a 00BF     		.align	2
- 290              	.L24:
- 291 001c AC000000 		.word	.LC8
- 292 0020 00000000 		.word	.LANCHOR0
- 293 0024 00000000 		.word	IN1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 9
+ 158:main.c        ****     currentSpeed = 0;   // Stop PWM
+ 305              		.loc 1 158 0
+ 306 0008 0020     		movs	r0, #0
+ 307 000a 034B     		ldr	r3, .L26+4
+ 308 000c 1870     		strb	r0, [r3]
+ 159:main.c        ****     PWM_1_WriteCompare(currentSpeed);
+ 309              		.loc 1 159 0
+ 310 000e FFF7FEFF 		bl	PWM_1_WriteCompare
+ 311              	.LVL22:
+ 312 0012 08BD     		pop	{r3, pc}
+ 313              	.L27:
+ 314              		.align	2
+ 315              	.L26:
+ 316 0014 E4000000 		.word	.LC10
+ 317 0018 00000000 		.word	.LANCHOR0
+ 318              		.cfi_endproc
+ 319              	.LFE70:
+ 320              		.size	stop, .-stop
+ 321              		.section	.text.handleByteReceived,"ax",%progbits
+ 322              		.align	2
+ 323              		.global	handleByteReceived
+ 324              		.thumb
+ 325              		.thumb_func
+ 326              		.type	handleByteReceived, %function
+ 327              	handleByteReceived:
+ 328              	.LFB65:
+  64:main.c        ****     switch(byteReceived)
+ 329              		.loc 1 64 0
+ 330              		.cfi_startproc
+ 331              		@ args = 0, pretend = 0, frame = 0
+ 332              		@ frame_needed = 0, uses_anonymous_args = 0
+ 333              	.LVL23:
+ 334 0000 08B5     		push	{r3, lr}
+ 335              		.cfi_def_cfa_offset 8
+ 336              		.cfi_offset 3, -8
+ 337              		.cfi_offset 14, -4
+  65:main.c        ****     {
+ 338              		.loc 1 65 0
+ 339 0002 3228     		cmp	r0, #50
+ 340 0004 13D0     		beq	.L30
+ 341 0006 04D8     		bhi	.L31
+ 342 0008 3028     		cmp	r0, #48
+ 343 000a 13D0     		beq	.L32
+ 344 000c 3128     		cmp	r0, #49
+ 345 000e 0BD0     		beq	.L33
+ 346 0010 08BD     		pop	{r3, pc}
+ 347              	.L31:
+ 348 0012 7128     		cmp	r0, #113
+ 349 0014 02D0     		beq	.L34
+ 350 0016 7728     		cmp	r0, #119
+ 351 0018 03D0     		beq	.L35
+ 352 001a 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 10
 
 
- 294              		.cfi_endproc
- 295              	.LFE68:
- 296              		.size	driveForwards, .-driveForwards
- 297              		.section	.text.driveBackwards,"ax",%progbits
- 298              		.align	2
- 299              		.global	driveBackwards
- 300              		.thumb
- 301              		.thumb_func
- 302              		.type	driveBackwards, %function
- 303              	driveBackwards:
- 304              	.LFB69:
- 164:main.c        **** }
- 165:main.c        **** 
- 166:main.c        **** void driveBackwards()
- 167:main.c        **** {
- 305              		.loc 1 167 0
- 306              		.cfi_startproc
- 307              		@ args = 0, pretend = 0, frame = 0
- 308              		@ frame_needed = 0, uses_anonymous_args = 0
- 309 0000 08B5     		push	{r3, lr}
- 310              		.cfi_def_cfa_offset 8
- 311              		.cfi_offset 3, -8
- 312              		.cfi_offset 14, -4
- 168:main.c        ****     UART_1_PutString("Set direction: backwards\r\n");
- 313              		.loc 1 168 0
- 314 0002 0648     		ldr	r0, .L28
- 315 0004 FFF7FEFF 		bl	UART_1_PutString
- 316              	.LVL21:
- 169:main.c        ****     mode = 4;
- 317              		.loc 1 169 0
- 318 0008 054B     		ldr	r3, .L28+4
- 319 000a 0422     		movs	r2, #4
- 320 000c 1A70     		strb	r2, [r3]
- 170:main.c        ****     IN2 = 1;
- 321              		.loc 1 170 0
- 322 000e 0122     		movs	r2, #1
- 323 0010 9A70     		strb	r2, [r3, #2]
- 171:main.c        ****     IN1 = 0;
- 324              		.loc 1 171 0
- 325 0012 0022     		movs	r2, #0
- 326 0014 034B     		ldr	r3, .L28+8
- 327 0016 1A70     		strb	r2, [r3]
- 328 0018 08BD     		pop	{r3, pc}
- 329              	.L29:
- 330 001a 00BF     		.align	2
- 331              	.L28:
- 332 001c C8000000 		.word	.LC9
- 333 0020 00000000 		.word	.LANCHOR0
- 334 0024 00000000 		.word	IN1
- 335              		.cfi_endproc
- 336              	.LFE69:
- 337              		.size	driveBackwards, .-driveBackwards
- 338              		.section	.text.stop,"ax",%progbits
- 339              		.align	2
- 340              		.global	stop
- 341              		.thumb
- 342              		.thumb_func
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 10
+ 353              	.L34:
+  69:main.c        ****         }
+ 354              		.loc 1 69 0
+ 355 001c FFF7FEFF 		bl	decreaseSpeed
+ 356              	.LVL24:
+  71:main.c        ****         case 'w' :
+ 357              		.loc 1 71 0
+ 358 0020 08BD     		pop	{r3, pc}
+ 359              	.LVL25:
+ 360              	.L35:
+  74:main.c        ****         }
+ 361              		.loc 1 74 0
+ 362 0022 FFF7FEFF 		bl	increaseSpeed
+ 363              	.LVL26:
+  76:main.c        ****         case '1' :
+ 364              		.loc 1 76 0
+ 365 0026 08BD     		pop	{r3, pc}
+ 366              	.LVL27:
+ 367              	.L33:
+  79:main.c        ****             
+ 368              		.loc 1 79 0
+ 369 0028 FFF7FEFF 		bl	driveForwards
+ 370              	.LVL28:
+  82:main.c        ****         case '2' :
+ 371              		.loc 1 82 0
+ 372 002c 08BD     		pop	{r3, pc}
+ 373              	.LVL29:
+ 374              	.L30:
+  85:main.c        ****         }
+ 375              		.loc 1 85 0
+ 376 002e FFF7FEFF 		bl	driveBackwards
+ 377              	.LVL30:
+  87:main.c        ****         case '0' :
+ 378              		.loc 1 87 0
+ 379 0032 08BD     		pop	{r3, pc}
+ 380              	.LVL31:
+ 381              	.L32:
+  90:main.c        ****             
+ 382              		.loc 1 90 0
+ 383 0034 FFF7FEFF 		bl	stop
+ 384              	.LVL32:
+ 385 0038 08BD     		pop	{r3, pc}
+ 386              		.cfi_endproc
+ 387              	.LFE65:
+ 388              		.size	handleByteReceived, .-handleByteReceived
+ 389 003a 00BF     		.section	.text.ISR_UART_rx_handler,"ax",%progbits
+ 390              		.align	2
+ 391              		.global	ISR_UART_rx_handler
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.type	ISR_UART_rx_handler, %function
+ 395              	ISR_UART_rx_handler:
+ 396              	.LFB64:
+  50:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+ 397              		.loc 1 50 0
+ 398              		.cfi_startproc
+ 399              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 11
 
 
- 343              		.type	stop, %function
- 344              	stop:
- 345              	.LFB70:
- 172:main.c        **** }
- 173:main.c        **** 
- 174:main.c        **** void stop()
- 175:main.c        **** {
- 346              		.loc 1 175 0
- 347              		.cfi_startproc
- 348              		@ args = 0, pretend = 0, frame = 0
- 349              		@ frame_needed = 0, uses_anonymous_args = 0
- 350 0000 08B5     		push	{r3, lr}
- 351              		.cfi_def_cfa_offset 8
- 352              		.cfi_offset 3, -8
- 353              		.cfi_offset 14, -4
- 176:main.c        ****     UART_1_PutString("Stop\r\n");
- 354              		.loc 1 176 0
- 355 0002 0348     		ldr	r0, .L32
- 356 0004 FFF7FEFF 		bl	UART_1_PutString
- 357              	.LVL22:
- 177:main.c        ****     mode = 5;
- 358              		.loc 1 177 0
- 359 0008 0522     		movs	r2, #5
- 360 000a 024B     		ldr	r3, .L32+4
- 361 000c 1A70     		strb	r2, [r3]
- 362 000e 08BD     		pop	{r3, pc}
- 363              	.L33:
- 364              		.align	2
- 365              	.L32:
- 366 0010 E4000000 		.word	.LC10
- 367 0014 00000000 		.word	.LANCHOR0
- 368              		.cfi_endproc
- 369              	.LFE70:
- 370              		.size	stop, .-stop
- 371              		.section	.text.handleByteReceived,"ax",%progbits
- 372              		.align	2
- 373              		.global	handleByteReceived
- 374              		.thumb
- 375              		.thumb_func
- 376              		.type	handleByteReceived, %function
- 377              	handleByteReceived:
- 378              	.LFB65:
- 109:main.c        ****     switch(byteReceived)
- 379              		.loc 1 109 0
- 380              		.cfi_startproc
- 381              		@ args = 0, pretend = 0, frame = 0
- 382              		@ frame_needed = 0, uses_anonymous_args = 0
- 383              	.LVL23:
- 384 0000 08B5     		push	{r3, lr}
- 385              		.cfi_def_cfa_offset 8
- 386              		.cfi_offset 3, -8
- 387              		.cfi_offset 14, -4
- 110:main.c        ****     {
- 388              		.loc 1 110 0
- 389 0002 3228     		cmp	r0, #50
- 390 0004 13D0     		beq	.L36
- 391 0006 04D8     		bhi	.L37
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 11
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 401 0000 38B5     		push	{r3, r4, r5, lr}
+ 402              		.cfi_def_cfa_offset 16
+ 403              		.cfi_offset 3, -16
+ 404              		.cfi_offset 4, -12
+ 405              		.cfi_offset 5, -8
+ 406              		.cfi_offset 14, -4
+  51:main.c        ****     while (bytesToRead > 0)
+ 407              		.loc 1 51 0
+ 408 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
+ 409              	.LVL33:
+ 410 0006 0446     		mov	r4, r0
+ 411              	.LVL34:
+  52:main.c        ****     {
+ 412              		.loc 1 52 0
+ 413 0008 09E0     		b	.L38
+ 414              	.L39:
+ 415              	.LBB2:
+  54:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+ 416              		.loc 1 54 0
+ 417 000a FFF7FEFF 		bl	UART_1_ReadRxData
+ 418              	.LVL35:
+ 419 000e 0546     		mov	r5, r0
+ 420              	.LVL36:
+  55:main.c        ****         
+ 421              		.loc 1 55 0
+ 422 0010 FFF7FEFF 		bl	UART_1_WriteTxData
+ 423              	.LVL37:
+  57:main.c        ****         
+ 424              		.loc 1 57 0
+ 425 0014 2846     		mov	r0, r5
+ 426 0016 FFF7FEFF 		bl	handleByteReceived
+ 427              	.LVL38:
+  59:main.c        ****     }
+ 428              		.loc 1 59 0
+ 429 001a 013C     		subs	r4, r4, #1
+ 430              	.LVL39:
+ 431 001c E4B2     		uxtb	r4, r4
+ 432              	.LVL40:
+ 433              	.L38:
+ 434              	.LBE2:
+  52:main.c        ****     {
+ 435              		.loc 1 52 0
+ 436 001e 002C     		cmp	r4, #0
+ 437 0020 F3D1     		bne	.L39
+  61:main.c        **** 
+ 438              		.loc 1 61 0
+ 439 0022 38BD     		pop	{r3, r4, r5, pc}
+ 440              		.cfi_endproc
+ 441              	.LFE64:
+ 442              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
+ 443              		.global	IN2
+ 444              		.comm	IN1,1,1
+ 445              		.global	currentSpeed
+ 446              		.global	mode
+ 447              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 448              		.align	2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 12
 
 
- 392 0008 3028     		cmp	r0, #48
- 393 000a 13D0     		beq	.L38
- 394 000c 3128     		cmp	r0, #49
- 395 000e 0BD0     		beq	.L39
- 396 0010 08BD     		pop	{r3, pc}
- 397              	.L37:
- 398 0012 7128     		cmp	r0, #113
- 399 0014 02D0     		beq	.L40
- 400 0016 7728     		cmp	r0, #119
- 401 0018 03D0     		beq	.L41
- 402 001a 08BD     		pop	{r3, pc}
- 403              	.L40:
- 114:main.c        ****         }
- 404              		.loc 1 114 0
- 405 001c FFF7FEFF 		bl	decreaseSpeed
- 406              	.LVL24:
- 116:main.c        ****         case 'w' :
- 407              		.loc 1 116 0
- 408 0020 08BD     		pop	{r3, pc}
- 409              	.LVL25:
- 410              	.L41:
- 119:main.c        ****         }
- 411              		.loc 1 119 0
- 412 0022 FFF7FEFF 		bl	increaseSpeed
- 413              	.LVL26:
- 121:main.c        ****         case '1' :
- 414              		.loc 1 121 0
- 415 0026 08BD     		pop	{r3, pc}
- 416              	.LVL27:
- 417              	.L39:
- 124:main.c        ****         }
- 418              		.loc 1 124 0
- 419 0028 FFF7FEFF 		bl	driveForwards
- 420              	.LVL28:
- 126:main.c        ****         case '2' :
- 421              		.loc 1 126 0
- 422 002c 08BD     		pop	{r3, pc}
- 423              	.LVL29:
- 424              	.L36:
- 129:main.c        ****         }
- 425              		.loc 1 129 0
- 426 002e FFF7FEFF 		bl	driveBackwards
- 427              	.LVL30:
- 131:main.c        ****         case '0' :
- 428              		.loc 1 131 0
- 429 0032 08BD     		pop	{r3, pc}
- 430              	.LVL31:
- 431              	.L38:
- 134:main.c        ****             
- 432              		.loc 1 134 0
- 433 0034 FFF7FEFF 		bl	stop
- 434              	.LVL32:
- 435 0038 08BD     		pop	{r3, pc}
- 436              		.cfi_endproc
- 437              	.LFE65:
- 438              		.size	handleByteReceived, .-handleByteReceived
- 439 003a 00BF     		.section	.text.ISR_UART_rx_handler,"ax",%progbits
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 12
+ 449              	.LC0:
+ 450 0000 44432D4D 		.ascii	"DC-Motor-PWM application started\015\012\000"
+ 450      6F746F72 
+ 450      2D50574D 
+ 450      20617070 
+ 450      6C696361 
+ 451 0023 00       		.space	1
+ 452              	.LC1:
+ 453 0024 303A2053 		.ascii	"0: Stop\015\012\000"
+ 453      746F700D 
+ 453      0A00
+ 454 002e 0000     		.space	2
+ 455              	.LC2:
+ 456 0030 313A2044 		.ascii	"1: Drive forwards\015\012\000"
+ 456      72697665 
+ 456      20666F72 
+ 456      77617264 
+ 456      730D0A00 
+ 457              	.LC3:
+ 458 0044 323A2044 		.ascii	"2: Drive backwards\015\012\000"
+ 458      72697665 
+ 458      20626163 
+ 458      6B776172 
+ 458      64730D0A 
+ 459 0059 000000   		.space	3
+ 460              	.LC4:
+ 461 005c 713A2044 		.ascii	"q: Decrease speed\015\012\000"
+ 461      65637265 
+ 461      61736520 
+ 461      73706565 
+ 461      640D0A00 
+ 462              	.LC5:
+ 463 0070 773A2049 		.ascii	"w: Increase speed\015\012\000"
+ 463      6E637265 
+ 463      61736520 
+ 463      73706565 
+ 463      640D0A00 
+ 464              	.LC6:
+ 465 0084 44656372 		.ascii	"Decreasing speed\015\012\000"
+ 465      65617369 
+ 465      6E672073 
+ 465      70656564 
+ 465      0D0A00
+ 466 0097 00       		.space	1
+ 467              	.LC7:
+ 468 0098 496E6372 		.ascii	"Increasing speed\015\012\000"
+ 468      65617369 
+ 468      6E672073 
+ 468      70656564 
+ 468      0D0A00
+ 469 00ab 00       		.space	1
+ 470              	.LC8:
+ 471 00ac 53657420 		.ascii	"Set direction: forwards\015\012\000"
+ 471      64697265 
+ 471      6374696F 
+ 471      6E3A2066 
+ 471      6F727761 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 13
 
 
- 440              		.align	2
- 441              		.global	ISR_UART_rx_handler
- 442              		.thumb
- 443              		.thumb_func
- 444              		.type	ISR_UART_rx_handler, %function
- 445              	ISR_UART_rx_handler:
- 446              	.LFB64:
-  95:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
- 447              		.loc 1 95 0
- 448              		.cfi_startproc
- 449              		@ args = 0, pretend = 0, frame = 0
- 450              		@ frame_needed = 0, uses_anonymous_args = 0
- 451 0000 38B5     		push	{r3, r4, r5, lr}
- 452              		.cfi_def_cfa_offset 16
- 453              		.cfi_offset 3, -16
- 454              		.cfi_offset 4, -12
- 455              		.cfi_offset 5, -8
- 456              		.cfi_offset 14, -4
-  96:main.c        ****     while (bytesToRead > 0)
- 457              		.loc 1 96 0
- 458 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
- 459              	.LVL33:
- 460 0006 0446     		mov	r4, r0
- 461              	.LVL34:
-  97:main.c        ****     {
- 462              		.loc 1 97 0
- 463 0008 09E0     		b	.L44
- 464              	.L45:
- 465              	.LBB2:
-  99:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
- 466              		.loc 1 99 0
- 467 000a FFF7FEFF 		bl	UART_1_ReadRxData
- 468              	.LVL35:
- 469 000e 0546     		mov	r5, r0
- 470              	.LVL36:
- 100:main.c        ****         
- 471              		.loc 1 100 0
- 472 0010 FFF7FEFF 		bl	UART_1_WriteTxData
- 473              	.LVL37:
- 102:main.c        ****         
- 474              		.loc 1 102 0
- 475 0014 2846     		mov	r0, r5
- 476 0016 FFF7FEFF 		bl	handleByteReceived
- 477              	.LVL38:
- 104:main.c        ****     }
- 478              		.loc 1 104 0
- 479 001a 013C     		subs	r4, r4, #1
- 480              	.LVL39:
- 481 001c E4B2     		uxtb	r4, r4
- 482              	.LVL40:
- 483              	.L44:
- 484              	.LBE2:
-  97:main.c        ****     {
- 485              		.loc 1 97 0
- 486 001e 002C     		cmp	r4, #0
- 487 0020 F3D1     		bne	.L45
- 106:main.c        **** 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 13
+ 472 00c6 0000     		.space	2
+ 473              	.LC9:
+ 474 00c8 53657420 		.ascii	"Set direction: backwards\015\012\000"
+ 474      64697265 
+ 474      6374696F 
+ 474      6E3A2062 
+ 474      61636B77 
+ 475 00e3 00       		.space	1
+ 476              	.LC10:
+ 477 00e4 53746F70 		.ascii	"Stop\015\012\000"
+ 477      0D0A00
+ 478              		.bss
+ 479              		.set	.LANCHOR0,. + 0
+ 480              		.type	currentSpeed, %object
+ 481              		.size	currentSpeed, 1
+ 482              	currentSpeed:
+ 483 0000 00       		.space	1
+ 484              		.type	IN2, %object
+ 485              		.size	IN2, 1
+ 486              	IN2:
+ 487 0001 00       		.space	1
+ 488              		.type	mode, %object
+ 489              		.size	mode, 1
+ 490              	mode:
+ 491 0002 00       		.space	1
+ 492              		.text
+ 493              	.Letext0:
+ 494              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 495              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 496              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 497              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 498              		.file 6 "Generated_Source\\PSoC5/isr_uart_rx.h"
+ 499              		.file 7 "Generated_Source\\PSoC5/UART_1.h"
+ 500              		.file 8 "Generated_Source\\PSoC5/PWM_1.h"
+ 501              		.file 9 "Generated_Source\\PSoC5/Pin_IN1.h"
+ 502              		.file 10 "Generated_Source\\PSoC5/Pin_IN2.h"
+ 503              		.section	.debug_info,"",%progbits
+ 504              	.Ldebug_info0:
+ 505 0000 6D040000 		.4byte	0x46d
+ 506 0004 0400     		.2byte	0x4
+ 507 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 508 000a 04       		.byte	0x4
+ 509 000b 01       		.uleb128 0x1
+ 510 000c 92000000 		.4byte	.LASF41
+ 511 0010 0C       		.byte	0xc
+ 512 0011 83020000 		.4byte	.LASF42
+ 513 0015 A8010000 		.4byte	.LASF43
+ 514 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 515 001d 00000000 		.4byte	0
+ 516 0021 00000000 		.4byte	.Ldebug_line0
+ 517 0025 02       		.uleb128 0x2
+ 518 0026 01       		.byte	0x1
+ 519 0027 06       		.byte	0x6
+ 520 0028 C2020000 		.4byte	.LASF0
+ 521 002c 03       		.uleb128 0x3
+ 522 002d 21000000 		.4byte	.LASF4
+ 523 0031 02       		.byte	0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 14
 
 
- 488              		.loc 1 106 0
- 489 0022 38BD     		pop	{r3, r4, r5, pc}
- 490              		.cfi_endproc
- 491              	.LFE64:
- 492              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
- 493              		.global	IN2
- 494              		.comm	IN1,1,1
- 495              		.global	currentSpeed
- 496              		.global	mode
- 497              		.section	.rodata.str1.4,"aMS",%progbits,1
- 498              		.align	2
- 499              	.LC0:
- 500 0000 44432D4D 		.ascii	"DC-Motor-PWM application started\015\012\000"
- 500      6F746F72 
- 500      2D50574D 
- 500      20617070 
- 500      6C696361 
- 501 0023 00       		.space	1
- 502              	.LC1:
- 503 0024 303A2053 		.ascii	"0: Stop\015\012\000"
- 503      746F700D 
- 503      0A00
- 504 002e 0000     		.space	2
- 505              	.LC2:
- 506 0030 313A2044 		.ascii	"1: Drive forwards\015\012\000"
- 506      72697665 
- 506      20666F72 
- 506      77617264 
- 506      730D0A00 
- 507              	.LC3:
- 508 0044 323A2044 		.ascii	"2: Drive backwards\015\012\000"
- 508      72697665 
- 508      20626163 
- 508      6B776172 
- 508      64730D0A 
- 509 0059 000000   		.space	3
- 510              	.LC4:
- 511 005c 713A2044 		.ascii	"q: Decrease speed\015\012\000"
- 511      65637265 
- 511      61736520 
- 511      73706565 
- 511      640D0A00 
- 512              	.LC5:
- 513 0070 773A2049 		.ascii	"w: Increase speed\015\012\000"
- 513      6E637265 
- 513      61736520 
- 513      73706565 
- 513      640D0A00 
- 514              	.LC6:
- 515 0084 44656372 		.ascii	"Decreasing speed\015\012\000"
- 515      65617369 
- 515      6E672073 
- 515      70656564 
- 515      0D0A00
- 516 0097 00       		.space	1
- 517              	.LC7:
- 518 0098 496E6372 		.ascii	"Increasing speed\015\012\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 14
+ 524 0032 1D       		.byte	0x1d
+ 525 0033 37000000 		.4byte	0x37
+ 526 0037 02       		.uleb128 0x2
+ 527 0038 01       		.byte	0x1
+ 528 0039 08       		.byte	0x8
+ 529 003a 84000000 		.4byte	.LASF1
+ 530 003e 02       		.uleb128 0x2
+ 531 003f 02       		.byte	0x2
+ 532 0040 05       		.byte	0x5
+ 533 0041 9D020000 		.4byte	.LASF2
+ 534 0045 02       		.uleb128 0x2
+ 535 0046 02       		.byte	0x2
+ 536 0047 07       		.byte	0x7
+ 537 0048 51000000 		.4byte	.LASF3
+ 538 004c 03       		.uleb128 0x3
+ 539 004d 39000000 		.4byte	.LASF5
+ 540 0051 02       		.byte	0x2
+ 541 0052 3F       		.byte	0x3f
+ 542 0053 57000000 		.4byte	0x57
+ 543 0057 02       		.uleb128 0x2
+ 544 0058 04       		.byte	0x4
+ 545 0059 05       		.byte	0x5
+ 546 005a AD020000 		.4byte	.LASF6
+ 547 005e 02       		.uleb128 0x2
+ 548 005f 04       		.byte	0x4
+ 549 0060 07       		.byte	0x7
+ 550 0061 34010000 		.4byte	.LASF7
+ 551 0065 02       		.uleb128 0x2
+ 552 0066 08       		.byte	0x8
+ 553 0067 05       		.byte	0x5
+ 554 0068 6C020000 		.4byte	.LASF8
+ 555 006c 02       		.uleb128 0x2
+ 556 006d 08       		.byte	0x8
+ 557 006e 07       		.byte	0x7
+ 558 006f FA010000 		.4byte	.LASF9
+ 559 0073 04       		.uleb128 0x4
+ 560 0074 04       		.byte	0x4
+ 561 0075 05       		.byte	0x5
+ 562 0076 696E7400 		.ascii	"int\000"
+ 563 007a 02       		.uleb128 0x2
+ 564 007b 04       		.byte	0x4
+ 565 007c 07       		.byte	0x7
+ 566 007d DF010000 		.4byte	.LASF10
+ 567 0081 03       		.uleb128 0x3
+ 568 0082 11020000 		.4byte	.LASF11
+ 569 0086 03       		.byte	0x3
+ 570 0087 18       		.byte	0x18
+ 571 0088 2C000000 		.4byte	0x2c
+ 572 008c 03       		.uleb128 0x3
+ 573 008d 42020000 		.4byte	.LASF12
+ 574 0091 03       		.byte	0x3
+ 575 0092 2C       		.byte	0x2c
+ 576 0093 4C000000 		.4byte	0x4c
+ 577 0097 05       		.uleb128 0x5
+ 578 0098 A7020000 		.4byte	.LASF13
+ 579 009c 04       		.byte	0x4
+ 580 009d 9201     		.2byte	0x192
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 15
 
 
- 518      65617369 
- 518      6E672073 
- 518      70656564 
- 518      0D0A00
- 519 00ab 00       		.space	1
- 520              	.LC8:
- 521 00ac 53657420 		.ascii	"Set direction: forwards\015\012\000"
- 521      64697265 
- 521      6374696F 
- 521      6E3A2066 
- 521      6F727761 
- 522 00c6 0000     		.space	2
- 523              	.LC9:
- 524 00c8 53657420 		.ascii	"Set direction: backwards\015\012\000"
- 524      64697265 
- 524      6374696F 
- 524      6E3A2062 
- 524      61636B77 
- 525 00e3 00       		.space	1
- 526              	.LC10:
- 527 00e4 53746F70 		.ascii	"Stop\015\012\000"
- 527      0D0A00
- 528              		.bss
- 529              		.set	.LANCHOR0,. + 0
- 530              		.type	mode, %object
- 531              		.size	mode, 1
- 532              	mode:
- 533 0000 00       		.space	1
- 534              		.type	currentSpeed, %object
- 535              		.size	currentSpeed, 1
- 536              	currentSpeed:
- 537 0001 00       		.space	1
- 538              		.type	IN2, %object
- 539              		.size	IN2, 1
- 540              	IN2:
- 541 0002 00       		.space	1
- 542              		.text
- 543              	.Letext0:
- 544              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
- 545              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
- 546              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
- 547              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
- 548              		.file 6 "Generated_Source\\PSoC5/isr_uart_rx.h"
- 549              		.file 7 "Generated_Source\\PSoC5/UART_1.h"
- 550              		.file 8 "Generated_Source\\PSoC5/PWM_1.h"
- 551              		.file 9 "Generated_Source\\PSoC5/Pin_IN1.h"
- 552              		.file 10 "Generated_Source\\PSoC5/Pin_IN2.h"
- 553              		.section	.debug_info,"",%progbits
- 554              	.Ldebug_info0:
- 555 0000 57040000 		.4byte	0x457
- 556 0004 0400     		.2byte	0x4
- 557 0006 00000000 		.4byte	.Ldebug_abbrev0
- 558 000a 04       		.byte	0x4
- 559 000b 01       		.uleb128 0x1
- 560 000c 92000000 		.4byte	.LASF41
- 561 0010 0C       		.byte	0xc
- 562 0011 83020000 		.4byte	.LASF42
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 15
+ 581 009f 37000000 		.4byte	0x37
+ 582 00a3 02       		.uleb128 0x2
+ 583 00a4 04       		.byte	0x4
+ 584 00a5 04       		.byte	0x4
+ 585 00a6 7E000000 		.4byte	.LASF14
+ 586 00aa 02       		.uleb128 0x2
+ 587 00ab 08       		.byte	0x8
+ 588 00ac 04       		.byte	0x4
+ 589 00ad 89010000 		.4byte	.LASF15
+ 590 00b1 02       		.uleb128 0x2
+ 591 00b2 01       		.byte	0x1
+ 592 00b3 08       		.byte	0x8
+ 593 00b4 8A020000 		.4byte	.LASF16
+ 594 00b8 02       		.uleb128 0x2
+ 595 00b9 08       		.byte	0x8
+ 596 00ba 04       		.byte	0x4
+ 597 00bb B6020000 		.4byte	.LASF17
+ 598 00bf 02       		.uleb128 0x2
+ 599 00c0 04       		.byte	0x4
+ 600 00c1 07       		.byte	0x7
+ 601 00c2 7A020000 		.4byte	.LASF18
+ 602 00c6 06       		.uleb128 0x6
+ 603 00c7 90010000 		.4byte	.LASF44
+ 604 00cb 01       		.byte	0x1
+ 605 00cc 1B       		.byte	0x1b
+ 606 00cd 73000000 		.4byte	0x73
+ 607 00d1 00000000 		.4byte	.LFB63
+ 608 00d5 54000000 		.4byte	.LFE63-.LFB63
+ 609 00d9 01       		.uleb128 0x1
+ 610 00da 9C       		.byte	0x9c
+ 611 00db 8F010000 		.4byte	0x18f
+ 612 00df 07       		.uleb128 0x7
+ 613 00e0 0A000000 		.4byte	.LVL0
+ 614 00e4 02040000 		.4byte	0x402
+ 615 00e8 F6000000 		.4byte	0xf6
+ 616 00ec 08       		.uleb128 0x8
+ 617 00ed 01       		.uleb128 0x1
+ 618 00ee 50       		.byte	0x50
+ 619 00ef 05       		.uleb128 0x5
+ 620 00f0 03       		.byte	0x3
+ 621 00f1 00000000 		.4byte	ISR_UART_rx_handler
+ 622 00f5 00       		.byte	0
+ 623 00f6 09       		.uleb128 0x9
+ 624 00f7 0E000000 		.4byte	.LVL1
+ 625 00fb 0D040000 		.4byte	0x40d
+ 626 00ff 09       		.uleb128 0x9
+ 627 0100 12000000 		.4byte	.LVL2
+ 628 0104 18040000 		.4byte	0x418
+ 629 0108 07       		.uleb128 0x7
+ 630 0109 18000000 		.4byte	.LVL3
+ 631 010d 23040000 		.4byte	0x423
+ 632 0111 1F010000 		.4byte	0x11f
+ 633 0115 08       		.uleb128 0x8
+ 634 0116 01       		.uleb128 0x1
+ 635 0117 50       		.byte	0x50
+ 636 0118 05       		.uleb128 0x5
+ 637 0119 03       		.byte	0x3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 16
 
 
- 563 0015 A8010000 		.4byte	.LASF43
- 564 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 565 001d 00000000 		.4byte	0
- 566 0021 00000000 		.4byte	.Ldebug_line0
- 567 0025 02       		.uleb128 0x2
- 568 0026 01       		.byte	0x1
- 569 0027 06       		.byte	0x6
- 570 0028 C2020000 		.4byte	.LASF0
- 571 002c 03       		.uleb128 0x3
- 572 002d 21000000 		.4byte	.LASF4
- 573 0031 02       		.byte	0x2
- 574 0032 1D       		.byte	0x1d
- 575 0033 37000000 		.4byte	0x37
- 576 0037 02       		.uleb128 0x2
- 577 0038 01       		.byte	0x1
- 578 0039 08       		.byte	0x8
- 579 003a 84000000 		.4byte	.LASF1
- 580 003e 02       		.uleb128 0x2
- 581 003f 02       		.byte	0x2
- 582 0040 05       		.byte	0x5
- 583 0041 9D020000 		.4byte	.LASF2
- 584 0045 02       		.uleb128 0x2
- 585 0046 02       		.byte	0x2
- 586 0047 07       		.byte	0x7
- 587 0048 51000000 		.4byte	.LASF3
- 588 004c 03       		.uleb128 0x3
- 589 004d 39000000 		.4byte	.LASF5
- 590 0051 02       		.byte	0x2
- 591 0052 3F       		.byte	0x3f
- 592 0053 57000000 		.4byte	0x57
- 593 0057 02       		.uleb128 0x2
- 594 0058 04       		.byte	0x4
- 595 0059 05       		.byte	0x5
- 596 005a AD020000 		.4byte	.LASF6
- 597 005e 02       		.uleb128 0x2
- 598 005f 04       		.byte	0x4
- 599 0060 07       		.byte	0x7
- 600 0061 34010000 		.4byte	.LASF7
- 601 0065 02       		.uleb128 0x2
- 602 0066 08       		.byte	0x8
- 603 0067 05       		.byte	0x5
- 604 0068 6C020000 		.4byte	.LASF8
- 605 006c 02       		.uleb128 0x2
- 606 006d 08       		.byte	0x8
- 607 006e 07       		.byte	0x7
- 608 006f FA010000 		.4byte	.LASF9
- 609 0073 04       		.uleb128 0x4
- 610 0074 04       		.byte	0x4
- 611 0075 05       		.byte	0x5
- 612 0076 696E7400 		.ascii	"int\000"
- 613 007a 02       		.uleb128 0x2
- 614 007b 04       		.byte	0x4
- 615 007c 07       		.byte	0x7
- 616 007d DF010000 		.4byte	.LASF10
- 617 0081 03       		.uleb128 0x3
- 618 0082 11020000 		.4byte	.LASF11
- 619 0086 03       		.byte	0x3
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 16
+ 638 011a 00000000 		.4byte	.LC0
+ 639 011e 00       		.byte	0
+ 640 011f 07       		.uleb128 0x7
+ 641 0120 1E000000 		.4byte	.LVL4
+ 642 0124 23040000 		.4byte	0x423
+ 643 0128 36010000 		.4byte	0x136
+ 644 012c 08       		.uleb128 0x8
+ 645 012d 01       		.uleb128 0x1
+ 646 012e 50       		.byte	0x50
+ 647 012f 05       		.uleb128 0x5
+ 648 0130 03       		.byte	0x3
+ 649 0131 24000000 		.4byte	.LC1
+ 650 0135 00       		.byte	0
+ 651 0136 07       		.uleb128 0x7
+ 652 0137 24000000 		.4byte	.LVL5
+ 653 013b 23040000 		.4byte	0x423
+ 654 013f 4D010000 		.4byte	0x14d
+ 655 0143 08       		.uleb128 0x8
+ 656 0144 01       		.uleb128 0x1
+ 657 0145 50       		.byte	0x50
+ 658 0146 05       		.uleb128 0x5
+ 659 0147 03       		.byte	0x3
+ 660 0148 30000000 		.4byte	.LC2
+ 661 014c 00       		.byte	0
+ 662 014d 07       		.uleb128 0x7
+ 663 014e 2A000000 		.4byte	.LVL6
+ 664 0152 23040000 		.4byte	0x423
+ 665 0156 64010000 		.4byte	0x164
+ 666 015a 08       		.uleb128 0x8
+ 667 015b 01       		.uleb128 0x1
+ 668 015c 50       		.byte	0x50
+ 669 015d 05       		.uleb128 0x5
+ 670 015e 03       		.byte	0x3
+ 671 015f 44000000 		.4byte	.LC3
+ 672 0163 00       		.byte	0
+ 673 0164 07       		.uleb128 0x7
+ 674 0165 30000000 		.4byte	.LVL7
+ 675 0169 23040000 		.4byte	0x423
+ 676 016d 7B010000 		.4byte	0x17b
+ 677 0171 08       		.uleb128 0x8
+ 678 0172 01       		.uleb128 0x1
+ 679 0173 50       		.byte	0x50
+ 680 0174 05       		.uleb128 0x5
+ 681 0175 03       		.byte	0x3
+ 682 0176 5C000000 		.4byte	.LC4
+ 683 017a 00       		.byte	0
+ 684 017b 0A       		.uleb128 0xa
+ 685 017c 36000000 		.4byte	.LVL8
+ 686 0180 23040000 		.4byte	0x423
+ 687 0184 08       		.uleb128 0x8
+ 688 0185 01       		.uleb128 0x1
+ 689 0186 50       		.byte	0x50
+ 690 0187 05       		.uleb128 0x5
+ 691 0188 03       		.byte	0x3
+ 692 0189 70000000 		.4byte	.LC5
+ 693 018d 00       		.byte	0
+ 694 018e 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 17
 
 
- 620 0087 18       		.byte	0x18
- 621 0088 2C000000 		.4byte	0x2c
- 622 008c 03       		.uleb128 0x3
- 623 008d 42020000 		.4byte	.LASF12
- 624 0091 03       		.byte	0x3
- 625 0092 2C       		.byte	0x2c
- 626 0093 4C000000 		.4byte	0x4c
- 627 0097 05       		.uleb128 0x5
- 628 0098 A7020000 		.4byte	.LASF13
- 629 009c 04       		.byte	0x4
- 630 009d 9201     		.2byte	0x192
- 631 009f 37000000 		.4byte	0x37
- 632 00a3 02       		.uleb128 0x2
- 633 00a4 04       		.byte	0x4
- 634 00a5 04       		.byte	0x4
- 635 00a6 7E000000 		.4byte	.LASF14
- 636 00aa 02       		.uleb128 0x2
- 637 00ab 08       		.byte	0x8
- 638 00ac 04       		.byte	0x4
- 639 00ad 89010000 		.4byte	.LASF15
- 640 00b1 02       		.uleb128 0x2
- 641 00b2 01       		.byte	0x1
- 642 00b3 08       		.byte	0x8
- 643 00b4 8A020000 		.4byte	.LASF16
- 644 00b8 02       		.uleb128 0x2
- 645 00b9 08       		.byte	0x8
- 646 00ba 04       		.byte	0x4
- 647 00bb B6020000 		.4byte	.LASF17
- 648 00bf 02       		.uleb128 0x2
- 649 00c0 04       		.byte	0x4
- 650 00c1 07       		.byte	0x7
- 651 00c2 7A020000 		.4byte	.LASF18
- 652 00c6 06       		.uleb128 0x6
- 653 00c7 90010000 		.4byte	.LASF44
- 654 00cb 01       		.byte	0x1
- 655 00cc 1B       		.byte	0x1b
- 656 00cd 73000000 		.4byte	0x73
- 657 00d1 00000000 		.4byte	.LFB63
- 658 00d5 E4000000 		.4byte	.LFE63-.LFB63
- 659 00d9 01       		.uleb128 0x1
- 660 00da 9C       		.byte	0x9c
- 661 00db 00020000 		.4byte	0x200
- 662 00df 07       		.uleb128 0x7
- 663 00e0 0A000000 		.4byte	.LVL0
- 664 00e4 EC030000 		.4byte	0x3ec
- 665 00e8 F6000000 		.4byte	0xf6
- 666 00ec 08       		.uleb128 0x8
- 667 00ed 01       		.uleb128 0x1
- 668 00ee 50       		.byte	0x50
- 669 00ef 05       		.uleb128 0x5
- 670 00f0 03       		.byte	0x3
- 671 00f1 00000000 		.4byte	ISR_UART_rx_handler
- 672 00f5 00       		.byte	0
- 673 00f6 09       		.uleb128 0x9
- 674 00f7 0E000000 		.4byte	.LVL1
- 675 00fb F7030000 		.4byte	0x3f7
- 676 00ff 09       		.uleb128 0x9
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 17
+ 695 018f 0B       		.uleb128 0xb
+ 696 0190 8F020000 		.4byte	.LASF19
+ 697 0194 01       		.byte	0x1
+ 698 0195 66       		.byte	0x66
+ 699 0196 00000000 		.4byte	.LFB66
+ 700 019a 2C000000 		.4byte	.LFE66-.LFB66
+ 701 019e 01       		.uleb128 0x1
+ 702 019f 9C       		.byte	0x9c
+ 703 01a0 C5010000 		.4byte	0x1c5
+ 704 01a4 07       		.uleb128 0x7
+ 705 01a5 08000000 		.4byte	.LVL9
+ 706 01a9 23040000 		.4byte	0x423
+ 707 01ad BB010000 		.4byte	0x1bb
+ 708 01b1 08       		.uleb128 0x8
+ 709 01b2 01       		.uleb128 0x1
+ 710 01b3 50       		.byte	0x50
+ 711 01b4 05       		.uleb128 0x5
+ 712 01b5 03       		.byte	0x3
+ 713 01b6 84000000 		.4byte	.LC6
+ 714 01ba 00       		.byte	0
+ 715 01bb 09       		.uleb128 0x9
+ 716 01bc 20000000 		.4byte	.LVL10
+ 717 01c0 2E040000 		.4byte	0x42e
+ 718 01c4 00       		.byte	0
+ 719 01c5 0B       		.uleb128 0xb
+ 720 01c6 43000000 		.4byte	.LASF20
+ 721 01ca 01       		.byte	0x1
+ 722 01cb 72       		.byte	0x72
+ 723 01cc 00000000 		.4byte	.LFB67
+ 724 01d0 24000000 		.4byte	.LFE67-.LFB67
+ 725 01d4 01       		.uleb128 0x1
+ 726 01d5 9C       		.byte	0x9c
+ 727 01d6 FB010000 		.4byte	0x1fb
+ 728 01da 07       		.uleb128 0x7
+ 729 01db 08000000 		.4byte	.LVL11
+ 730 01df 23040000 		.4byte	0x423
+ 731 01e3 F1010000 		.4byte	0x1f1
+ 732 01e7 08       		.uleb128 0x8
+ 733 01e8 01       		.uleb128 0x1
+ 734 01e9 50       		.byte	0x50
+ 735 01ea 05       		.uleb128 0x5
+ 736 01eb 03       		.byte	0x3
+ 737 01ec 98000000 		.4byte	.LC7
+ 738 01f0 00       		.byte	0
+ 739 01f1 09       		.uleb128 0x9
+ 740 01f2 1A000000 		.4byte	.LVL12
+ 741 01f6 2E040000 		.4byte	0x42e
+ 742 01fa 00       		.byte	0
+ 743 01fb 0B       		.uleb128 0xb
+ 744 01fc EC010000 		.4byte	.LASF21
+ 745 0200 01       		.byte	0x1
+ 746 0201 7D       		.byte	0x7d
+ 747 0202 00000000 		.4byte	.LFB68
+ 748 0206 34000000 		.4byte	.LFE68-.LFB68
+ 749 020a 01       		.uleb128 0x1
+ 750 020b 9C       		.byte	0x9c
+ 751 020c 54020000 		.4byte	0x254
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 18
 
 
- 677 0100 12000000 		.4byte	.LVL2
- 678 0104 02040000 		.4byte	0x402
- 679 0108 07       		.uleb128 0x7
- 680 0109 18000000 		.4byte	.LVL3
- 681 010d 0D040000 		.4byte	0x40d
- 682 0111 1F010000 		.4byte	0x11f
- 683 0115 08       		.uleb128 0x8
- 684 0116 01       		.uleb128 0x1
- 685 0117 50       		.byte	0x50
- 686 0118 05       		.uleb128 0x5
- 687 0119 03       		.byte	0x3
- 688 011a 00000000 		.4byte	.LC0
- 689 011e 00       		.byte	0
- 690 011f 07       		.uleb128 0x7
- 691 0120 1E000000 		.4byte	.LVL4
- 692 0124 0D040000 		.4byte	0x40d
- 693 0128 36010000 		.4byte	0x136
- 694 012c 08       		.uleb128 0x8
- 695 012d 01       		.uleb128 0x1
- 696 012e 50       		.byte	0x50
- 697 012f 05       		.uleb128 0x5
- 698 0130 03       		.byte	0x3
- 699 0131 24000000 		.4byte	.LC1
- 700 0135 00       		.byte	0
- 701 0136 07       		.uleb128 0x7
- 702 0137 24000000 		.4byte	.LVL5
- 703 013b 0D040000 		.4byte	0x40d
- 704 013f 4D010000 		.4byte	0x14d
- 705 0143 08       		.uleb128 0x8
- 706 0144 01       		.uleb128 0x1
- 707 0145 50       		.byte	0x50
- 708 0146 05       		.uleb128 0x5
- 709 0147 03       		.byte	0x3
- 710 0148 30000000 		.4byte	.LC2
- 711 014c 00       		.byte	0
- 712 014d 07       		.uleb128 0x7
- 713 014e 2A000000 		.4byte	.LVL6
- 714 0152 0D040000 		.4byte	0x40d
- 715 0156 64010000 		.4byte	0x164
- 716 015a 08       		.uleb128 0x8
- 717 015b 01       		.uleb128 0x1
- 718 015c 50       		.byte	0x50
- 719 015d 05       		.uleb128 0x5
- 720 015e 03       		.byte	0x3
- 721 015f 44000000 		.4byte	.LC3
- 722 0163 00       		.byte	0
- 723 0164 07       		.uleb128 0x7
- 724 0165 30000000 		.4byte	.LVL7
- 725 0169 0D040000 		.4byte	0x40d
- 726 016d 7B010000 		.4byte	0x17b
- 727 0171 08       		.uleb128 0x8
- 728 0172 01       		.uleb128 0x1
- 729 0173 50       		.byte	0x50
- 730 0174 05       		.uleb128 0x5
- 731 0175 03       		.byte	0x3
- 732 0176 5C000000 		.4byte	.LC4
- 733 017a 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 18
+ 752 0210 07       		.uleb128 0x7
+ 753 0211 08000000 		.4byte	.LVL13
+ 754 0215 23040000 		.4byte	0x423
+ 755 0219 27020000 		.4byte	0x227
+ 756 021d 08       		.uleb128 0x8
+ 757 021e 01       		.uleb128 0x1
+ 758 021f 50       		.byte	0x50
+ 759 0220 05       		.uleb128 0x5
+ 760 0221 03       		.byte	0x3
+ 761 0222 AC000000 		.4byte	.LC8
+ 762 0226 00       		.byte	0
+ 763 0227 07       		.uleb128 0x7
+ 764 0228 18000000 		.4byte	.LVL14
+ 765 022c 39040000 		.4byte	0x439
+ 766 0230 3A020000 		.4byte	0x23a
+ 767 0234 08       		.uleb128 0x8
+ 768 0235 01       		.uleb128 0x1
+ 769 0236 50       		.byte	0x50
+ 770 0237 01       		.uleb128 0x1
+ 771 0238 30       		.byte	0x30
+ 772 0239 00       		.byte	0
+ 773 023a 09       		.uleb128 0x9
+ 774 023b 1E000000 		.4byte	.LVL15
+ 775 023f 44040000 		.4byte	0x444
+ 776 0243 0A       		.uleb128 0xa
+ 777 0244 26000000 		.4byte	.LVL16
+ 778 0248 2E040000 		.4byte	0x42e
+ 779 024c 08       		.uleb128 0x8
+ 780 024d 01       		.uleb128 0x1
+ 781 024e 50       		.byte	0x50
+ 782 024f 02       		.uleb128 0x2
+ 783 0250 08       		.byte	0x8
+ 784 0251 32       		.byte	0x32
+ 785 0252 00       		.byte	0
+ 786 0253 00       		.byte	0
+ 787 0254 0B       		.uleb128 0xb
+ 788 0255 4A020000 		.4byte	.LASF22
+ 789 0259 01       		.byte	0x1
+ 790 025a 8C       		.byte	0x8c
+ 791 025b 00000000 		.4byte	.LFB69
+ 792 025f 38000000 		.4byte	.LFE69-.LFB69
+ 793 0263 01       		.uleb128 0x1
+ 794 0264 9C       		.byte	0x9c
+ 795 0265 A7020000 		.4byte	0x2a7
+ 796 0269 07       		.uleb128 0x7
+ 797 026a 08000000 		.4byte	.LVL17
+ 798 026e 23040000 		.4byte	0x423
+ 799 0272 80020000 		.4byte	0x280
+ 800 0276 08       		.uleb128 0x8
+ 801 0277 01       		.uleb128 0x1
+ 802 0278 50       		.byte	0x50
+ 803 0279 05       		.uleb128 0x5
+ 804 027a 03       		.byte	0x3
+ 805 027b C8000000 		.4byte	.LC9
+ 806 027f 00       		.byte	0
+ 807 0280 07       		.uleb128 0x7
+ 808 0281 1C000000 		.4byte	.LVL18
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 19
 
 
- 734 017b 07       		.uleb128 0x7
- 735 017c 36000000 		.4byte	.LVL8
- 736 0180 0D040000 		.4byte	0x40d
- 737 0184 92010000 		.4byte	0x192
- 738 0188 08       		.uleb128 0x8
- 739 0189 01       		.uleb128 0x1
- 740 018a 50       		.byte	0x50
- 741 018b 05       		.uleb128 0x5
- 742 018c 03       		.byte	0x3
- 743 018d 70000000 		.4byte	.LC5
- 744 0191 00       		.byte	0
- 745 0192 09       		.uleb128 0x9
- 746 0193 62000000 		.4byte	.LVL9
- 747 0197 18040000 		.4byte	0x418
- 748 019b 09       		.uleb128 0x9
- 749 019c 7C000000 		.4byte	.LVL10
- 750 01a0 18040000 		.4byte	0x418
- 751 01a4 07       		.uleb128 0x7
- 752 01a5 88000000 		.4byte	.LVL11
- 753 01a9 18040000 		.4byte	0x418
- 754 01ad B8010000 		.4byte	0x1b8
- 755 01b1 08       		.uleb128 0x8
- 756 01b2 01       		.uleb128 0x1
- 757 01b3 50       		.byte	0x50
- 758 01b4 02       		.uleb128 0x2
- 759 01b5 09       		.byte	0x9
- 760 01b6 C8       		.byte	0xc8
- 761 01b7 00       		.byte	0
- 762 01b8 09       		.uleb128 0x9
- 763 01b9 90000000 		.4byte	.LVL12
- 764 01bd 23040000 		.4byte	0x423
- 765 01c1 09       		.uleb128 0x9
- 766 01c2 96000000 		.4byte	.LVL13
- 767 01c6 2E040000 		.4byte	0x42e
- 768 01ca 07       		.uleb128 0x7
- 769 01cb A2000000 		.4byte	.LVL14
- 770 01cf 18040000 		.4byte	0x418
- 771 01d3 DE010000 		.4byte	0x1de
- 772 01d7 08       		.uleb128 0x8
- 773 01d8 01       		.uleb128 0x1
- 774 01d9 50       		.byte	0x50
- 775 01da 02       		.uleb128 0x2
- 776 01db 09       		.byte	0x9
- 777 01dc C8       		.byte	0xc8
- 778 01dd 00       		.byte	0
- 779 01de 09       		.uleb128 0x9
- 780 01df AA000000 		.4byte	.LVL15
- 781 01e3 23040000 		.4byte	0x423
- 782 01e7 09       		.uleb128 0x9
- 783 01e8 B0000000 		.4byte	.LVL16
- 784 01ec 2E040000 		.4byte	0x42e
- 785 01f0 0A       		.uleb128 0xa
- 786 01f1 BC000000 		.4byte	.LVL17
- 787 01f5 18040000 		.4byte	0x418
- 788 01f9 08       		.uleb128 0x8
- 789 01fa 01       		.uleb128 0x1
- 790 01fb 50       		.byte	0x50
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 19
+ 809 0285 2E040000 		.4byte	0x42e
+ 810 0289 94020000 		.4byte	0x294
+ 811 028d 08       		.uleb128 0x8
+ 812 028e 01       		.uleb128 0x1
+ 813 028f 50       		.byte	0x50
+ 814 0290 02       		.uleb128 0x2
+ 815 0291 08       		.byte	0x8
+ 816 0292 32       		.byte	0x32
+ 817 0293 00       		.byte	0
+ 818 0294 09       		.uleb128 0x9
+ 819 0295 22000000 		.4byte	.LVL19
+ 820 0299 39040000 		.4byte	0x439
+ 821 029d 09       		.uleb128 0x9
+ 822 029e 28000000 		.4byte	.LVL20
+ 823 02a2 44040000 		.4byte	0x444
+ 824 02a6 00       		.byte	0
+ 825 02a7 0B       		.uleb128 0xb
+ 826 02a8 64010000 		.4byte	.LASF23
+ 827 02ac 01       		.byte	0x1
+ 828 02ad 9A       		.byte	0x9a
+ 829 02ae 00000000 		.4byte	.LFB70
+ 830 02b2 1C000000 		.4byte	.LFE70-.LFB70
+ 831 02b6 01       		.uleb128 0x1
+ 832 02b7 9C       		.byte	0x9c
+ 833 02b8 E3020000 		.4byte	0x2e3
+ 834 02bc 07       		.uleb128 0x7
+ 835 02bd 08000000 		.4byte	.LVL21
+ 836 02c1 23040000 		.4byte	0x423
+ 837 02c5 D3020000 		.4byte	0x2d3
+ 838 02c9 08       		.uleb128 0x8
+ 839 02ca 01       		.uleb128 0x1
+ 840 02cb 50       		.byte	0x50
+ 841 02cc 05       		.uleb128 0x5
+ 842 02cd 03       		.byte	0x3
+ 843 02ce E4000000 		.4byte	.LC10
+ 844 02d2 00       		.byte	0
+ 845 02d3 0A       		.uleb128 0xa
+ 846 02d4 12000000 		.4byte	.LVL22
+ 847 02d8 2E040000 		.4byte	0x42e
+ 848 02dc 08       		.uleb128 0x8
+ 849 02dd 01       		.uleb128 0x1
+ 850 02de 50       		.byte	0x50
+ 851 02df 01       		.uleb128 0x1
+ 852 02e0 30       		.byte	0x30
+ 853 02e1 00       		.byte	0
+ 854 02e2 00       		.byte	0
+ 855 02e3 0B       		.uleb128 0xb
+ 856 02e4 95010000 		.4byte	.LASF24
+ 857 02e8 01       		.byte	0x1
+ 858 02e9 3F       		.byte	0x3f
+ 859 02ea 00000000 		.4byte	.LFB65
+ 860 02ee 3A000000 		.4byte	.LFE65-.LFB65
+ 861 02f2 01       		.uleb128 0x1
+ 862 02f3 9C       		.byte	0x9c
+ 863 02f4 35030000 		.4byte	0x335
+ 864 02f8 0C       		.uleb128 0xc
+ 865 02f9 DF020000 		.4byte	.LASF27
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 20
 
 
- 791 01fc 01       		.uleb128 0x1
- 792 01fd 30       		.byte	0x30
- 793 01fe 00       		.byte	0
- 794 01ff 00       		.byte	0
- 795 0200 0B       		.uleb128 0xb
- 796 0201 8F020000 		.4byte	.LASF19
- 797 0205 01       		.byte	0x1
- 798 0206 92       		.byte	0x92
- 799 0207 00000000 		.4byte	.LFB66
- 800 020b 18000000 		.4byte	.LFE66-.LFB66
- 801 020f 01       		.uleb128 0x1
- 802 0210 9C       		.byte	0x9c
- 803 0211 29020000 		.4byte	0x229
- 804 0215 0A       		.uleb128 0xa
- 805 0216 08000000 		.4byte	.LVL18
- 806 021a 0D040000 		.4byte	0x40d
- 807 021e 08       		.uleb128 0x8
- 808 021f 01       		.uleb128 0x1
- 809 0220 50       		.byte	0x50
- 810 0221 05       		.uleb128 0x5
- 811 0222 03       		.byte	0x3
- 812 0223 84000000 		.4byte	.LC6
- 813 0227 00       		.byte	0
- 814 0228 00       		.byte	0
- 815 0229 0B       		.uleb128 0xb
- 816 022a 43000000 		.4byte	.LASF20
- 817 022e 01       		.byte	0x1
- 818 022f 98       		.byte	0x98
- 819 0230 00000000 		.4byte	.LFB67
- 820 0234 18000000 		.4byte	.LFE67-.LFB67
- 821 0238 01       		.uleb128 0x1
- 822 0239 9C       		.byte	0x9c
- 823 023a 52020000 		.4byte	0x252
- 824 023e 0A       		.uleb128 0xa
- 825 023f 08000000 		.4byte	.LVL19
- 826 0243 0D040000 		.4byte	0x40d
- 827 0247 08       		.uleb128 0x8
- 828 0248 01       		.uleb128 0x1
- 829 0249 50       		.byte	0x50
- 830 024a 05       		.uleb128 0x5
- 831 024b 03       		.byte	0x3
- 832 024c 98000000 		.4byte	.LC7
- 833 0250 00       		.byte	0
- 834 0251 00       		.byte	0
- 835 0252 0B       		.uleb128 0xb
- 836 0253 EC010000 		.4byte	.LASF21
- 837 0257 01       		.byte	0x1
- 838 0258 9E       		.byte	0x9e
- 839 0259 00000000 		.4byte	.LFB68
- 840 025d 28000000 		.4byte	.LFE68-.LFB68
- 841 0261 01       		.uleb128 0x1
- 842 0262 9C       		.byte	0x9c
- 843 0263 7B020000 		.4byte	0x27b
- 844 0267 0A       		.uleb128 0xa
- 845 0268 08000000 		.4byte	.LVL20
- 846 026c 0D040000 		.4byte	0x40d
- 847 0270 08       		.uleb128 0x8
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 20
+ 866 02fd 01       		.byte	0x1
+ 867 02fe 3F       		.byte	0x3f
+ 868 02ff 81000000 		.4byte	0x81
+ 869 0303 00000000 		.4byte	.LLST0
+ 870 0307 09       		.uleb128 0x9
+ 871 0308 20000000 		.4byte	.LVL24
+ 872 030c 8F010000 		.4byte	0x18f
+ 873 0310 09       		.uleb128 0x9
+ 874 0311 26000000 		.4byte	.LVL26
+ 875 0315 C5010000 		.4byte	0x1c5
+ 876 0319 09       		.uleb128 0x9
+ 877 031a 2C000000 		.4byte	.LVL28
+ 878 031e FB010000 		.4byte	0x1fb
+ 879 0322 09       		.uleb128 0x9
+ 880 0323 32000000 		.4byte	.LVL30
+ 881 0327 54020000 		.4byte	0x254
+ 882 032b 09       		.uleb128 0x9
+ 883 032c 38000000 		.4byte	.LVL32
+ 884 0330 A7020000 		.4byte	0x2a7
+ 885 0334 00       		.byte	0
+ 886 0335 0B       		.uleb128 0xb
+ 887 0336 20010000 		.4byte	.LASF25
+ 888 033a 01       		.byte	0x1
+ 889 033b 31       		.byte	0x31
+ 890 033c 00000000 		.4byte	.LFB64
+ 891 0340 24000000 		.4byte	.LFE64-.LFB64
+ 892 0344 01       		.uleb128 0x1
+ 893 0345 9C       		.byte	0x9c
+ 894 0346 AD030000 		.4byte	0x3ad
+ 895 034a 0D       		.uleb128 0xd
+ 896 034b 72000000 		.4byte	.LASF26
+ 897 034f 01       		.byte	0x1
+ 898 0350 33       		.byte	0x33
+ 899 0351 81000000 		.4byte	0x81
+ 900 0355 85000000 		.4byte	.LLST1
+ 901 0359 0E       		.uleb128 0xe
+ 902 035a 0A000000 		.4byte	.LBB2
+ 903 035e 14000000 		.4byte	.LBE2-.LBB2
+ 904 0362 A3030000 		.4byte	0x3a3
+ 905 0366 0D       		.uleb128 0xd
+ 906 0367 DF020000 		.4byte	.LASF27
+ 907 036b 01       		.byte	0x1
+ 908 036c 36       		.byte	0x36
+ 909 036d 81000000 		.4byte	0x81
+ 910 0371 A3000000 		.4byte	.LLST2
+ 911 0375 09       		.uleb128 0x9
+ 912 0376 0E000000 		.4byte	.LVL35
+ 913 037a 4F040000 		.4byte	0x44f
+ 914 037e 07       		.uleb128 0x7
+ 915 037f 14000000 		.4byte	.LVL37
+ 916 0383 5A040000 		.4byte	0x45a
+ 917 0387 92030000 		.4byte	0x392
+ 918 038b 08       		.uleb128 0x8
+ 919 038c 01       		.uleb128 0x1
+ 920 038d 50       		.byte	0x50
+ 921 038e 02       		.uleb128 0x2
+ 922 038f 75       		.byte	0x75
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 21
 
 
- 848 0271 01       		.uleb128 0x1
- 849 0272 50       		.byte	0x50
- 850 0273 05       		.uleb128 0x5
- 851 0274 03       		.byte	0x3
- 852 0275 AC000000 		.4byte	.LC8
- 853 0279 00       		.byte	0
- 854 027a 00       		.byte	0
- 855 027b 0B       		.uleb128 0xb
- 856 027c 4A020000 		.4byte	.LASF22
- 857 0280 01       		.byte	0x1
- 858 0281 A6       		.byte	0xa6
- 859 0282 00000000 		.4byte	.LFB69
- 860 0286 28000000 		.4byte	.LFE69-.LFB69
- 861 028a 01       		.uleb128 0x1
- 862 028b 9C       		.byte	0x9c
- 863 028c A4020000 		.4byte	0x2a4
- 864 0290 0A       		.uleb128 0xa
- 865 0291 08000000 		.4byte	.LVL21
- 866 0295 0D040000 		.4byte	0x40d
- 867 0299 08       		.uleb128 0x8
- 868 029a 01       		.uleb128 0x1
- 869 029b 50       		.byte	0x50
- 870 029c 05       		.uleb128 0x5
- 871 029d 03       		.byte	0x3
- 872 029e C8000000 		.4byte	.LC9
- 873 02a2 00       		.byte	0
- 874 02a3 00       		.byte	0
- 875 02a4 0B       		.uleb128 0xb
- 876 02a5 64010000 		.4byte	.LASF23
- 877 02a9 01       		.byte	0x1
- 878 02aa AE       		.byte	0xae
- 879 02ab 00000000 		.4byte	.LFB70
- 880 02af 18000000 		.4byte	.LFE70-.LFB70
- 881 02b3 01       		.uleb128 0x1
- 882 02b4 9C       		.byte	0x9c
- 883 02b5 CD020000 		.4byte	0x2cd
- 884 02b9 0A       		.uleb128 0xa
- 885 02ba 08000000 		.4byte	.LVL22
- 886 02be 0D040000 		.4byte	0x40d
- 887 02c2 08       		.uleb128 0x8
- 888 02c3 01       		.uleb128 0x1
- 889 02c4 50       		.byte	0x50
- 890 02c5 05       		.uleb128 0x5
- 891 02c6 03       		.byte	0x3
- 892 02c7 E4000000 		.4byte	.LC10
- 893 02cb 00       		.byte	0
- 894 02cc 00       		.byte	0
- 895 02cd 0B       		.uleb128 0xb
- 896 02ce 95010000 		.4byte	.LASF24
- 897 02d2 01       		.byte	0x1
- 898 02d3 6C       		.byte	0x6c
- 899 02d4 00000000 		.4byte	.LFB65
- 900 02d8 3A000000 		.4byte	.LFE65-.LFB65
- 901 02dc 01       		.uleb128 0x1
- 902 02dd 9C       		.byte	0x9c
- 903 02de 1F030000 		.4byte	0x31f
- 904 02e2 0C       		.uleb128 0xc
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 21
+ 923 0390 00       		.sleb128 0
+ 924 0391 00       		.byte	0
+ 925 0392 0A       		.uleb128 0xa
+ 926 0393 1A000000 		.4byte	.LVL38
+ 927 0397 E3020000 		.4byte	0x2e3
+ 928 039b 08       		.uleb128 0x8
+ 929 039c 01       		.uleb128 0x1
+ 930 039d 50       		.byte	0x50
+ 931 039e 02       		.uleb128 0x2
+ 932 039f 75       		.byte	0x75
+ 933 03a0 00       		.sleb128 0
+ 934 03a1 00       		.byte	0
+ 935 03a2 00       		.byte	0
+ 936 03a3 09       		.uleb128 0x9
+ 937 03a4 06000000 		.4byte	.LVL33
+ 938 03a8 65040000 		.4byte	0x465
+ 939 03ac 00       		.byte	0
+ 940 03ad 0F       		.uleb128 0xf
+ 941 03ae 69010000 		.4byte	.LASF28
+ 942 03b2 05       		.byte	0x5
+ 943 03b3 9606     		.2byte	0x696
+ 944 03b5 B9030000 		.4byte	0x3b9
+ 945 03b9 10       		.uleb128 0x10
+ 946 03ba 8C000000 		.4byte	0x8c
+ 947 03be 11       		.uleb128 0x11
+ 948 03bf 30020000 		.4byte	.LASF29
+ 949 03c3 01       		.byte	0x1
+ 950 03c4 17       		.byte	0x17
+ 951 03c5 81000000 		.4byte	0x81
+ 952 03c9 05       		.uleb128 0x5
+ 953 03ca 03       		.byte	0x3
+ 954 03cb 00000000 		.4byte	mode
+ 955 03cf 11       		.uleb128 0x11
+ 956 03d0 35020000 		.4byte	.LASF30
+ 957 03d4 01       		.byte	0x1
+ 958 03d5 18       		.byte	0x18
+ 959 03d6 97000000 		.4byte	0x97
+ 960 03da 05       		.uleb128 0x5
+ 961 03db 03       		.byte	0x3
+ 962 03dc 00000000 		.4byte	currentSpeed
+ 963 03e0 12       		.uleb128 0x12
+ 964 03e1 494E3100 		.ascii	"IN1\000"
+ 965 03e5 01       		.byte	0x1
+ 966 03e6 19       		.byte	0x19
+ 967 03e7 97000000 		.4byte	0x97
+ 968 03eb 05       		.uleb128 0x5
+ 969 03ec 03       		.byte	0x3
+ 970 03ed 00000000 		.4byte	IN1
+ 971 03f1 12       		.uleb128 0x12
+ 972 03f2 494E3200 		.ascii	"IN2\000"
+ 973 03f6 01       		.byte	0x1
+ 974 03f7 19       		.byte	0x19
+ 975 03f8 97000000 		.4byte	0x97
+ 976 03fc 05       		.uleb128 0x5
+ 977 03fd 03       		.byte	0x3
+ 978 03fe 00000000 		.4byte	IN2
+ 979 0402 13       		.uleb128 0x13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 22
 
 
- 905 02e3 DF020000 		.4byte	.LASF27
- 906 02e7 01       		.byte	0x1
- 907 02e8 6C       		.byte	0x6c
- 908 02e9 81000000 		.4byte	0x81
- 909 02ed 00000000 		.4byte	.LLST0
- 910 02f1 09       		.uleb128 0x9
- 911 02f2 20000000 		.4byte	.LVL24
- 912 02f6 00020000 		.4byte	0x200
- 913 02fa 09       		.uleb128 0x9
- 914 02fb 26000000 		.4byte	.LVL26
- 915 02ff 29020000 		.4byte	0x229
- 916 0303 09       		.uleb128 0x9
- 917 0304 2C000000 		.4byte	.LVL28
- 918 0308 52020000 		.4byte	0x252
- 919 030c 09       		.uleb128 0x9
- 920 030d 32000000 		.4byte	.LVL30
- 921 0311 7B020000 		.4byte	0x27b
- 922 0315 09       		.uleb128 0x9
- 923 0316 38000000 		.4byte	.LVL32
- 924 031a A4020000 		.4byte	0x2a4
- 925 031e 00       		.byte	0
- 926 031f 0B       		.uleb128 0xb
- 927 0320 20010000 		.4byte	.LASF25
- 928 0324 01       		.byte	0x1
- 929 0325 5E       		.byte	0x5e
- 930 0326 00000000 		.4byte	.LFB64
- 931 032a 24000000 		.4byte	.LFE64-.LFB64
- 932 032e 01       		.uleb128 0x1
- 933 032f 9C       		.byte	0x9c
- 934 0330 97030000 		.4byte	0x397
- 935 0334 0D       		.uleb128 0xd
- 936 0335 72000000 		.4byte	.LASF26
- 937 0339 01       		.byte	0x1
- 938 033a 60       		.byte	0x60
- 939 033b 81000000 		.4byte	0x81
- 940 033f 85000000 		.4byte	.LLST1
- 941 0343 0E       		.uleb128 0xe
- 942 0344 0A000000 		.4byte	.LBB2
- 943 0348 14000000 		.4byte	.LBE2-.LBB2
- 944 034c 8D030000 		.4byte	0x38d
- 945 0350 0D       		.uleb128 0xd
- 946 0351 DF020000 		.4byte	.LASF27
- 947 0355 01       		.byte	0x1
- 948 0356 63       		.byte	0x63
- 949 0357 81000000 		.4byte	0x81
- 950 035b A3000000 		.4byte	.LLST2
- 951 035f 09       		.uleb128 0x9
- 952 0360 0E000000 		.4byte	.LVL35
- 953 0364 39040000 		.4byte	0x439
- 954 0368 07       		.uleb128 0x7
- 955 0369 14000000 		.4byte	.LVL37
- 956 036d 44040000 		.4byte	0x444
- 957 0371 7C030000 		.4byte	0x37c
- 958 0375 08       		.uleb128 0x8
- 959 0376 01       		.uleb128 0x1
- 960 0377 50       		.byte	0x50
- 961 0378 02       		.uleb128 0x2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 22
+ 980 0403 00000000 		.4byte	.LASF31
+ 981 0407 00000000 		.4byte	.LASF31
+ 982 040b 06       		.byte	0x6
+ 983 040c 18       		.byte	0x18
+ 984 040d 13       		.uleb128 0x13
+ 985 040e 14000000 		.4byte	.LASF32
+ 986 0412 14000000 		.4byte	.LASF32
+ 987 0416 07       		.byte	0x7
+ 988 0417 54       		.byte	0x54
+ 989 0418 13       		.uleb128 0x13
+ 990 0419 58010000 		.4byte	.LASF33
+ 991 041d 58010000 		.4byte	.LASF33
+ 992 0421 08       		.byte	0x8
+ 993 0422 92       		.byte	0x92
+ 994 0423 13       		.uleb128 0x13
+ 995 0424 CE020000 		.4byte	.LASF34
+ 996 0428 CE020000 		.4byte	.LASF34
+ 997 042c 07       		.byte	0x7
+ 998 042d 8B       		.byte	0x8b
+ 999 042e 13       		.uleb128 0x13
+ 1000 042f 59020000 		.4byte	.LASF35
+ 1001 0433 59020000 		.4byte	.LASF35
+ 1002 0437 08       		.byte	0x8
+ 1003 0438 C3       		.byte	0xc3
+ 1004 0439 13       		.uleb128 0x13
+ 1005 043a 2B000000 		.4byte	.LASF36
+ 1006 043e 2B000000 		.4byte	.LASF36
+ 1007 0442 09       		.byte	0x9
+ 1008 0443 26       		.byte	0x26
+ 1009 0444 13       		.uleb128 0x13
+ 1010 0445 64000000 		.4byte	.LASF37
+ 1011 0449 64000000 		.4byte	.LASF37
+ 1012 044d 0A       		.byte	0xa
+ 1013 044e 26       		.byte	0x26
+ 1014 044f 13       		.uleb128 0x13
+ 1015 0450 46010000 		.4byte	.LASF38
+ 1016 0454 46010000 		.4byte	.LASF38
+ 1017 0458 07       		.byte	0x7
+ 1018 0459 6F       		.byte	0x6f
+ 1019 045a 13       		.uleb128 0x13
+ 1020 045b 76010000 		.4byte	.LASF39
+ 1021 045f 76010000 		.4byte	.LASF39
+ 1022 0463 07       		.byte	0x7
+ 1023 0464 88       		.byte	0x88
+ 1024 0465 13       		.uleb128 0x13
+ 1025 0466 19020000 		.4byte	.LASF40
+ 1026 046a 19020000 		.4byte	.LASF40
+ 1027 046e 07       		.byte	0x7
+ 1028 046f 73       		.byte	0x73
+ 1029 0470 00       		.byte	0
+ 1030              		.section	.debug_abbrev,"",%progbits
+ 1031              	.Ldebug_abbrev0:
+ 1032 0000 01       		.uleb128 0x1
+ 1033 0001 11       		.uleb128 0x11
+ 1034 0002 01       		.byte	0x1
+ 1035 0003 25       		.uleb128 0x25
+ 1036 0004 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 23
 
 
- 962 0379 75       		.byte	0x75
- 963 037a 00       		.sleb128 0
- 964 037b 00       		.byte	0
- 965 037c 0A       		.uleb128 0xa
- 966 037d 1A000000 		.4byte	.LVL38
- 967 0381 CD020000 		.4byte	0x2cd
- 968 0385 08       		.uleb128 0x8
- 969 0386 01       		.uleb128 0x1
- 970 0387 50       		.byte	0x50
- 971 0388 02       		.uleb128 0x2
- 972 0389 75       		.byte	0x75
- 973 038a 00       		.sleb128 0
- 974 038b 00       		.byte	0
- 975 038c 00       		.byte	0
- 976 038d 09       		.uleb128 0x9
- 977 038e 06000000 		.4byte	.LVL33
- 978 0392 4F040000 		.4byte	0x44f
- 979 0396 00       		.byte	0
- 980 0397 0F       		.uleb128 0xf
- 981 0398 69010000 		.4byte	.LASF28
- 982 039c 05       		.byte	0x5
- 983 039d 9606     		.2byte	0x696
- 984 039f A3030000 		.4byte	0x3a3
- 985 03a3 10       		.uleb128 0x10
- 986 03a4 8C000000 		.4byte	0x8c
- 987 03a8 11       		.uleb128 0x11
- 988 03a9 30020000 		.4byte	.LASF29
- 989 03ad 01       		.byte	0x1
- 990 03ae 17       		.byte	0x17
- 991 03af 81000000 		.4byte	0x81
- 992 03b3 05       		.uleb128 0x5
- 993 03b4 03       		.byte	0x3
- 994 03b5 00000000 		.4byte	mode
- 995 03b9 11       		.uleb128 0x11
- 996 03ba 35020000 		.4byte	.LASF30
- 997 03be 01       		.byte	0x1
- 998 03bf 18       		.byte	0x18
- 999 03c0 97000000 		.4byte	0x97
- 1000 03c4 05       		.uleb128 0x5
- 1001 03c5 03       		.byte	0x3
- 1002 03c6 00000000 		.4byte	currentSpeed
- 1003 03ca 12       		.uleb128 0x12
- 1004 03cb 494E3100 		.ascii	"IN1\000"
- 1005 03cf 01       		.byte	0x1
- 1006 03d0 19       		.byte	0x19
- 1007 03d1 97000000 		.4byte	0x97
- 1008 03d5 05       		.uleb128 0x5
- 1009 03d6 03       		.byte	0x3
- 1010 03d7 00000000 		.4byte	IN1
- 1011 03db 12       		.uleb128 0x12
- 1012 03dc 494E3200 		.ascii	"IN2\000"
- 1013 03e0 01       		.byte	0x1
- 1014 03e1 19       		.byte	0x19
- 1015 03e2 97000000 		.4byte	0x97
- 1016 03e6 05       		.uleb128 0x5
- 1017 03e7 03       		.byte	0x3
- 1018 03e8 00000000 		.4byte	IN2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 23
+ 1037 0005 13       		.uleb128 0x13
+ 1038 0006 0B       		.uleb128 0xb
+ 1039 0007 03       		.uleb128 0x3
+ 1040 0008 0E       		.uleb128 0xe
+ 1041 0009 1B       		.uleb128 0x1b
+ 1042 000a 0E       		.uleb128 0xe
+ 1043 000b 55       		.uleb128 0x55
+ 1044 000c 17       		.uleb128 0x17
+ 1045 000d 11       		.uleb128 0x11
+ 1046 000e 01       		.uleb128 0x1
+ 1047 000f 10       		.uleb128 0x10
+ 1048 0010 17       		.uleb128 0x17
+ 1049 0011 00       		.byte	0
+ 1050 0012 00       		.byte	0
+ 1051 0013 02       		.uleb128 0x2
+ 1052 0014 24       		.uleb128 0x24
+ 1053 0015 00       		.byte	0
+ 1054 0016 0B       		.uleb128 0xb
+ 1055 0017 0B       		.uleb128 0xb
+ 1056 0018 3E       		.uleb128 0x3e
+ 1057 0019 0B       		.uleb128 0xb
+ 1058 001a 03       		.uleb128 0x3
+ 1059 001b 0E       		.uleb128 0xe
+ 1060 001c 00       		.byte	0
+ 1061 001d 00       		.byte	0
+ 1062 001e 03       		.uleb128 0x3
+ 1063 001f 16       		.uleb128 0x16
+ 1064 0020 00       		.byte	0
+ 1065 0021 03       		.uleb128 0x3
+ 1066 0022 0E       		.uleb128 0xe
+ 1067 0023 3A       		.uleb128 0x3a
+ 1068 0024 0B       		.uleb128 0xb
+ 1069 0025 3B       		.uleb128 0x3b
+ 1070 0026 0B       		.uleb128 0xb
+ 1071 0027 49       		.uleb128 0x49
+ 1072 0028 13       		.uleb128 0x13
+ 1073 0029 00       		.byte	0
+ 1074 002a 00       		.byte	0
+ 1075 002b 04       		.uleb128 0x4
+ 1076 002c 24       		.uleb128 0x24
+ 1077 002d 00       		.byte	0
+ 1078 002e 0B       		.uleb128 0xb
+ 1079 002f 0B       		.uleb128 0xb
+ 1080 0030 3E       		.uleb128 0x3e
+ 1081 0031 0B       		.uleb128 0xb
+ 1082 0032 03       		.uleb128 0x3
+ 1083 0033 08       		.uleb128 0x8
+ 1084 0034 00       		.byte	0
+ 1085 0035 00       		.byte	0
+ 1086 0036 05       		.uleb128 0x5
+ 1087 0037 16       		.uleb128 0x16
+ 1088 0038 00       		.byte	0
+ 1089 0039 03       		.uleb128 0x3
+ 1090 003a 0E       		.uleb128 0xe
+ 1091 003b 3A       		.uleb128 0x3a
+ 1092 003c 0B       		.uleb128 0xb
+ 1093 003d 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 24
 
 
- 1019 03ec 13       		.uleb128 0x13
- 1020 03ed 00000000 		.4byte	.LASF31
- 1021 03f1 00000000 		.4byte	.LASF31
- 1022 03f5 06       		.byte	0x6
- 1023 03f6 18       		.byte	0x18
- 1024 03f7 13       		.uleb128 0x13
- 1025 03f8 14000000 		.4byte	.LASF32
- 1026 03fc 14000000 		.4byte	.LASF32
- 1027 0400 07       		.byte	0x7
- 1028 0401 54       		.byte	0x54
- 1029 0402 13       		.uleb128 0x13
- 1030 0403 58010000 		.4byte	.LASF33
- 1031 0407 58010000 		.4byte	.LASF33
- 1032 040b 08       		.byte	0x8
- 1033 040c 92       		.byte	0x92
- 1034 040d 13       		.uleb128 0x13
- 1035 040e CE020000 		.4byte	.LASF34
- 1036 0412 CE020000 		.4byte	.LASF34
- 1037 0416 07       		.byte	0x7
- 1038 0417 8B       		.byte	0x8b
- 1039 0418 13       		.uleb128 0x13
- 1040 0419 59020000 		.4byte	.LASF35
- 1041 041d 59020000 		.4byte	.LASF35
- 1042 0421 08       		.byte	0x8
- 1043 0422 C3       		.byte	0xc3
- 1044 0423 13       		.uleb128 0x13
- 1045 0424 2B000000 		.4byte	.LASF36
- 1046 0428 2B000000 		.4byte	.LASF36
- 1047 042c 09       		.byte	0x9
- 1048 042d 26       		.byte	0x26
- 1049 042e 13       		.uleb128 0x13
- 1050 042f 64000000 		.4byte	.LASF37
- 1051 0433 64000000 		.4byte	.LASF37
- 1052 0437 0A       		.byte	0xa
- 1053 0438 26       		.byte	0x26
- 1054 0439 13       		.uleb128 0x13
- 1055 043a 46010000 		.4byte	.LASF38
- 1056 043e 46010000 		.4byte	.LASF38
- 1057 0442 07       		.byte	0x7
- 1058 0443 6F       		.byte	0x6f
- 1059 0444 13       		.uleb128 0x13
- 1060 0445 76010000 		.4byte	.LASF39
- 1061 0449 76010000 		.4byte	.LASF39
- 1062 044d 07       		.byte	0x7
- 1063 044e 88       		.byte	0x88
- 1064 044f 13       		.uleb128 0x13
- 1065 0450 19020000 		.4byte	.LASF40
- 1066 0454 19020000 		.4byte	.LASF40
- 1067 0458 07       		.byte	0x7
- 1068 0459 73       		.byte	0x73
- 1069 045a 00       		.byte	0
- 1070              		.section	.debug_abbrev,"",%progbits
- 1071              	.Ldebug_abbrev0:
- 1072 0000 01       		.uleb128 0x1
- 1073 0001 11       		.uleb128 0x11
- 1074 0002 01       		.byte	0x1
- 1075 0003 25       		.uleb128 0x25
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 24
+ 1094 003e 05       		.uleb128 0x5
+ 1095 003f 49       		.uleb128 0x49
+ 1096 0040 13       		.uleb128 0x13
+ 1097 0041 00       		.byte	0
+ 1098 0042 00       		.byte	0
+ 1099 0043 06       		.uleb128 0x6
+ 1100 0044 2E       		.uleb128 0x2e
+ 1101 0045 01       		.byte	0x1
+ 1102 0046 3F       		.uleb128 0x3f
+ 1103 0047 19       		.uleb128 0x19
+ 1104 0048 03       		.uleb128 0x3
+ 1105 0049 0E       		.uleb128 0xe
+ 1106 004a 3A       		.uleb128 0x3a
+ 1107 004b 0B       		.uleb128 0xb
+ 1108 004c 3B       		.uleb128 0x3b
+ 1109 004d 0B       		.uleb128 0xb
+ 1110 004e 27       		.uleb128 0x27
+ 1111 004f 19       		.uleb128 0x19
+ 1112 0050 49       		.uleb128 0x49
+ 1113 0051 13       		.uleb128 0x13
+ 1114 0052 8701     		.uleb128 0x87
+ 1115 0054 19       		.uleb128 0x19
+ 1116 0055 11       		.uleb128 0x11
+ 1117 0056 01       		.uleb128 0x1
+ 1118 0057 12       		.uleb128 0x12
+ 1119 0058 06       		.uleb128 0x6
+ 1120 0059 40       		.uleb128 0x40
+ 1121 005a 18       		.uleb128 0x18
+ 1122 005b 9742     		.uleb128 0x2117
+ 1123 005d 19       		.uleb128 0x19
+ 1124 005e 01       		.uleb128 0x1
+ 1125 005f 13       		.uleb128 0x13
+ 1126 0060 00       		.byte	0
+ 1127 0061 00       		.byte	0
+ 1128 0062 07       		.uleb128 0x7
+ 1129 0063 898201   		.uleb128 0x4109
+ 1130 0066 01       		.byte	0x1
+ 1131 0067 11       		.uleb128 0x11
+ 1132 0068 01       		.uleb128 0x1
+ 1133 0069 31       		.uleb128 0x31
+ 1134 006a 13       		.uleb128 0x13
+ 1135 006b 01       		.uleb128 0x1
+ 1136 006c 13       		.uleb128 0x13
+ 1137 006d 00       		.byte	0
+ 1138 006e 00       		.byte	0
+ 1139 006f 08       		.uleb128 0x8
+ 1140 0070 8A8201   		.uleb128 0x410a
+ 1141 0073 00       		.byte	0
+ 1142 0074 02       		.uleb128 0x2
+ 1143 0075 18       		.uleb128 0x18
+ 1144 0076 9142     		.uleb128 0x2111
+ 1145 0078 18       		.uleb128 0x18
+ 1146 0079 00       		.byte	0
+ 1147 007a 00       		.byte	0
+ 1148 007b 09       		.uleb128 0x9
+ 1149 007c 898201   		.uleb128 0x4109
+ 1150 007f 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 25
 
 
- 1076 0004 0E       		.uleb128 0xe
- 1077 0005 13       		.uleb128 0x13
- 1078 0006 0B       		.uleb128 0xb
- 1079 0007 03       		.uleb128 0x3
- 1080 0008 0E       		.uleb128 0xe
- 1081 0009 1B       		.uleb128 0x1b
- 1082 000a 0E       		.uleb128 0xe
- 1083 000b 55       		.uleb128 0x55
- 1084 000c 17       		.uleb128 0x17
- 1085 000d 11       		.uleb128 0x11
- 1086 000e 01       		.uleb128 0x1
- 1087 000f 10       		.uleb128 0x10
- 1088 0010 17       		.uleb128 0x17
- 1089 0011 00       		.byte	0
- 1090 0012 00       		.byte	0
- 1091 0013 02       		.uleb128 0x2
- 1092 0014 24       		.uleb128 0x24
- 1093 0015 00       		.byte	0
- 1094 0016 0B       		.uleb128 0xb
- 1095 0017 0B       		.uleb128 0xb
- 1096 0018 3E       		.uleb128 0x3e
- 1097 0019 0B       		.uleb128 0xb
- 1098 001a 03       		.uleb128 0x3
- 1099 001b 0E       		.uleb128 0xe
- 1100 001c 00       		.byte	0
- 1101 001d 00       		.byte	0
- 1102 001e 03       		.uleb128 0x3
- 1103 001f 16       		.uleb128 0x16
- 1104 0020 00       		.byte	0
- 1105 0021 03       		.uleb128 0x3
- 1106 0022 0E       		.uleb128 0xe
- 1107 0023 3A       		.uleb128 0x3a
- 1108 0024 0B       		.uleb128 0xb
- 1109 0025 3B       		.uleb128 0x3b
- 1110 0026 0B       		.uleb128 0xb
- 1111 0027 49       		.uleb128 0x49
- 1112 0028 13       		.uleb128 0x13
- 1113 0029 00       		.byte	0
- 1114 002a 00       		.byte	0
- 1115 002b 04       		.uleb128 0x4
- 1116 002c 24       		.uleb128 0x24
- 1117 002d 00       		.byte	0
- 1118 002e 0B       		.uleb128 0xb
- 1119 002f 0B       		.uleb128 0xb
- 1120 0030 3E       		.uleb128 0x3e
- 1121 0031 0B       		.uleb128 0xb
- 1122 0032 03       		.uleb128 0x3
- 1123 0033 08       		.uleb128 0x8
- 1124 0034 00       		.byte	0
- 1125 0035 00       		.byte	0
- 1126 0036 05       		.uleb128 0x5
- 1127 0037 16       		.uleb128 0x16
- 1128 0038 00       		.byte	0
- 1129 0039 03       		.uleb128 0x3
- 1130 003a 0E       		.uleb128 0xe
- 1131 003b 3A       		.uleb128 0x3a
- 1132 003c 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 25
+ 1151 0080 11       		.uleb128 0x11
+ 1152 0081 01       		.uleb128 0x1
+ 1153 0082 31       		.uleb128 0x31
+ 1154 0083 13       		.uleb128 0x13
+ 1155 0084 00       		.byte	0
+ 1156 0085 00       		.byte	0
+ 1157 0086 0A       		.uleb128 0xa
+ 1158 0087 898201   		.uleb128 0x4109
+ 1159 008a 01       		.byte	0x1
+ 1160 008b 11       		.uleb128 0x11
+ 1161 008c 01       		.uleb128 0x1
+ 1162 008d 31       		.uleb128 0x31
+ 1163 008e 13       		.uleb128 0x13
+ 1164 008f 00       		.byte	0
+ 1165 0090 00       		.byte	0
+ 1166 0091 0B       		.uleb128 0xb
+ 1167 0092 2E       		.uleb128 0x2e
+ 1168 0093 01       		.byte	0x1
+ 1169 0094 3F       		.uleb128 0x3f
+ 1170 0095 19       		.uleb128 0x19
+ 1171 0096 03       		.uleb128 0x3
+ 1172 0097 0E       		.uleb128 0xe
+ 1173 0098 3A       		.uleb128 0x3a
+ 1174 0099 0B       		.uleb128 0xb
+ 1175 009a 3B       		.uleb128 0x3b
+ 1176 009b 0B       		.uleb128 0xb
+ 1177 009c 27       		.uleb128 0x27
+ 1178 009d 19       		.uleb128 0x19
+ 1179 009e 11       		.uleb128 0x11
+ 1180 009f 01       		.uleb128 0x1
+ 1181 00a0 12       		.uleb128 0x12
+ 1182 00a1 06       		.uleb128 0x6
+ 1183 00a2 40       		.uleb128 0x40
+ 1184 00a3 18       		.uleb128 0x18
+ 1185 00a4 9742     		.uleb128 0x2117
+ 1186 00a6 19       		.uleb128 0x19
+ 1187 00a7 01       		.uleb128 0x1
+ 1188 00a8 13       		.uleb128 0x13
+ 1189 00a9 00       		.byte	0
+ 1190 00aa 00       		.byte	0
+ 1191 00ab 0C       		.uleb128 0xc
+ 1192 00ac 05       		.uleb128 0x5
+ 1193 00ad 00       		.byte	0
+ 1194 00ae 03       		.uleb128 0x3
+ 1195 00af 0E       		.uleb128 0xe
+ 1196 00b0 3A       		.uleb128 0x3a
+ 1197 00b1 0B       		.uleb128 0xb
+ 1198 00b2 3B       		.uleb128 0x3b
+ 1199 00b3 0B       		.uleb128 0xb
+ 1200 00b4 49       		.uleb128 0x49
+ 1201 00b5 13       		.uleb128 0x13
+ 1202 00b6 02       		.uleb128 0x2
+ 1203 00b7 17       		.uleb128 0x17
+ 1204 00b8 00       		.byte	0
+ 1205 00b9 00       		.byte	0
+ 1206 00ba 0D       		.uleb128 0xd
+ 1207 00bb 34       		.uleb128 0x34
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 26
 
 
- 1133 003d 3B       		.uleb128 0x3b
- 1134 003e 05       		.uleb128 0x5
- 1135 003f 49       		.uleb128 0x49
- 1136 0040 13       		.uleb128 0x13
- 1137 0041 00       		.byte	0
- 1138 0042 00       		.byte	0
- 1139 0043 06       		.uleb128 0x6
- 1140 0044 2E       		.uleb128 0x2e
- 1141 0045 01       		.byte	0x1
- 1142 0046 3F       		.uleb128 0x3f
- 1143 0047 19       		.uleb128 0x19
- 1144 0048 03       		.uleb128 0x3
- 1145 0049 0E       		.uleb128 0xe
- 1146 004a 3A       		.uleb128 0x3a
- 1147 004b 0B       		.uleb128 0xb
- 1148 004c 3B       		.uleb128 0x3b
- 1149 004d 0B       		.uleb128 0xb
- 1150 004e 27       		.uleb128 0x27
- 1151 004f 19       		.uleb128 0x19
- 1152 0050 49       		.uleb128 0x49
- 1153 0051 13       		.uleb128 0x13
- 1154 0052 8701     		.uleb128 0x87
- 1155 0054 19       		.uleb128 0x19
- 1156 0055 11       		.uleb128 0x11
- 1157 0056 01       		.uleb128 0x1
- 1158 0057 12       		.uleb128 0x12
- 1159 0058 06       		.uleb128 0x6
- 1160 0059 40       		.uleb128 0x40
- 1161 005a 18       		.uleb128 0x18
- 1162 005b 9742     		.uleb128 0x2117
- 1163 005d 19       		.uleb128 0x19
- 1164 005e 01       		.uleb128 0x1
- 1165 005f 13       		.uleb128 0x13
- 1166 0060 00       		.byte	0
- 1167 0061 00       		.byte	0
- 1168 0062 07       		.uleb128 0x7
- 1169 0063 898201   		.uleb128 0x4109
- 1170 0066 01       		.byte	0x1
- 1171 0067 11       		.uleb128 0x11
- 1172 0068 01       		.uleb128 0x1
- 1173 0069 31       		.uleb128 0x31
- 1174 006a 13       		.uleb128 0x13
- 1175 006b 01       		.uleb128 0x1
- 1176 006c 13       		.uleb128 0x13
- 1177 006d 00       		.byte	0
- 1178 006e 00       		.byte	0
- 1179 006f 08       		.uleb128 0x8
- 1180 0070 8A8201   		.uleb128 0x410a
- 1181 0073 00       		.byte	0
- 1182 0074 02       		.uleb128 0x2
- 1183 0075 18       		.uleb128 0x18
- 1184 0076 9142     		.uleb128 0x2111
- 1185 0078 18       		.uleb128 0x18
- 1186 0079 00       		.byte	0
- 1187 007a 00       		.byte	0
- 1188 007b 09       		.uleb128 0x9
- 1189 007c 898201   		.uleb128 0x4109
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 26
+ 1208 00bc 00       		.byte	0
+ 1209 00bd 03       		.uleb128 0x3
+ 1210 00be 0E       		.uleb128 0xe
+ 1211 00bf 3A       		.uleb128 0x3a
+ 1212 00c0 0B       		.uleb128 0xb
+ 1213 00c1 3B       		.uleb128 0x3b
+ 1214 00c2 0B       		.uleb128 0xb
+ 1215 00c3 49       		.uleb128 0x49
+ 1216 00c4 13       		.uleb128 0x13
+ 1217 00c5 02       		.uleb128 0x2
+ 1218 00c6 17       		.uleb128 0x17
+ 1219 00c7 00       		.byte	0
+ 1220 00c8 00       		.byte	0
+ 1221 00c9 0E       		.uleb128 0xe
+ 1222 00ca 0B       		.uleb128 0xb
+ 1223 00cb 01       		.byte	0x1
+ 1224 00cc 11       		.uleb128 0x11
+ 1225 00cd 01       		.uleb128 0x1
+ 1226 00ce 12       		.uleb128 0x12
+ 1227 00cf 06       		.uleb128 0x6
+ 1228 00d0 01       		.uleb128 0x1
+ 1229 00d1 13       		.uleb128 0x13
+ 1230 00d2 00       		.byte	0
+ 1231 00d3 00       		.byte	0
+ 1232 00d4 0F       		.uleb128 0xf
+ 1233 00d5 34       		.uleb128 0x34
+ 1234 00d6 00       		.byte	0
+ 1235 00d7 03       		.uleb128 0x3
+ 1236 00d8 0E       		.uleb128 0xe
+ 1237 00d9 3A       		.uleb128 0x3a
+ 1238 00da 0B       		.uleb128 0xb
+ 1239 00db 3B       		.uleb128 0x3b
+ 1240 00dc 05       		.uleb128 0x5
+ 1241 00dd 49       		.uleb128 0x49
+ 1242 00de 13       		.uleb128 0x13
+ 1243 00df 3F       		.uleb128 0x3f
+ 1244 00e0 19       		.uleb128 0x19
+ 1245 00e1 3C       		.uleb128 0x3c
+ 1246 00e2 19       		.uleb128 0x19
+ 1247 00e3 00       		.byte	0
+ 1248 00e4 00       		.byte	0
+ 1249 00e5 10       		.uleb128 0x10
+ 1250 00e6 35       		.uleb128 0x35
+ 1251 00e7 00       		.byte	0
+ 1252 00e8 49       		.uleb128 0x49
+ 1253 00e9 13       		.uleb128 0x13
+ 1254 00ea 00       		.byte	0
+ 1255 00eb 00       		.byte	0
+ 1256 00ec 11       		.uleb128 0x11
+ 1257 00ed 34       		.uleb128 0x34
+ 1258 00ee 00       		.byte	0
+ 1259 00ef 03       		.uleb128 0x3
+ 1260 00f0 0E       		.uleb128 0xe
+ 1261 00f1 3A       		.uleb128 0x3a
+ 1262 00f2 0B       		.uleb128 0xb
+ 1263 00f3 3B       		.uleb128 0x3b
+ 1264 00f4 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 27
 
 
- 1190 007f 00       		.byte	0
- 1191 0080 11       		.uleb128 0x11
- 1192 0081 01       		.uleb128 0x1
- 1193 0082 31       		.uleb128 0x31
- 1194 0083 13       		.uleb128 0x13
- 1195 0084 00       		.byte	0
- 1196 0085 00       		.byte	0
- 1197 0086 0A       		.uleb128 0xa
- 1198 0087 898201   		.uleb128 0x4109
- 1199 008a 01       		.byte	0x1
- 1200 008b 11       		.uleb128 0x11
- 1201 008c 01       		.uleb128 0x1
- 1202 008d 31       		.uleb128 0x31
- 1203 008e 13       		.uleb128 0x13
- 1204 008f 00       		.byte	0
- 1205 0090 00       		.byte	0
- 1206 0091 0B       		.uleb128 0xb
- 1207 0092 2E       		.uleb128 0x2e
- 1208 0093 01       		.byte	0x1
- 1209 0094 3F       		.uleb128 0x3f
- 1210 0095 19       		.uleb128 0x19
- 1211 0096 03       		.uleb128 0x3
- 1212 0097 0E       		.uleb128 0xe
- 1213 0098 3A       		.uleb128 0x3a
- 1214 0099 0B       		.uleb128 0xb
- 1215 009a 3B       		.uleb128 0x3b
- 1216 009b 0B       		.uleb128 0xb
- 1217 009c 27       		.uleb128 0x27
- 1218 009d 19       		.uleb128 0x19
- 1219 009e 11       		.uleb128 0x11
- 1220 009f 01       		.uleb128 0x1
- 1221 00a0 12       		.uleb128 0x12
- 1222 00a1 06       		.uleb128 0x6
- 1223 00a2 40       		.uleb128 0x40
- 1224 00a3 18       		.uleb128 0x18
- 1225 00a4 9742     		.uleb128 0x2117
- 1226 00a6 19       		.uleb128 0x19
- 1227 00a7 01       		.uleb128 0x1
- 1228 00a8 13       		.uleb128 0x13
- 1229 00a9 00       		.byte	0
- 1230 00aa 00       		.byte	0
- 1231 00ab 0C       		.uleb128 0xc
- 1232 00ac 05       		.uleb128 0x5
- 1233 00ad 00       		.byte	0
- 1234 00ae 03       		.uleb128 0x3
- 1235 00af 0E       		.uleb128 0xe
- 1236 00b0 3A       		.uleb128 0x3a
- 1237 00b1 0B       		.uleb128 0xb
- 1238 00b2 3B       		.uleb128 0x3b
- 1239 00b3 0B       		.uleb128 0xb
- 1240 00b4 49       		.uleb128 0x49
- 1241 00b5 13       		.uleb128 0x13
- 1242 00b6 02       		.uleb128 0x2
- 1243 00b7 17       		.uleb128 0x17
- 1244 00b8 00       		.byte	0
- 1245 00b9 00       		.byte	0
- 1246 00ba 0D       		.uleb128 0xd
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 27
+ 1265 00f5 49       		.uleb128 0x49
+ 1266 00f6 13       		.uleb128 0x13
+ 1267 00f7 3F       		.uleb128 0x3f
+ 1268 00f8 19       		.uleb128 0x19
+ 1269 00f9 02       		.uleb128 0x2
+ 1270 00fa 18       		.uleb128 0x18
+ 1271 00fb 00       		.byte	0
+ 1272 00fc 00       		.byte	0
+ 1273 00fd 12       		.uleb128 0x12
+ 1274 00fe 34       		.uleb128 0x34
+ 1275 00ff 00       		.byte	0
+ 1276 0100 03       		.uleb128 0x3
+ 1277 0101 08       		.uleb128 0x8
+ 1278 0102 3A       		.uleb128 0x3a
+ 1279 0103 0B       		.uleb128 0xb
+ 1280 0104 3B       		.uleb128 0x3b
+ 1281 0105 0B       		.uleb128 0xb
+ 1282 0106 49       		.uleb128 0x49
+ 1283 0107 13       		.uleb128 0x13
+ 1284 0108 3F       		.uleb128 0x3f
+ 1285 0109 19       		.uleb128 0x19
+ 1286 010a 02       		.uleb128 0x2
+ 1287 010b 18       		.uleb128 0x18
+ 1288 010c 00       		.byte	0
+ 1289 010d 00       		.byte	0
+ 1290 010e 13       		.uleb128 0x13
+ 1291 010f 2E       		.uleb128 0x2e
+ 1292 0110 00       		.byte	0
+ 1293 0111 3F       		.uleb128 0x3f
+ 1294 0112 19       		.uleb128 0x19
+ 1295 0113 3C       		.uleb128 0x3c
+ 1296 0114 19       		.uleb128 0x19
+ 1297 0115 6E       		.uleb128 0x6e
+ 1298 0116 0E       		.uleb128 0xe
+ 1299 0117 03       		.uleb128 0x3
+ 1300 0118 0E       		.uleb128 0xe
+ 1301 0119 3A       		.uleb128 0x3a
+ 1302 011a 0B       		.uleb128 0xb
+ 1303 011b 3B       		.uleb128 0x3b
+ 1304 011c 0B       		.uleb128 0xb
+ 1305 011d 00       		.byte	0
+ 1306 011e 00       		.byte	0
+ 1307 011f 00       		.byte	0
+ 1308              		.section	.debug_loc,"",%progbits
+ 1309              	.Ldebug_loc0:
+ 1310              	.LLST0:
+ 1311 0000 00000000 		.4byte	.LVL23
+ 1312 0004 1F000000 		.4byte	.LVL24-1
+ 1313 0008 0100     		.2byte	0x1
+ 1314 000a 50       		.byte	0x50
+ 1315 000b 1F000000 		.4byte	.LVL24-1
+ 1316 000f 22000000 		.4byte	.LVL25
+ 1317 0013 0400     		.2byte	0x4
+ 1318 0015 F3       		.byte	0xf3
+ 1319 0016 01       		.uleb128 0x1
+ 1320 0017 50       		.byte	0x50
+ 1321 0018 9F       		.byte	0x9f
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 28
 
 
- 1247 00bb 34       		.uleb128 0x34
- 1248 00bc 00       		.byte	0
- 1249 00bd 03       		.uleb128 0x3
- 1250 00be 0E       		.uleb128 0xe
- 1251 00bf 3A       		.uleb128 0x3a
- 1252 00c0 0B       		.uleb128 0xb
- 1253 00c1 3B       		.uleb128 0x3b
- 1254 00c2 0B       		.uleb128 0xb
- 1255 00c3 49       		.uleb128 0x49
- 1256 00c4 13       		.uleb128 0x13
- 1257 00c5 02       		.uleb128 0x2
- 1258 00c6 17       		.uleb128 0x17
- 1259 00c7 00       		.byte	0
- 1260 00c8 00       		.byte	0
- 1261 00c9 0E       		.uleb128 0xe
- 1262 00ca 0B       		.uleb128 0xb
- 1263 00cb 01       		.byte	0x1
- 1264 00cc 11       		.uleb128 0x11
- 1265 00cd 01       		.uleb128 0x1
- 1266 00ce 12       		.uleb128 0x12
- 1267 00cf 06       		.uleb128 0x6
- 1268 00d0 01       		.uleb128 0x1
- 1269 00d1 13       		.uleb128 0x13
- 1270 00d2 00       		.byte	0
- 1271 00d3 00       		.byte	0
- 1272 00d4 0F       		.uleb128 0xf
- 1273 00d5 34       		.uleb128 0x34
- 1274 00d6 00       		.byte	0
- 1275 00d7 03       		.uleb128 0x3
- 1276 00d8 0E       		.uleb128 0xe
- 1277 00d9 3A       		.uleb128 0x3a
- 1278 00da 0B       		.uleb128 0xb
- 1279 00db 3B       		.uleb128 0x3b
- 1280 00dc 05       		.uleb128 0x5
- 1281 00dd 49       		.uleb128 0x49
- 1282 00de 13       		.uleb128 0x13
- 1283 00df 3F       		.uleb128 0x3f
- 1284 00e0 19       		.uleb128 0x19
- 1285 00e1 3C       		.uleb128 0x3c
- 1286 00e2 19       		.uleb128 0x19
- 1287 00e3 00       		.byte	0
- 1288 00e4 00       		.byte	0
- 1289 00e5 10       		.uleb128 0x10
- 1290 00e6 35       		.uleb128 0x35
- 1291 00e7 00       		.byte	0
- 1292 00e8 49       		.uleb128 0x49
- 1293 00e9 13       		.uleb128 0x13
- 1294 00ea 00       		.byte	0
- 1295 00eb 00       		.byte	0
- 1296 00ec 11       		.uleb128 0x11
- 1297 00ed 34       		.uleb128 0x34
- 1298 00ee 00       		.byte	0
- 1299 00ef 03       		.uleb128 0x3
- 1300 00f0 0E       		.uleb128 0xe
- 1301 00f1 3A       		.uleb128 0x3a
- 1302 00f2 0B       		.uleb128 0xb
- 1303 00f3 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 28
+ 1322 0019 22000000 		.4byte	.LVL25
+ 1323 001d 25000000 		.4byte	.LVL26-1
+ 1324 0021 0100     		.2byte	0x1
+ 1325 0023 50       		.byte	0x50
+ 1326 0024 25000000 		.4byte	.LVL26-1
+ 1327 0028 28000000 		.4byte	.LVL27
+ 1328 002c 0400     		.2byte	0x4
+ 1329 002e F3       		.byte	0xf3
+ 1330 002f 01       		.uleb128 0x1
+ 1331 0030 50       		.byte	0x50
+ 1332 0031 9F       		.byte	0x9f
+ 1333 0032 28000000 		.4byte	.LVL27
+ 1334 0036 2B000000 		.4byte	.LVL28-1
+ 1335 003a 0100     		.2byte	0x1
+ 1336 003c 50       		.byte	0x50
+ 1337 003d 2B000000 		.4byte	.LVL28-1
+ 1338 0041 2E000000 		.4byte	.LVL29
+ 1339 0045 0400     		.2byte	0x4
+ 1340 0047 F3       		.byte	0xf3
+ 1341 0048 01       		.uleb128 0x1
+ 1342 0049 50       		.byte	0x50
+ 1343 004a 9F       		.byte	0x9f
+ 1344 004b 2E000000 		.4byte	.LVL29
+ 1345 004f 31000000 		.4byte	.LVL30-1
+ 1346 0053 0100     		.2byte	0x1
+ 1347 0055 50       		.byte	0x50
+ 1348 0056 31000000 		.4byte	.LVL30-1
+ 1349 005a 34000000 		.4byte	.LVL31
+ 1350 005e 0400     		.2byte	0x4
+ 1351 0060 F3       		.byte	0xf3
+ 1352 0061 01       		.uleb128 0x1
+ 1353 0062 50       		.byte	0x50
+ 1354 0063 9F       		.byte	0x9f
+ 1355 0064 34000000 		.4byte	.LVL31
+ 1356 0068 37000000 		.4byte	.LVL32-1
+ 1357 006c 0100     		.2byte	0x1
+ 1358 006e 50       		.byte	0x50
+ 1359 006f 37000000 		.4byte	.LVL32-1
+ 1360 0073 3A000000 		.4byte	.LFE65
+ 1361 0077 0400     		.2byte	0x4
+ 1362 0079 F3       		.byte	0xf3
+ 1363 007a 01       		.uleb128 0x1
+ 1364 007b 50       		.byte	0x50
+ 1365 007c 9F       		.byte	0x9f
+ 1366 007d 00000000 		.4byte	0
+ 1367 0081 00000000 		.4byte	0
+ 1368              	.LLST1:
+ 1369 0085 08000000 		.4byte	.LVL34
+ 1370 0089 1C000000 		.4byte	.LVL39
+ 1371 008d 0100     		.2byte	0x1
+ 1372 008f 54       		.byte	0x54
+ 1373 0090 1E000000 		.4byte	.LVL40
+ 1374 0094 24000000 		.4byte	.LFE64
+ 1375 0098 0100     		.2byte	0x1
+ 1376 009a 54       		.byte	0x54
+ 1377 009b 00000000 		.4byte	0
+ 1378 009f 00000000 		.4byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 29
 
 
- 1304 00f4 0B       		.uleb128 0xb
- 1305 00f5 49       		.uleb128 0x49
- 1306 00f6 13       		.uleb128 0x13
- 1307 00f7 3F       		.uleb128 0x3f
- 1308 00f8 19       		.uleb128 0x19
- 1309 00f9 02       		.uleb128 0x2
- 1310 00fa 18       		.uleb128 0x18
- 1311 00fb 00       		.byte	0
- 1312 00fc 00       		.byte	0
- 1313 00fd 12       		.uleb128 0x12
- 1314 00fe 34       		.uleb128 0x34
- 1315 00ff 00       		.byte	0
- 1316 0100 03       		.uleb128 0x3
- 1317 0101 08       		.uleb128 0x8
- 1318 0102 3A       		.uleb128 0x3a
- 1319 0103 0B       		.uleb128 0xb
- 1320 0104 3B       		.uleb128 0x3b
- 1321 0105 0B       		.uleb128 0xb
- 1322 0106 49       		.uleb128 0x49
- 1323 0107 13       		.uleb128 0x13
- 1324 0108 3F       		.uleb128 0x3f
- 1325 0109 19       		.uleb128 0x19
- 1326 010a 02       		.uleb128 0x2
- 1327 010b 18       		.uleb128 0x18
- 1328 010c 00       		.byte	0
- 1329 010d 00       		.byte	0
- 1330 010e 13       		.uleb128 0x13
- 1331 010f 2E       		.uleb128 0x2e
- 1332 0110 00       		.byte	0
- 1333 0111 3F       		.uleb128 0x3f
- 1334 0112 19       		.uleb128 0x19
- 1335 0113 3C       		.uleb128 0x3c
- 1336 0114 19       		.uleb128 0x19
- 1337 0115 6E       		.uleb128 0x6e
- 1338 0116 0E       		.uleb128 0xe
- 1339 0117 03       		.uleb128 0x3
- 1340 0118 0E       		.uleb128 0xe
- 1341 0119 3A       		.uleb128 0x3a
- 1342 011a 0B       		.uleb128 0xb
- 1343 011b 3B       		.uleb128 0x3b
- 1344 011c 0B       		.uleb128 0xb
- 1345 011d 00       		.byte	0
- 1346 011e 00       		.byte	0
- 1347 011f 00       		.byte	0
- 1348              		.section	.debug_loc,"",%progbits
- 1349              	.Ldebug_loc0:
- 1350              	.LLST0:
- 1351 0000 00000000 		.4byte	.LVL23
- 1352 0004 1F000000 		.4byte	.LVL24-1
- 1353 0008 0100     		.2byte	0x1
- 1354 000a 50       		.byte	0x50
- 1355 000b 1F000000 		.4byte	.LVL24-1
- 1356 000f 22000000 		.4byte	.LVL25
- 1357 0013 0400     		.2byte	0x4
- 1358 0015 F3       		.byte	0xf3
- 1359 0016 01       		.uleb128 0x1
- 1360 0017 50       		.byte	0x50
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 29
+ 1379              	.LLST2:
+ 1380 00a3 10000000 		.4byte	.LVL36
+ 1381 00a7 1E000000 		.4byte	.LVL40
+ 1382 00ab 0100     		.2byte	0x1
+ 1383 00ad 55       		.byte	0x55
+ 1384 00ae 00000000 		.4byte	0
+ 1385 00b2 00000000 		.4byte	0
+ 1386              		.section	.debug_aranges,"",%progbits
+ 1387 0000 54000000 		.4byte	0x54
+ 1388 0004 0200     		.2byte	0x2
+ 1389 0006 00000000 		.4byte	.Ldebug_info0
+ 1390 000a 04       		.byte	0x4
+ 1391 000b 00       		.byte	0
+ 1392 000c 0000     		.2byte	0
+ 1393 000e 0000     		.2byte	0
+ 1394 0010 00000000 		.4byte	.LFB63
+ 1395 0014 54000000 		.4byte	.LFE63-.LFB63
+ 1396 0018 00000000 		.4byte	.LFB66
+ 1397 001c 2C000000 		.4byte	.LFE66-.LFB66
+ 1398 0020 00000000 		.4byte	.LFB67
+ 1399 0024 24000000 		.4byte	.LFE67-.LFB67
+ 1400 0028 00000000 		.4byte	.LFB68
+ 1401 002c 34000000 		.4byte	.LFE68-.LFB68
+ 1402 0030 00000000 		.4byte	.LFB69
+ 1403 0034 38000000 		.4byte	.LFE69-.LFB69
+ 1404 0038 00000000 		.4byte	.LFB70
+ 1405 003c 1C000000 		.4byte	.LFE70-.LFB70
+ 1406 0040 00000000 		.4byte	.LFB65
+ 1407 0044 3A000000 		.4byte	.LFE65-.LFB65
+ 1408 0048 00000000 		.4byte	.LFB64
+ 1409 004c 24000000 		.4byte	.LFE64-.LFB64
+ 1410 0050 00000000 		.4byte	0
+ 1411 0054 00000000 		.4byte	0
+ 1412              		.section	.debug_ranges,"",%progbits
+ 1413              	.Ldebug_ranges0:
+ 1414 0000 00000000 		.4byte	.LFB63
+ 1415 0004 54000000 		.4byte	.LFE63
+ 1416 0008 00000000 		.4byte	.LFB66
+ 1417 000c 2C000000 		.4byte	.LFE66
+ 1418 0010 00000000 		.4byte	.LFB67
+ 1419 0014 24000000 		.4byte	.LFE67
+ 1420 0018 00000000 		.4byte	.LFB68
+ 1421 001c 34000000 		.4byte	.LFE68
+ 1422 0020 00000000 		.4byte	.LFB69
+ 1423 0024 38000000 		.4byte	.LFE69
+ 1424 0028 00000000 		.4byte	.LFB70
+ 1425 002c 1C000000 		.4byte	.LFE70
+ 1426 0030 00000000 		.4byte	.LFB65
+ 1427 0034 3A000000 		.4byte	.LFE65
+ 1428 0038 00000000 		.4byte	.LFB64
+ 1429 003c 24000000 		.4byte	.LFE64
+ 1430 0040 00000000 		.4byte	0
+ 1431 0044 00000000 		.4byte	0
+ 1432              		.section	.debug_line,"",%progbits
+ 1433              	.Ldebug_line0:
+ 1434 0000 4A020000 		.section	.debug_str,"MS",%progbits,1
+ 1434      02008E01 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 30
 
 
- 1361 0018 9F       		.byte	0x9f
- 1362 0019 22000000 		.4byte	.LVL25
- 1363 001d 25000000 		.4byte	.LVL26-1
- 1364 0021 0100     		.2byte	0x1
- 1365 0023 50       		.byte	0x50
- 1366 0024 25000000 		.4byte	.LVL26-1
- 1367 0028 28000000 		.4byte	.LVL27
- 1368 002c 0400     		.2byte	0x4
- 1369 002e F3       		.byte	0xf3
- 1370 002f 01       		.uleb128 0x1
- 1371 0030 50       		.byte	0x50
- 1372 0031 9F       		.byte	0x9f
- 1373 0032 28000000 		.4byte	.LVL27
- 1374 0036 2B000000 		.4byte	.LVL28-1
- 1375 003a 0100     		.2byte	0x1
- 1376 003c 50       		.byte	0x50
- 1377 003d 2B000000 		.4byte	.LVL28-1
- 1378 0041 2E000000 		.4byte	.LVL29
- 1379 0045 0400     		.2byte	0x4
- 1380 0047 F3       		.byte	0xf3
- 1381 0048 01       		.uleb128 0x1
- 1382 0049 50       		.byte	0x50
- 1383 004a 9F       		.byte	0x9f
- 1384 004b 2E000000 		.4byte	.LVL29
- 1385 004f 31000000 		.4byte	.LVL30-1
- 1386 0053 0100     		.2byte	0x1
- 1387 0055 50       		.byte	0x50
- 1388 0056 31000000 		.4byte	.LVL30-1
- 1389 005a 34000000 		.4byte	.LVL31
- 1390 005e 0400     		.2byte	0x4
- 1391 0060 F3       		.byte	0xf3
- 1392 0061 01       		.uleb128 0x1
- 1393 0062 50       		.byte	0x50
- 1394 0063 9F       		.byte	0x9f
- 1395 0064 34000000 		.4byte	.LVL31
- 1396 0068 37000000 		.4byte	.LVL32-1
- 1397 006c 0100     		.2byte	0x1
- 1398 006e 50       		.byte	0x50
- 1399 006f 37000000 		.4byte	.LVL32-1
- 1400 0073 3A000000 		.4byte	.LFE65
- 1401 0077 0400     		.2byte	0x4
- 1402 0079 F3       		.byte	0xf3
- 1403 007a 01       		.uleb128 0x1
- 1404 007b 50       		.byte	0x50
- 1405 007c 9F       		.byte	0x9f
- 1406 007d 00000000 		.4byte	0
- 1407 0081 00000000 		.4byte	0
- 1408              	.LLST1:
- 1409 0085 08000000 		.4byte	.LVL34
- 1410 0089 1C000000 		.4byte	.LVL39
- 1411 008d 0100     		.2byte	0x1
- 1412 008f 54       		.byte	0x54
- 1413 0090 1E000000 		.4byte	.LVL40
- 1414 0094 24000000 		.4byte	.LFE64
- 1415 0098 0100     		.2byte	0x1
- 1416 009a 54       		.byte	0x54
- 1417 009b 00000000 		.4byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 30
+ 1434      00000201 
+ 1434      FB0E0D00 
+ 1434      01010101 
+ 1435              	.LASF31:
+ 1436 0000 6973725F 		.ascii	"isr_uart_rx_StartEx\000"
+ 1436      75617274 
+ 1436      5F72785F 
+ 1436      53746172 
+ 1436      74457800 
+ 1437              	.LASF32:
+ 1438 0014 55415254 		.ascii	"UART_1_Start\000"
+ 1438      5F315F53 
+ 1438      74617274 
+ 1438      00
+ 1439              	.LASF4:
+ 1440 0021 5F5F7569 		.ascii	"__uint8_t\000"
+ 1440      6E74385F 
+ 1440      7400
+ 1441              	.LASF36:
+ 1442 002b 50696E5F 		.ascii	"Pin_IN1_Write\000"
+ 1442      494E315F 
+ 1442      57726974 
+ 1442      6500
+ 1443              	.LASF5:
+ 1444 0039 5F5F696E 		.ascii	"__int32_t\000"
+ 1444      7433325F 
+ 1444      7400
+ 1445              	.LASF20:
+ 1446 0043 696E6372 		.ascii	"increaseSpeed\000"
+ 1446      65617365 
+ 1446      53706565 
+ 1446      6400
+ 1447              	.LASF3:
+ 1448 0051 73686F72 		.ascii	"short unsigned int\000"
+ 1448      7420756E 
+ 1448      7369676E 
+ 1448      65642069 
+ 1448      6E7400
+ 1449              	.LASF37:
+ 1450 0064 50696E5F 		.ascii	"Pin_IN2_Write\000"
+ 1450      494E325F 
+ 1450      57726974 
+ 1450      6500
+ 1451              	.LASF26:
+ 1452 0072 62797465 		.ascii	"bytesToRead\000"
+ 1452      73546F52 
+ 1452      65616400 
+ 1453              	.LASF14:
+ 1454 007e 666C6F61 		.ascii	"float\000"
+ 1454      7400
+ 1455              	.LASF1:
+ 1456 0084 756E7369 		.ascii	"unsigned char\000"
+ 1456      676E6564 
+ 1456      20636861 
+ 1456      7200
+ 1457              	.LASF41:
+ 1458 0092 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 31
 
 
- 1418 009f 00000000 		.4byte	0
- 1419              	.LLST2:
- 1420 00a3 10000000 		.4byte	.LVL36
- 1421 00a7 1E000000 		.4byte	.LVL40
- 1422 00ab 0100     		.2byte	0x1
- 1423 00ad 55       		.byte	0x55
- 1424 00ae 00000000 		.4byte	0
- 1425 00b2 00000000 		.4byte	0
- 1426              		.section	.debug_aranges,"",%progbits
- 1427 0000 54000000 		.4byte	0x54
- 1428 0004 0200     		.2byte	0x2
- 1429 0006 00000000 		.4byte	.Ldebug_info0
- 1430 000a 04       		.byte	0x4
- 1431 000b 00       		.byte	0
- 1432 000c 0000     		.2byte	0
- 1433 000e 0000     		.2byte	0
- 1434 0010 00000000 		.4byte	.LFB63
- 1435 0014 E4000000 		.4byte	.LFE63-.LFB63
- 1436 0018 00000000 		.4byte	.LFB66
- 1437 001c 18000000 		.4byte	.LFE66-.LFB66
- 1438 0020 00000000 		.4byte	.LFB67
- 1439 0024 18000000 		.4byte	.LFE67-.LFB67
- 1440 0028 00000000 		.4byte	.LFB68
- 1441 002c 28000000 		.4byte	.LFE68-.LFB68
- 1442 0030 00000000 		.4byte	.LFB69
- 1443 0034 28000000 		.4byte	.LFE69-.LFB69
- 1444 0038 00000000 		.4byte	.LFB70
- 1445 003c 18000000 		.4byte	.LFE70-.LFB70
- 1446 0040 00000000 		.4byte	.LFB65
- 1447 0044 3A000000 		.4byte	.LFE65-.LFB65
- 1448 0048 00000000 		.4byte	.LFB64
- 1449 004c 24000000 		.4byte	.LFE64-.LFB64
- 1450 0050 00000000 		.4byte	0
- 1451 0054 00000000 		.4byte	0
- 1452              		.section	.debug_ranges,"",%progbits
- 1453              	.Ldebug_ranges0:
- 1454 0000 00000000 		.4byte	.LFB63
- 1455 0004 E4000000 		.4byte	.LFE63
- 1456 0008 00000000 		.4byte	.LFB66
- 1457 000c 18000000 		.4byte	.LFE66
- 1458 0010 00000000 		.4byte	.LFB67
- 1459 0014 18000000 		.4byte	.LFE67
- 1460 0018 00000000 		.4byte	.LFB68
- 1461 001c 28000000 		.4byte	.LFE68
- 1462 0020 00000000 		.4byte	.LFB69
- 1463 0024 28000000 		.4byte	.LFE69
- 1464 0028 00000000 		.4byte	.LFB70
- 1465 002c 18000000 		.4byte	.LFE70
- 1466 0030 00000000 		.4byte	.LFB65
- 1467 0034 3A000000 		.4byte	.LFE65
- 1468 0038 00000000 		.4byte	.LFB64
- 1469 003c 24000000 		.4byte	.LFE64
- 1470 0040 00000000 		.4byte	0
- 1471 0044 00000000 		.4byte	0
- 1472              		.section	.debug_line,"",%progbits
- 1473              	.Ldebug_line0:
- 1474 0000 55020000 		.section	.debug_str,"MS",%progbits,1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 31
-
-
- 1474      02008E01 
- 1474      00000201 
- 1474      FB0E0D00 
- 1474      01010101 
- 1475              	.LASF31:
- 1476 0000 6973725F 		.ascii	"isr_uart_rx_StartEx\000"
- 1476      75617274 
- 1476      5F72785F 
- 1476      53746172 
- 1476      74457800 
- 1477              	.LASF32:
- 1478 0014 55415254 		.ascii	"UART_1_Start\000"
- 1478      5F315F53 
- 1478      74617274 
+ 1458      43313120 
+ 1458      352E342E 
+ 1458      31203230 
+ 1458      31363036 
+ 1459 00c5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1459      20726576 
+ 1459      6973696F 
+ 1459      6E203233 
+ 1459      37373135 
+ 1460 00f8 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1460      66756E63 
+ 1460      74696F6E 
+ 1460      2D736563 
+ 1460      74696F6E 
+ 1461              	.LASF25:
+ 1462 0120 4953525F 		.ascii	"ISR_UART_rx_handler\000"
+ 1462      55415254 
+ 1462      5F72785F 
+ 1462      68616E64 
+ 1462      6C657200 
+ 1463              	.LASF7:
+ 1464 0134 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1464      20756E73 
+ 1464      69676E65 
+ 1464      6420696E 
+ 1464      7400
+ 1465              	.LASF38:
+ 1466 0146 55415254 		.ascii	"UART_1_ReadRxData\000"
+ 1466      5F315F52 
+ 1466      65616452 
+ 1466      78446174 
+ 1466      6100
+ 1467              	.LASF33:
+ 1468 0158 50574D5F 		.ascii	"PWM_1_Start\000"
+ 1468      315F5374 
+ 1468      61727400 
+ 1469              	.LASF23:
+ 1470 0164 73746F70 		.ascii	"stop\000"
+ 1470      00
+ 1471              	.LASF28:
+ 1472 0169 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1472      52784275 
+ 1472      66666572 
+ 1472      00
+ 1473              	.LASF39:
+ 1474 0176 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 1474      5F315F57 
+ 1474      72697465 
+ 1474      54784461 
+ 1474      746100
+ 1475              	.LASF15:
+ 1476 0189 646F7562 		.ascii	"double\000"
+ 1476      6C6500
+ 1477              	.LASF44:
+ 1478 0190 6D61696E 		.ascii	"main\000"
  1478      00
- 1479              	.LASF4:
- 1480 0021 5F5F7569 		.ascii	"__uint8_t\000"
- 1480      6E74385F 
- 1480      7400
- 1481              	.LASF36:
- 1482 002b 50696E5F 		.ascii	"Pin_IN1_Write\000"
- 1482      494E315F 
- 1482      57726974 
- 1482      6500
- 1483              	.LASF5:
- 1484 0039 5F5F696E 		.ascii	"__int32_t\000"
- 1484      7433325F 
- 1484      7400
- 1485              	.LASF20:
- 1486 0043 696E6372 		.ascii	"increaseSpeed\000"
- 1486      65617365 
- 1486      53706565 
- 1486      6400
- 1487              	.LASF3:
- 1488 0051 73686F72 		.ascii	"short unsigned int\000"
- 1488      7420756E 
- 1488      7369676E 
- 1488      65642069 
- 1488      6E7400
- 1489              	.LASF37:
- 1490 0064 50696E5F 		.ascii	"Pin_IN2_Write\000"
- 1490      494E325F 
- 1490      57726974 
- 1490      6500
- 1491              	.LASF26:
- 1492 0072 62797465 		.ascii	"bytesToRead\000"
- 1492      73546F52 
- 1492      65616400 
- 1493              	.LASF14:
- 1494 007e 666C6F61 		.ascii	"float\000"
- 1494      7400
- 1495              	.LASF1:
- 1496 0084 756E7369 		.ascii	"unsigned char\000"
- 1496      676E6564 
- 1496      20636861 
- 1496      7200
- 1497              	.LASF41:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 32
+ 1479              	.LASF24:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 32
 
 
- 1498 0092 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1498      43313120 
- 1498      352E342E 
- 1498      31203230 
- 1498      31363036 
- 1499 00c5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1499      20726576 
- 1499      6973696F 
- 1499      6E203233 
- 1499      37373135 
- 1500 00f8 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1500      66756E63 
- 1500      74696F6E 
- 1500      2D736563 
- 1500      74696F6E 
- 1501              	.LASF25:
- 1502 0120 4953525F 		.ascii	"ISR_UART_rx_handler\000"
- 1502      55415254 
- 1502      5F72785F 
- 1502      68616E64 
- 1502      6C657200 
- 1503              	.LASF7:
- 1504 0134 6C6F6E67 		.ascii	"long unsigned int\000"
- 1504      20756E73 
- 1504      69676E65 
- 1504      6420696E 
- 1504      7400
- 1505              	.LASF38:
- 1506 0146 55415254 		.ascii	"UART_1_ReadRxData\000"
- 1506      5F315F52 
- 1506      65616452 
- 1506      78446174 
- 1506      6100
- 1507              	.LASF33:
- 1508 0158 50574D5F 		.ascii	"PWM_1_Start\000"
- 1508      315F5374 
- 1508      61727400 
- 1509              	.LASF23:
- 1510 0164 73746F70 		.ascii	"stop\000"
- 1510      00
- 1511              	.LASF28:
- 1512 0169 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1512      52784275 
- 1512      66666572 
- 1512      00
- 1513              	.LASF39:
- 1514 0176 55415254 		.ascii	"UART_1_WriteTxData\000"
- 1514      5F315F57 
- 1514      72697465 
- 1514      54784461 
- 1514      746100
- 1515              	.LASF15:
- 1516 0189 646F7562 		.ascii	"double\000"
- 1516      6C6500
- 1517              	.LASF44:
- 1518 0190 6D61696E 		.ascii	"main\000"
- 1518      00
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 33
+ 1480 0195 68616E64 		.ascii	"handleByteReceived\000"
+ 1480      6C654279 
+ 1480      74655265 
+ 1480      63656976 
+ 1480      656400
+ 1481              	.LASF43:
+ 1482 01a8 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\DC-Motor-P"
+ 1482      73657273 
+ 1482      5C53696D 
+ 1482      6F6E5C44 
+ 1482      65736B74 
+ 1483 01d6 574D2E63 		.ascii	"WM.cydsn\000"
+ 1483      7964736E 
+ 1483      00
+ 1484              	.LASF10:
+ 1485 01df 756E7369 		.ascii	"unsigned int\000"
+ 1485      676E6564 
+ 1485      20696E74 
+ 1485      00
+ 1486              	.LASF21:
+ 1487 01ec 64726976 		.ascii	"driveForwards\000"
+ 1487      65466F72 
+ 1487      77617264 
+ 1487      7300
+ 1488              	.LASF9:
+ 1489 01fa 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1489      206C6F6E 
+ 1489      6720756E 
+ 1489      7369676E 
+ 1489      65642069 
+ 1490              	.LASF11:
+ 1491 0211 75696E74 		.ascii	"uint8_t\000"
+ 1491      385F7400 
+ 1492              	.LASF40:
+ 1493 0219 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
+ 1493      5F315F47 
+ 1493      65745278 
+ 1493      42756666 
+ 1493      65725369 
+ 1494              	.LASF29:
+ 1495 0230 6D6F6465 		.ascii	"mode\000"
+ 1495      00
+ 1496              	.LASF30:
+ 1497 0235 63757272 		.ascii	"currentSpeed\000"
+ 1497      656E7453 
+ 1497      70656564 
+ 1497      00
+ 1498              	.LASF12:
+ 1499 0242 696E7433 		.ascii	"int32_t\000"
+ 1499      325F7400 
+ 1500              	.LASF22:
+ 1501 024a 64726976 		.ascii	"driveBackwards\000"
+ 1501      65426163 
+ 1501      6B776172 
+ 1501      647300
+ 1502              	.LASF35:
+ 1503 0259 50574D5F 		.ascii	"PWM_1_WriteCompare\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccldrQSU.s 			page 33
 
 
- 1519              	.LASF24:
- 1520 0195 68616E64 		.ascii	"handleByteReceived\000"
- 1520      6C654279 
- 1520      74655265 
- 1520      63656976 
- 1520      656400
- 1521              	.LASF43:
- 1522 01a8 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\DC-Motor-P"
- 1522      73657273 
- 1522      5C53696D 
- 1522      6F6E5C44 
- 1522      65736B74 
- 1523 01d6 574D2E63 		.ascii	"WM.cydsn\000"
- 1523      7964736E 
- 1523      00
- 1524              	.LASF10:
- 1525 01df 756E7369 		.ascii	"unsigned int\000"
- 1525      676E6564 
- 1525      20696E74 
+ 1503      315F5772 
+ 1503      69746543 
+ 1503      6F6D7061 
+ 1503      726500
+ 1504              	.LASF8:
+ 1505 026c 6C6F6E67 		.ascii	"long long int\000"
+ 1505      206C6F6E 
+ 1505      6720696E 
+ 1505      7400
+ 1506              	.LASF18:
+ 1507 027a 73697A65 		.ascii	"sizetype\000"
+ 1507      74797065 
+ 1507      00
+ 1508              	.LASF42:
+ 1509 0283 6D61696E 		.ascii	"main.c\000"
+ 1509      2E6300
+ 1510              	.LASF16:
+ 1511 028a 63686172 		.ascii	"char\000"
+ 1511      00
+ 1512              	.LASF19:
+ 1513 028f 64656372 		.ascii	"decreaseSpeed\000"
+ 1513      65617365 
+ 1513      53706565 
+ 1513      6400
+ 1514              	.LASF2:
+ 1515 029d 73686F72 		.ascii	"short int\000"
+ 1515      7420696E 
+ 1515      7400
+ 1516              	.LASF13:
+ 1517 02a7 75696E74 		.ascii	"uint8\000"
+ 1517      3800
+ 1518              	.LASF6:
+ 1519 02ad 6C6F6E67 		.ascii	"long int\000"
+ 1519      20696E74 
+ 1519      00
+ 1520              	.LASF17:
+ 1521 02b6 6C6F6E67 		.ascii	"long double\000"
+ 1521      20646F75 
+ 1521      626C6500 
+ 1522              	.LASF0:
+ 1523 02c2 7369676E 		.ascii	"signed char\000"
+ 1523      65642063 
+ 1523      68617200 
+ 1524              	.LASF34:
+ 1525 02ce 55415254 		.ascii	"UART_1_PutString\000"
+ 1525      5F315F50 
+ 1525      75745374 
+ 1525      72696E67 
  1525      00
- 1526              	.LASF21:
- 1527 01ec 64726976 		.ascii	"driveForwards\000"
- 1527      65466F72 
- 1527      77617264 
- 1527      7300
- 1528              	.LASF9:
- 1529 01fa 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1529      206C6F6E 
- 1529      6720756E 
- 1529      7369676E 
- 1529      65642069 
- 1530              	.LASF11:
- 1531 0211 75696E74 		.ascii	"uint8_t\000"
- 1531      385F7400 
- 1532              	.LASF40:
- 1533 0219 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
- 1533      5F315F47 
- 1533      65745278 
- 1533      42756666 
- 1533      65725369 
- 1534              	.LASF29:
- 1535 0230 6D6F6465 		.ascii	"mode\000"
- 1535      00
- 1536              	.LASF30:
- 1537 0235 63757272 		.ascii	"currentSpeed\000"
- 1537      656E7453 
- 1537      70656564 
- 1537      00
- 1538              	.LASF12:
- 1539 0242 696E7433 		.ascii	"int32_t\000"
- 1539      325F7400 
- 1540              	.LASF22:
- 1541 024a 64726976 		.ascii	"driveBackwards\000"
- 1541      65426163 
- 1541      6B776172 
- 1541      647300
- 1542              	.LASF35:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccWjbEAh.s 			page 34
-
-
- 1543 0259 50574D5F 		.ascii	"PWM_1_WriteCompare\000"
- 1543      315F5772 
- 1543      69746543 
- 1543      6F6D7061 
- 1543      726500
- 1544              	.LASF8:
- 1545 026c 6C6F6E67 		.ascii	"long long int\000"
- 1545      206C6F6E 
- 1545      6720696E 
- 1545      7400
- 1546              	.LASF18:
- 1547 027a 73697A65 		.ascii	"sizetype\000"
- 1547      74797065 
- 1547      00
- 1548              	.LASF42:
- 1549 0283 6D61696E 		.ascii	"main.c\000"
- 1549      2E6300
- 1550              	.LASF16:
- 1551 028a 63686172 		.ascii	"char\000"
- 1551      00
- 1552              	.LASF19:
- 1553 028f 64656372 		.ascii	"decreaseSpeed\000"
- 1553      65617365 
- 1553      53706565 
- 1553      6400
- 1554              	.LASF2:
- 1555 029d 73686F72 		.ascii	"short int\000"
- 1555      7420696E 
- 1555      7400
- 1556              	.LASF13:
- 1557 02a7 75696E74 		.ascii	"uint8\000"
- 1557      3800
- 1558              	.LASF6:
- 1559 02ad 6C6F6E67 		.ascii	"long int\000"
- 1559      20696E74 
- 1559      00
- 1560              	.LASF17:
- 1561 02b6 6C6F6E67 		.ascii	"long double\000"
- 1561      20646F75 
- 1561      626C6500 
- 1562              	.LASF0:
- 1563 02c2 7369676E 		.ascii	"signed char\000"
- 1563      65642063 
- 1563      68617200 
- 1564              	.LASF34:
- 1565 02ce 55415254 		.ascii	"UART_1_PutString\000"
- 1565      5F315F50 
- 1565      75745374 
- 1565      72696E67 
- 1565      00
- 1566              	.LASF27:
- 1567 02df 62797465 		.ascii	"byteReceived\000"
- 1567      52656365 
- 1567      69766564 
- 1567      00
- 1568              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1526              	.LASF27:
+ 1527 02df 62797465 		.ascii	"byteReceived\000"
+ 1527      52656365 
+ 1527      69766564 
+ 1527      00
+ 1528              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
