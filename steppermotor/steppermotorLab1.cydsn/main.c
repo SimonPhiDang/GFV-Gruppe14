@@ -33,8 +33,12 @@ typedef enum  // De mulige positioner
 {
     Position_A1,  // A
     Position_B1,  // B 
-    Position_A2,  //
-    Position_B2
+    Position_A2,  // A/
+    Position_B2,   // B/
+    Position_A1B1, // A+B
+    Position_B1A2, // B+A/
+    Position_A2B2, // A/+B/
+    Position_B2A1, // B/+A
 }Position;
 
 typedef enum  // Hvilken retning steppermotor skal køre
@@ -201,7 +205,7 @@ void status()
                     switch(currPos)   // Position
                     {
                         case Position_A1:   // Pin_1a ON HVID LEDNING
-                            UART_1_PutString("A");
+                            UART_1_PutString("1");
                             Pin_1a_Write(High);  
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(Low);                            
@@ -209,7 +213,7 @@ void status()
                             currPos = Position_B1;
                         break;
                         case Position_B1:  // Pin_1b ON BLÅ LEDNING
-                            UART_1_PutString("B");
+                            UART_1_PutString("2");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(High);                            
                             Pin_2a_Write(Low);                            
@@ -218,7 +222,7 @@ void status()
                         break;                                                     
                             
                         case Position_A2:  // Pin_2a ON RØD Ledning
-                            UART_1_PutString("A/");
+                            UART_1_PutString("3");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(High);                            
@@ -227,13 +231,17 @@ void status()
                         break;
                             
                         case Position_B2:  // Pin_2b ON GUL LEDNING
-                            UART_1_PutString("B/");
+                            UART_1_PutString("4");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);
                             Pin_2a_Write(Low);
                             Pin_2b_Write(High);
                             currPos = Position_A1;
-                        break;                
+                        break;
+                        default:
+                            {
+                            }
+                        break;
                     }
                             
                 break;
@@ -241,7 +249,7 @@ void status()
                     switch(currPos)   // Position
                     {
                             case Position_A1:
-                            UART_1_PutString("A");
+                            UART_1_PutString("1");
                             Pin_1a_Write(High);  
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(Low);                            
@@ -249,7 +257,7 @@ void status()
                             currPos = Position_B2;
                         break;
                         case Position_B2:  
-                            UART_1_PutString("B/");
+                            UART_1_PutString("4");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(Low);                            
@@ -258,7 +266,7 @@ void status()
                         break;                                                     
                             
                         case Position_A2: 
-                            UART_1_PutString("A/");
+                            UART_1_PutString("3");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(High);                            
@@ -267,13 +275,17 @@ void status()
                         break;
                             
                         case Position_B1:
-                            UART_1_PutString("B");
+                            UART_1_PutString("2");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(High);
                             Pin_2a_Write(Low);
                             Pin_2b_Write(Low);
                             currPos = Position_A1;
-                        break;                   
+                        break;
+                        default:
+                            {
+                            }
+                        break;                        
                     }
                 break;
             }
@@ -286,87 +298,245 @@ void status()
                         case Rotate_F:   
                             switch(currPos)   // Position
                             {
-                                case Position_A1:   // Pin_1a ON HVID LEDNING
-                                    UART_1_PutString("A+B");
+                                case Position_A1B1:   // Pin_1a ON HVID LEDNING
+                                    UART_1_PutString("1");
                                     Pin_1a_Write(High);  
                                     Pin_1b_Write(High);                            
                                     Pin_2a_Write(Low);                            
                                     Pin_2b_Write(Low);
-                                    currPos = Position_B1;
+                                    currPos = Position_B1A2;
                                 break;
-                                case Position_B1:  // Pin_1b ON BLÅ LEDNING
-                                    UART_1_PutString("B+A/");
+                                case Position_B1A2:  // Pin_1b ON BLÅ LEDNING
+                                    UART_1_PutString("2");
                                     Pin_1a_Write(Low);
                                     Pin_1b_Write(High);                            
                                     Pin_2a_Write(High);                            
                                     Pin_2b_Write(Low);
-                                    currPos = Position_A2;
+                                    currPos = Position_A2B2;
                                 break;                                                     
                                     
-                                case Position_A2:  // Pin_2a ON RØD Ledning
-                                    UART_1_PutString("A/+B/");
+                                case Position_A2B2:  // Pin_2a ON RØD Ledning
+                                    UART_1_PutString("3");
                                     Pin_1a_Write(Low);
                                     Pin_1b_Write(Low);                            
                                     Pin_2a_Write(High);                            
                                     Pin_2b_Write(High);
-                                    currPos = Position_B2;
+                                    currPos = Position_B2A1;
                                 break;
                                     
-                                case Position_B2:  // Pin_2b ON GUL LEDNING
-                                    UART_1_PutString("B/+A");
+                                case Position_B2A1:  // Pin_2b ON GUL LEDNING
+                                    UART_1_PutString("4");
                                     Pin_1a_Write(High);
                                     Pin_1b_Write(Low);
                                     Pin_2a_Write(Low);
                                     Pin_2b_Write(High);
-                                    currPos = Position_A1;
-                                break;                
+                                    currPos = Position_A1B1;
+                                break;
+                                default:
+                                    {
+                                    }
+                                break;
                             }
                                     
                         break;
                         case Rotate_B:
                             switch(currPos)   // Position
                             {
-                                    case Position_A1:
-                                    UART_1_PutString("A+B");
+                                    case Position_A1B1:
+                                    UART_1_PutString("1");
                                     Pin_1a_Write(High);  
                                     Pin_1b_Write(High);                            
                                     Pin_2a_Write(Low);                            
                                     Pin_2b_Write(Low);
-                                    currPos = Position_B2;
+                                    currPos = Position_B2A1;
                                 break;
-                                case Position_B2:  
-                                    UART_1_PutString("B/+A");
+                                case Position_B2A1:  
+                                    UART_1_PutString("4");
                                     Pin_1a_Write(High);
                                     Pin_1b_Write(Low);                            
                                     Pin_2a_Write(Low);                            
                                     Pin_2b_Write(High);
-                                    currPos = Position_A2;
+                                    currPos = Position_A2B2;
                                 break;                                                     
                                     
-                                case Position_A2: 
-                                    UART_1_PutString("A/+B/");
+                                case Position_A2B2: 
+                                    UART_1_PutString("3");
                                     Pin_1a_Write(Low);
                                     Pin_1b_Write(Low);                            
                                     Pin_2a_Write(High);                            
                                     Pin_2b_Write(High);
-                                    currPos = Position_B1;
+                                    currPos = Position_B1A2;
                                 break;
                                     
-                                case Position_B1:
-                                    UART_1_PutString("B+A/");
+                                case Position_B1A2:
+                                    UART_1_PutString("2");
                                     Pin_1a_Write(Low);
                                     Pin_1b_Write(High);
                                     Pin_2a_Write(High);
                                     Pin_2b_Write(Low);
-                                    currPos = Position_A1;
-                                break;                   
+                                    currPos = Position_A1B1;
+                                break;
+                                default:
+                                    {
+                                    }
+                                break;
                             }
                         break;
                     }        
         break;
         
         case Mode_HalfStep:
-        
+               switch(currRot)        // Retning
+                    {
+                        case Rotate_F:   
+                            switch(currPos)   // Position
+                            {
+                                case Position_A1:   // 1
+                                    UART_1_PutString("1");
+                                    Pin_1a_Write(High);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_A1B1;
+                                break;
+                                case Position_A1B1:   // 2
+                                    UART_1_PutString("2");
+                                    Pin_1a_Write(High);  
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_B1;
+                                break;
+                                    
+                                case Position_B1:   // 3
+                                    UART_1_PutString("3");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_B1A2; 
+                                break;    
+                                case Position_B1A2:  // 4
+                                    UART_1_PutString("4");
+                                    Pin_1a_Write(Low);
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_A2;
+                                break;                                                     
+                                case Position_A2:   // 5
+                                    UART_1_PutString("5");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_A2B2;
+                                break;    
+                                case Position_A2B2:  // 6
+                                    UART_1_PutString("6");
+                                    Pin_1a_Write(Low);
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(High);
+                                    currPos = Position_B2;
+                                break;
+                                case Position_B2:   // 7
+                                    UART_1_PutString("7");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(High);
+                                    currPos = Position_B2A1; 
+                                break;   
+                                case Position_B2A1:  // 8
+                                    UART_1_PutString("8");
+                                    Pin_1a_Write(High);
+                                    Pin_1b_Write(Low);
+                                    Pin_2a_Write(Low);
+                                    Pin_2b_Write(High);
+                                    currPos = Position_A1;
+                                break;      
+                                default:
+                                    {}
+                                break;
+                                      
+                            }
+                                    
+                        break;
+                        case Rotate_B:
+                            switch(currPos)   // Position
+                            {
+                                case Position_A1:   // 1
+                                    UART_1_PutString("1");
+                                    Pin_1a_Write(High);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_B2A1;
+                                break;
+                                case Position_A1B1:   // 2
+                                    UART_1_PutString("2");
+                                    Pin_1a_Write(High);  
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_A1;
+                                break;
+                                    
+                                case Position_B1:   // 3
+                                    UART_1_PutString("3");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_A1B1; 
+                                break;    
+                                case Position_B1A2:  // 4
+                                    UART_1_PutString("4");
+                                    Pin_1a_Write(Low);
+                                    Pin_1b_Write(High);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_B1;
+                                break;                                                     
+                                case Position_A2:   // 5
+                                    UART_1_PutString("5");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(Low);
+                                    currPos = Position_B1A2;
+                                break;    
+                                case Position_A2B2:  // 6
+                                    UART_1_PutString("6");
+                                    Pin_1a_Write(Low);
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(High);                            
+                                    Pin_2b_Write(High);
+                                    currPos = Position_A2;
+                                break;
+                                case Position_B2:   // 7
+                                    UART_1_PutString("7");
+                                    Pin_1a_Write(Low);  
+                                    Pin_1b_Write(Low);                            
+                                    Pin_2a_Write(Low);                            
+                                    Pin_2b_Write(High);
+                                    currPos = Position_A2B2;
+                                break;   
+                                case Position_B2A1:  // 8
+                                    UART_1_PutString("8");
+                                    Pin_1a_Write(High);
+                                    Pin_1b_Write(Low);
+                                    Pin_2a_Write(Low);
+                                    Pin_2b_Write(High);
+                                    currPos = Position_B2;
+                                break;
+                                default:
+                                    {}
+                                break;
+                            }
+                        break;
+                    }                
         break;
         
         case Mode_Stop:

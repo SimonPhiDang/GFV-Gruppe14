@@ -1,6 +1,6 @@
-C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\steppermotorLab1.cyprj|91cf90a9-dfa4-471d-a8fd-3064737257eb
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|0287e211-a680-4de7-b06e-cbd45d6c0a06
-C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|925fb517-9160-465e-aac5-c0a7da924a17
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|34391a07-723c-4afe-aa1e-01c629f75712
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|41f0b843-9f40-44d6-b7a3-069a2c748424
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|5ff0ac60-ef77-488d-ae3c-d971d606864a
+C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\steppermotorLab1.cyprj|b989ee94-5673-4d7e-b137-4c513727dacd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|dd9a2323-4c91-47f7-af28-56253bed69f2
+C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|019557c7-0a47-437c-85d5-8726c38c14cc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|b408efa3-b36e-442e-a316-36a6a2d8c5f3
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|9738942e-56d6-4874-93d8-65a3564a0b73
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|da37c39d-d605-4b74-9c4b-baedbf3b7c9e

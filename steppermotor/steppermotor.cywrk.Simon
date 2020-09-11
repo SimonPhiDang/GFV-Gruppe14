@@ -179,6 +179,15 @@
 <v>steppermotor\steppermotorLab1\PSoC 5LP Architecture TRM</v>
 <v>steppermotor\steppermotorLab1\CY8C58LP Family Datasheet</v>
 <v>steppermotor\steppermotorLab1\System Reference Guides</v>
+<v>steppermotor\steppermotorLab1\System Reference Guides\cy_boot_v5_90</v>
+<v>steppermotor\steppermotorLab1\cy_clock_v2_20.pdf</v>
+<v>steppermotor\steppermotorLab1\cy_isr_v1_70</v>
+<v>steppermotor\steppermotorLab1\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>steppermotor\steppermotorLab1\cy_pins_v2_20</v>
+<v>steppermotor\steppermotorLab1\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>steppermotor\steppermotorLab1\Timer_v2_80.pdf</v>
+<v>steppermotor\steppermotorLab1\UART_v2_50.pdf</v>
+<v>steppermotor\steppermotorLab1\ZeroTerminal.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>steppermotor</v>
@@ -186,6 +195,15 @@
 <v>steppermotor\steppermotorLab1\PSoC 5LP Architecture TRM</v>
 <v>steppermotor\steppermotorLab1\CY8C58LP Family Datasheet</v>
 <v>steppermotor\steppermotorLab1\System Reference Guides</v>
+<v>steppermotor\steppermotorLab1\System Reference Guides\cy_boot_v5_90</v>
+<v>steppermotor\steppermotorLab1\cy_clock_v2_20.pdf</v>
+<v>steppermotor\steppermotorLab1\cy_isr_v1_70</v>
+<v>steppermotor\steppermotorLab1\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>steppermotor\steppermotorLab1\cy_pins_v2_20</v>
+<v>steppermotor\steppermotorLab1\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>steppermotor\steppermotorLab1\Timer_v2_80.pdf</v>
+<v>steppermotor\steppermotorLab1\UART_v2_50.pdf</v>
+<v>steppermotor\steppermotorLab1\ZeroTerminal.pdf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -195,10 +213,7 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\steppermotorLab1.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\steppermotorLab1.cydsn\main.c" />
-<name v=".\steppermotorLab1.cydsn\steppermotorLab1.cydwr" />
-<name v=".\steppermotorLab1.cydsn\cyapicallbacks.h" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -206,7 +221,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="d4322b3a-e384-4d82-9bac-d49f7cce5af6"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\TopDesign\TopDesign.cysch" Guid="ac1221bd-6c1f-43d0-bf8f-b3e077028115" /><DocumentWindow Key="C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\main.c" Guid="d4322b3a-e384-4d82-9bac-d49f7cce5af6" /><DocumentWindow Key="C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\steppermotorLab1.cydwr" Guid="fcb8ad29-37ab-489f-8362-019e3fddc96a" /><DocumentWindow Key="C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\cyapicallbacks.h" Guid="67dd7af7-5ae7-4c7f-8baa-8f7a68c80d50" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="2607d91a-c900-43ed-b19a-7ca691e6140f"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\main.c" Guid="2607d91a-c900-43ed-b19a-7ca691e6140f" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
