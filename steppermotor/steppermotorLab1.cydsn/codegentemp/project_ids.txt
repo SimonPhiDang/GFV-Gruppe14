@@ -1,0 +1,6 @@
+C:\Users\Simon\Documents\PSoC Creator\steppermotor\steppermotorLab1.cydsn\steppermotorLab1.cyprj|91cf90a9-dfa4-471d-a8fd-3064737257eb
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|0287e211-a680-4de7-b06e-cbd45d6c0a06
+C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|925fb517-9160-465e-aac5-c0a7da924a17
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|34391a07-723c-4afe-aa1e-01c629f75712
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|41f0b843-9f40-44d6-b7a3-069a2c748424
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|5ff0ac60-ef77-488d-ae3c-d971d606864a

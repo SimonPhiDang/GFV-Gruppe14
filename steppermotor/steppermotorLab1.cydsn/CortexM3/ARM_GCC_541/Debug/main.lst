@@ -1,0 +1,3646 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** CY_ISR_PROTO(ISR_UART_rx_handler);
+  15:main.c        **** CY_ISR_PROTO(ISR_timer_handler);
+  16:main.c        **** void handleByteReceived(uint8_t byteReceived);
+  17:main.c        **** 
+  18:main.c        **** void WaveDrive(), FullStep(), HalfStep(), Stop(), status(),
+  19:main.c        **** skiftRet(),increaseSpeed(),decreaseSpeed();
+  20:main.c        **** 
+  21:main.c        **** uint8 High = 1, Low = 0;
+  22:main.c        **** uint16 timerCount = 0;
+  23:main.c        **** uint16 timerInterrupt = 1000;
+  24:main.c        **** typedef enum  // Forskellige Modes
+  25:main.c        **** {
+  26:main.c        ****     Mode_WaveDrive,
+  27:main.c        ****     Mode_FullStep,
+  28:main.c        ****     Mode_HalfStep,
+  29:main.c        ****     Mode_Stop
+  30:main.c        **** }Mode;
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 2
+
+
+  31:main.c        **** 
+  32:main.c        **** typedef enum  // De mulige positioner
+  33:main.c        **** {
+  34:main.c        ****     Position_A1,
+  35:main.c        ****     Position_A2,
+  36:main.c        ****     Position_B1,
+  37:main.c        ****     Position_B2
+  38:main.c        **** }Position;
+  39:main.c        **** 
+  40:main.c        **** typedef enum  // Hvilken retning steppermotor skal køre
+  41:main.c        **** {
+  42:main.c        ****    Rotate_F,
+  43:main.c        ****    Rotate_B
+  44:main.c        **** }Rotate;
+  45:main.c        **** 
+  46:main.c        **** static Mode modeChosen;
+  47:main.c        **** static Rotate currRot = Rotate_F;
+  48:main.c        **** static Position currPos = Position_A1;
+  49:main.c        **** 
+  50:main.c        **** int main(void)
+  51:main.c        **** {
+  28              		.loc 1 51 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  52:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  37              		.loc 1 52 0
+  38              		.syntax unified
+  39              	@ 52 "main.c" 1
+  40 0002 62B6     		CPSIE   i
+  41              	@ 0 "" 2
+  53:main.c        **** 
+  54:main.c        ****     isr_uart_rx_StartEx(ISR_UART_rx_handler);
+  42              		.loc 1 54 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0004 1148     		ldr	r0, .L4
+  46 0006 FFF7FEFF 		bl	isr_uart_rx_StartEx
+  47              	.LVL0:
+  55:main.c        ****     isr_timer_StartEx(ISR_timer_handler);
+  48              		.loc 1 55 0
+  49 000a 1148     		ldr	r0, .L4+4
+  50 000c FFF7FEFF 		bl	isr_timer_StartEx
+  51              	.LVL1:
+  56:main.c        ****     
+  57:main.c        ****     UART_1_Start();
+  52              		.loc 1 57 0
+  53 0010 FFF7FEFF 		bl	UART_1_Start
+  54              	.LVL2:
+  58:main.c        ****     Timer_1_Start();
+  55              		.loc 1 58 0
+  56 0014 FFF7FEFF 		bl	Timer_1_Start
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 3
+
+
+  57              	.LVL3:
+  59:main.c        ****     
+  60:main.c        ****     UART_1_PutString("DC-Motor-PWM application started\r\n");
+  58              		.loc 1 60 0
+  59 0018 0E48     		ldr	r0, .L4+8
+  60 001a FFF7FEFF 		bl	UART_1_PutString
+  61              	.LVL4:
+  61:main.c        ****     UART_1_PutString("1: WaveDrive\r\n");
+  62              		.loc 1 61 0
+  63 001e 0E48     		ldr	r0, .L4+12
+  64 0020 FFF7FEFF 		bl	UART_1_PutString
+  65              	.LVL5:
+  62:main.c        ****     UART_1_PutString("2: FullStep\r\n");
+  66              		.loc 1 62 0
+  67 0024 0D48     		ldr	r0, .L4+16
+  68 0026 FFF7FEFF 		bl	UART_1_PutString
+  69              	.LVL6:
+  63:main.c        ****     UART_1_PutString("3: HalfStep\r\n");
+  70              		.loc 1 63 0
+  71 002a 0D48     		ldr	r0, .L4+20
+  72 002c FFF7FEFF 		bl	UART_1_PutString
+  73              	.LVL7:
+  64:main.c        ****     UART_1_PutString("4: Stop\r\n");
+  74              		.loc 1 64 0
+  75 0030 0C48     		ldr	r0, .L4+24
+  76 0032 FFF7FEFF 		bl	UART_1_PutString
+  77              	.LVL8:
+  65:main.c        ****     UART_1_PutString("5: Rotate\r\n");
+  78              		.loc 1 65 0
+  79 0036 0C48     		ldr	r0, .L4+28
+  80 0038 FFF7FEFF 		bl	UART_1_PutString
+  81              	.LVL9:
+  66:main.c        ****     UART_1_PutString("q: Increase speed\r\n");
+  82              		.loc 1 66 0
+  83 003c 0B48     		ldr	r0, .L4+32
+  84 003e FFF7FEFF 		bl	UART_1_PutString
+  85              	.LVL10:
+  67:main.c        ****     UART_1_PutString("w: Decrease speed\r\n");    
+  86              		.loc 1 67 0
+  87 0042 0B48     		ldr	r0, .L4+36
+  88 0044 FFF7FEFF 		bl	UART_1_PutString
+  89              	.LVL11:
+  90              	.L2:
+  91 0048 FEE7     		b	.L2
+  92              	.L5:
+  93 004a 00BF     		.align	2
+  94              	.L4:
+  95 004c 00000000 		.word	ISR_UART_rx_handler
+  96 0050 00000000 		.word	ISR_timer_handler
+  97 0054 00000000 		.word	.LC0
+  98 0058 24000000 		.word	.LC1
+  99 005c 34000000 		.word	.LC2
+ 100 0060 44000000 		.word	.LC3
+ 101 0064 54000000 		.word	.LC4
+ 102 0068 60000000 		.word	.LC5
+ 103 006c 6C000000 		.word	.LC6
+ 104 0070 80000000 		.word	.LC7
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 4
+
+
+ 105              		.cfi_endproc
+ 106              	.LFE63:
+ 107              		.size	main, .-main
+ 108              		.section	.text.WaveDrive,"ax",%progbits
+ 109              		.align	2
+ 110              		.global	WaveDrive
+ 111              		.thumb
+ 112              		.thumb_func
+ 113              		.type	WaveDrive, %function
+ 114              	WaveDrive:
+ 115              	.LFB67:
+  68:main.c        ****     for(;;)
+  69:main.c        ****     {}
+  70:main.c        **** }
+  71:main.c        **** 
+  72:main.c        **** CY_ISR(ISR_timer_handler)
+  73:main.c        **** {
+  74:main.c        ****    timerCount++;
+  75:main.c        ****     if(timerCount == timerInterrupt)
+  76:main.c        ****     {
+  77:main.c        ****         status();
+  78:main.c        ****         timerCount = 0; 
+  79:main.c        ****         
+  80:main.c        ****     }
+  81:main.c        **** }
+  82:main.c        **** 
+  83:main.c        **** CY_ISR(ISR_UART_rx_handler)
+  84:main.c        **** {
+  85:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+  86:main.c        ****     while (bytesToRead > 0)
+  87:main.c        ****     {
+  88:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();
+  89:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+  90:main.c        ****         
+  91:main.c        ****         handleByteReceived(byteReceived);
+  92:main.c        ****         
+  93:main.c        ****         bytesToRead--;
+  94:main.c        ****     }
+  95:main.c        **** }
+  96:main.c        **** 
+  97:main.c        **** void handleByteReceived(uint8_t byteReceived)
+  98:main.c        **** {
+  99:main.c        ****     switch(byteReceived)
+ 100:main.c        ****     {
+ 101:main.c        ****         case '1' :
+ 102:main.c        ****         {
+ 103:main.c        ****             WaveDrive(); 
+ 104:main.c        ****         }
+ 105:main.c        ****         break;
+ 106:main.c        ****         case '2' :
+ 107:main.c        ****         {
+ 108:main.c        ****             FullStep();
+ 109:main.c        ****         }
+ 110:main.c        ****         break;
+ 111:main.c        ****         case '3' :
+ 112:main.c        ****         {
+ 113:main.c        ****             HalfStep();
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 5
+
+
+ 114:main.c        ****         }
+ 115:main.c        ****         break;
+ 116:main.c        ****         case '4' :
+ 117:main.c        ****         {
+ 118:main.c        ****             Stop();
+ 119:main.c        ****         }
+ 120:main.c        ****         break;
+ 121:main.c        ****         case '5' :
+ 122:main.c        ****         {
+ 123:main.c        ****              skiftRet();  
+ 124:main.c        ****         }
+ 125:main.c        ****         case 'q' :
+ 126:main.c        ****         {
+ 127:main.c        ****             increaseSpeed();               
+ 128:main.c        ****         }
+ 129:main.c        ****         case 'w' :
+ 130:main.c        ****         {
+ 131:main.c        ****             decreaseSpeed();   
+ 132:main.c        ****         }
+ 133:main.c        ****         default :
+ 134:main.c        ****         {
+ 135:main.c        ****             // nothing
+ 136:main.c        ****         }
+ 137:main.c        ****         break;
+ 138:main.c        ****     }
+ 139:main.c        **** }
+ 140:main.c        **** 
+ 141:main.c        **** void WaveDrive()
+ 142:main.c        **** {
+ 116              		.loc 1 142 0
+ 117              		.cfi_startproc
+ 118              		@ args = 0, pretend = 0, frame = 0
+ 119              		@ frame_needed = 0, uses_anonymous_args = 0
+ 120 0000 08B5     		push	{r3, lr}
+ 121              		.cfi_def_cfa_offset 8
+ 122              		.cfi_offset 3, -8
+ 123              		.cfi_offset 14, -4
+ 143:main.c        ****     UART_1_PutString("WaveDrive");
+ 124              		.loc 1 143 0
+ 125 0002 0348     		ldr	r0, .L8
+ 126 0004 FFF7FEFF 		bl	UART_1_PutString
+ 127              	.LVL12:
+ 144:main.c        ****     modeChosen = Mode_WaveDrive;
+ 128              		.loc 1 144 0
+ 129 0008 0022     		movs	r2, #0
+ 130 000a 024B     		ldr	r3, .L8+4
+ 131 000c 1A70     		strb	r2, [r3]
+ 132 000e 08BD     		pop	{r3, pc}
+ 133              	.L9:
+ 134              		.align	2
+ 135              	.L8:
+ 136 0010 94000000 		.word	.LC8
+ 137 0014 00000000 		.word	.LANCHOR0
+ 138              		.cfi_endproc
+ 139              	.LFE67:
+ 140              		.size	WaveDrive, .-WaveDrive
+ 141              		.section	.text.FullStep,"ax",%progbits
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 6
+
+
+ 142              		.align	2
+ 143              		.global	FullStep
+ 144              		.thumb
+ 145              		.thumb_func
+ 146              		.type	FullStep, %function
+ 147              	FullStep:
+ 148              	.LFB68:
+ 145:main.c        **** }
+ 146:main.c        **** 
+ 147:main.c        **** void FullStep()
+ 148:main.c        **** {
+ 149              		.loc 1 148 0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 0
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 153 0000 08B5     		push	{r3, lr}
+ 154              		.cfi_def_cfa_offset 8
+ 155              		.cfi_offset 3, -8
+ 156              		.cfi_offset 14, -4
+ 149:main.c        ****     UART_1_PutString("FullStep");
+ 157              		.loc 1 149 0
+ 158 0002 0348     		ldr	r0, .L12
+ 159 0004 FFF7FEFF 		bl	UART_1_PutString
+ 160              	.LVL13:
+ 150:main.c        ****     modeChosen = Mode_FullStep;
+ 161              		.loc 1 150 0
+ 162 0008 0122     		movs	r2, #1
+ 163 000a 024B     		ldr	r3, .L12+4
+ 164 000c 1A70     		strb	r2, [r3]
+ 165 000e 08BD     		pop	{r3, pc}
+ 166              	.L13:
+ 167              		.align	2
+ 168              	.L12:
+ 169 0010 A0000000 		.word	.LC9
+ 170 0014 00000000 		.word	.LANCHOR0
+ 171              		.cfi_endproc
+ 172              	.LFE68:
+ 173              		.size	FullStep, .-FullStep
+ 174              		.section	.text.HalfStep,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	HalfStep
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.type	HalfStep, %function
+ 180              	HalfStep:
+ 181              	.LFB69:
+ 151:main.c        **** }
+ 152:main.c        **** 
+ 153:main.c        **** void HalfStep()
+ 154:main.c        **** {
+ 182              		.loc 1 154 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186 0000 08B5     		push	{r3, lr}
+ 187              		.cfi_def_cfa_offset 8
+ 188              		.cfi_offset 3, -8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 7
+
+
+ 189              		.cfi_offset 14, -4
+ 155:main.c        ****     UART_1_PutString("HalfStep");
+ 190              		.loc 1 155 0
+ 191 0002 0348     		ldr	r0, .L16
+ 192 0004 FFF7FEFF 		bl	UART_1_PutString
+ 193              	.LVL14:
+ 156:main.c        ****     modeChosen = Mode_HalfStep;
+ 194              		.loc 1 156 0
+ 195 0008 0222     		movs	r2, #2
+ 196 000a 024B     		ldr	r3, .L16+4
+ 197 000c 1A70     		strb	r2, [r3]
+ 198 000e 08BD     		pop	{r3, pc}
+ 199              	.L17:
+ 200              		.align	2
+ 201              	.L16:
+ 202 0010 AC000000 		.word	.LC10
+ 203 0014 00000000 		.word	.LANCHOR0
+ 204              		.cfi_endproc
+ 205              	.LFE69:
+ 206              		.size	HalfStep, .-HalfStep
+ 207              		.section	.text.Stop,"ax",%progbits
+ 208              		.align	2
+ 209              		.global	Stop
+ 210              		.thumb
+ 211              		.thumb_func
+ 212              		.type	Stop, %function
+ 213              	Stop:
+ 214              	.LFB70:
+ 157:main.c        **** }
+ 158:main.c        **** 
+ 159:main.c        **** void Stop()
+ 160:main.c        **** {
+ 215              		.loc 1 160 0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219 0000 08B5     		push	{r3, lr}
+ 220              		.cfi_def_cfa_offset 8
+ 221              		.cfi_offset 3, -8
+ 222              		.cfi_offset 14, -4
+ 161:main.c        ****     UART_1_PutString("Stop");
+ 223              		.loc 1 161 0
+ 224 0002 0348     		ldr	r0, .L20
+ 225 0004 FFF7FEFF 		bl	UART_1_PutString
+ 226              	.LVL15:
+ 162:main.c        ****     modeChosen = Mode_Stop;
+ 227              		.loc 1 162 0
+ 228 0008 0322     		movs	r2, #3
+ 229 000a 024B     		ldr	r3, .L20+4
+ 230 000c 1A70     		strb	r2, [r3]
+ 231 000e 08BD     		pop	{r3, pc}
+ 232              	.L21:
+ 233              		.align	2
+ 234              	.L20:
+ 235 0010 B8000000 		.word	.LC11
+ 236 0014 00000000 		.word	.LANCHOR0
+ 237              		.cfi_endproc
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 8
+
+
+ 238              	.LFE70:
+ 239              		.size	Stop, .-Stop
+ 240              		.section	.text.skiftRet,"ax",%progbits
+ 241              		.align	2
+ 242              		.global	skiftRet
+ 243              		.thumb
+ 244              		.thumb_func
+ 245              		.type	skiftRet, %function
+ 246              	skiftRet:
+ 247              	.LFB71:
+ 163:main.c        **** }
+ 164:main.c        **** 
+ 165:main.c        **** void skiftRet()
+ 166:main.c        **** {
+ 248              		.loc 1 166 0
+ 249              		.cfi_startproc
+ 250              		@ args = 0, pretend = 0, frame = 0
+ 251              		@ frame_needed = 0, uses_anonymous_args = 0
+ 252              		@ link register save eliminated.
+ 167:main.c        ****     if(currRot == Rotate_F)
+ 253              		.loc 1 167 0
+ 254 0000 054B     		ldr	r3, .L25
+ 255 0002 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 256 0004 1BB9     		cbnz	r3, .L23
+ 168:main.c        ****     {
+ 169:main.c        ****         currRot = Rotate_B;
+ 257              		.loc 1 169 0
+ 258 0006 0122     		movs	r2, #1
+ 259 0008 034B     		ldr	r3, .L25
+ 260 000a 5A70     		strb	r2, [r3, #1]
+ 261 000c 7047     		bx	lr
+ 262              	.L23:
+ 170:main.c        ****     }
+ 171:main.c        ****     else
+ 172:main.c        ****     {
+ 173:main.c        ****         currRot = Rotate_F;   
+ 263              		.loc 1 173 0
+ 264 000e 0022     		movs	r2, #0
+ 265 0010 014B     		ldr	r3, .L25
+ 266 0012 5A70     		strb	r2, [r3, #1]
+ 267 0014 7047     		bx	lr
+ 268              	.L26:
+ 269 0016 00BF     		.align	2
+ 270              	.L25:
+ 271 0018 00000000 		.word	.LANCHOR0
+ 272              		.cfi_endproc
+ 273              	.LFE71:
+ 274              		.size	skiftRet, .-skiftRet
+ 275              		.section	.text.increaseSpeed,"ax",%progbits
+ 276              		.align	2
+ 277              		.global	increaseSpeed
+ 278              		.thumb
+ 279              		.thumb_func
+ 280              		.type	increaseSpeed, %function
+ 281              	increaseSpeed:
+ 282              	.LFB72:
+ 174:main.c        ****     }
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 9
+
+
+ 175:main.c        **** }
+ 176:main.c        **** 
+ 177:main.c        **** void increaseSpeed()
+ 178:main.c        **** {
+ 283              		.loc 1 178 0
+ 284              		.cfi_startproc
+ 285              		@ args = 0, pretend = 0, frame = 0
+ 286              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287              		@ link register save eliminated.
+ 179:main.c        ****     if(timerInterrupt >= 0 && timerInterrupt < 5000)
+ 288              		.loc 1 179 0
+ 289 0000 044B     		ldr	r3, .L29
+ 290 0002 1B88     		ldrh	r3, [r3]
+ 291 0004 41F28732 		movw	r2, #4999
+ 292 0008 9342     		cmp	r3, r2
+ 293 000a 02D8     		bhi	.L27
+ 180:main.c        ****     {
+ 181:main.c        ****         timerInterrupt = timerInterrupt + 250;
+ 294              		.loc 1 181 0
+ 295 000c FA33     		adds	r3, r3, #250
+ 296 000e 014A     		ldr	r2, .L29
+ 297 0010 1380     		strh	r3, [r2]	@ movhi
+ 298              	.L27:
+ 299 0012 7047     		bx	lr
+ 300              	.L30:
+ 301              		.align	2
+ 302              	.L29:
+ 303 0014 00000000 		.word	.LANCHOR1
+ 304              		.cfi_endproc
+ 305              	.LFE72:
+ 306              		.size	increaseSpeed, .-increaseSpeed
+ 307              		.section	.text.decreaseSpeed,"ax",%progbits
+ 308              		.align	2
+ 309              		.global	decreaseSpeed
+ 310              		.thumb
+ 311              		.thumb_func
+ 312              		.type	decreaseSpeed, %function
+ 313              	decreaseSpeed:
+ 314              	.LFB73:
+ 182:main.c        ****     }
+ 183:main.c        **** }
+ 184:main.c        **** 
+ 185:main.c        **** void decreaseSpeed()
+ 186:main.c        **** {
+ 315              		.loc 1 186 0
+ 316              		.cfi_startproc
+ 317              		@ args = 0, pretend = 0, frame = 0
+ 318              		@ frame_needed = 0, uses_anonymous_args = 0
+ 319              		@ link register save eliminated.
+ 187:main.c        ****     if(timerInterrupt > 0 && timerInterrupt <= 5000)
+ 320              		.loc 1 187 0
+ 321 0000 054B     		ldr	r3, .L33
+ 322 0002 1A88     		ldrh	r2, [r3]
+ 323 0004 531E     		subs	r3, r2, #1
+ 324 0006 9BB2     		uxth	r3, r3
+ 325 0008 41F28731 		movw	r1, #4999
+ 326 000c 8B42     		cmp	r3, r1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 10
+
+
+ 327 000e 02D8     		bhi	.L31
+ 188:main.c        ****     {
+ 189:main.c        ****         timerInterrupt = timerInterrupt - 250;
+ 328              		.loc 1 189 0
+ 329 0010 FA3A     		subs	r2, r2, #250
+ 330 0012 014B     		ldr	r3, .L33
+ 331 0014 1A80     		strh	r2, [r3]	@ movhi
+ 332              	.L31:
+ 333 0016 7047     		bx	lr
+ 334              	.L34:
+ 335              		.align	2
+ 336              	.L33:
+ 337 0018 00000000 		.word	.LANCHOR1
+ 338              		.cfi_endproc
+ 339              	.LFE73:
+ 340              		.size	decreaseSpeed, .-decreaseSpeed
+ 341              		.section	.text.handleByteReceived,"ax",%progbits
+ 342              		.align	2
+ 343              		.global	handleByteReceived
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.type	handleByteReceived, %function
+ 347              	handleByteReceived:
+ 348              	.LFB66:
+  98:main.c        ****     switch(byteReceived)
+ 349              		.loc 1 98 0
+ 350              		.cfi_startproc
+ 351              		@ args = 0, pretend = 0, frame = 0
+ 352              		@ frame_needed = 0, uses_anonymous_args = 0
+ 353              	.LVL16:
+ 354 0000 08B5     		push	{r3, lr}
+ 355              		.cfi_def_cfa_offset 8
+ 356              		.cfi_offset 3, -8
+ 357              		.cfi_offset 14, -4
+  99:main.c        ****     {
+ 358              		.loc 1 99 0
+ 359 0002 3138     		subs	r0, r0, #49
+ 360              	.LVL17:
+ 361 0004 4628     		cmp	r0, #70
+ 362 0006 37D8     		bhi	.L35
+ 363 0008 DFE800F0 		tbb	[pc, r0]
+ 364              	.L38:
+ 365 000c 24       		.byte	(.L37-.L38)/2
+ 366 000d 27       		.byte	(.L39-.L38)/2
+ 367 000e 2A       		.byte	(.L40-.L38)/2
+ 368 000f 2D       		.byte	(.L41-.L38)/2
+ 369 0010 30       		.byte	(.L42-.L38)/2
+ 370 0011 36       		.byte	(.L35-.L38)/2
+ 371 0012 36       		.byte	(.L35-.L38)/2
+ 372 0013 36       		.byte	(.L35-.L38)/2
+ 373 0014 36       		.byte	(.L35-.L38)/2
+ 374 0015 36       		.byte	(.L35-.L38)/2
+ 375 0016 36       		.byte	(.L35-.L38)/2
+ 376 0017 36       		.byte	(.L35-.L38)/2
+ 377 0018 36       		.byte	(.L35-.L38)/2
+ 378 0019 36       		.byte	(.L35-.L38)/2
+ 379 001a 36       		.byte	(.L35-.L38)/2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 11
+
+
+ 380 001b 36       		.byte	(.L35-.L38)/2
+ 381 001c 36       		.byte	(.L35-.L38)/2
+ 382 001d 36       		.byte	(.L35-.L38)/2
+ 383 001e 36       		.byte	(.L35-.L38)/2
+ 384 001f 36       		.byte	(.L35-.L38)/2
+ 385 0020 36       		.byte	(.L35-.L38)/2
+ 386 0021 36       		.byte	(.L35-.L38)/2
+ 387 0022 36       		.byte	(.L35-.L38)/2
+ 388 0023 36       		.byte	(.L35-.L38)/2
+ 389 0024 36       		.byte	(.L35-.L38)/2
+ 390 0025 36       		.byte	(.L35-.L38)/2
+ 391 0026 36       		.byte	(.L35-.L38)/2
+ 392 0027 36       		.byte	(.L35-.L38)/2
+ 393 0028 36       		.byte	(.L35-.L38)/2
+ 394 0029 36       		.byte	(.L35-.L38)/2
+ 395 002a 36       		.byte	(.L35-.L38)/2
+ 396 002b 36       		.byte	(.L35-.L38)/2
+ 397 002c 36       		.byte	(.L35-.L38)/2
+ 398 002d 36       		.byte	(.L35-.L38)/2
+ 399 002e 36       		.byte	(.L35-.L38)/2
+ 400 002f 36       		.byte	(.L35-.L38)/2
+ 401 0030 36       		.byte	(.L35-.L38)/2
+ 402 0031 36       		.byte	(.L35-.L38)/2
+ 403 0032 36       		.byte	(.L35-.L38)/2
+ 404 0033 36       		.byte	(.L35-.L38)/2
+ 405 0034 36       		.byte	(.L35-.L38)/2
+ 406 0035 36       		.byte	(.L35-.L38)/2
+ 407 0036 36       		.byte	(.L35-.L38)/2
+ 408 0037 36       		.byte	(.L35-.L38)/2
+ 409 0038 36       		.byte	(.L35-.L38)/2
+ 410 0039 36       		.byte	(.L35-.L38)/2
+ 411 003a 36       		.byte	(.L35-.L38)/2
+ 412 003b 36       		.byte	(.L35-.L38)/2
+ 413 003c 36       		.byte	(.L35-.L38)/2
+ 414 003d 36       		.byte	(.L35-.L38)/2
+ 415 003e 36       		.byte	(.L35-.L38)/2
+ 416 003f 36       		.byte	(.L35-.L38)/2
+ 417 0040 36       		.byte	(.L35-.L38)/2
+ 418 0041 36       		.byte	(.L35-.L38)/2
+ 419 0042 36       		.byte	(.L35-.L38)/2
+ 420 0043 36       		.byte	(.L35-.L38)/2
+ 421 0044 36       		.byte	(.L35-.L38)/2
+ 422 0045 36       		.byte	(.L35-.L38)/2
+ 423 0046 36       		.byte	(.L35-.L38)/2
+ 424 0047 36       		.byte	(.L35-.L38)/2
+ 425 0048 36       		.byte	(.L35-.L38)/2
+ 426 0049 36       		.byte	(.L35-.L38)/2
+ 427 004a 36       		.byte	(.L35-.L38)/2
+ 428 004b 36       		.byte	(.L35-.L38)/2
+ 429 004c 32       		.byte	(.L43-.L38)/2
+ 430 004d 36       		.byte	(.L35-.L38)/2
+ 431 004e 36       		.byte	(.L35-.L38)/2
+ 432 004f 36       		.byte	(.L35-.L38)/2
+ 433 0050 36       		.byte	(.L35-.L38)/2
+ 434 0051 36       		.byte	(.L35-.L38)/2
+ 435 0052 34       		.byte	(.L44-.L38)/2
+ 436 0053 00       		.p2align 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 12
+
+
+ 437              	.L37:
+ 103:main.c        ****         }
+ 438              		.loc 1 103 0
+ 439 0054 FFF7FEFF 		bl	WaveDrive
+ 440              	.LVL18:
+ 105:main.c        ****         case '2' :
+ 441              		.loc 1 105 0
+ 442 0058 08BD     		pop	{r3, pc}
+ 443              	.L39:
+ 108:main.c        ****         }
+ 444              		.loc 1 108 0
+ 445 005a FFF7FEFF 		bl	FullStep
+ 446              	.LVL19:
+ 110:main.c        ****         case '3' :
+ 447              		.loc 1 110 0
+ 448 005e 08BD     		pop	{r3, pc}
+ 449              	.L40:
+ 113:main.c        ****         }
+ 450              		.loc 1 113 0
+ 451 0060 FFF7FEFF 		bl	HalfStep
+ 452              	.LVL20:
+ 115:main.c        ****         case '4' :
+ 453              		.loc 1 115 0
+ 454 0064 08BD     		pop	{r3, pc}
+ 455              	.L41:
+ 118:main.c        ****         }
+ 456              		.loc 1 118 0
+ 457 0066 FFF7FEFF 		bl	Stop
+ 458              	.LVL21:
+ 120:main.c        ****         case '5' :
+ 459              		.loc 1 120 0
+ 460 006a 08BD     		pop	{r3, pc}
+ 461              	.L42:
+ 123:main.c        ****         }
+ 462              		.loc 1 123 0
+ 463 006c FFF7FEFF 		bl	skiftRet
+ 464              	.LVL22:
+ 465              	.L43:
+ 127:main.c        ****         }
+ 466              		.loc 1 127 0
+ 467 0070 FFF7FEFF 		bl	increaseSpeed
+ 468              	.LVL23:
+ 469              	.L44:
+ 131:main.c        ****         }
+ 470              		.loc 1 131 0
+ 471 0074 FFF7FEFF 		bl	decreaseSpeed
+ 472              	.LVL24:
+ 473              	.L35:
+ 474 0078 08BD     		pop	{r3, pc}
+ 475              		.cfi_endproc
+ 476              	.LFE66:
+ 477              		.size	handleByteReceived, .-handleByteReceived
+ 478 007a 00BF     		.section	.text.ISR_UART_rx_handler,"ax",%progbits
+ 479              		.align	2
+ 480              		.global	ISR_UART_rx_handler
+ 481              		.thumb
+ 482              		.thumb_func
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 13
+
+
+ 483              		.type	ISR_UART_rx_handler, %function
+ 484              	ISR_UART_rx_handler:
+ 485              	.LFB65:
+  84:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize();
+ 486              		.loc 1 84 0
+ 487              		.cfi_startproc
+ 488              		@ args = 0, pretend = 0, frame = 0
+ 489              		@ frame_needed = 0, uses_anonymous_args = 0
+ 490 0000 38B5     		push	{r3, r4, r5, lr}
+ 491              		.cfi_def_cfa_offset 16
+ 492              		.cfi_offset 3, -16
+ 493              		.cfi_offset 4, -12
+ 494              		.cfi_offset 5, -8
+ 495              		.cfi_offset 14, -4
+  85:main.c        ****     while (bytesToRead > 0)
+ 496              		.loc 1 85 0
+ 497 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
+ 498              	.LVL25:
+ 499 0006 0446     		mov	r4, r0
+ 500              	.LVL26:
+  86:main.c        ****     {
+ 501              		.loc 1 86 0
+ 502 0008 09E0     		b	.L47
+ 503              	.L48:
+ 504              	.LBB2:
+  88:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+ 505              		.loc 1 88 0
+ 506 000a FFF7FEFF 		bl	UART_1_ReadRxData
+ 507              	.LVL27:
+ 508 000e 0546     		mov	r5, r0
+ 509              	.LVL28:
+  89:main.c        ****         
+ 510              		.loc 1 89 0
+ 511 0010 FFF7FEFF 		bl	UART_1_WriteTxData
+ 512              	.LVL29:
+  91:main.c        ****         
+ 513              		.loc 1 91 0
+ 514 0014 2846     		mov	r0, r5
+ 515 0016 FFF7FEFF 		bl	handleByteReceived
+ 516              	.LVL30:
+  93:main.c        ****     }
+ 517              		.loc 1 93 0
+ 518 001a 013C     		subs	r4, r4, #1
+ 519              	.LVL31:
+ 520 001c E4B2     		uxtb	r4, r4
+ 521              	.LVL32:
+ 522              	.L47:
+ 523              	.LBE2:
+  86:main.c        ****     {
+ 524              		.loc 1 86 0
+ 525 001e 002C     		cmp	r4, #0
+ 526 0020 F3D1     		bne	.L48
+  95:main.c        **** 
+ 527              		.loc 1 95 0
+ 528 0022 38BD     		pop	{r3, r4, r5, pc}
+ 529              		.cfi_endproc
+ 530              	.LFE65:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 14
+
+
+ 531              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
+ 532              		.section	.text.status,"ax",%progbits
+ 533              		.align	2
+ 534              		.global	status
+ 535              		.thumb
+ 536              		.thumb_func
+ 537              		.type	status, %function
+ 538              	status:
+ 539              	.LFB74:
+ 190:main.c        ****     }
+ 191:main.c        **** }
+ 192:main.c        **** 
+ 193:main.c        **** void status()
+ 194:main.c        **** {
+ 540              		.loc 1 194 0
+ 541              		.cfi_startproc
+ 542              		@ args = 0, pretend = 0, frame = 0
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544 0000 38B5     		push	{r3, r4, r5, lr}
+ 545              		.cfi_def_cfa_offset 16
+ 546              		.cfi_offset 3, -16
+ 547              		.cfi_offset 4, -12
+ 548              		.cfi_offset 5, -8
+ 549              		.cfi_offset 14, -4
+ 195:main.c        ****     switch(modeChosen)
+ 550              		.loc 1 195 0
+ 551 0002 9D4B     		ldr	r3, .L79
+ 552 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 553 0006 1BB1     		cbz	r3, .L52
+ 554 0008 012B     		cmp	r3, #1
+ 555 000a 00F0B980 		beq	.L53
+ 556 000e 38BD     		pop	{r3, r4, r5, pc}
+ 557              	.L52:
+ 196:main.c        ****     {
+ 197:main.c        ****         case Mode_WaveDrive:   // Mode
+ 198:main.c        ****             switch(currRot)        // Retning
+ 558              		.loc 1 198 0
+ 559 0010 994B     		ldr	r3, .L79
+ 560 0012 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 561 0014 13B1     		cbz	r3, .L54
+ 562 0016 012B     		cmp	r3, #1
+ 563 0018 59D0     		beq	.L55
+ 564 001a 38BD     		pop	{r3, r4, r5, pc}
+ 565              	.L54:
+ 199:main.c        ****             {
+ 200:main.c        ****                 case Rotate_F:   
+ 201:main.c        ****                     switch(currPos)   // Position
+ 566              		.loc 1 201 0
+ 567 001c 964B     		ldr	r3, .L79
+ 568 001e 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 569 0020 032B     		cmp	r3, #3
+ 570 0022 00F27881 		bhi	.L50
+ 571 0026 DFE803F0 		tbb	[pc, r3]
+ 572              	.L57:
+ 573 002a 02       		.byte	(.L56-.L57)/2
+ 574 002b 2A       		.byte	(.L58-.L57)/2
+ 575 002c 16       		.byte	(.L59-.L57)/2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 15
+
+
+ 576 002d 3E       		.byte	(.L60-.L57)/2
+ 577              		.p2align 1
+ 578              	.L56:
+ 202:main.c        ****                     {
+ 203:main.c        ****                         case Position_A1:   // Pin_1a ON HVID LEDNING
+ 204:main.c        ****                             UART_1_PutString("A");
+ 579              		.loc 1 204 0
+ 580 002e 9348     		ldr	r0, .L79+4
+ 581 0030 FFF7FEFF 		bl	UART_1_PutString
+ 582              	.LVL33:
+ 205:main.c        ****                             Pin_1a_Write(High);  
+ 583              		.loc 1 205 0
+ 584 0034 924B     		ldr	r3, .L79+8
+ 585 0036 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 586 0038 FFF7FEFF 		bl	Pin_1a_Write
+ 587              	.LVL34:
+ 206:main.c        ****                             Pin_1b_Write(Low);                            
+ 588              		.loc 1 206 0
+ 589 003c 8E4C     		ldr	r4, .L79
+ 590 003e E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 591 0040 FFF7FEFF 		bl	Pin_1b_Write
+ 592              	.LVL35:
+ 207:main.c        ****                             Pin_2a_Write(Low);                            
+ 593              		.loc 1 207 0
+ 594 0044 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 595 0046 FFF7FEFF 		bl	Pin_2a_Write
+ 596              	.LVL36:
+ 208:main.c        ****                             Pin_2b_Write(Low);
+ 597              		.loc 1 208 0
+ 598 004a E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 599 004c FFF7FEFF 		bl	Pin_2b_Write
+ 600              	.LVL37:
+ 209:main.c        ****                             currPos = Position_B1;
+ 601              		.loc 1 209 0
+ 602 0050 0223     		movs	r3, #2
+ 603 0052 A370     		strb	r3, [r4, #2]
+ 210:main.c        ****                         break;
+ 604              		.loc 1 210 0
+ 605 0054 38BD     		pop	{r3, r4, r5, pc}
+ 606              	.L59:
+ 211:main.c        ****                         case Position_B1:  // Pin_1b ON BLÅ LEDNING
+ 212:main.c        ****                             UART_1_PutString("B");
+ 607              		.loc 1 212 0
+ 608 0056 8B48     		ldr	r0, .L79+12
+ 609 0058 FFF7FEFF 		bl	UART_1_PutString
+ 610              	.LVL38:
+ 213:main.c        ****                             Pin_1a_Write(Low);
+ 611              		.loc 1 213 0
+ 612 005c 864C     		ldr	r4, .L79
+ 613 005e E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 614 0060 FFF7FEFF 		bl	Pin_1a_Write
+ 615              	.LVL39:
+ 214:main.c        ****                             Pin_1b_Write(High);                            
+ 616              		.loc 1 214 0
+ 617 0064 864B     		ldr	r3, .L79+8
+ 618 0066 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 619 0068 FFF7FEFF 		bl	Pin_1b_Write
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 16
+
+
+ 620              	.LVL40:
+ 215:main.c        ****                             Pin_2a_Write(Low);                            
+ 621              		.loc 1 215 0
+ 622 006c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 623 006e FFF7FEFF 		bl	Pin_2a_Write
+ 624              	.LVL41:
+ 216:main.c        ****                             Pin_2b_Write(Low);
+ 625              		.loc 1 216 0
+ 626 0072 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 627 0074 FFF7FEFF 		bl	Pin_2b_Write
+ 628              	.LVL42:
+ 217:main.c        ****                             currPos = Position_A2;
+ 629              		.loc 1 217 0
+ 630 0078 0123     		movs	r3, #1
+ 631 007a A370     		strb	r3, [r4, #2]
+ 218:main.c        ****                         break;                                                     
+ 632              		.loc 1 218 0
+ 633 007c 38BD     		pop	{r3, r4, r5, pc}
+ 634              	.L58:
+ 219:main.c        ****                             
+ 220:main.c        ****                         case Position_A2:  // Pin_2a ON RØD Ledning
+ 221:main.c        ****                             UART_1_PutString("A/");
+ 635              		.loc 1 221 0
+ 636 007e 8248     		ldr	r0, .L79+16
+ 637 0080 FFF7FEFF 		bl	UART_1_PutString
+ 638              	.LVL43:
+ 222:main.c        ****                             Pin_1a_Write(Low);
+ 639              		.loc 1 222 0
+ 640 0084 7C4C     		ldr	r4, .L79
+ 641 0086 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 642 0088 FFF7FEFF 		bl	Pin_1a_Write
+ 643              	.LVL44:
+ 223:main.c        ****                             Pin_1b_Write(Low);                            
+ 644              		.loc 1 223 0
+ 645 008c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 646 008e FFF7FEFF 		bl	Pin_1b_Write
+ 647              	.LVL45:
+ 224:main.c        ****                             Pin_2a_Write(High);                            
+ 648              		.loc 1 224 0
+ 649 0092 7B4B     		ldr	r3, .L79+8
+ 650 0094 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 651 0096 FFF7FEFF 		bl	Pin_2a_Write
+ 652              	.LVL46:
+ 225:main.c        ****                             Pin_2b_Write(Low);
+ 653              		.loc 1 225 0
+ 654 009a E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 655 009c FFF7FEFF 		bl	Pin_2b_Write
+ 656              	.LVL47:
+ 226:main.c        ****                             currPos = Position_B2;
+ 657              		.loc 1 226 0
+ 658 00a0 0323     		movs	r3, #3
+ 659 00a2 A370     		strb	r3, [r4, #2]
+ 227:main.c        ****                         break;
+ 660              		.loc 1 227 0
+ 661 00a4 38BD     		pop	{r3, r4, r5, pc}
+ 662              	.L60:
+ 228:main.c        ****                             
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 17
+
+
+ 229:main.c        ****                         case Position_B2:  // Pin_2b ON GUL LEDNING
+ 230:main.c        ****                             UART_1_PutString("B/");
+ 663              		.loc 1 230 0
+ 664 00a6 7948     		ldr	r0, .L79+20
+ 665 00a8 FFF7FEFF 		bl	UART_1_PutString
+ 666              	.LVL48:
+ 231:main.c        ****                             Pin_1a_Write(Low);
+ 667              		.loc 1 231 0
+ 668 00ac 724C     		ldr	r4, .L79
+ 669 00ae E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 670 00b0 FFF7FEFF 		bl	Pin_1a_Write
+ 671              	.LVL49:
+ 232:main.c        ****                             Pin_1b_Write(Low);
+ 672              		.loc 1 232 0
+ 673 00b4 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 674 00b6 FFF7FEFF 		bl	Pin_1b_Write
+ 675              	.LVL50:
+ 233:main.c        ****                             Pin_2a_Write(Low);
+ 676              		.loc 1 233 0
+ 677 00ba E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 678 00bc FFF7FEFF 		bl	Pin_2a_Write
+ 679              	.LVL51:
+ 234:main.c        ****                             Pin_2b_Write(High);
+ 680              		.loc 1 234 0
+ 681 00c0 6F4B     		ldr	r3, .L79+8
+ 682 00c2 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 683 00c4 FFF7FEFF 		bl	Pin_2b_Write
+ 684              	.LVL52:
+ 235:main.c        ****                             currPos = Position_A1;
+ 685              		.loc 1 235 0
+ 686 00c8 0023     		movs	r3, #0
+ 687 00ca A370     		strb	r3, [r4, #2]
+ 236:main.c        ****                         break;                
+ 688              		.loc 1 236 0
+ 689 00cc 38BD     		pop	{r3, r4, r5, pc}
+ 690              	.L55:
+ 237:main.c        ****                     }
+ 238:main.c        ****                             
+ 239:main.c        ****                 break;
+ 240:main.c        ****                 case Rotate_B:
+ 241:main.c        ****                     switch(currPos)   // Position
+ 691              		.loc 1 241 0
+ 692 00ce 6A4B     		ldr	r3, .L79
+ 693 00d0 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 694 00d2 032B     		cmp	r3, #3
+ 695 00d4 00F21F81 		bhi	.L50
+ 696 00d8 DFE803F0 		tbb	[pc, r3]
+ 697              	.L62:
+ 698 00dc 02       		.byte	(.L61-.L62)/2
+ 699 00dd 2A       		.byte	(.L63-.L62)/2
+ 700 00de 3E       		.byte	(.L64-.L62)/2
+ 701 00df 16       		.byte	(.L65-.L62)/2
+ 702              		.p2align 1
+ 703              	.L61:
+ 242:main.c        ****                     {
+ 243:main.c        ****                             case Position_A1:
+ 244:main.c        ****                             UART_1_PutString("A");
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 18
+
+
+ 704              		.loc 1 244 0
+ 705 00e0 6648     		ldr	r0, .L79+4
+ 706 00e2 FFF7FEFF 		bl	UART_1_PutString
+ 707              	.LVL53:
+ 245:main.c        ****                             Pin_1a_Write(High);  
+ 708              		.loc 1 245 0
+ 709 00e6 664B     		ldr	r3, .L79+8
+ 710 00e8 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 711 00ea FFF7FEFF 		bl	Pin_1a_Write
+ 712              	.LVL54:
+ 246:main.c        ****                             Pin_1b_Write(Low);                            
+ 713              		.loc 1 246 0
+ 714 00ee 624C     		ldr	r4, .L79
+ 715 00f0 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 716 00f2 FFF7FEFF 		bl	Pin_1b_Write
+ 717              	.LVL55:
+ 247:main.c        ****                             Pin_2a_Write(Low);                            
+ 718              		.loc 1 247 0
+ 719 00f6 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 720 00f8 FFF7FEFF 		bl	Pin_2a_Write
+ 721              	.LVL56:
+ 248:main.c        ****                             Pin_2b_Write(Low);
+ 722              		.loc 1 248 0
+ 723 00fc E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 724 00fe FFF7FEFF 		bl	Pin_2b_Write
+ 725              	.LVL57:
+ 249:main.c        ****                             currPos = Position_B2;
+ 726              		.loc 1 249 0
+ 727 0102 0323     		movs	r3, #3
+ 728 0104 A370     		strb	r3, [r4, #2]
+ 250:main.c        ****                         break;
+ 729              		.loc 1 250 0
+ 730 0106 38BD     		pop	{r3, r4, r5, pc}
+ 731              	.L65:
+ 251:main.c        ****                         case Position_B2:  
+ 252:main.c        ****                             UART_1_PutString("B/");
+ 732              		.loc 1 252 0
+ 733 0108 6048     		ldr	r0, .L79+20
+ 734 010a FFF7FEFF 		bl	UART_1_PutString
+ 735              	.LVL58:
+ 253:main.c        ****                             Pin_1a_Write(Low);
+ 736              		.loc 1 253 0
+ 737 010e 5A4C     		ldr	r4, .L79
+ 738 0110 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 739 0112 FFF7FEFF 		bl	Pin_1a_Write
+ 740              	.LVL59:
+ 254:main.c        ****                             Pin_1b_Write(Low);                            
+ 741              		.loc 1 254 0
+ 742 0116 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 743 0118 FFF7FEFF 		bl	Pin_1b_Write
+ 744              	.LVL60:
+ 255:main.c        ****                             Pin_2a_Write(Low);                            
+ 745              		.loc 1 255 0
+ 746 011c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 747 011e FFF7FEFF 		bl	Pin_2a_Write
+ 748              	.LVL61:
+ 256:main.c        ****                             Pin_2b_Write(High);
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 19
+
+
+ 749              		.loc 1 256 0
+ 750 0122 574B     		ldr	r3, .L79+8
+ 751 0124 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 752 0126 FFF7FEFF 		bl	Pin_2b_Write
+ 753              	.LVL62:
+ 257:main.c        ****                             currPos = Position_A2;
+ 754              		.loc 1 257 0
+ 755 012a 0123     		movs	r3, #1
+ 756 012c A370     		strb	r3, [r4, #2]
+ 258:main.c        ****                         break;                                                     
+ 757              		.loc 1 258 0
+ 758 012e 38BD     		pop	{r3, r4, r5, pc}
+ 759              	.L63:
+ 259:main.c        ****                             
+ 260:main.c        ****                         case Position_A2: 
+ 261:main.c        ****                             UART_1_PutString("A/");
+ 760              		.loc 1 261 0
+ 761 0130 5548     		ldr	r0, .L79+16
+ 762 0132 FFF7FEFF 		bl	UART_1_PutString
+ 763              	.LVL63:
+ 262:main.c        ****                             Pin_1a_Write(Low);
+ 764              		.loc 1 262 0
+ 765 0136 504C     		ldr	r4, .L79
+ 766 0138 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 767 013a FFF7FEFF 		bl	Pin_1a_Write
+ 768              	.LVL64:
+ 263:main.c        ****                             Pin_1b_Write(Low);                            
+ 769              		.loc 1 263 0
+ 770 013e E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 771 0140 FFF7FEFF 		bl	Pin_1b_Write
+ 772              	.LVL65:
+ 264:main.c        ****                             Pin_2a_Write(High);                            
+ 773              		.loc 1 264 0
+ 774 0144 4E4B     		ldr	r3, .L79+8
+ 775 0146 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 776 0148 FFF7FEFF 		bl	Pin_2a_Write
+ 777              	.LVL66:
+ 265:main.c        ****                             Pin_2b_Write(Low);
+ 778              		.loc 1 265 0
+ 779 014c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 780 014e FFF7FEFF 		bl	Pin_2b_Write
+ 781              	.LVL67:
+ 266:main.c        ****                             currPos = Position_B1;
+ 782              		.loc 1 266 0
+ 783 0152 0223     		movs	r3, #2
+ 784 0154 A370     		strb	r3, [r4, #2]
+ 267:main.c        ****                         break;
+ 785              		.loc 1 267 0
+ 786 0156 38BD     		pop	{r3, r4, r5, pc}
+ 787              	.L64:
+ 268:main.c        ****                             
+ 269:main.c        ****                         case Position_B1:
+ 270:main.c        ****                             UART_1_PutString("B");
+ 788              		.loc 1 270 0
+ 789 0158 4A48     		ldr	r0, .L79+12
+ 790 015a FFF7FEFF 		bl	UART_1_PutString
+ 791              	.LVL68:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 20
+
+
+ 271:main.c        ****                             Pin_1a_Write(Low);
+ 792              		.loc 1 271 0
+ 793 015e 464C     		ldr	r4, .L79
+ 794 0160 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 795 0162 FFF7FEFF 		bl	Pin_1a_Write
+ 796              	.LVL69:
+ 272:main.c        ****                             Pin_1b_Write(High);
+ 797              		.loc 1 272 0
+ 798 0166 464B     		ldr	r3, .L79+8
+ 799 0168 9878     		ldrb	r0, [r3, #2]	@ zero_extendqisi2
+ 800 016a FFF7FEFF 		bl	Pin_1b_Write
+ 801              	.LVL70:
+ 273:main.c        ****                             Pin_2a_Write(Low);
+ 802              		.loc 1 273 0
+ 803 016e E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 804 0170 FFF7FEFF 		bl	Pin_2a_Write
+ 805              	.LVL71:
+ 274:main.c        ****                             Pin_2b_Write(Low);
+ 806              		.loc 1 274 0
+ 807 0174 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 808 0176 FFF7FEFF 		bl	Pin_2b_Write
+ 809              	.LVL72:
+ 275:main.c        ****                             currPos = Position_A1;
+ 810              		.loc 1 275 0
+ 811 017a 0023     		movs	r3, #0
+ 812 017c A370     		strb	r3, [r4, #2]
+ 276:main.c        ****                         break;                   
+ 813              		.loc 1 276 0
+ 814 017e 38BD     		pop	{r3, r4, r5, pc}
+ 815              	.L53:
+ 277:main.c        ****                     }
+ 278:main.c        ****                 break;
+ 279:main.c        ****             }
+ 280:main.c        ****         
+ 281:main.c        ****         break;
+ 282:main.c        ****         
+ 283:main.c        ****         case Mode_FullStep:
+ 284:main.c        ****                 switch(currRot)        // Retning
+ 816              		.loc 1 284 0
+ 817 0180 3D4B     		ldr	r3, .L79
+ 818 0182 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 819 0184 13B1     		cbz	r3, .L66
+ 820 0186 012B     		cmp	r3, #1
+ 821 0188 59D0     		beq	.L67
+ 822 018a 38BD     		pop	{r3, r4, r5, pc}
+ 823              	.L66:
+ 285:main.c        ****                     {
+ 286:main.c        ****                         case Rotate_F:   
+ 287:main.c        ****                             switch(currPos)   // Position
+ 824              		.loc 1 287 0
+ 825 018c 3A4B     		ldr	r3, .L79
+ 826 018e 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 827 0190 032B     		cmp	r3, #3
+ 828 0192 00F2C080 		bhi	.L50
+ 829 0196 DFE803F0 		tbb	[pc, r3]
+ 830              	.L69:
+ 831 019a 02       		.byte	(.L68-.L69)/2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 21
+
+
+ 832 019b 2A       		.byte	(.L70-.L69)/2
+ 833 019c 16       		.byte	(.L71-.L69)/2
+ 834 019d 3E       		.byte	(.L72-.L69)/2
+ 835              		.p2align 1
+ 836              	.L68:
+ 288:main.c        ****                             {
+ 289:main.c        ****                                 case Position_A1:   // Pin_1a ON HVID LEDNING
+ 290:main.c        ****                                     UART_1_PutString("A+B");
+ 837              		.loc 1 290 0
+ 838 019e 3C48     		ldr	r0, .L79+24
+ 839 01a0 FFF7FEFF 		bl	UART_1_PutString
+ 840              	.LVL73:
+ 291:main.c        ****                                     Pin_1a_Write(High);  
+ 841              		.loc 1 291 0
+ 842 01a4 364C     		ldr	r4, .L79+8
+ 843 01a6 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 844 01a8 FFF7FEFF 		bl	Pin_1a_Write
+ 845              	.LVL74:
+ 292:main.c        ****                                     Pin_1b_Write(High);                            
+ 846              		.loc 1 292 0
+ 847 01ac A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 848 01ae FFF7FEFF 		bl	Pin_1b_Write
+ 849              	.LVL75:
+ 293:main.c        ****                                     Pin_2a_Write(Low);                            
+ 850              		.loc 1 293 0
+ 851 01b2 314C     		ldr	r4, .L79
+ 852 01b4 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 853 01b6 FFF7FEFF 		bl	Pin_2a_Write
+ 854              	.LVL76:
+ 294:main.c        ****                                     Pin_2b_Write(Low);
+ 855              		.loc 1 294 0
+ 856 01ba E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 857 01bc FFF7FEFF 		bl	Pin_2b_Write
+ 858              	.LVL77:
+ 295:main.c        ****                                     currPos = Position_B1;
+ 859              		.loc 1 295 0
+ 860 01c0 0223     		movs	r3, #2
+ 861 01c2 A370     		strb	r3, [r4, #2]
+ 296:main.c        ****                                 break;
+ 862              		.loc 1 296 0
+ 863 01c4 38BD     		pop	{r3, r4, r5, pc}
+ 864              	.L71:
+ 297:main.c        ****                                 case Position_B1:  // Pin_1b ON BLÅ LEDNING
+ 298:main.c        ****                                     UART_1_PutString("B+A/");
+ 865              		.loc 1 298 0
+ 866 01c6 3348     		ldr	r0, .L79+28
+ 867 01c8 FFF7FEFF 		bl	UART_1_PutString
+ 868              	.LVL78:
+ 299:main.c        ****                                     Pin_1a_Write(Low);
+ 869              		.loc 1 299 0
+ 870 01cc 2A4C     		ldr	r4, .L79
+ 871 01ce E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 872 01d0 FFF7FEFF 		bl	Pin_1a_Write
+ 873              	.LVL79:
+ 300:main.c        ****                                     Pin_1b_Write(High);                            
+ 874              		.loc 1 300 0
+ 875 01d4 2A4D     		ldr	r5, .L79+8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 22
+
+
+ 876 01d6 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 877 01d8 FFF7FEFF 		bl	Pin_1b_Write
+ 878              	.LVL80:
+ 301:main.c        ****                                     Pin_2a_Write(High);                            
+ 879              		.loc 1 301 0
+ 880 01dc A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 881 01de FFF7FEFF 		bl	Pin_2a_Write
+ 882              	.LVL81:
+ 302:main.c        ****                                     Pin_2b_Write(Low);
+ 883              		.loc 1 302 0
+ 884 01e2 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 885 01e4 FFF7FEFF 		bl	Pin_2b_Write
+ 886              	.LVL82:
+ 303:main.c        ****                                     currPos = Position_A2;
+ 887              		.loc 1 303 0
+ 888 01e8 0123     		movs	r3, #1
+ 889 01ea A370     		strb	r3, [r4, #2]
+ 304:main.c        ****                                 break;                                                     
+ 890              		.loc 1 304 0
+ 891 01ec 38BD     		pop	{r3, r4, r5, pc}
+ 892              	.L70:
+ 305:main.c        ****                                     
+ 306:main.c        ****                                 case Position_A2:  // Pin_2a ON RØD Ledning
+ 307:main.c        ****                                     UART_1_PutString("A/+B/");
+ 893              		.loc 1 307 0
+ 894 01ee 2A48     		ldr	r0, .L79+32
+ 895 01f0 FFF7FEFF 		bl	UART_1_PutString
+ 896              	.LVL83:
+ 308:main.c        ****                                     Pin_1a_Write(Low);
+ 897              		.loc 1 308 0
+ 898 01f4 204C     		ldr	r4, .L79
+ 899 01f6 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 900 01f8 FFF7FEFF 		bl	Pin_1a_Write
+ 901              	.LVL84:
+ 309:main.c        ****                                     Pin_1b_Write(Low);                            
+ 902              		.loc 1 309 0
+ 903 01fc E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 904 01fe FFF7FEFF 		bl	Pin_1b_Write
+ 905              	.LVL85:
+ 310:main.c        ****                                     Pin_2a_Write(High);                            
+ 906              		.loc 1 310 0
+ 907 0202 1F4D     		ldr	r5, .L79+8
+ 908 0204 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 909 0206 FFF7FEFF 		bl	Pin_2a_Write
+ 910              	.LVL86:
+ 311:main.c        ****                                     Pin_2b_Write(High);
+ 911              		.loc 1 311 0
+ 912 020a A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 913 020c FFF7FEFF 		bl	Pin_2b_Write
+ 914              	.LVL87:
+ 312:main.c        ****                                     currPos = Position_B2;
+ 915              		.loc 1 312 0
+ 916 0210 0323     		movs	r3, #3
+ 917 0212 A370     		strb	r3, [r4, #2]
+ 313:main.c        ****                                 break;
+ 918              		.loc 1 313 0
+ 919 0214 38BD     		pop	{r3, r4, r5, pc}
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 23
+
+
+ 920              	.L72:
+ 314:main.c        ****                                     
+ 315:main.c        ****                                 case Position_B2:  // Pin_2b ON GUL LEDNING
+ 316:main.c        ****                                     UART_1_PutString("B/+A");
+ 921              		.loc 1 316 0
+ 922 0216 2148     		ldr	r0, .L79+36
+ 923 0218 FFF7FEFF 		bl	UART_1_PutString
+ 924              	.LVL88:
+ 317:main.c        ****                                     Pin_1a_Write(High);
+ 925              		.loc 1 317 0
+ 926 021c 184D     		ldr	r5, .L79+8
+ 927 021e A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 928 0220 FFF7FEFF 		bl	Pin_1a_Write
+ 929              	.LVL89:
+ 318:main.c        ****                                     Pin_1b_Write(Low);
+ 930              		.loc 1 318 0
+ 931 0224 144C     		ldr	r4, .L79
+ 932 0226 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 933 0228 FFF7FEFF 		bl	Pin_1b_Write
+ 934              	.LVL90:
+ 319:main.c        ****                                     Pin_2a_Write(Low);
+ 935              		.loc 1 319 0
+ 936 022c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 937 022e FFF7FEFF 		bl	Pin_2a_Write
+ 938              	.LVL91:
+ 320:main.c        ****                                     Pin_2b_Write(High);
+ 939              		.loc 1 320 0
+ 940 0232 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 941 0234 FFF7FEFF 		bl	Pin_2b_Write
+ 942              	.LVL92:
+ 321:main.c        ****                                     currPos = Position_A1;
+ 943              		.loc 1 321 0
+ 944 0238 0023     		movs	r3, #0
+ 945 023a A370     		strb	r3, [r4, #2]
+ 322:main.c        ****                                 break;                
+ 946              		.loc 1 322 0
+ 947 023c 38BD     		pop	{r3, r4, r5, pc}
+ 948              	.L67:
+ 323:main.c        ****                             }
+ 324:main.c        ****                                     
+ 325:main.c        ****                         break;
+ 326:main.c        ****                         case Rotate_B:
+ 327:main.c        ****                             switch(currPos)   // Position
+ 949              		.loc 1 327 0
+ 950 023e 0E4B     		ldr	r3, .L79
+ 951 0240 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 952 0242 032B     		cmp	r3, #3
+ 953 0244 67D8     		bhi	.L50
+ 954 0246 DFE803F0 		tbb	[pc, r3]
+ 955              	.L74:
+ 956 024a 02       		.byte	(.L73-.L74)/2
+ 957 024b 3F       		.byte	(.L75-.L74)/2
+ 958 024c 53       		.byte	(.L76-.L74)/2
+ 959 024d 2B       		.byte	(.L77-.L74)/2
+ 960              		.p2align 1
+ 961              	.L73:
+ 328:main.c        ****                             {
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 24
+
+
+ 329:main.c        ****                                     case Position_A1:
+ 330:main.c        ****                                     UART_1_PutString("A+B");
+ 962              		.loc 1 330 0
+ 963 024e 1048     		ldr	r0, .L79+24
+ 964 0250 FFF7FEFF 		bl	UART_1_PutString
+ 965              	.LVL93:
+ 331:main.c        ****                                     Pin_1a_Write(High);  
+ 966              		.loc 1 331 0
+ 967 0254 0A4C     		ldr	r4, .L79+8
+ 968 0256 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 969 0258 FFF7FEFF 		bl	Pin_1a_Write
+ 970              	.LVL94:
+ 332:main.c        ****                                     Pin_1b_Write(High);                            
+ 971              		.loc 1 332 0
+ 972 025c A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 973 025e FFF7FEFF 		bl	Pin_1b_Write
+ 974              	.LVL95:
+ 333:main.c        ****                                     Pin_2a_Write(Low);                            
+ 975              		.loc 1 333 0
+ 976 0262 054C     		ldr	r4, .L79
+ 977 0264 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 978 0266 FFF7FEFF 		bl	Pin_2a_Write
+ 979              	.LVL96:
+ 334:main.c        ****                                     Pin_2b_Write(Low);
+ 980              		.loc 1 334 0
+ 981 026a E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 982 026c FFF7FEFF 		bl	Pin_2b_Write
+ 983              	.LVL97:
+ 335:main.c        ****                                     currPos = Position_B2;
+ 984              		.loc 1 335 0
+ 985 0270 0323     		movs	r3, #3
+ 986 0272 A370     		strb	r3, [r4, #2]
+ 336:main.c        ****                                 break;
+ 987              		.loc 1 336 0
+ 988 0274 38BD     		pop	{r3, r4, r5, pc}
+ 989              	.L80:
+ 990 0276 00BF     		.align	2
+ 991              	.L79:
+ 992 0278 00000000 		.word	.LANCHOR0
+ 993 027c C0000000 		.word	.LC12
+ 994 0280 00000000 		.word	.LANCHOR1
+ 995 0284 C4000000 		.word	.LC13
+ 996 0288 C8000000 		.word	.LC14
+ 997 028c CC000000 		.word	.LC15
+ 998 0290 D0000000 		.word	.LC16
+ 999 0294 D4000000 		.word	.LC17
+ 1000 0298 DC000000 		.word	.LC18
+ 1001 029c E4000000 		.word	.LC19
+ 1002              	.L77:
+ 337:main.c        ****                                 case Position_B2:  
+ 338:main.c        ****                                     UART_1_PutString("B/+A");
+ 1003              		.loc 1 338 0
+ 1004 02a0 1D48     		ldr	r0, .L81
+ 1005 02a2 FFF7FEFF 		bl	UART_1_PutString
+ 1006              	.LVL98:
+ 339:main.c        ****                                     Pin_1a_Write(High);
+ 1007              		.loc 1 339 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 25
+
+
+ 1008 02a6 1D4D     		ldr	r5, .L81+4
+ 1009 02a8 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1010 02aa FFF7FEFF 		bl	Pin_1a_Write
+ 1011              	.LVL99:
+ 340:main.c        ****                                     Pin_1b_Write(Low);                            
+ 1012              		.loc 1 340 0
+ 1013 02ae 1C4C     		ldr	r4, .L81+8
+ 1014 02b0 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1015 02b2 FFF7FEFF 		bl	Pin_1b_Write
+ 1016              	.LVL100:
+ 341:main.c        ****                                     Pin_2a_Write(Low);                            
+ 1017              		.loc 1 341 0
+ 1018 02b6 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1019 02b8 FFF7FEFF 		bl	Pin_2a_Write
+ 1020              	.LVL101:
+ 342:main.c        ****                                     Pin_2b_Write(High);
+ 1021              		.loc 1 342 0
+ 1022 02bc A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1023 02be FFF7FEFF 		bl	Pin_2b_Write
+ 1024              	.LVL102:
+ 343:main.c        ****                                     currPos = Position_A2;
+ 1025              		.loc 1 343 0
+ 1026 02c2 0123     		movs	r3, #1
+ 1027 02c4 A370     		strb	r3, [r4, #2]
+ 344:main.c        ****                                 break;                                                     
+ 1028              		.loc 1 344 0
+ 1029 02c6 38BD     		pop	{r3, r4, r5, pc}
+ 1030              	.L75:
+ 345:main.c        ****                                     
+ 346:main.c        ****                                 case Position_A2: 
+ 347:main.c        ****                                     UART_1_PutString("A/+B/");
+ 1031              		.loc 1 347 0
+ 1032 02c8 1648     		ldr	r0, .L81+12
+ 1033 02ca FFF7FEFF 		bl	UART_1_PutString
+ 1034              	.LVL103:
+ 348:main.c        ****                                     Pin_1a_Write(Low);
+ 1035              		.loc 1 348 0
+ 1036 02ce 144C     		ldr	r4, .L81+8
+ 1037 02d0 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1038 02d2 FFF7FEFF 		bl	Pin_1a_Write
+ 1039              	.LVL104:
+ 349:main.c        ****                                     Pin_1b_Write(Low);                            
+ 1040              		.loc 1 349 0
+ 1041 02d6 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1042 02d8 FFF7FEFF 		bl	Pin_1b_Write
+ 1043              	.LVL105:
+ 350:main.c        ****                                     Pin_2a_Write(High);                            
+ 1044              		.loc 1 350 0
+ 1045 02dc 0F4D     		ldr	r5, .L81+4
+ 1046 02de A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1047 02e0 FFF7FEFF 		bl	Pin_2a_Write
+ 1048              	.LVL106:
+ 351:main.c        ****                                     Pin_2b_Write(High);
+ 1049              		.loc 1 351 0
+ 1050 02e4 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1051 02e6 FFF7FEFF 		bl	Pin_2b_Write
+ 1052              	.LVL107:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 26
+
+
+ 352:main.c        ****                                     currPos = Position_B1;
+ 1053              		.loc 1 352 0
+ 1054 02ea 0223     		movs	r3, #2
+ 1055 02ec A370     		strb	r3, [r4, #2]
+ 353:main.c        ****                                 break;
+ 1056              		.loc 1 353 0
+ 1057 02ee 38BD     		pop	{r3, r4, r5, pc}
+ 1058              	.L76:
+ 354:main.c        ****                                     
+ 355:main.c        ****                                 case Position_B1:
+ 356:main.c        ****                                     UART_1_PutString("B+A/");
+ 1059              		.loc 1 356 0
+ 1060 02f0 0D48     		ldr	r0, .L81+16
+ 1061 02f2 FFF7FEFF 		bl	UART_1_PutString
+ 1062              	.LVL108:
+ 357:main.c        ****                                     Pin_1a_Write(Low);
+ 1063              		.loc 1 357 0
+ 1064 02f6 0A4C     		ldr	r4, .L81+8
+ 1065 02f8 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1066 02fa FFF7FEFF 		bl	Pin_1a_Write
+ 1067              	.LVL109:
+ 358:main.c        ****                                     Pin_1b_Write(High);
+ 1068              		.loc 1 358 0
+ 1069 02fe 074D     		ldr	r5, .L81+4
+ 1070 0300 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1071 0302 FFF7FEFF 		bl	Pin_1b_Write
+ 1072              	.LVL110:
+ 359:main.c        ****                                     Pin_2a_Write(High);
+ 1073              		.loc 1 359 0
+ 1074 0306 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 1075 0308 FFF7FEFF 		bl	Pin_2a_Write
+ 1076              	.LVL111:
+ 360:main.c        ****                                     Pin_2b_Write(Low);
+ 1077              		.loc 1 360 0
+ 1078 030c E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 1079 030e FFF7FEFF 		bl	Pin_2b_Write
+ 1080              	.LVL112:
+ 361:main.c        ****                                     currPos = Position_A1;
+ 1081              		.loc 1 361 0
+ 1082 0312 0023     		movs	r3, #0
+ 1083 0314 A370     		strb	r3, [r4, #2]
+ 1084              	.L50:
+ 1085 0316 38BD     		pop	{r3, r4, r5, pc}
+ 1086              	.L82:
+ 1087              		.align	2
+ 1088              	.L81:
+ 1089 0318 E4000000 		.word	.LC19
+ 1090 031c 00000000 		.word	.LANCHOR1
+ 1091 0320 00000000 		.word	.LANCHOR0
+ 1092 0324 DC000000 		.word	.LC18
+ 1093 0328 D4000000 		.word	.LC17
+ 1094              		.cfi_endproc
+ 1095              	.LFE74:
+ 1096              		.size	status, .-status
+ 1097              		.section	.text.ISR_timer_handler,"ax",%progbits
+ 1098              		.align	2
+ 1099              		.global	ISR_timer_handler
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 27
+
+
+ 1100              		.thumb
+ 1101              		.thumb_func
+ 1102              		.type	ISR_timer_handler, %function
+ 1103              	ISR_timer_handler:
+ 1104              	.LFB64:
+  73:main.c        ****    timerCount++;
+ 1105              		.loc 1 73 0
+ 1106              		.cfi_startproc
+ 1107              		@ args = 0, pretend = 0, frame = 0
+ 1108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1109 0000 08B5     		push	{r3, lr}
+ 1110              		.cfi_def_cfa_offset 8
+ 1111              		.cfi_offset 3, -8
+ 1112              		.cfi_offset 14, -4
+  74:main.c        ****     if(timerCount == timerInterrupt)
+ 1113              		.loc 1 74 0
+ 1114 0002 074A     		ldr	r2, .L86
+ 1115 0004 9388     		ldrh	r3, [r2, #4]
+ 1116 0006 0133     		adds	r3, r3, #1
+ 1117 0008 9BB2     		uxth	r3, r3
+ 1118 000a 9380     		strh	r3, [r2, #4]	@ movhi
+  75:main.c        ****     {
+ 1119              		.loc 1 75 0
+ 1120 000c 054A     		ldr	r2, .L86+4
+ 1121 000e 1288     		ldrh	r2, [r2]
+ 1122 0010 9342     		cmp	r3, r2
+ 1123 0012 04D1     		bne	.L83
+  77:main.c        ****         timerCount = 0; 
+ 1124              		.loc 1 77 0
+ 1125 0014 FFF7FEFF 		bl	status
+ 1126              	.LVL113:
+  78:main.c        ****         
+ 1127              		.loc 1 78 0
+ 1128 0018 0022     		movs	r2, #0
+ 1129 001a 014B     		ldr	r3, .L86
+ 1130 001c 9A80     		strh	r2, [r3, #4]	@ movhi
+ 1131              	.L83:
+ 1132 001e 08BD     		pop	{r3, pc}
+ 1133              	.L87:
+ 1134              		.align	2
+ 1135              	.L86:
+ 1136 0020 00000000 		.word	.LANCHOR0
+ 1137 0024 00000000 		.word	.LANCHOR1
+ 1138              		.cfi_endproc
+ 1139              	.LFE64:
+ 1140              		.size	ISR_timer_handler, .-ISR_timer_handler
+ 1141              		.global	timerInterrupt
+ 1142              		.global	timerCount
+ 1143              		.global	Low
+ 1144              		.global	High
+ 1145              		.data
+ 1146              		.align	1
+ 1147              		.set	.LANCHOR1,. + 0
+ 1148              		.type	timerInterrupt, %object
+ 1149              		.size	timerInterrupt, 2
+ 1150              	timerInterrupt:
+ 1151 0000 E803     		.short	1000
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 28
+
+
+ 1152              		.type	High, %object
+ 1153              		.size	High, 1
+ 1154              	High:
+ 1155 0002 01       		.byte	1
+ 1156              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1157              		.align	2
+ 1158              	.LC0:
+ 1159 0000 44432D4D 		.ascii	"DC-Motor-PWM application started\015\012\000"
+ 1159      6F746F72 
+ 1159      2D50574D 
+ 1159      20617070 
+ 1159      6C696361 
+ 1160 0023 00       		.space	1
+ 1161              	.LC1:
+ 1162 0024 313A2057 		.ascii	"1: WaveDrive\015\012\000"
+ 1162      61766544 
+ 1162      72697665 
+ 1162      0D0A00
+ 1163 0033 00       		.space	1
+ 1164              	.LC2:
+ 1165 0034 323A2046 		.ascii	"2: FullStep\015\012\000"
+ 1165      756C6C53 
+ 1165      7465700D 
+ 1165      0A00
+ 1166 0042 0000     		.space	2
+ 1167              	.LC3:
+ 1168 0044 333A2048 		.ascii	"3: HalfStep\015\012\000"
+ 1168      616C6653 
+ 1168      7465700D 
+ 1168      0A00
+ 1169 0052 0000     		.space	2
+ 1170              	.LC4:
+ 1171 0054 343A2053 		.ascii	"4: Stop\015\012\000"
+ 1171      746F700D 
+ 1171      0A00
+ 1172 005e 0000     		.space	2
+ 1173              	.LC5:
+ 1174 0060 353A2052 		.ascii	"5: Rotate\015\012\000"
+ 1174      6F746174 
+ 1174      650D0A00 
+ 1175              	.LC6:
+ 1176 006c 713A2049 		.ascii	"q: Increase speed\015\012\000"
+ 1176      6E637265 
+ 1176      61736520 
+ 1176      73706565 
+ 1176      640D0A00 
+ 1177              	.LC7:
+ 1178 0080 773A2044 		.ascii	"w: Decrease speed\015\012\000"
+ 1178      65637265 
+ 1178      61736520 
+ 1178      73706565 
+ 1178      640D0A00 
+ 1179              	.LC8:
+ 1180 0094 57617665 		.ascii	"WaveDrive\000"
+ 1180      44726976 
+ 1180      6500
+ 1181 009e 0000     		.space	2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 29
+
+
+ 1182              	.LC9:
+ 1183 00a0 46756C6C 		.ascii	"FullStep\000"
+ 1183      53746570 
+ 1183      00
+ 1184 00a9 000000   		.space	3
+ 1185              	.LC10:
+ 1186 00ac 48616C66 		.ascii	"HalfStep\000"
+ 1186      53746570 
+ 1186      00
+ 1187 00b5 000000   		.space	3
+ 1188              	.LC11:
+ 1189 00b8 53746F70 		.ascii	"Stop\000"
+ 1189      00
+ 1190 00bd 000000   		.space	3
+ 1191              	.LC12:
+ 1192 00c0 4100     		.ascii	"A\000"
+ 1193 00c2 0000     		.space	2
+ 1194              	.LC13:
+ 1195 00c4 4200     		.ascii	"B\000"
+ 1196 00c6 0000     		.space	2
+ 1197              	.LC14:
+ 1198 00c8 412F00   		.ascii	"A/\000"
+ 1199 00cb 00       		.space	1
+ 1200              	.LC15:
+ 1201 00cc 422F00   		.ascii	"B/\000"
+ 1202 00cf 00       		.space	1
+ 1203              	.LC16:
+ 1204 00d0 412B4200 		.ascii	"A+B\000"
+ 1205              	.LC17:
+ 1206 00d4 422B412F 		.ascii	"B+A/\000"
+ 1206      00
+ 1207 00d9 000000   		.space	3
+ 1208              	.LC18:
+ 1209 00dc 412F2B42 		.ascii	"A/+B/\000"
+ 1209      2F00
+ 1210 00e2 0000     		.space	2
+ 1211              	.LC19:
+ 1212 00e4 422F2B41 		.ascii	"B/+A\000"
+ 1212      00
+ 1213              		.bss
+ 1214              		.align	1
+ 1215              		.set	.LANCHOR0,. + 0
+ 1216              		.type	modeChosen, %object
+ 1217              		.size	modeChosen, 1
+ 1218              	modeChosen:
+ 1219 0000 00       		.space	1
+ 1220              		.type	currRot, %object
+ 1221              		.size	currRot, 1
+ 1222              	currRot:
+ 1223 0001 00       		.space	1
+ 1224              		.type	currPos, %object
+ 1225              		.size	currPos, 1
+ 1226              	currPos:
+ 1227 0002 00       		.space	1
+ 1228              		.type	Low, %object
+ 1229              		.size	Low, 1
+ 1230              	Low:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 30
+
+
+ 1231 0003 00       		.space	1
+ 1232              		.type	timerCount, %object
+ 1233              		.size	timerCount, 2
+ 1234              	timerCount:
+ 1235 0004 0000     		.space	2
+ 1236              		.text
+ 1237              	.Letext0:
+ 1238              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1239              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1240              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 1241              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 1242              		.file 6 "Generated_Source\\PSoC5/isr_uart_rx.h"
+ 1243              		.file 7 "Generated_Source\\PSoC5/isr_timer.h"
+ 1244              		.file 8 "Generated_Source\\PSoC5/UART_1.h"
+ 1245              		.file 9 "Generated_Source\\PSoC5/Timer_1.h"
+ 1246              		.file 10 "Generated_Source\\PSoC5/Pin_1a.h"
+ 1247              		.file 11 "Generated_Source\\PSoC5/Pin_1b.h"
+ 1248              		.file 12 "Generated_Source\\PSoC5/Pin_2a.h"
+ 1249              		.file 13 "Generated_Source\\PSoC5/Pin_2b.h"
+ 1250              		.section	.debug_info,"",%progbits
+ 1251              	.Ldebug_info0:
+ 1252 0000 05090000 		.4byte	0x905
+ 1253 0004 0400     		.2byte	0x4
+ 1254 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1255 000a 04       		.byte	0x4
+ 1256 000b 01       		.uleb128 0x1
+ 1257 000c 3D030000 		.4byte	.LASF65
+ 1258 0010 0C       		.byte	0xc
+ 1259 0011 26020000 		.4byte	.LASF66
+ 1260 0015 A9020000 		.4byte	.LASF67
+ 1261 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1262 001d 00000000 		.4byte	0
+ 1263 0021 00000000 		.4byte	.Ldebug_line0
+ 1264 0025 02       		.uleb128 0x2
+ 1265 0026 01       		.byte	0x1
+ 1266 0027 06       		.byte	0x6
+ 1267 0028 55010000 		.4byte	.LASF0
+ 1268 002c 03       		.uleb128 0x3
+ 1269 002d F5000000 		.4byte	.LASF4
+ 1270 0031 02       		.byte	0x2
+ 1271 0032 1D       		.byte	0x1d
+ 1272 0033 37000000 		.4byte	0x37
+ 1273 0037 02       		.uleb128 0x2
+ 1274 0038 01       		.byte	0x1
+ 1275 0039 08       		.byte	0x8
+ 1276 003a 2C010000 		.4byte	.LASF1
+ 1277 003e 02       		.uleb128 0x2
+ 1278 003f 02       		.byte	0x2
+ 1279 0040 05       		.byte	0x5
+ 1280 0041 43000000 		.4byte	.LASF2
+ 1281 0045 02       		.uleb128 0x2
+ 1282 0046 02       		.byte	0x2
+ 1283 0047 07       		.byte	0x7
+ 1284 0048 C5010000 		.4byte	.LASF3
+ 1285 004c 03       		.uleb128 0x3
+ 1286 004d 9F020000 		.4byte	.LASF5
+ 1287 0051 02       		.byte	0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 31
+
+
+ 1288 0052 3F       		.byte	0x3f
+ 1289 0053 57000000 		.4byte	0x57
+ 1290 0057 02       		.uleb128 0x2
+ 1291 0058 04       		.byte	0x4
+ 1292 0059 05       		.byte	0x5
+ 1293 005a E5000000 		.4byte	.LASF6
+ 1294 005e 02       		.uleb128 0x2
+ 1295 005f 04       		.byte	0x4
+ 1296 0060 07       		.byte	0x7
+ 1297 0061 2D020000 		.4byte	.LASF7
+ 1298 0065 02       		.uleb128 0x2
+ 1299 0066 08       		.byte	0x8
+ 1300 0067 05       		.byte	0x5
+ 1301 0068 CE000000 		.4byte	.LASF8
+ 1302 006c 02       		.uleb128 0x2
+ 1303 006d 08       		.byte	0x8
+ 1304 006e 07       		.byte	0x7
+ 1305 006f 61010000 		.4byte	.LASF9
+ 1306 0073 04       		.uleb128 0x4
+ 1307 0074 04       		.byte	0x4
+ 1308 0075 05       		.byte	0x5
+ 1309 0076 696E7400 		.ascii	"int\000"
+ 1310 007a 02       		.uleb128 0x2
+ 1311 007b 04       		.byte	0x4
+ 1312 007c 07       		.byte	0x7
+ 1313 007d 78010000 		.4byte	.LASF10
+ 1314 0081 03       		.uleb128 0x3
+ 1315 0082 9C000000 		.4byte	.LASF11
+ 1316 0086 03       		.byte	0x3
+ 1317 0087 18       		.byte	0x18
+ 1318 0088 2C000000 		.4byte	0x2c
+ 1319 008c 03       		.uleb128 0x3
+ 1320 008d EF010000 		.4byte	.LASF12
+ 1321 0091 03       		.byte	0x3
+ 1322 0092 2C       		.byte	0x2c
+ 1323 0093 4C000000 		.4byte	0x4c
+ 1324 0097 05       		.uleb128 0x5
+ 1325 0098 A4000000 		.4byte	.LASF13
+ 1326 009c 04       		.byte	0x4
+ 1327 009d E401     		.2byte	0x1e4
+ 1328 009f 37000000 		.4byte	0x37
+ 1329 00a3 05       		.uleb128 0x5
+ 1330 00a4 95000000 		.4byte	.LASF14
+ 1331 00a8 04       		.byte	0x4
+ 1332 00a9 E501     		.2byte	0x1e5
+ 1333 00ab 45000000 		.4byte	0x45
+ 1334 00af 02       		.uleb128 0x2
+ 1335 00b0 04       		.byte	0x4
+ 1336 00b1 04       		.byte	0x4
+ 1337 00b2 C8000000 		.4byte	.LASF15
+ 1338 00b6 02       		.uleb128 0x2
+ 1339 00b7 08       		.byte	0x8
+ 1340 00b8 04       		.byte	0x4
+ 1341 00b9 62020000 		.4byte	.LASF16
+ 1342 00bd 02       		.uleb128 0x2
+ 1343 00be 01       		.byte	0x1
+ 1344 00bf 08       		.byte	0x8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 32
+
+
+ 1345 00c0 EA010000 		.4byte	.LASF17
+ 1346 00c4 02       		.uleb128 0x2
+ 1347 00c5 08       		.byte	0x8
+ 1348 00c6 04       		.byte	0x4
+ 1349 00c7 3A010000 		.4byte	.LASF18
+ 1350 00cb 02       		.uleb128 0x2
+ 1351 00cc 04       		.byte	0x4
+ 1352 00cd 07       		.byte	0x7
+ 1353 00ce 4D000000 		.4byte	.LASF19
+ 1354 00d2 06       		.uleb128 0x6
+ 1355 00d3 01       		.byte	0x1
+ 1356 00d4 37000000 		.4byte	0x37
+ 1357 00d8 01       		.byte	0x1
+ 1358 00d9 19       		.byte	0x19
+ 1359 00da F7000000 		.4byte	0xf7
+ 1360 00de 07       		.uleb128 0x7
+ 1361 00df 17020000 		.4byte	.LASF20
+ 1362 00e3 00       		.byte	0
+ 1363 00e4 07       		.uleb128 0x7
+ 1364 00e5 E6030000 		.4byte	.LASF21
+ 1365 00e9 01       		.byte	0x1
+ 1366 00ea 07       		.uleb128 0x7
+ 1367 00eb 87000000 		.4byte	.LASF22
+ 1368 00ef 02       		.byte	0x2
+ 1369 00f0 07       		.uleb128 0x7
+ 1370 00f1 A0010000 		.4byte	.LASF23
+ 1371 00f5 03       		.byte	0x3
+ 1372 00f6 00       		.byte	0
+ 1373 00f7 03       		.uleb128 0x3
+ 1374 00f8 0A030000 		.4byte	.LASF24
+ 1375 00fc 01       		.byte	0x1
+ 1376 00fd 1E       		.byte	0x1e
+ 1377 00fe D2000000 		.4byte	0xd2
+ 1378 0102 06       		.uleb128 0x6
+ 1379 0103 01       		.byte	0x1
+ 1380 0104 37000000 		.4byte	0x37
+ 1381 0108 01       		.byte	0x1
+ 1382 0109 21       		.byte	0x21
+ 1383 010a 27010000 		.4byte	0x127
+ 1384 010e 07       		.uleb128 0x7
+ 1385 010f 18030000 		.4byte	.LASF25
+ 1386 0113 00       		.byte	0
+ 1387 0114 07       		.uleb128 0x7
+ 1388 0115 24030000 		.4byte	.LASF26
+ 1389 0119 01       		.byte	0x1
+ 1390 011a 07       		.uleb128 0x7
+ 1391 011b 6F000000 		.4byte	.LASF27
+ 1392 011f 02       		.byte	0x2
+ 1393 0120 07       		.uleb128 0x7
+ 1394 0121 7B000000 		.4byte	.LASF28
+ 1395 0125 03       		.byte	0x3
+ 1396 0126 00       		.byte	0
+ 1397 0127 03       		.uleb128 0x3
+ 1398 0128 0F030000 		.4byte	.LASF29
+ 1399 012c 01       		.byte	0x1
+ 1400 012d 26       		.byte	0x26
+ 1401 012e 02010000 		.4byte	0x102
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 33
+
+
+ 1402 0132 06       		.uleb128 0x6
+ 1403 0133 01       		.byte	0x1
+ 1404 0134 37000000 		.4byte	0x37
+ 1405 0138 01       		.byte	0x1
+ 1406 0139 29       		.byte	0x29
+ 1407 013a 4B010000 		.4byte	0x14b
+ 1408 013e 07       		.uleb128 0x7
+ 1409 013f 96020000 		.4byte	.LASF30
+ 1410 0143 00       		.byte	0
+ 1411 0144 07       		.uleb128 0x7
+ 1412 0145 8D020000 		.4byte	.LASF31
+ 1413 0149 01       		.byte	0x1
+ 1414 014a 00       		.byte	0
+ 1415 014b 03       		.uleb128 0x3
+ 1416 014c EE000000 		.4byte	.LASF32
+ 1417 0150 01       		.byte	0x1
+ 1418 0151 2C       		.byte	0x2c
+ 1419 0152 32010000 		.4byte	0x132
+ 1420 0156 08       		.uleb128 0x8
+ 1421 0157 6A000000 		.4byte	.LASF68
+ 1422 015b 01       		.byte	0x1
+ 1423 015c 32       		.byte	0x32
+ 1424 015d 73000000 		.4byte	0x73
+ 1425 0161 00000000 		.4byte	.LFB63
+ 1426 0165 74000000 		.4byte	.LFE63-.LFB63
+ 1427 0169 01       		.uleb128 0x1
+ 1428 016a 9C       		.byte	0x9c
+ 1429 016b 64020000 		.4byte	0x264
+ 1430 016f 09       		.uleb128 0x9
+ 1431 0170 0A000000 		.4byte	.LVL0
+ 1432 0174 84080000 		.4byte	0x884
+ 1433 0178 86010000 		.4byte	0x186
+ 1434 017c 0A       		.uleb128 0xa
+ 1435 017d 01       		.uleb128 0x1
+ 1436 017e 50       		.byte	0x50
+ 1437 017f 05       		.uleb128 0x5
+ 1438 0180 03       		.byte	0x3
+ 1439 0181 00000000 		.4byte	ISR_UART_rx_handler
+ 1440 0185 00       		.byte	0
+ 1441 0186 09       		.uleb128 0x9
+ 1442 0187 10000000 		.4byte	.LVL1
+ 1443 018b 8F080000 		.4byte	0x88f
+ 1444 018f 9D010000 		.4byte	0x19d
+ 1445 0193 0A       		.uleb128 0xa
+ 1446 0194 01       		.uleb128 0x1
+ 1447 0195 50       		.byte	0x50
+ 1448 0196 05       		.uleb128 0x5
+ 1449 0197 03       		.byte	0x3
+ 1450 0198 00000000 		.4byte	ISR_timer_handler
+ 1451 019c 00       		.byte	0
+ 1452 019d 0B       		.uleb128 0xb
+ 1453 019e 14000000 		.4byte	.LVL2
+ 1454 01a2 9A080000 		.4byte	0x89a
+ 1455 01a6 0B       		.uleb128 0xb
+ 1456 01a7 18000000 		.4byte	.LVL3
+ 1457 01ab A5080000 		.4byte	0x8a5
+ 1458 01af 09       		.uleb128 0x9
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 34
+
+
+ 1459 01b0 1E000000 		.4byte	.LVL4
+ 1460 01b4 B0080000 		.4byte	0x8b0
+ 1461 01b8 C6010000 		.4byte	0x1c6
+ 1462 01bc 0A       		.uleb128 0xa
+ 1463 01bd 01       		.uleb128 0x1
+ 1464 01be 50       		.byte	0x50
+ 1465 01bf 05       		.uleb128 0x5
+ 1466 01c0 03       		.byte	0x3
+ 1467 01c1 00000000 		.4byte	.LC0
+ 1468 01c5 00       		.byte	0
+ 1469 01c6 09       		.uleb128 0x9
+ 1470 01c7 24000000 		.4byte	.LVL5
+ 1471 01cb B0080000 		.4byte	0x8b0
+ 1472 01cf DD010000 		.4byte	0x1dd
+ 1473 01d3 0A       		.uleb128 0xa
+ 1474 01d4 01       		.uleb128 0x1
+ 1475 01d5 50       		.byte	0x50
+ 1476 01d6 05       		.uleb128 0x5
+ 1477 01d7 03       		.byte	0x3
+ 1478 01d8 24000000 		.4byte	.LC1
+ 1479 01dc 00       		.byte	0
+ 1480 01dd 09       		.uleb128 0x9
+ 1481 01de 2A000000 		.4byte	.LVL6
+ 1482 01e2 B0080000 		.4byte	0x8b0
+ 1483 01e6 F4010000 		.4byte	0x1f4
+ 1484 01ea 0A       		.uleb128 0xa
+ 1485 01eb 01       		.uleb128 0x1
+ 1486 01ec 50       		.byte	0x50
+ 1487 01ed 05       		.uleb128 0x5
+ 1488 01ee 03       		.byte	0x3
+ 1489 01ef 34000000 		.4byte	.LC2
+ 1490 01f3 00       		.byte	0
+ 1491 01f4 09       		.uleb128 0x9
+ 1492 01f5 30000000 		.4byte	.LVL7
+ 1493 01f9 B0080000 		.4byte	0x8b0
+ 1494 01fd 0B020000 		.4byte	0x20b
+ 1495 0201 0A       		.uleb128 0xa
+ 1496 0202 01       		.uleb128 0x1
+ 1497 0203 50       		.byte	0x50
+ 1498 0204 05       		.uleb128 0x5
+ 1499 0205 03       		.byte	0x3
+ 1500 0206 44000000 		.4byte	.LC3
+ 1501 020a 00       		.byte	0
+ 1502 020b 09       		.uleb128 0x9
+ 1503 020c 36000000 		.4byte	.LVL8
+ 1504 0210 B0080000 		.4byte	0x8b0
+ 1505 0214 22020000 		.4byte	0x222
+ 1506 0218 0A       		.uleb128 0xa
+ 1507 0219 01       		.uleb128 0x1
+ 1508 021a 50       		.byte	0x50
+ 1509 021b 05       		.uleb128 0x5
+ 1510 021c 03       		.byte	0x3
+ 1511 021d 54000000 		.4byte	.LC4
+ 1512 0221 00       		.byte	0
+ 1513 0222 09       		.uleb128 0x9
+ 1514 0223 3C000000 		.4byte	.LVL9
+ 1515 0227 B0080000 		.4byte	0x8b0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 35
+
+
+ 1516 022b 39020000 		.4byte	0x239
+ 1517 022f 0A       		.uleb128 0xa
+ 1518 0230 01       		.uleb128 0x1
+ 1519 0231 50       		.byte	0x50
+ 1520 0232 05       		.uleb128 0x5
+ 1521 0233 03       		.byte	0x3
+ 1522 0234 60000000 		.4byte	.LC5
+ 1523 0238 00       		.byte	0
+ 1524 0239 09       		.uleb128 0x9
+ 1525 023a 42000000 		.4byte	.LVL10
+ 1526 023e B0080000 		.4byte	0x8b0
+ 1527 0242 50020000 		.4byte	0x250
+ 1528 0246 0A       		.uleb128 0xa
+ 1529 0247 01       		.uleb128 0x1
+ 1530 0248 50       		.byte	0x50
+ 1531 0249 05       		.uleb128 0x5
+ 1532 024a 03       		.byte	0x3
+ 1533 024b 6C000000 		.4byte	.LC6
+ 1534 024f 00       		.byte	0
+ 1535 0250 0C       		.uleb128 0xc
+ 1536 0251 48000000 		.4byte	.LVL11
+ 1537 0255 B0080000 		.4byte	0x8b0
+ 1538 0259 0A       		.uleb128 0xa
+ 1539 025a 01       		.uleb128 0x1
+ 1540 025b 50       		.byte	0x50
+ 1541 025c 05       		.uleb128 0x5
+ 1542 025d 03       		.byte	0x3
+ 1543 025e 80000000 		.4byte	.LC7
+ 1544 0262 00       		.byte	0
+ 1545 0263 00       		.byte	0
+ 1546 0264 0D       		.uleb128 0xd
+ 1547 0265 13000000 		.4byte	.LASF33
+ 1548 0269 01       		.byte	0x1
+ 1549 026a 8D       		.byte	0x8d
+ 1550 026b 00000000 		.4byte	.LFB67
+ 1551 026f 18000000 		.4byte	.LFE67-.LFB67
+ 1552 0273 01       		.uleb128 0x1
+ 1553 0274 9C       		.byte	0x9c
+ 1554 0275 8D020000 		.4byte	0x28d
+ 1555 0279 0C       		.uleb128 0xc
+ 1556 027a 08000000 		.4byte	.LVL12
+ 1557 027e B0080000 		.4byte	0x8b0
+ 1558 0282 0A       		.uleb128 0xa
+ 1559 0283 01       		.uleb128 0x1
+ 1560 0284 50       		.byte	0x50
+ 1561 0285 05       		.uleb128 0x5
+ 1562 0286 03       		.byte	0x3
+ 1563 0287 94000000 		.4byte	.LC8
+ 1564 028b 00       		.byte	0
+ 1565 028c 00       		.byte	0
+ 1566 028d 0D       		.uleb128 0xd
+ 1567 028e DC000000 		.4byte	.LASF34
+ 1568 0292 01       		.byte	0x1
+ 1569 0293 93       		.byte	0x93
+ 1570 0294 00000000 		.4byte	.LFB68
+ 1571 0298 18000000 		.4byte	.LFE68-.LFB68
+ 1572 029c 01       		.uleb128 0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 36
+
+
+ 1573 029d 9C       		.byte	0x9c
+ 1574 029e B6020000 		.4byte	0x2b6
+ 1575 02a2 0C       		.uleb128 0xc
+ 1576 02a3 08000000 		.4byte	.LVL13
+ 1577 02a7 B0080000 		.4byte	0x8b0
+ 1578 02ab 0A       		.uleb128 0xa
+ 1579 02ac 01       		.uleb128 0x1
+ 1580 02ad 50       		.byte	0x50
+ 1581 02ae 05       		.uleb128 0x5
+ 1582 02af 03       		.byte	0x3
+ 1583 02b0 A0000000 		.4byte	.LC9
+ 1584 02b4 00       		.byte	0
+ 1585 02b5 00       		.byte	0
+ 1586 02b6 0D       		.uleb128 0xd
+ 1587 02b7 97010000 		.4byte	.LASF35
+ 1588 02bb 01       		.byte	0x1
+ 1589 02bc 99       		.byte	0x99
+ 1590 02bd 00000000 		.4byte	.LFB69
+ 1591 02c1 18000000 		.4byte	.LFE69-.LFB69
+ 1592 02c5 01       		.uleb128 0x1
+ 1593 02c6 9C       		.byte	0x9c
+ 1594 02c7 DF020000 		.4byte	0x2df
+ 1595 02cb 0C       		.uleb128 0xc
+ 1596 02cc 08000000 		.4byte	.LVL14
+ 1597 02d0 B0080000 		.4byte	0x8b0
+ 1598 02d4 0A       		.uleb128 0xa
+ 1599 02d5 01       		.uleb128 0x1
+ 1600 02d6 50       		.byte	0x50
+ 1601 02d7 05       		.uleb128 0x5
+ 1602 02d8 03       		.byte	0x3
+ 1603 02d9 AC000000 		.4byte	.LC10
+ 1604 02dd 00       		.byte	0
+ 1605 02de 00       		.byte	0
+ 1606 02df 0D       		.uleb128 0xd
+ 1607 02e0 F3020000 		.4byte	.LASF36
+ 1608 02e4 01       		.byte	0x1
+ 1609 02e5 9F       		.byte	0x9f
+ 1610 02e6 00000000 		.4byte	.LFB70
+ 1611 02ea 18000000 		.4byte	.LFE70-.LFB70
+ 1612 02ee 01       		.uleb128 0x1
+ 1613 02ef 9C       		.byte	0x9c
+ 1614 02f0 08030000 		.4byte	0x308
+ 1615 02f4 0C       		.uleb128 0xc
+ 1616 02f5 08000000 		.4byte	.LVL15
+ 1617 02f9 B0080000 		.4byte	0x8b0
+ 1618 02fd 0A       		.uleb128 0xa
+ 1619 02fe 01       		.uleb128 0x1
+ 1620 02ff 50       		.byte	0x50
+ 1621 0300 05       		.uleb128 0x5
+ 1622 0301 03       		.byte	0x3
+ 1623 0302 B8000000 		.4byte	.LC11
+ 1624 0306 00       		.byte	0
+ 1625 0307 00       		.byte	0
+ 1626 0308 0E       		.uleb128 0xe
+ 1627 0309 B2000000 		.4byte	.LASF37
+ 1628 030d 01       		.byte	0x1
+ 1629 030e A5       		.byte	0xa5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 37
+
+
+ 1630 030f 00000000 		.4byte	.LFB71
+ 1631 0313 1C000000 		.4byte	.LFE71-.LFB71
+ 1632 0317 01       		.uleb128 0x1
+ 1633 0318 9C       		.byte	0x9c
+ 1634 0319 0E       		.uleb128 0xe
+ 1635 031a AA010000 		.4byte	.LASF38
+ 1636 031e 01       		.byte	0x1
+ 1637 031f B1       		.byte	0xb1
+ 1638 0320 00000000 		.4byte	.LFB72
+ 1639 0324 18000000 		.4byte	.LFE72-.LFB72
+ 1640 0328 01       		.uleb128 0x1
+ 1641 0329 9C       		.byte	0x9c
+ 1642 032a 0E       		.uleb128 0xe
+ 1643 032b D8030000 		.4byte	.LASF39
+ 1644 032f 01       		.byte	0x1
+ 1645 0330 B9       		.byte	0xb9
+ 1646 0331 00000000 		.4byte	.LFB73
+ 1647 0335 1C000000 		.4byte	.LFE73-.LFB73
+ 1648 0339 01       		.uleb128 0x1
+ 1649 033a 9C       		.byte	0x9c
+ 1650 033b 0F       		.uleb128 0xf
+ 1651 033c 0C010000 		.4byte	.LASF40
+ 1652 0340 01       		.byte	0x1
+ 1653 0341 61       		.byte	0x61
+ 1654 0342 00000000 		.4byte	.LFB66
+ 1655 0346 7A000000 		.4byte	.LFE66-.LFB66
+ 1656 034a 01       		.uleb128 0x1
+ 1657 034b 9C       		.byte	0x9c
+ 1658 034c 9F030000 		.4byte	0x39f
+ 1659 0350 10       		.uleb128 0x10
+ 1660 0351 BB000000 		.4byte	.LASF43
+ 1661 0355 01       		.byte	0x1
+ 1662 0356 61       		.byte	0x61
+ 1663 0357 81000000 		.4byte	0x81
+ 1664 035b 00000000 		.4byte	.LLST0
+ 1665 035f 0B       		.uleb128 0xb
+ 1666 0360 58000000 		.4byte	.LVL18
+ 1667 0364 64020000 		.4byte	0x264
+ 1668 0368 0B       		.uleb128 0xb
+ 1669 0369 5E000000 		.4byte	.LVL19
+ 1670 036d 8D020000 		.4byte	0x28d
+ 1671 0371 0B       		.uleb128 0xb
+ 1672 0372 64000000 		.4byte	.LVL20
+ 1673 0376 B6020000 		.4byte	0x2b6
+ 1674 037a 0B       		.uleb128 0xb
+ 1675 037b 6A000000 		.4byte	.LVL21
+ 1676 037f DF020000 		.4byte	0x2df
+ 1677 0383 0B       		.uleb128 0xb
+ 1678 0384 70000000 		.4byte	.LVL22
+ 1679 0388 08030000 		.4byte	0x308
+ 1680 038c 0B       		.uleb128 0xb
+ 1681 038d 74000000 		.4byte	.LVL23
+ 1682 0391 19030000 		.4byte	0x319
+ 1683 0395 0B       		.uleb128 0xb
+ 1684 0396 78000000 		.4byte	.LVL24
+ 1685 039a 2A030000 		.4byte	0x32a
+ 1686 039e 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 38
+
+
+ 1687 039f 0F       		.uleb128 0xf
+ 1688 03a0 2A000000 		.4byte	.LASF41
+ 1689 03a4 01       		.byte	0x1
+ 1690 03a5 53       		.byte	0x53
+ 1691 03a6 00000000 		.4byte	.LFB65
+ 1692 03aa 24000000 		.4byte	.LFE65-.LFB65
+ 1693 03ae 01       		.uleb128 0x1
+ 1694 03af 9C       		.byte	0x9c
+ 1695 03b0 17040000 		.4byte	0x417
+ 1696 03b4 11       		.uleb128 0x11
+ 1697 03b5 3F020000 		.4byte	.LASF42
+ 1698 03b9 01       		.byte	0x1
+ 1699 03ba 55       		.byte	0x55
+ 1700 03bb 81000000 		.4byte	0x81
+ 1701 03bf 21000000 		.4byte	.LLST1
+ 1702 03c3 12       		.uleb128 0x12
+ 1703 03c4 0A000000 		.4byte	.LBB2
+ 1704 03c8 14000000 		.4byte	.LBE2-.LBB2
+ 1705 03cc 0D040000 		.4byte	0x40d
+ 1706 03d0 11       		.uleb128 0x11
+ 1707 03d1 BB000000 		.4byte	.LASF43
+ 1708 03d5 01       		.byte	0x1
+ 1709 03d6 58       		.byte	0x58
+ 1710 03d7 81000000 		.4byte	0x81
+ 1711 03db 3F000000 		.4byte	.LLST2
+ 1712 03df 0B       		.uleb128 0xb
+ 1713 03e0 0E000000 		.4byte	.LVL27
+ 1714 03e4 BB080000 		.4byte	0x8bb
+ 1715 03e8 09       		.uleb128 0x9
+ 1716 03e9 14000000 		.4byte	.LVL29
+ 1717 03ed C6080000 		.4byte	0x8c6
+ 1718 03f1 FC030000 		.4byte	0x3fc
+ 1719 03f5 0A       		.uleb128 0xa
+ 1720 03f6 01       		.uleb128 0x1
+ 1721 03f7 50       		.byte	0x50
+ 1722 03f8 02       		.uleb128 0x2
+ 1723 03f9 75       		.byte	0x75
+ 1724 03fa 00       		.sleb128 0
+ 1725 03fb 00       		.byte	0
+ 1726 03fc 0C       		.uleb128 0xc
+ 1727 03fd 1A000000 		.4byte	.LVL30
+ 1728 0401 3B030000 		.4byte	0x33b
+ 1729 0405 0A       		.uleb128 0xa
+ 1730 0406 01       		.uleb128 0x1
+ 1731 0407 50       		.byte	0x50
+ 1732 0408 02       		.uleb128 0x2
+ 1733 0409 75       		.byte	0x75
+ 1734 040a 00       		.sleb128 0
+ 1735 040b 00       		.byte	0
+ 1736 040c 00       		.byte	0
+ 1737 040d 0B       		.uleb128 0xb
+ 1738 040e 06000000 		.4byte	.LVL25
+ 1739 0412 D1080000 		.4byte	0x8d1
+ 1740 0416 00       		.byte	0
+ 1741 0417 0D       		.uleb128 0xd
+ 1742 0418 D8010000 		.4byte	.LASF44
+ 1743 041c 01       		.byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 39
+
+
+ 1744 041d C1       		.byte	0xc1
+ 1745 041e 00000000 		.4byte	.LFB74
+ 1746 0422 2C030000 		.4byte	.LFE74-.LFB74
+ 1747 0426 01       		.uleb128 0x1
+ 1748 0427 9C       		.byte	0x9c
+ 1749 0428 DD070000 		.4byte	0x7dd
+ 1750 042c 09       		.uleb128 0x9
+ 1751 042d 34000000 		.4byte	.LVL33
+ 1752 0431 B0080000 		.4byte	0x8b0
+ 1753 0435 43040000 		.4byte	0x443
+ 1754 0439 0A       		.uleb128 0xa
+ 1755 043a 01       		.uleb128 0x1
+ 1756 043b 50       		.byte	0x50
+ 1757 043c 05       		.uleb128 0x5
+ 1758 043d 03       		.byte	0x3
+ 1759 043e C0000000 		.4byte	.LC12
+ 1760 0442 00       		.byte	0
+ 1761 0443 0B       		.uleb128 0xb
+ 1762 0444 3C000000 		.4byte	.LVL34
+ 1763 0448 DC080000 		.4byte	0x8dc
+ 1764 044c 0B       		.uleb128 0xb
+ 1765 044d 44000000 		.4byte	.LVL35
+ 1766 0451 E7080000 		.4byte	0x8e7
+ 1767 0455 0B       		.uleb128 0xb
+ 1768 0456 4A000000 		.4byte	.LVL36
+ 1769 045a F2080000 		.4byte	0x8f2
+ 1770 045e 0B       		.uleb128 0xb
+ 1771 045f 50000000 		.4byte	.LVL37
+ 1772 0463 FD080000 		.4byte	0x8fd
+ 1773 0467 09       		.uleb128 0x9
+ 1774 0468 5C000000 		.4byte	.LVL38
+ 1775 046c B0080000 		.4byte	0x8b0
+ 1776 0470 7E040000 		.4byte	0x47e
+ 1777 0474 0A       		.uleb128 0xa
+ 1778 0475 01       		.uleb128 0x1
+ 1779 0476 50       		.byte	0x50
+ 1780 0477 05       		.uleb128 0x5
+ 1781 0478 03       		.byte	0x3
+ 1782 0479 C4000000 		.4byte	.LC13
+ 1783 047d 00       		.byte	0
+ 1784 047e 0B       		.uleb128 0xb
+ 1785 047f 64000000 		.4byte	.LVL39
+ 1786 0483 DC080000 		.4byte	0x8dc
+ 1787 0487 0B       		.uleb128 0xb
+ 1788 0488 6C000000 		.4byte	.LVL40
+ 1789 048c E7080000 		.4byte	0x8e7
+ 1790 0490 0B       		.uleb128 0xb
+ 1791 0491 72000000 		.4byte	.LVL41
+ 1792 0495 F2080000 		.4byte	0x8f2
+ 1793 0499 0B       		.uleb128 0xb
+ 1794 049a 78000000 		.4byte	.LVL42
+ 1795 049e FD080000 		.4byte	0x8fd
+ 1796 04a2 09       		.uleb128 0x9
+ 1797 04a3 84000000 		.4byte	.LVL43
+ 1798 04a7 B0080000 		.4byte	0x8b0
+ 1799 04ab B9040000 		.4byte	0x4b9
+ 1800 04af 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 40
+
+
+ 1801 04b0 01       		.uleb128 0x1
+ 1802 04b1 50       		.byte	0x50
+ 1803 04b2 05       		.uleb128 0x5
+ 1804 04b3 03       		.byte	0x3
+ 1805 04b4 C8000000 		.4byte	.LC14
+ 1806 04b8 00       		.byte	0
+ 1807 04b9 0B       		.uleb128 0xb
+ 1808 04ba 8C000000 		.4byte	.LVL44
+ 1809 04be DC080000 		.4byte	0x8dc
+ 1810 04c2 0B       		.uleb128 0xb
+ 1811 04c3 92000000 		.4byte	.LVL45
+ 1812 04c7 E7080000 		.4byte	0x8e7
+ 1813 04cb 0B       		.uleb128 0xb
+ 1814 04cc 9A000000 		.4byte	.LVL46
+ 1815 04d0 F2080000 		.4byte	0x8f2
+ 1816 04d4 0B       		.uleb128 0xb
+ 1817 04d5 A0000000 		.4byte	.LVL47
+ 1818 04d9 FD080000 		.4byte	0x8fd
+ 1819 04dd 09       		.uleb128 0x9
+ 1820 04de AC000000 		.4byte	.LVL48
+ 1821 04e2 B0080000 		.4byte	0x8b0
+ 1822 04e6 F4040000 		.4byte	0x4f4
+ 1823 04ea 0A       		.uleb128 0xa
+ 1824 04eb 01       		.uleb128 0x1
+ 1825 04ec 50       		.byte	0x50
+ 1826 04ed 05       		.uleb128 0x5
+ 1827 04ee 03       		.byte	0x3
+ 1828 04ef CC000000 		.4byte	.LC15
+ 1829 04f3 00       		.byte	0
+ 1830 04f4 0B       		.uleb128 0xb
+ 1831 04f5 B4000000 		.4byte	.LVL49
+ 1832 04f9 DC080000 		.4byte	0x8dc
+ 1833 04fd 0B       		.uleb128 0xb
+ 1834 04fe BA000000 		.4byte	.LVL50
+ 1835 0502 E7080000 		.4byte	0x8e7
+ 1836 0506 0B       		.uleb128 0xb
+ 1837 0507 C0000000 		.4byte	.LVL51
+ 1838 050b F2080000 		.4byte	0x8f2
+ 1839 050f 0B       		.uleb128 0xb
+ 1840 0510 C8000000 		.4byte	.LVL52
+ 1841 0514 FD080000 		.4byte	0x8fd
+ 1842 0518 09       		.uleb128 0x9
+ 1843 0519 E6000000 		.4byte	.LVL53
+ 1844 051d B0080000 		.4byte	0x8b0
+ 1845 0521 2F050000 		.4byte	0x52f
+ 1846 0525 0A       		.uleb128 0xa
+ 1847 0526 01       		.uleb128 0x1
+ 1848 0527 50       		.byte	0x50
+ 1849 0528 05       		.uleb128 0x5
+ 1850 0529 03       		.byte	0x3
+ 1851 052a C0000000 		.4byte	.LC12
+ 1852 052e 00       		.byte	0
+ 1853 052f 0B       		.uleb128 0xb
+ 1854 0530 EE000000 		.4byte	.LVL54
+ 1855 0534 DC080000 		.4byte	0x8dc
+ 1856 0538 0B       		.uleb128 0xb
+ 1857 0539 F6000000 		.4byte	.LVL55
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 41
+
+
+ 1858 053d E7080000 		.4byte	0x8e7
+ 1859 0541 0B       		.uleb128 0xb
+ 1860 0542 FC000000 		.4byte	.LVL56
+ 1861 0546 F2080000 		.4byte	0x8f2
+ 1862 054a 0B       		.uleb128 0xb
+ 1863 054b 02010000 		.4byte	.LVL57
+ 1864 054f FD080000 		.4byte	0x8fd
+ 1865 0553 09       		.uleb128 0x9
+ 1866 0554 0E010000 		.4byte	.LVL58
+ 1867 0558 B0080000 		.4byte	0x8b0
+ 1868 055c 6A050000 		.4byte	0x56a
+ 1869 0560 0A       		.uleb128 0xa
+ 1870 0561 01       		.uleb128 0x1
+ 1871 0562 50       		.byte	0x50
+ 1872 0563 05       		.uleb128 0x5
+ 1873 0564 03       		.byte	0x3
+ 1874 0565 CC000000 		.4byte	.LC15
+ 1875 0569 00       		.byte	0
+ 1876 056a 0B       		.uleb128 0xb
+ 1877 056b 16010000 		.4byte	.LVL59
+ 1878 056f DC080000 		.4byte	0x8dc
+ 1879 0573 0B       		.uleb128 0xb
+ 1880 0574 1C010000 		.4byte	.LVL60
+ 1881 0578 E7080000 		.4byte	0x8e7
+ 1882 057c 0B       		.uleb128 0xb
+ 1883 057d 22010000 		.4byte	.LVL61
+ 1884 0581 F2080000 		.4byte	0x8f2
+ 1885 0585 0B       		.uleb128 0xb
+ 1886 0586 2A010000 		.4byte	.LVL62
+ 1887 058a FD080000 		.4byte	0x8fd
+ 1888 058e 09       		.uleb128 0x9
+ 1889 058f 36010000 		.4byte	.LVL63
+ 1890 0593 B0080000 		.4byte	0x8b0
+ 1891 0597 A5050000 		.4byte	0x5a5
+ 1892 059b 0A       		.uleb128 0xa
+ 1893 059c 01       		.uleb128 0x1
+ 1894 059d 50       		.byte	0x50
+ 1895 059e 05       		.uleb128 0x5
+ 1896 059f 03       		.byte	0x3
+ 1897 05a0 C8000000 		.4byte	.LC14
+ 1898 05a4 00       		.byte	0
+ 1899 05a5 0B       		.uleb128 0xb
+ 1900 05a6 3E010000 		.4byte	.LVL64
+ 1901 05aa DC080000 		.4byte	0x8dc
+ 1902 05ae 0B       		.uleb128 0xb
+ 1903 05af 44010000 		.4byte	.LVL65
+ 1904 05b3 E7080000 		.4byte	0x8e7
+ 1905 05b7 0B       		.uleb128 0xb
+ 1906 05b8 4C010000 		.4byte	.LVL66
+ 1907 05bc F2080000 		.4byte	0x8f2
+ 1908 05c0 0B       		.uleb128 0xb
+ 1909 05c1 52010000 		.4byte	.LVL67
+ 1910 05c5 FD080000 		.4byte	0x8fd
+ 1911 05c9 09       		.uleb128 0x9
+ 1912 05ca 5E010000 		.4byte	.LVL68
+ 1913 05ce B0080000 		.4byte	0x8b0
+ 1914 05d2 E0050000 		.4byte	0x5e0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 42
+
+
+ 1915 05d6 0A       		.uleb128 0xa
+ 1916 05d7 01       		.uleb128 0x1
+ 1917 05d8 50       		.byte	0x50
+ 1918 05d9 05       		.uleb128 0x5
+ 1919 05da 03       		.byte	0x3
+ 1920 05db C4000000 		.4byte	.LC13
+ 1921 05df 00       		.byte	0
+ 1922 05e0 0B       		.uleb128 0xb
+ 1923 05e1 66010000 		.4byte	.LVL69
+ 1924 05e5 DC080000 		.4byte	0x8dc
+ 1925 05e9 0B       		.uleb128 0xb
+ 1926 05ea 6E010000 		.4byte	.LVL70
+ 1927 05ee E7080000 		.4byte	0x8e7
+ 1928 05f2 0B       		.uleb128 0xb
+ 1929 05f3 74010000 		.4byte	.LVL71
+ 1930 05f7 F2080000 		.4byte	0x8f2
+ 1931 05fb 0B       		.uleb128 0xb
+ 1932 05fc 7A010000 		.4byte	.LVL72
+ 1933 0600 FD080000 		.4byte	0x8fd
+ 1934 0604 09       		.uleb128 0x9
+ 1935 0605 A4010000 		.4byte	.LVL73
+ 1936 0609 B0080000 		.4byte	0x8b0
+ 1937 060d 1B060000 		.4byte	0x61b
+ 1938 0611 0A       		.uleb128 0xa
+ 1939 0612 01       		.uleb128 0x1
+ 1940 0613 50       		.byte	0x50
+ 1941 0614 05       		.uleb128 0x5
+ 1942 0615 03       		.byte	0x3
+ 1943 0616 D0000000 		.4byte	.LC16
+ 1944 061a 00       		.byte	0
+ 1945 061b 0B       		.uleb128 0xb
+ 1946 061c AC010000 		.4byte	.LVL74
+ 1947 0620 DC080000 		.4byte	0x8dc
+ 1948 0624 0B       		.uleb128 0xb
+ 1949 0625 B2010000 		.4byte	.LVL75
+ 1950 0629 E7080000 		.4byte	0x8e7
+ 1951 062d 0B       		.uleb128 0xb
+ 1952 062e BA010000 		.4byte	.LVL76
+ 1953 0632 F2080000 		.4byte	0x8f2
+ 1954 0636 0B       		.uleb128 0xb
+ 1955 0637 C0010000 		.4byte	.LVL77
+ 1956 063b FD080000 		.4byte	0x8fd
+ 1957 063f 09       		.uleb128 0x9
+ 1958 0640 CC010000 		.4byte	.LVL78
+ 1959 0644 B0080000 		.4byte	0x8b0
+ 1960 0648 56060000 		.4byte	0x656
+ 1961 064c 0A       		.uleb128 0xa
+ 1962 064d 01       		.uleb128 0x1
+ 1963 064e 50       		.byte	0x50
+ 1964 064f 05       		.uleb128 0x5
+ 1965 0650 03       		.byte	0x3
+ 1966 0651 D4000000 		.4byte	.LC17
+ 1967 0655 00       		.byte	0
+ 1968 0656 0B       		.uleb128 0xb
+ 1969 0657 D4010000 		.4byte	.LVL79
+ 1970 065b DC080000 		.4byte	0x8dc
+ 1971 065f 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 43
+
+
+ 1972 0660 DC010000 		.4byte	.LVL80
+ 1973 0664 E7080000 		.4byte	0x8e7
+ 1974 0668 0B       		.uleb128 0xb
+ 1975 0669 E2010000 		.4byte	.LVL81
+ 1976 066d F2080000 		.4byte	0x8f2
+ 1977 0671 0B       		.uleb128 0xb
+ 1978 0672 E8010000 		.4byte	.LVL82
+ 1979 0676 FD080000 		.4byte	0x8fd
+ 1980 067a 09       		.uleb128 0x9
+ 1981 067b F4010000 		.4byte	.LVL83
+ 1982 067f B0080000 		.4byte	0x8b0
+ 1983 0683 91060000 		.4byte	0x691
+ 1984 0687 0A       		.uleb128 0xa
+ 1985 0688 01       		.uleb128 0x1
+ 1986 0689 50       		.byte	0x50
+ 1987 068a 05       		.uleb128 0x5
+ 1988 068b 03       		.byte	0x3
+ 1989 068c DC000000 		.4byte	.LC18
+ 1990 0690 00       		.byte	0
+ 1991 0691 0B       		.uleb128 0xb
+ 1992 0692 FC010000 		.4byte	.LVL84
+ 1993 0696 DC080000 		.4byte	0x8dc
+ 1994 069a 0B       		.uleb128 0xb
+ 1995 069b 02020000 		.4byte	.LVL85
+ 1996 069f E7080000 		.4byte	0x8e7
+ 1997 06a3 0B       		.uleb128 0xb
+ 1998 06a4 0A020000 		.4byte	.LVL86
+ 1999 06a8 F2080000 		.4byte	0x8f2
+ 2000 06ac 0B       		.uleb128 0xb
+ 2001 06ad 10020000 		.4byte	.LVL87
+ 2002 06b1 FD080000 		.4byte	0x8fd
+ 2003 06b5 09       		.uleb128 0x9
+ 2004 06b6 1C020000 		.4byte	.LVL88
+ 2005 06ba B0080000 		.4byte	0x8b0
+ 2006 06be CC060000 		.4byte	0x6cc
+ 2007 06c2 0A       		.uleb128 0xa
+ 2008 06c3 01       		.uleb128 0x1
+ 2009 06c4 50       		.byte	0x50
+ 2010 06c5 05       		.uleb128 0x5
+ 2011 06c6 03       		.byte	0x3
+ 2012 06c7 E4000000 		.4byte	.LC19
+ 2013 06cb 00       		.byte	0
+ 2014 06cc 0B       		.uleb128 0xb
+ 2015 06cd 24020000 		.4byte	.LVL89
+ 2016 06d1 DC080000 		.4byte	0x8dc
+ 2017 06d5 0B       		.uleb128 0xb
+ 2018 06d6 2C020000 		.4byte	.LVL90
+ 2019 06da E7080000 		.4byte	0x8e7
+ 2020 06de 0B       		.uleb128 0xb
+ 2021 06df 32020000 		.4byte	.LVL91
+ 2022 06e3 F2080000 		.4byte	0x8f2
+ 2023 06e7 0B       		.uleb128 0xb
+ 2024 06e8 38020000 		.4byte	.LVL92
+ 2025 06ec FD080000 		.4byte	0x8fd
+ 2026 06f0 09       		.uleb128 0x9
+ 2027 06f1 54020000 		.4byte	.LVL93
+ 2028 06f5 B0080000 		.4byte	0x8b0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 44
+
+
+ 2029 06f9 07070000 		.4byte	0x707
+ 2030 06fd 0A       		.uleb128 0xa
+ 2031 06fe 01       		.uleb128 0x1
+ 2032 06ff 50       		.byte	0x50
+ 2033 0700 05       		.uleb128 0x5
+ 2034 0701 03       		.byte	0x3
+ 2035 0702 D0000000 		.4byte	.LC16
+ 2036 0706 00       		.byte	0
+ 2037 0707 0B       		.uleb128 0xb
+ 2038 0708 5C020000 		.4byte	.LVL94
+ 2039 070c DC080000 		.4byte	0x8dc
+ 2040 0710 0B       		.uleb128 0xb
+ 2041 0711 62020000 		.4byte	.LVL95
+ 2042 0715 E7080000 		.4byte	0x8e7
+ 2043 0719 0B       		.uleb128 0xb
+ 2044 071a 6A020000 		.4byte	.LVL96
+ 2045 071e F2080000 		.4byte	0x8f2
+ 2046 0722 0B       		.uleb128 0xb
+ 2047 0723 70020000 		.4byte	.LVL97
+ 2048 0727 FD080000 		.4byte	0x8fd
+ 2049 072b 09       		.uleb128 0x9
+ 2050 072c A6020000 		.4byte	.LVL98
+ 2051 0730 B0080000 		.4byte	0x8b0
+ 2052 0734 42070000 		.4byte	0x742
+ 2053 0738 0A       		.uleb128 0xa
+ 2054 0739 01       		.uleb128 0x1
+ 2055 073a 50       		.byte	0x50
+ 2056 073b 05       		.uleb128 0x5
+ 2057 073c 03       		.byte	0x3
+ 2058 073d E4000000 		.4byte	.LC19
+ 2059 0741 00       		.byte	0
+ 2060 0742 0B       		.uleb128 0xb
+ 2061 0743 AE020000 		.4byte	.LVL99
+ 2062 0747 DC080000 		.4byte	0x8dc
+ 2063 074b 0B       		.uleb128 0xb
+ 2064 074c B6020000 		.4byte	.LVL100
+ 2065 0750 E7080000 		.4byte	0x8e7
+ 2066 0754 0B       		.uleb128 0xb
+ 2067 0755 BC020000 		.4byte	.LVL101
+ 2068 0759 F2080000 		.4byte	0x8f2
+ 2069 075d 0B       		.uleb128 0xb
+ 2070 075e C2020000 		.4byte	.LVL102
+ 2071 0762 FD080000 		.4byte	0x8fd
+ 2072 0766 09       		.uleb128 0x9
+ 2073 0767 CE020000 		.4byte	.LVL103
+ 2074 076b B0080000 		.4byte	0x8b0
+ 2075 076f 7D070000 		.4byte	0x77d
+ 2076 0773 0A       		.uleb128 0xa
+ 2077 0774 01       		.uleb128 0x1
+ 2078 0775 50       		.byte	0x50
+ 2079 0776 05       		.uleb128 0x5
+ 2080 0777 03       		.byte	0x3
+ 2081 0778 DC000000 		.4byte	.LC18
+ 2082 077c 00       		.byte	0
+ 2083 077d 0B       		.uleb128 0xb
+ 2084 077e D6020000 		.4byte	.LVL104
+ 2085 0782 DC080000 		.4byte	0x8dc
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 45
+
+
+ 2086 0786 0B       		.uleb128 0xb
+ 2087 0787 DC020000 		.4byte	.LVL105
+ 2088 078b E7080000 		.4byte	0x8e7
+ 2089 078f 0B       		.uleb128 0xb
+ 2090 0790 E4020000 		.4byte	.LVL106
+ 2091 0794 F2080000 		.4byte	0x8f2
+ 2092 0798 0B       		.uleb128 0xb
+ 2093 0799 EA020000 		.4byte	.LVL107
+ 2094 079d FD080000 		.4byte	0x8fd
+ 2095 07a1 09       		.uleb128 0x9
+ 2096 07a2 F6020000 		.4byte	.LVL108
+ 2097 07a6 B0080000 		.4byte	0x8b0
+ 2098 07aa B8070000 		.4byte	0x7b8
+ 2099 07ae 0A       		.uleb128 0xa
+ 2100 07af 01       		.uleb128 0x1
+ 2101 07b0 50       		.byte	0x50
+ 2102 07b1 05       		.uleb128 0x5
+ 2103 07b2 03       		.byte	0x3
+ 2104 07b3 D4000000 		.4byte	.LC17
+ 2105 07b7 00       		.byte	0
+ 2106 07b8 0B       		.uleb128 0xb
+ 2107 07b9 FE020000 		.4byte	.LVL109
+ 2108 07bd DC080000 		.4byte	0x8dc
+ 2109 07c1 0B       		.uleb128 0xb
+ 2110 07c2 06030000 		.4byte	.LVL110
+ 2111 07c6 E7080000 		.4byte	0x8e7
+ 2112 07ca 0B       		.uleb128 0xb
+ 2113 07cb 0C030000 		.4byte	.LVL111
+ 2114 07cf F2080000 		.4byte	0x8f2
+ 2115 07d3 0B       		.uleb128 0xb
+ 2116 07d4 12030000 		.4byte	.LVL112
+ 2117 07d8 FD080000 		.4byte	0x8fd
+ 2118 07dc 00       		.byte	0
+ 2119 07dd 0F       		.uleb128 0xf
+ 2120 07de F8020000 		.4byte	.LASF45
+ 2121 07e2 01       		.byte	0x1
+ 2122 07e3 48       		.byte	0x48
+ 2123 07e4 00000000 		.4byte	.LFB64
+ 2124 07e8 28000000 		.4byte	.LFE64-.LFB64
+ 2125 07ec 01       		.uleb128 0x1
+ 2126 07ed 9C       		.byte	0x9c
+ 2127 07ee FC070000 		.4byte	0x7fc
+ 2128 07f2 0B       		.uleb128 0xb
+ 2129 07f3 18000000 		.4byte	.LVL113
+ 2130 07f7 17040000 		.4byte	0x417
+ 2131 07fb 00       		.byte	0
+ 2132 07fc 13       		.uleb128 0x13
+ 2133 07fd 00000000 		.4byte	.LASF46
+ 2134 0801 01       		.byte	0x1
+ 2135 0802 2E       		.byte	0x2e
+ 2136 0803 F7000000 		.4byte	0xf7
+ 2137 0807 05       		.uleb128 0x5
+ 2138 0808 03       		.byte	0x3
+ 2139 0809 00000000 		.4byte	modeChosen
+ 2140 080d 13       		.uleb128 0x13
+ 2141 080e 0B000000 		.4byte	.LASF47
+ 2142 0812 01       		.byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 46
+
+
+ 2143 0813 2F       		.byte	0x2f
+ 2144 0814 4B010000 		.4byte	0x14b
+ 2145 0818 05       		.uleb128 0x5
+ 2146 0819 03       		.byte	0x3
+ 2147 081a 01000000 		.4byte	currRot
+ 2148 081e 13       		.uleb128 0x13
+ 2149 081f AA000000 		.4byte	.LASF48
+ 2150 0823 01       		.byte	0x1
+ 2151 0824 30       		.byte	0x30
+ 2152 0825 27010000 		.4byte	0x127
+ 2153 0829 05       		.uleb128 0x5
+ 2154 082a 03       		.byte	0x3
+ 2155 082b 02000000 		.4byte	currPos
+ 2156 082f 14       		.uleb128 0x14
+ 2157 0830 30030000 		.4byte	.LASF49
+ 2158 0834 05       		.byte	0x5
+ 2159 0835 1207     		.2byte	0x712
+ 2160 0837 3B080000 		.4byte	0x83b
+ 2161 083b 15       		.uleb128 0x15
+ 2162 083c 8C000000 		.4byte	0x8c
+ 2163 0840 16       		.uleb128 0x16
+ 2164 0841 3E000000 		.4byte	.LASF50
+ 2165 0845 01       		.byte	0x1
+ 2166 0846 15       		.byte	0x15
+ 2167 0847 97000000 		.4byte	0x97
+ 2168 084b 05       		.uleb128 0x5
+ 2169 084c 03       		.byte	0x3
+ 2170 084d 00000000 		.4byte	High
+ 2171 0851 17       		.uleb128 0x17
+ 2172 0852 4C6F7700 		.ascii	"Low\000"
+ 2173 0856 01       		.byte	0x1
+ 2174 0857 15       		.byte	0x15
+ 2175 0858 97000000 		.4byte	0x97
+ 2176 085c 05       		.uleb128 0x5
+ 2177 085d 03       		.byte	0x3
+ 2178 085e 00000000 		.4byte	Low
+ 2179 0862 16       		.uleb128 0x16
+ 2180 0863 DF010000 		.4byte	.LASF51
+ 2181 0867 01       		.byte	0x1
+ 2182 0868 16       		.byte	0x16
+ 2183 0869 A3000000 		.4byte	0xa3
+ 2184 086d 05       		.uleb128 0x5
+ 2185 086e 03       		.byte	0x3
+ 2186 086f 00000000 		.4byte	timerCount
+ 2187 0873 16       		.uleb128 0x16
+ 2188 0874 46010000 		.4byte	.LASF52
+ 2189 0878 01       		.byte	0x1
+ 2190 0879 17       		.byte	0x17
+ 2191 087a A3000000 		.4byte	0xa3
+ 2192 087e 05       		.uleb128 0x5
+ 2193 087f 03       		.byte	0x3
+ 2194 0880 00000000 		.4byte	timerInterrupt
+ 2195 0884 18       		.uleb128 0x18
+ 2196 0885 56000000 		.4byte	.LASF53
+ 2197 0889 56000000 		.4byte	.LASF53
+ 2198 088d 06       		.byte	0x6
+ 2199 088e 18       		.byte	0x18
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 47
+
+
+ 2200 088f 18       		.uleb128 0x18
+ 2201 0890 85010000 		.4byte	.LASF54
+ 2202 0894 85010000 		.4byte	.LASF54
+ 2203 0898 07       		.byte	0x7
+ 2204 0899 18       		.byte	0x18
+ 2205 089a 18       		.uleb128 0x18
+ 2206 089b 1F010000 		.4byte	.LASF55
+ 2207 089f 1F010000 		.4byte	.LASF55
+ 2208 08a3 08       		.byte	0x8
+ 2209 08a4 54       		.byte	0x54
+ 2210 08a5 18       		.uleb128 0x18
+ 2211 08a6 09020000 		.4byte	.LASF56
+ 2212 08aa 09020000 		.4byte	.LASF56
+ 2213 08ae 09       		.byte	0x9
+ 2214 08af 5A       		.byte	0x5a
+ 2215 08b0 18       		.uleb128 0x18
+ 2216 08b1 69020000 		.4byte	.LASF57
+ 2217 08b5 69020000 		.4byte	.LASF57
+ 2218 08b9 08       		.byte	0x8
+ 2219 08ba 8B       		.byte	0x8b
+ 2220 08bb 18       		.uleb128 0x18
+ 2221 08bc F7010000 		.4byte	.LASF58
+ 2222 08c0 F7010000 		.4byte	.LASF58
+ 2223 08c4 08       		.byte	0x8
+ 2224 08c5 6F       		.byte	0x6f
+ 2225 08c6 18       		.uleb128 0x18
+ 2226 08c7 7A020000 		.4byte	.LASF59
+ 2227 08cb 7A020000 		.4byte	.LASF59
+ 2228 08cf 08       		.byte	0x8
+ 2229 08d0 88       		.byte	0x88
+ 2230 08d1 18       		.uleb128 0x18
+ 2231 08d2 4B020000 		.4byte	.LASF60
+ 2232 08d6 4B020000 		.4byte	.LASF60
+ 2233 08da 08       		.byte	0x8
+ 2234 08db 73       		.byte	0x73
+ 2235 08dc 18       		.uleb128 0x18
+ 2236 08dd 1D000000 		.4byte	.LASF61
+ 2237 08e1 1D000000 		.4byte	.LASF61
+ 2238 08e5 0A       		.byte	0xa
+ 2239 08e6 26       		.byte	0x26
+ 2240 08e7 18       		.uleb128 0x18
+ 2241 08e8 B8010000 		.4byte	.LASF62
+ 2242 08ec B8010000 		.4byte	.LASF62
+ 2243 08f0 0B       		.byte	0xb
+ 2244 08f1 26       		.byte	0x26
+ 2245 08f2 18       		.uleb128 0x18
+ 2246 08f3 FF000000 		.4byte	.LASF63
+ 2247 08f7 FF000000 		.4byte	.LASF63
+ 2248 08fb 0C       		.byte	0xc
+ 2249 08fc 26       		.byte	0x26
+ 2250 08fd 18       		.uleb128 0x18
+ 2251 08fe CB030000 		.4byte	.LASF64
+ 2252 0902 CB030000 		.4byte	.LASF64
+ 2253 0906 0D       		.byte	0xd
+ 2254 0907 26       		.byte	0x26
+ 2255 0908 00       		.byte	0
+ 2256              		.section	.debug_abbrev,"",%progbits
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 48
+
+
+ 2257              	.Ldebug_abbrev0:
+ 2258 0000 01       		.uleb128 0x1
+ 2259 0001 11       		.uleb128 0x11
+ 2260 0002 01       		.byte	0x1
+ 2261 0003 25       		.uleb128 0x25
+ 2262 0004 0E       		.uleb128 0xe
+ 2263 0005 13       		.uleb128 0x13
+ 2264 0006 0B       		.uleb128 0xb
+ 2265 0007 03       		.uleb128 0x3
+ 2266 0008 0E       		.uleb128 0xe
+ 2267 0009 1B       		.uleb128 0x1b
+ 2268 000a 0E       		.uleb128 0xe
+ 2269 000b 55       		.uleb128 0x55
+ 2270 000c 17       		.uleb128 0x17
+ 2271 000d 11       		.uleb128 0x11
+ 2272 000e 01       		.uleb128 0x1
+ 2273 000f 10       		.uleb128 0x10
+ 2274 0010 17       		.uleb128 0x17
+ 2275 0011 00       		.byte	0
+ 2276 0012 00       		.byte	0
+ 2277 0013 02       		.uleb128 0x2
+ 2278 0014 24       		.uleb128 0x24
+ 2279 0015 00       		.byte	0
+ 2280 0016 0B       		.uleb128 0xb
+ 2281 0017 0B       		.uleb128 0xb
+ 2282 0018 3E       		.uleb128 0x3e
+ 2283 0019 0B       		.uleb128 0xb
+ 2284 001a 03       		.uleb128 0x3
+ 2285 001b 0E       		.uleb128 0xe
+ 2286 001c 00       		.byte	0
+ 2287 001d 00       		.byte	0
+ 2288 001e 03       		.uleb128 0x3
+ 2289 001f 16       		.uleb128 0x16
+ 2290 0020 00       		.byte	0
+ 2291 0021 03       		.uleb128 0x3
+ 2292 0022 0E       		.uleb128 0xe
+ 2293 0023 3A       		.uleb128 0x3a
+ 2294 0024 0B       		.uleb128 0xb
+ 2295 0025 3B       		.uleb128 0x3b
+ 2296 0026 0B       		.uleb128 0xb
+ 2297 0027 49       		.uleb128 0x49
+ 2298 0028 13       		.uleb128 0x13
+ 2299 0029 00       		.byte	0
+ 2300 002a 00       		.byte	0
+ 2301 002b 04       		.uleb128 0x4
+ 2302 002c 24       		.uleb128 0x24
+ 2303 002d 00       		.byte	0
+ 2304 002e 0B       		.uleb128 0xb
+ 2305 002f 0B       		.uleb128 0xb
+ 2306 0030 3E       		.uleb128 0x3e
+ 2307 0031 0B       		.uleb128 0xb
+ 2308 0032 03       		.uleb128 0x3
+ 2309 0033 08       		.uleb128 0x8
+ 2310 0034 00       		.byte	0
+ 2311 0035 00       		.byte	0
+ 2312 0036 05       		.uleb128 0x5
+ 2313 0037 16       		.uleb128 0x16
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 49
+
+
+ 2314 0038 00       		.byte	0
+ 2315 0039 03       		.uleb128 0x3
+ 2316 003a 0E       		.uleb128 0xe
+ 2317 003b 3A       		.uleb128 0x3a
+ 2318 003c 0B       		.uleb128 0xb
+ 2319 003d 3B       		.uleb128 0x3b
+ 2320 003e 05       		.uleb128 0x5
+ 2321 003f 49       		.uleb128 0x49
+ 2322 0040 13       		.uleb128 0x13
+ 2323 0041 00       		.byte	0
+ 2324 0042 00       		.byte	0
+ 2325 0043 06       		.uleb128 0x6
+ 2326 0044 04       		.uleb128 0x4
+ 2327 0045 01       		.byte	0x1
+ 2328 0046 0B       		.uleb128 0xb
+ 2329 0047 0B       		.uleb128 0xb
+ 2330 0048 49       		.uleb128 0x49
+ 2331 0049 13       		.uleb128 0x13
+ 2332 004a 3A       		.uleb128 0x3a
+ 2333 004b 0B       		.uleb128 0xb
+ 2334 004c 3B       		.uleb128 0x3b
+ 2335 004d 0B       		.uleb128 0xb
+ 2336 004e 01       		.uleb128 0x1
+ 2337 004f 13       		.uleb128 0x13
+ 2338 0050 00       		.byte	0
+ 2339 0051 00       		.byte	0
+ 2340 0052 07       		.uleb128 0x7
+ 2341 0053 28       		.uleb128 0x28
+ 2342 0054 00       		.byte	0
+ 2343 0055 03       		.uleb128 0x3
+ 2344 0056 0E       		.uleb128 0xe
+ 2345 0057 1C       		.uleb128 0x1c
+ 2346 0058 0B       		.uleb128 0xb
+ 2347 0059 00       		.byte	0
+ 2348 005a 00       		.byte	0
+ 2349 005b 08       		.uleb128 0x8
+ 2350 005c 2E       		.uleb128 0x2e
+ 2351 005d 01       		.byte	0x1
+ 2352 005e 3F       		.uleb128 0x3f
+ 2353 005f 19       		.uleb128 0x19
+ 2354 0060 03       		.uleb128 0x3
+ 2355 0061 0E       		.uleb128 0xe
+ 2356 0062 3A       		.uleb128 0x3a
+ 2357 0063 0B       		.uleb128 0xb
+ 2358 0064 3B       		.uleb128 0x3b
+ 2359 0065 0B       		.uleb128 0xb
+ 2360 0066 27       		.uleb128 0x27
+ 2361 0067 19       		.uleb128 0x19
+ 2362 0068 49       		.uleb128 0x49
+ 2363 0069 13       		.uleb128 0x13
+ 2364 006a 8701     		.uleb128 0x87
+ 2365 006c 19       		.uleb128 0x19
+ 2366 006d 11       		.uleb128 0x11
+ 2367 006e 01       		.uleb128 0x1
+ 2368 006f 12       		.uleb128 0x12
+ 2369 0070 06       		.uleb128 0x6
+ 2370 0071 40       		.uleb128 0x40
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 50
+
+
+ 2371 0072 18       		.uleb128 0x18
+ 2372 0073 9742     		.uleb128 0x2117
+ 2373 0075 19       		.uleb128 0x19
+ 2374 0076 01       		.uleb128 0x1
+ 2375 0077 13       		.uleb128 0x13
+ 2376 0078 00       		.byte	0
+ 2377 0079 00       		.byte	0
+ 2378 007a 09       		.uleb128 0x9
+ 2379 007b 898201   		.uleb128 0x4109
+ 2380 007e 01       		.byte	0x1
+ 2381 007f 11       		.uleb128 0x11
+ 2382 0080 01       		.uleb128 0x1
+ 2383 0081 31       		.uleb128 0x31
+ 2384 0082 13       		.uleb128 0x13
+ 2385 0083 01       		.uleb128 0x1
+ 2386 0084 13       		.uleb128 0x13
+ 2387 0085 00       		.byte	0
+ 2388 0086 00       		.byte	0
+ 2389 0087 0A       		.uleb128 0xa
+ 2390 0088 8A8201   		.uleb128 0x410a
+ 2391 008b 00       		.byte	0
+ 2392 008c 02       		.uleb128 0x2
+ 2393 008d 18       		.uleb128 0x18
+ 2394 008e 9142     		.uleb128 0x2111
+ 2395 0090 18       		.uleb128 0x18
+ 2396 0091 00       		.byte	0
+ 2397 0092 00       		.byte	0
+ 2398 0093 0B       		.uleb128 0xb
+ 2399 0094 898201   		.uleb128 0x4109
+ 2400 0097 00       		.byte	0
+ 2401 0098 11       		.uleb128 0x11
+ 2402 0099 01       		.uleb128 0x1
+ 2403 009a 31       		.uleb128 0x31
+ 2404 009b 13       		.uleb128 0x13
+ 2405 009c 00       		.byte	0
+ 2406 009d 00       		.byte	0
+ 2407 009e 0C       		.uleb128 0xc
+ 2408 009f 898201   		.uleb128 0x4109
+ 2409 00a2 01       		.byte	0x1
+ 2410 00a3 11       		.uleb128 0x11
+ 2411 00a4 01       		.uleb128 0x1
+ 2412 00a5 31       		.uleb128 0x31
+ 2413 00a6 13       		.uleb128 0x13
+ 2414 00a7 00       		.byte	0
+ 2415 00a8 00       		.byte	0
+ 2416 00a9 0D       		.uleb128 0xd
+ 2417 00aa 2E       		.uleb128 0x2e
+ 2418 00ab 01       		.byte	0x1
+ 2419 00ac 3F       		.uleb128 0x3f
+ 2420 00ad 19       		.uleb128 0x19
+ 2421 00ae 03       		.uleb128 0x3
+ 2422 00af 0E       		.uleb128 0xe
+ 2423 00b0 3A       		.uleb128 0x3a
+ 2424 00b1 0B       		.uleb128 0xb
+ 2425 00b2 3B       		.uleb128 0x3b
+ 2426 00b3 0B       		.uleb128 0xb
+ 2427 00b4 11       		.uleb128 0x11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 51
+
+
+ 2428 00b5 01       		.uleb128 0x1
+ 2429 00b6 12       		.uleb128 0x12
+ 2430 00b7 06       		.uleb128 0x6
+ 2431 00b8 40       		.uleb128 0x40
+ 2432 00b9 18       		.uleb128 0x18
+ 2433 00ba 9742     		.uleb128 0x2117
+ 2434 00bc 19       		.uleb128 0x19
+ 2435 00bd 01       		.uleb128 0x1
+ 2436 00be 13       		.uleb128 0x13
+ 2437 00bf 00       		.byte	0
+ 2438 00c0 00       		.byte	0
+ 2439 00c1 0E       		.uleb128 0xe
+ 2440 00c2 2E       		.uleb128 0x2e
+ 2441 00c3 00       		.byte	0
+ 2442 00c4 3F       		.uleb128 0x3f
+ 2443 00c5 19       		.uleb128 0x19
+ 2444 00c6 03       		.uleb128 0x3
+ 2445 00c7 0E       		.uleb128 0xe
+ 2446 00c8 3A       		.uleb128 0x3a
+ 2447 00c9 0B       		.uleb128 0xb
+ 2448 00ca 3B       		.uleb128 0x3b
+ 2449 00cb 0B       		.uleb128 0xb
+ 2450 00cc 11       		.uleb128 0x11
+ 2451 00cd 01       		.uleb128 0x1
+ 2452 00ce 12       		.uleb128 0x12
+ 2453 00cf 06       		.uleb128 0x6
+ 2454 00d0 40       		.uleb128 0x40
+ 2455 00d1 18       		.uleb128 0x18
+ 2456 00d2 9742     		.uleb128 0x2117
+ 2457 00d4 19       		.uleb128 0x19
+ 2458 00d5 00       		.byte	0
+ 2459 00d6 00       		.byte	0
+ 2460 00d7 0F       		.uleb128 0xf
+ 2461 00d8 2E       		.uleb128 0x2e
+ 2462 00d9 01       		.byte	0x1
+ 2463 00da 3F       		.uleb128 0x3f
+ 2464 00db 19       		.uleb128 0x19
+ 2465 00dc 03       		.uleb128 0x3
+ 2466 00dd 0E       		.uleb128 0xe
+ 2467 00de 3A       		.uleb128 0x3a
+ 2468 00df 0B       		.uleb128 0xb
+ 2469 00e0 3B       		.uleb128 0x3b
+ 2470 00e1 0B       		.uleb128 0xb
+ 2471 00e2 27       		.uleb128 0x27
+ 2472 00e3 19       		.uleb128 0x19
+ 2473 00e4 11       		.uleb128 0x11
+ 2474 00e5 01       		.uleb128 0x1
+ 2475 00e6 12       		.uleb128 0x12
+ 2476 00e7 06       		.uleb128 0x6
+ 2477 00e8 40       		.uleb128 0x40
+ 2478 00e9 18       		.uleb128 0x18
+ 2479 00ea 9742     		.uleb128 0x2117
+ 2480 00ec 19       		.uleb128 0x19
+ 2481 00ed 01       		.uleb128 0x1
+ 2482 00ee 13       		.uleb128 0x13
+ 2483 00ef 00       		.byte	0
+ 2484 00f0 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 52
+
+
+ 2485 00f1 10       		.uleb128 0x10
+ 2486 00f2 05       		.uleb128 0x5
+ 2487 00f3 00       		.byte	0
+ 2488 00f4 03       		.uleb128 0x3
+ 2489 00f5 0E       		.uleb128 0xe
+ 2490 00f6 3A       		.uleb128 0x3a
+ 2491 00f7 0B       		.uleb128 0xb
+ 2492 00f8 3B       		.uleb128 0x3b
+ 2493 00f9 0B       		.uleb128 0xb
+ 2494 00fa 49       		.uleb128 0x49
+ 2495 00fb 13       		.uleb128 0x13
+ 2496 00fc 02       		.uleb128 0x2
+ 2497 00fd 17       		.uleb128 0x17
+ 2498 00fe 00       		.byte	0
+ 2499 00ff 00       		.byte	0
+ 2500 0100 11       		.uleb128 0x11
+ 2501 0101 34       		.uleb128 0x34
+ 2502 0102 00       		.byte	0
+ 2503 0103 03       		.uleb128 0x3
+ 2504 0104 0E       		.uleb128 0xe
+ 2505 0105 3A       		.uleb128 0x3a
+ 2506 0106 0B       		.uleb128 0xb
+ 2507 0107 3B       		.uleb128 0x3b
+ 2508 0108 0B       		.uleb128 0xb
+ 2509 0109 49       		.uleb128 0x49
+ 2510 010a 13       		.uleb128 0x13
+ 2511 010b 02       		.uleb128 0x2
+ 2512 010c 17       		.uleb128 0x17
+ 2513 010d 00       		.byte	0
+ 2514 010e 00       		.byte	0
+ 2515 010f 12       		.uleb128 0x12
+ 2516 0110 0B       		.uleb128 0xb
+ 2517 0111 01       		.byte	0x1
+ 2518 0112 11       		.uleb128 0x11
+ 2519 0113 01       		.uleb128 0x1
+ 2520 0114 12       		.uleb128 0x12
+ 2521 0115 06       		.uleb128 0x6
+ 2522 0116 01       		.uleb128 0x1
+ 2523 0117 13       		.uleb128 0x13
+ 2524 0118 00       		.byte	0
+ 2525 0119 00       		.byte	0
+ 2526 011a 13       		.uleb128 0x13
+ 2527 011b 34       		.uleb128 0x34
+ 2528 011c 00       		.byte	0
+ 2529 011d 03       		.uleb128 0x3
+ 2530 011e 0E       		.uleb128 0xe
+ 2531 011f 3A       		.uleb128 0x3a
+ 2532 0120 0B       		.uleb128 0xb
+ 2533 0121 3B       		.uleb128 0x3b
+ 2534 0122 0B       		.uleb128 0xb
+ 2535 0123 49       		.uleb128 0x49
+ 2536 0124 13       		.uleb128 0x13
+ 2537 0125 02       		.uleb128 0x2
+ 2538 0126 18       		.uleb128 0x18
+ 2539 0127 00       		.byte	0
+ 2540 0128 00       		.byte	0
+ 2541 0129 14       		.uleb128 0x14
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 53
+
+
+ 2542 012a 34       		.uleb128 0x34
+ 2543 012b 00       		.byte	0
+ 2544 012c 03       		.uleb128 0x3
+ 2545 012d 0E       		.uleb128 0xe
+ 2546 012e 3A       		.uleb128 0x3a
+ 2547 012f 0B       		.uleb128 0xb
+ 2548 0130 3B       		.uleb128 0x3b
+ 2549 0131 05       		.uleb128 0x5
+ 2550 0132 49       		.uleb128 0x49
+ 2551 0133 13       		.uleb128 0x13
+ 2552 0134 3F       		.uleb128 0x3f
+ 2553 0135 19       		.uleb128 0x19
+ 2554 0136 3C       		.uleb128 0x3c
+ 2555 0137 19       		.uleb128 0x19
+ 2556 0138 00       		.byte	0
+ 2557 0139 00       		.byte	0
+ 2558 013a 15       		.uleb128 0x15
+ 2559 013b 35       		.uleb128 0x35
+ 2560 013c 00       		.byte	0
+ 2561 013d 49       		.uleb128 0x49
+ 2562 013e 13       		.uleb128 0x13
+ 2563 013f 00       		.byte	0
+ 2564 0140 00       		.byte	0
+ 2565 0141 16       		.uleb128 0x16
+ 2566 0142 34       		.uleb128 0x34
+ 2567 0143 00       		.byte	0
+ 2568 0144 03       		.uleb128 0x3
+ 2569 0145 0E       		.uleb128 0xe
+ 2570 0146 3A       		.uleb128 0x3a
+ 2571 0147 0B       		.uleb128 0xb
+ 2572 0148 3B       		.uleb128 0x3b
+ 2573 0149 0B       		.uleb128 0xb
+ 2574 014a 49       		.uleb128 0x49
+ 2575 014b 13       		.uleb128 0x13
+ 2576 014c 3F       		.uleb128 0x3f
+ 2577 014d 19       		.uleb128 0x19
+ 2578 014e 02       		.uleb128 0x2
+ 2579 014f 18       		.uleb128 0x18
+ 2580 0150 00       		.byte	0
+ 2581 0151 00       		.byte	0
+ 2582 0152 17       		.uleb128 0x17
+ 2583 0153 34       		.uleb128 0x34
+ 2584 0154 00       		.byte	0
+ 2585 0155 03       		.uleb128 0x3
+ 2586 0156 08       		.uleb128 0x8
+ 2587 0157 3A       		.uleb128 0x3a
+ 2588 0158 0B       		.uleb128 0xb
+ 2589 0159 3B       		.uleb128 0x3b
+ 2590 015a 0B       		.uleb128 0xb
+ 2591 015b 49       		.uleb128 0x49
+ 2592 015c 13       		.uleb128 0x13
+ 2593 015d 3F       		.uleb128 0x3f
+ 2594 015e 19       		.uleb128 0x19
+ 2595 015f 02       		.uleb128 0x2
+ 2596 0160 18       		.uleb128 0x18
+ 2597 0161 00       		.byte	0
+ 2598 0162 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 54
+
+
+ 2599 0163 18       		.uleb128 0x18
+ 2600 0164 2E       		.uleb128 0x2e
+ 2601 0165 00       		.byte	0
+ 2602 0166 3F       		.uleb128 0x3f
+ 2603 0167 19       		.uleb128 0x19
+ 2604 0168 3C       		.uleb128 0x3c
+ 2605 0169 19       		.uleb128 0x19
+ 2606 016a 6E       		.uleb128 0x6e
+ 2607 016b 0E       		.uleb128 0xe
+ 2608 016c 03       		.uleb128 0x3
+ 2609 016d 0E       		.uleb128 0xe
+ 2610 016e 3A       		.uleb128 0x3a
+ 2611 016f 0B       		.uleb128 0xb
+ 2612 0170 3B       		.uleb128 0x3b
+ 2613 0171 0B       		.uleb128 0xb
+ 2614 0172 00       		.byte	0
+ 2615 0173 00       		.byte	0
+ 2616 0174 00       		.byte	0
+ 2617              		.section	.debug_loc,"",%progbits
+ 2618              	.Ldebug_loc0:
+ 2619              	.LLST0:
+ 2620 0000 00000000 		.4byte	.LVL16
+ 2621 0004 04000000 		.4byte	.LVL17
+ 2622 0008 0100     		.2byte	0x1
+ 2623 000a 50       		.byte	0x50
+ 2624 000b 04000000 		.4byte	.LVL17
+ 2625 000f 7A000000 		.4byte	.LFE66
+ 2626 0013 0400     		.2byte	0x4
+ 2627 0015 F3       		.byte	0xf3
+ 2628 0016 01       		.uleb128 0x1
+ 2629 0017 50       		.byte	0x50
+ 2630 0018 9F       		.byte	0x9f
+ 2631 0019 00000000 		.4byte	0
+ 2632 001d 00000000 		.4byte	0
+ 2633              	.LLST1:
+ 2634 0021 08000000 		.4byte	.LVL26
+ 2635 0025 1C000000 		.4byte	.LVL31
+ 2636 0029 0100     		.2byte	0x1
+ 2637 002b 54       		.byte	0x54
+ 2638 002c 1E000000 		.4byte	.LVL32
+ 2639 0030 24000000 		.4byte	.LFE65
+ 2640 0034 0100     		.2byte	0x1
+ 2641 0036 54       		.byte	0x54
+ 2642 0037 00000000 		.4byte	0
+ 2643 003b 00000000 		.4byte	0
+ 2644              	.LLST2:
+ 2645 003f 10000000 		.4byte	.LVL28
+ 2646 0043 1E000000 		.4byte	.LVL32
+ 2647 0047 0100     		.2byte	0x1
+ 2648 0049 55       		.byte	0x55
+ 2649 004a 00000000 		.4byte	0
+ 2650 004e 00000000 		.4byte	0
+ 2651              		.section	.debug_aranges,"",%progbits
+ 2652 0000 74000000 		.4byte	0x74
+ 2653 0004 0200     		.2byte	0x2
+ 2654 0006 00000000 		.4byte	.Ldebug_info0
+ 2655 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 55
+
+
+ 2656 000b 00       		.byte	0
+ 2657 000c 0000     		.2byte	0
+ 2658 000e 0000     		.2byte	0
+ 2659 0010 00000000 		.4byte	.LFB63
+ 2660 0014 74000000 		.4byte	.LFE63-.LFB63
+ 2661 0018 00000000 		.4byte	.LFB67
+ 2662 001c 18000000 		.4byte	.LFE67-.LFB67
+ 2663 0020 00000000 		.4byte	.LFB68
+ 2664 0024 18000000 		.4byte	.LFE68-.LFB68
+ 2665 0028 00000000 		.4byte	.LFB69
+ 2666 002c 18000000 		.4byte	.LFE69-.LFB69
+ 2667 0030 00000000 		.4byte	.LFB70
+ 2668 0034 18000000 		.4byte	.LFE70-.LFB70
+ 2669 0038 00000000 		.4byte	.LFB71
+ 2670 003c 1C000000 		.4byte	.LFE71-.LFB71
+ 2671 0040 00000000 		.4byte	.LFB72
+ 2672 0044 18000000 		.4byte	.LFE72-.LFB72
+ 2673 0048 00000000 		.4byte	.LFB73
+ 2674 004c 1C000000 		.4byte	.LFE73-.LFB73
+ 2675 0050 00000000 		.4byte	.LFB66
+ 2676 0054 7A000000 		.4byte	.LFE66-.LFB66
+ 2677 0058 00000000 		.4byte	.LFB65
+ 2678 005c 24000000 		.4byte	.LFE65-.LFB65
+ 2679 0060 00000000 		.4byte	.LFB74
+ 2680 0064 2C030000 		.4byte	.LFE74-.LFB74
+ 2681 0068 00000000 		.4byte	.LFB64
+ 2682 006c 28000000 		.4byte	.LFE64-.LFB64
+ 2683 0070 00000000 		.4byte	0
+ 2684 0074 00000000 		.4byte	0
+ 2685              		.section	.debug_ranges,"",%progbits
+ 2686              	.Ldebug_ranges0:
+ 2687 0000 00000000 		.4byte	.LFB63
+ 2688 0004 74000000 		.4byte	.LFE63
+ 2689 0008 00000000 		.4byte	.LFB67
+ 2690 000c 18000000 		.4byte	.LFE67
+ 2691 0010 00000000 		.4byte	.LFB68
+ 2692 0014 18000000 		.4byte	.LFE68
+ 2693 0018 00000000 		.4byte	.LFB69
+ 2694 001c 18000000 		.4byte	.LFE69
+ 2695 0020 00000000 		.4byte	.LFB70
+ 2696 0024 18000000 		.4byte	.LFE70
+ 2697 0028 00000000 		.4byte	.LFB71
+ 2698 002c 1C000000 		.4byte	.LFE71
+ 2699 0030 00000000 		.4byte	.LFB72
+ 2700 0034 18000000 		.4byte	.LFE72
+ 2701 0038 00000000 		.4byte	.LFB73
+ 2702 003c 1C000000 		.4byte	.LFE73
+ 2703 0040 00000000 		.4byte	.LFB66
+ 2704 0044 7A000000 		.4byte	.LFE66
+ 2705 0048 00000000 		.4byte	.LFB65
+ 2706 004c 24000000 		.4byte	.LFE65
+ 2707 0050 00000000 		.4byte	.LFB74
+ 2708 0054 2C030000 		.4byte	.LFE74
+ 2709 0058 00000000 		.4byte	.LFB64
+ 2710 005c 28000000 		.4byte	.LFE64
+ 2711 0060 00000000 		.4byte	0
+ 2712 0064 00000000 		.4byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 56
+
+
+ 2713              		.section	.debug_line,"",%progbits
+ 2714              	.Ldebug_line0:
+ 2715 0000 2B030000 		.section	.debug_str,"MS",%progbits,1
+ 2715      0200B501 
+ 2715      00000201 
+ 2715      FB0E0D00 
+ 2715      01010101 
+ 2716              	.LASF46:
+ 2717 0000 6D6F6465 		.ascii	"modeChosen\000"
+ 2717      43686F73 
+ 2717      656E00
+ 2718              	.LASF47:
+ 2719 000b 63757272 		.ascii	"currRot\000"
+ 2719      526F7400 
+ 2720              	.LASF33:
+ 2721 0013 57617665 		.ascii	"WaveDrive\000"
+ 2721      44726976 
+ 2721      6500
+ 2722              	.LASF61:
+ 2723 001d 50696E5F 		.ascii	"Pin_1a_Write\000"
+ 2723      31615F57 
+ 2723      72697465 
+ 2723      00
+ 2724              	.LASF41:
+ 2725 002a 4953525F 		.ascii	"ISR_UART_rx_handler\000"
+ 2725      55415254 
+ 2725      5F72785F 
+ 2725      68616E64 
+ 2725      6C657200 
+ 2726              	.LASF50:
+ 2727 003e 48696768 		.ascii	"High\000"
+ 2727      00
+ 2728              	.LASF2:
+ 2729 0043 73686F72 		.ascii	"short int\000"
+ 2729      7420696E 
+ 2729      7400
+ 2730              	.LASF19:
+ 2731 004d 73697A65 		.ascii	"sizetype\000"
+ 2731      74797065 
+ 2731      00
+ 2732              	.LASF53:
+ 2733 0056 6973725F 		.ascii	"isr_uart_rx_StartEx\000"
+ 2733      75617274 
+ 2733      5F72785F 
+ 2733      53746172 
+ 2733      74457800 
+ 2734              	.LASF68:
+ 2735 006a 6D61696E 		.ascii	"main\000"
+ 2735      00
+ 2736              	.LASF27:
+ 2737 006f 506F7369 		.ascii	"Position_B1\000"
+ 2737      74696F6E 
+ 2737      5F423100 
+ 2738              	.LASF28:
+ 2739 007b 506F7369 		.ascii	"Position_B2\000"
+ 2739      74696F6E 
+ 2739      5F423200 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 57
+
+
+ 2740              	.LASF22:
+ 2741 0087 4D6F6465 		.ascii	"Mode_HalfStep\000"
+ 2741      5F48616C 
+ 2741      66537465 
+ 2741      7000
+ 2742              	.LASF14:
+ 2743 0095 75696E74 		.ascii	"uint16\000"
+ 2743      313600
+ 2744              	.LASF11:
+ 2745 009c 75696E74 		.ascii	"uint8_t\000"
+ 2745      385F7400 
+ 2746              	.LASF13:
+ 2747 00a4 75696E74 		.ascii	"uint8\000"
+ 2747      3800
+ 2748              	.LASF48:
+ 2749 00aa 63757272 		.ascii	"currPos\000"
+ 2749      506F7300 
+ 2750              	.LASF37:
+ 2751 00b2 736B6966 		.ascii	"skiftRet\000"
+ 2751      74526574 
+ 2751      00
+ 2752              	.LASF43:
+ 2753 00bb 62797465 		.ascii	"byteReceived\000"
+ 2753      52656365 
+ 2753      69766564 
+ 2753      00
+ 2754              	.LASF15:
+ 2755 00c8 666C6F61 		.ascii	"float\000"
+ 2755      7400
+ 2756              	.LASF8:
+ 2757 00ce 6C6F6E67 		.ascii	"long long int\000"
+ 2757      206C6F6E 
+ 2757      6720696E 
+ 2757      7400
+ 2758              	.LASF34:
+ 2759 00dc 46756C6C 		.ascii	"FullStep\000"
+ 2759      53746570 
+ 2759      00
+ 2760              	.LASF6:
+ 2761 00e5 6C6F6E67 		.ascii	"long int\000"
+ 2761      20696E74 
+ 2761      00
+ 2762              	.LASF32:
+ 2763 00ee 526F7461 		.ascii	"Rotate\000"
+ 2763      746500
+ 2764              	.LASF4:
+ 2765 00f5 5F5F7569 		.ascii	"__uint8_t\000"
+ 2765      6E74385F 
+ 2765      7400
+ 2766              	.LASF63:
+ 2767 00ff 50696E5F 		.ascii	"Pin_2a_Write\000"
+ 2767      32615F57 
+ 2767      72697465 
+ 2767      00
+ 2768              	.LASF40:
+ 2769 010c 68616E64 		.ascii	"handleByteReceived\000"
+ 2769      6C654279 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 58
+
+
+ 2769      74655265 
+ 2769      63656976 
+ 2769      656400
+ 2770              	.LASF55:
+ 2771 011f 55415254 		.ascii	"UART_1_Start\000"
+ 2771      5F315F53 
+ 2771      74617274 
+ 2771      00
+ 2772              	.LASF1:
+ 2773 012c 756E7369 		.ascii	"unsigned char\000"
+ 2773      676E6564 
+ 2773      20636861 
+ 2773      7200
+ 2774              	.LASF18:
+ 2775 013a 6C6F6E67 		.ascii	"long double\000"
+ 2775      20646F75 
+ 2775      626C6500 
+ 2776              	.LASF52:
+ 2777 0146 74696D65 		.ascii	"timerInterrupt\000"
+ 2777      72496E74 
+ 2777      65727275 
+ 2777      707400
+ 2778              	.LASF0:
+ 2779 0155 7369676E 		.ascii	"signed char\000"
+ 2779      65642063 
+ 2779      68617200 
+ 2780              	.LASF9:
+ 2781 0161 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2781      206C6F6E 
+ 2781      6720756E 
+ 2781      7369676E 
+ 2781      65642069 
+ 2782              	.LASF10:
+ 2783 0178 756E7369 		.ascii	"unsigned int\000"
+ 2783      676E6564 
+ 2783      20696E74 
+ 2783      00
+ 2784              	.LASF54:
+ 2785 0185 6973725F 		.ascii	"isr_timer_StartEx\000"
+ 2785      74696D65 
+ 2785      725F5374 
+ 2785      61727445 
+ 2785      7800
+ 2786              	.LASF35:
+ 2787 0197 48616C66 		.ascii	"HalfStep\000"
+ 2787      53746570 
+ 2787      00
+ 2788              	.LASF23:
+ 2789 01a0 4D6F6465 		.ascii	"Mode_Stop\000"
+ 2789      5F53746F 
+ 2789      7000
+ 2790              	.LASF38:
+ 2791 01aa 696E6372 		.ascii	"increaseSpeed\000"
+ 2791      65617365 
+ 2791      53706565 
+ 2791      6400
+ 2792              	.LASF62:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 59
+
+
+ 2793 01b8 50696E5F 		.ascii	"Pin_1b_Write\000"
+ 2793      31625F57 
+ 2793      72697465 
+ 2793      00
+ 2794              	.LASF3:
+ 2795 01c5 73686F72 		.ascii	"short unsigned int\000"
+ 2795      7420756E 
+ 2795      7369676E 
+ 2795      65642069 
+ 2795      6E7400
+ 2796              	.LASF44:
+ 2797 01d8 73746174 		.ascii	"status\000"
+ 2797      757300
+ 2798              	.LASF51:
+ 2799 01df 74696D65 		.ascii	"timerCount\000"
+ 2799      72436F75 
+ 2799      6E7400
+ 2800              	.LASF17:
+ 2801 01ea 63686172 		.ascii	"char\000"
+ 2801      00
+ 2802              	.LASF12:
+ 2803 01ef 696E7433 		.ascii	"int32_t\000"
+ 2803      325F7400 
+ 2804              	.LASF58:
+ 2805 01f7 55415254 		.ascii	"UART_1_ReadRxData\000"
+ 2805      5F315F52 
+ 2805      65616452 
+ 2805      78446174 
+ 2805      6100
+ 2806              	.LASF56:
+ 2807 0209 54696D65 		.ascii	"Timer_1_Start\000"
+ 2807      725F315F 
+ 2807      53746172 
+ 2807      7400
+ 2808              	.LASF20:
+ 2809 0217 4D6F6465 		.ascii	"Mode_WaveDrive\000"
+ 2809      5F576176 
+ 2809      65447269 
+ 2809      766500
+ 2810              	.LASF66:
+ 2811 0226 6D61696E 		.ascii	"main.c\000"
+ 2811      2E6300
+ 2812              	.LASF7:
+ 2813 022d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2813      20756E73 
+ 2813      69676E65 
+ 2813      6420696E 
+ 2813      7400
+ 2814              	.LASF42:
+ 2815 023f 62797465 		.ascii	"bytesToRead\000"
+ 2815      73546F52 
+ 2815      65616400 
+ 2816              	.LASF60:
+ 2817 024b 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
+ 2817      5F315F47 
+ 2817      65745278 
+ 2817      42756666 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 60
+
+
+ 2817      65725369 
+ 2818              	.LASF16:
+ 2819 0262 646F7562 		.ascii	"double\000"
+ 2819      6C6500
+ 2820              	.LASF57:
+ 2821 0269 55415254 		.ascii	"UART_1_PutString\000"
+ 2821      5F315F50 
+ 2821      75745374 
+ 2821      72696E67 
+ 2821      00
+ 2822              	.LASF59:
+ 2823 027a 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 2823      5F315F57 
+ 2823      72697465 
+ 2823      54784461 
+ 2823      746100
+ 2824              	.LASF31:
+ 2825 028d 526F7461 		.ascii	"Rotate_B\000"
+ 2825      74655F42 
+ 2825      00
+ 2826              	.LASF30:
+ 2827 0296 526F7461 		.ascii	"Rotate_F\000"
+ 2827      74655F46 
+ 2827      00
+ 2828              	.LASF5:
+ 2829 029f 5F5F696E 		.ascii	"__int32_t\000"
+ 2829      7433325F 
+ 2829      7400
+ 2830              	.LASF67:
+ 2831 02a9 433A5C55 		.ascii	"C:\\Users\\Simon\\Documents\\PSoC Creator\\stepperm"
+ 2831      73657273 
+ 2831      5C53696D 
+ 2831      6F6E5C44 
+ 2831      6F63756D 
+ 2832 02d7 6F746F72 		.ascii	"otor\\steppermotorLab1.cydsn\000"
+ 2832      5C737465 
+ 2832      70706572 
+ 2832      6D6F746F 
+ 2832      724C6162 
+ 2833              	.LASF36:
+ 2834 02f3 53746F70 		.ascii	"Stop\000"
+ 2834      00
+ 2835              	.LASF45:
+ 2836 02f8 4953525F 		.ascii	"ISR_timer_handler\000"
+ 2836      74696D65 
+ 2836      725F6861 
+ 2836      6E646C65 
+ 2836      7200
+ 2837              	.LASF24:
+ 2838 030a 4D6F6465 		.ascii	"Mode\000"
+ 2838      00
+ 2839              	.LASF29:
+ 2840 030f 506F7369 		.ascii	"Position\000"
+ 2840      74696F6E 
+ 2840      00
+ 2841              	.LASF25:
+ 2842 0318 506F7369 		.ascii	"Position_A1\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccngvqHL.s 			page 61
+
+
+ 2842      74696F6E 
+ 2842      5F413100 
+ 2843              	.LASF26:
+ 2844 0324 506F7369 		.ascii	"Position_A2\000"
+ 2844      74696F6E 
+ 2844      5F413200 
+ 2845              	.LASF49:
+ 2846 0330 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2846      52784275 
+ 2846      66666572 
+ 2846      00
+ 2847              	.LASF65:
+ 2848 033d 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2848      43313120 
+ 2848      352E342E 
+ 2848      31203230 
+ 2848      31363036 
+ 2849 0370 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2849      20726576 
+ 2849      6973696F 
+ 2849      6E203233 
+ 2849      37373135 
+ 2850 03a3 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2850      66756E63 
+ 2850      74696F6E 
+ 2850      2D736563 
+ 2850      74696F6E 
+ 2851              	.LASF64:
+ 2852 03cb 50696E5F 		.ascii	"Pin_2b_Write\000"
+ 2852      32625F57 
+ 2852      72697465 
+ 2852      00
+ 2853              	.LASF39:
+ 2854 03d8 64656372 		.ascii	"decreaseSpeed\000"
+ 2854      65617365 
+ 2854      53706565 
+ 2854      6400
+ 2855              	.LASF21:
+ 2856 03e6 4D6F6465 		.ascii	"Mode_FullStep\000"
+ 2856      5F46756C 
+ 2856      6C537465 
+ 2856      7000
+ 2857              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
