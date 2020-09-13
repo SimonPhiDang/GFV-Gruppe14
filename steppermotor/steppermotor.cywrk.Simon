@@ -214,6 +214,8 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\steppermotorLab1.cydsn\main.c" />
+<name v=".\steppermotorLab1.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\steppermotorLab1.cydsn\steppermotorLab1.cydwr" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -221,7 +223,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="2607d91a-c900-43ed-b19a-7ca691e6140f"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\main.c" Guid="2607d91a-c900-43ed-b19a-7ca691e6140f" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1121, 495" SelectedTabbedMdiWindow="2607d91a-c900-43ed-b19a-7ca691e6140f"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\main.c" Guid="2607d91a-c900-43ed-b19a-7ca691e6140f" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\TopDesign\TopDesign.cysch" Guid="c59bc161-37f5-4ca0-a658-ee182d7fd11b" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\steppermotor\steppermotorLab1.cydsn\steppermotorLab1.cydwr" Guid="234aca38-912e-4b04-808e-f4e31bacb178" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
