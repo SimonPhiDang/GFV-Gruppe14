@@ -178,6 +178,13 @@
 <v>DC-Motor-PWM\DC-Motor-PWM\PSoC 5LP Architecture TRM</v>
 <v>DC-Motor-PWM\DC-Motor-PWM\CY8C58LP Family Datasheet</v>
 <v>DC-Motor-PWM\DC-Motor-PWM\System Reference Guides</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\System Reference Guides\cy_boot_v5_50</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_clock_v2_20.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_isr_v1_70.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_pins_v2_20</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\PWM_v3_30.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\UART_v2_50.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>DC-Motor-PWM</v>
@@ -185,6 +192,13 @@
 <v>DC-Motor-PWM\DC-Motor-PWM\PSoC 5LP Architecture TRM</v>
 <v>DC-Motor-PWM\DC-Motor-PWM\CY8C58LP Family Datasheet</v>
 <v>DC-Motor-PWM\DC-Motor-PWM\System Reference Guides</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\System Reference Guides\cy_boot_v5_50</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_clock_v2_20.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_isr_v1_70.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_pins_v2_20</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\PWM_v3_30.pdf</v>
+<v>DC-Motor-PWM\DC-Motor-PWM\UART_v2_50.pdf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>

@@ -16,7 +16,7 @@ CY_ISR_PROTO(ISR_timer_handler);
 void handleByteReceived(uint8_t byteReceived);
 
 void WaveDrive(), FullStep(), HalfStep(), Stop(), status(),
-skiftRet(),increaseSpeed(),decreaseSpeed();
+skiftRet(),increaseSpeed(),decreaseSpeed(),RotateF(),RotateB(),Start();
 
 uint8 High = 1, Low = 0;
 uint16 timerCount = 0;
@@ -68,8 +68,12 @@ int main(void)
     UART_1_PutString("3: HalfStep\r\n");
     UART_1_PutString("4: Stop\r\n");
     UART_1_PutString("5: Rotate\r\n");
+    UART_1_PutString("6: Start\r\n");   
     UART_1_PutString("q: Increase speed\r\n");
-    UART_1_PutString("w: Decrease speed\r\n");    
+    UART_1_PutString("w: Decrease speed\r\n");
+    UART_1_PutString("r: Rotate forward\r\n");
+    UART_1_PutString("b: Rotate Backward\r\n");
+    
     for(;;)
     {}
 }
@@ -137,12 +141,36 @@ void handleByteReceived(uint8_t byteReceived)
             decreaseSpeed();   
         }
         break;
+        case 'r' :
+        {
+           RotateF(); 
+        }
+        break;
+        case 'b' :
+        {
+            RotateB();   
+        }
         default :
         {
             // nothing
         }
         break;
     }
+}
+
+void RotateF()
+{
+    UART_1_PutString("1 forward");
+    Timer_1_Stop();
+    status();
+    
+}
+
+void RotateB()
+{
+    UART_1_PutString("2 Backward");   
+    Timer_1_Stop();
+    status();
 }
 
 void WaveDrive()
@@ -167,6 +195,12 @@ void Stop()
 {
     UART_1_PutString("Stop");
     modeChosen = Mode_Stop;
+}
+
+void Start()
+{
+    UART_1_PutString("Start");
+    Timer_1_Start();
 }
 
 void skiftRet()
@@ -195,23 +229,23 @@ void decreaseSpeed()
 
 void status()
 {
-    switch(modeChosen)
+    switch(modeChosen)  // Nuværende Mode
     {
-        case Mode_WaveDrive:   // Mode
-            switch(currRot)        // Retning
+        case Mode_WaveDrive:   
+            switch(currRot)        // Nuværende rotation
             {
                 case Rotate_F:   
-                    switch(currPos)   // Position
+                    switch(currPos)   // Nuværende Position
                     {
-                        case Position_A1:   // Pin_1a ON HVID LEDNING
-                            UART_1_PutString("W1  ");
+                        case Position_A1:   // Pin_1a
+                            UART_1_PutString("W1  ");  // UART besked for nuværende mode og position
                             Pin_1a_Write(High);  
                             Pin_1b_Write(Low);                            
                             Pin_2a_Write(Low);                            
                             Pin_2b_Write(Low);
                             currPos = Position_B1;
                         break;
-                        case Position_B1:  // Pin_1b ON BLÅ LEDNING
+                        case Position_B1:  // Pin_1b
                             UART_1_PutString("W2  ");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(High);                            
@@ -220,7 +254,7 @@ void status()
                             currPos = Position_A2;
                         break;                                                     
                             
-                        case Position_A2:  // Pin_2a ON RØD Ledning
+                        case Position_A2:  // Pin_2a 
                             UART_1_PutString("W3  ");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);                            
@@ -229,7 +263,7 @@ void status()
                             currPos = Position_B2;
                         break;
                             
-                        case Position_B2:  // Pin_2b ON GUL LEDNING
+                        case Position_B2:  // Pin_2b
                             UART_1_PutString("W4  ");
                             Pin_1a_Write(Low);
                             Pin_1b_Write(Low);
