@@ -1,0 +1,1214 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"I2C_handler.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	__aeabi_f2d
+  20              		.section	.text.writeTempToUART,"ax",%progbits
+  21              		.align	2
+  22              		.global	writeTempToUART
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	writeTempToUART, %function
+  26              	writeTempToUART:
+  27              	.LFB65:
+  28              		.file 1 "I2C_handler.c"
+   1:I2C_handler.c **** /* ========================================
+   2:I2C_handler.c ****  *
+   3:I2C_handler.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:I2C_handler.c ****  * All Rights Reserved
+   5:I2C_handler.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:I2C_handler.c ****  *
+   7:I2C_handler.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:I2C_handler.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:I2C_handler.c ****  *
+  10:I2C_handler.c ****  * ========================================
+  11:I2C_handler.c **** */
+  12:I2C_handler.c **** #include <I2C_handler.h>
+  13:I2C_handler.c **** 
+  14:I2C_handler.c **** #include <project.h>
+  15:I2C_handler.c **** #include <stdio.h>
+  16:I2C_handler.c **** #include <stdlib.h>
+  17:I2C_handler.c **** #include <stdint.h>
+  18:I2C_handler.c **** 
+  19:I2C_handler.c **** 
+  20:I2C_handler.c **** void readTemp()
+  21:I2C_handler.c **** {
+  22:I2C_handler.c ****     //Variabler 
+  23:I2C_handler.c ****     uint8 b1,b2;
+  24:I2C_handler.c ****     uint8 slaveAddress = 36;
+  25:I2C_handler.c ****     uint8 readCommand = 1;
+  26:I2C_handler.c ****     uint8 I2C_MSTR_NO_ERROR;
+  27:I2C_handler.c ****     int16_t tempData;
+  28:I2C_handler.c ****     float temp;
+  29:I2C_handler.c ****     
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 2
+
+
+  30:I2C_handler.c ****     //1001 A2 A1 A0  Alle A'er er modsat ON = 0 
+  31:I2C_handler.c ****     uint8 status = I2C_1_MasterSendStart(slaveAddress,readCommand);
+  32:I2C_handler.c ****     
+  33:I2C_handler.c ****     if (status == I2C_MSTR_NO_ERROR)
+  34:I2C_handler.c ****     {
+  35:I2C_handler.c ****         // Læser første byte i register MSB første 8 bit
+  36:I2C_handler.c ****             b1 = I2C_1_MasterReadByte(I2C_1_ACK_DATA);  
+  37:I2C_handler.c ****             UART_1_PutString("b1 success");
+  38:I2C_handler.c ****         // Læser anden byte i register, sidste byte er NAKed  // LSB sidste 8 bit
+  39:I2C_handler.c ****             b2 = I2C_1_MasterReadByte(I2C_1_NAK_DATA);
+  40:I2C_handler.c ****             UART_1_PutString("b2 success");
+  41:I2C_handler.c ****         //    MasterSendStop
+  42:I2C_handler.c ****             I2C_1_MasterSendStop();        
+  43:I2C_handler.c ****         //    Combine bytes to a temperature (2 Komplement konvert)
+  44:I2C_handler.c ****             tempData = b1 | b2 ;
+  45:I2C_handler.c ****         // Data skal aflæses som 2 komplements int så fortegn er korrekt
+  46:I2C_handler.c ****             temp = tempData / 256;
+  47:I2C_handler.c ****         //    Send temperature to UART
+  48:I2C_handler.c ****             writeTempToUART(temp);
+  49:I2C_handler.c ****     }
+  50:I2C_handler.c ****     else {
+  51:I2C_handler.c **** //    report error on UART
+  52:I2C_handler.c ****       UART_1_PutString("Error I2C");  
+  53:I2C_handler.c **** //    MasterSendStop
+  54:I2C_handler.c ****       I2C_1_MasterSendStop();
+  55:I2C_handler.c ****     }  
+  56:I2C_handler.c **** }
+  57:I2C_handler.c **** // Udprintning til UART temperaturen
+  58:I2C_handler.c **** void writeTempToUART(float temp)
+  59:I2C_handler.c **** {
+  29              		.loc 1 59 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 256
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              	.LVL0:
+  34 0000 00B5     		push	{lr}
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 C3B0     		sub	sp, sp, #268
+  38              		.cfi_def_cfa_offset 272
+  60:I2C_handler.c ****     char outputBuffer[256];
+  61:I2C_handler.c ****     snprintf(outputBuffer, sizeof(outputBuffer), "Temp: %f \r\n", temp);
+  39              		.loc 1 61 0
+  40 0004 FFF7FEFF 		bl	__aeabi_f2d
+  41              	.LVL1:
+  42 0008 CDE90001 		strd	r0, [sp]
+  43 000c 054A     		ldr	r2, .L3
+  44 000e 4FF48071 		mov	r1, #256
+  45 0012 02A8     		add	r0, sp, #8
+  46 0014 FFF7FEFF 		bl	snprintf
+  47              	.LVL2:
+  62:I2C_handler.c ****     UART_1_PutString(outputBuffer);
+  48              		.loc 1 62 0
+  49 0018 02A8     		add	r0, sp, #8
+  50 001a FFF7FEFF 		bl	UART_1_PutString
+  51              	.LVL3:
+  63:I2C_handler.c **** }
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 3
+
+
+  52              		.loc 1 63 0
+  53 001e 43B0     		add	sp, sp, #268
+  54              		.cfi_def_cfa_offset 4
+  55              		@ sp needed
+  56 0020 5DF804FB 		ldr	pc, [sp], #4
+  57              	.L4:
+  58              		.align	2
+  59              	.L3:
+  60 0024 00000000 		.word	.LC0
+  61              		.cfi_endproc
+  62              	.LFE65:
+  63              		.size	writeTempToUART, .-writeTempToUART
+  64              		.global	__aeabi_i2f
+  65              		.section	.text.readTemp,"ax",%progbits
+  66              		.align	2
+  67              		.global	readTemp
+  68              		.thumb
+  69              		.thumb_func
+  70              		.type	readTemp, %function
+  71              	readTemp:
+  72              	.LFB64:
+  21:I2C_handler.c ****     //Variabler 
+  73              		.loc 1 21 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 38B5     		push	{r3, r4, r5, lr}
+  78              		.cfi_def_cfa_offset 16
+  79              		.cfi_offset 3, -16
+  80              		.cfi_offset 4, -12
+  81              		.cfi_offset 5, -8
+  82              		.cfi_offset 14, -4
+  83              	.LVL4:
+  31:I2C_handler.c ****     
+  84              		.loc 1 31 0
+  85 0002 0121     		movs	r1, #1
+  86 0004 2420     		movs	r0, #36
+  87 0006 FFF7FEFF 		bl	I2C_1_MasterSendStart
+  88              	.LVL5:
+  33:I2C_handler.c ****     {
+  89              		.loc 1 33 0
+  90 000a C8B9     		cbnz	r0, .L6
+  36:I2C_handler.c ****             UART_1_PutString("b1 success");
+  91              		.loc 1 36 0
+  92 000c 0120     		movs	r0, #1
+  93              	.LVL6:
+  94 000e FFF7FEFF 		bl	I2C_1_MasterReadByte
+  95              	.LVL7:
+  96 0012 0546     		mov	r5, r0
+  97              	.LVL8:
+  37:I2C_handler.c ****         // Læser anden byte i register, sidste byte er NAKed  // LSB sidste 8 bit
+  98              		.loc 1 37 0
+  99 0014 0D48     		ldr	r0, .L10
+ 100 0016 FFF7FEFF 		bl	UART_1_PutString
+ 101              	.LVL9:
+  39:I2C_handler.c ****             UART_1_PutString("b2 success");
+ 102              		.loc 1 39 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 4
+
+
+ 103 001a 0020     		movs	r0, #0
+ 104 001c FFF7FEFF 		bl	I2C_1_MasterReadByte
+ 105              	.LVL10:
+ 106 0020 0446     		mov	r4, r0
+ 107              	.LVL11:
+  40:I2C_handler.c ****         //    MasterSendStop
+ 108              		.loc 1 40 0
+ 109 0022 0B48     		ldr	r0, .L10+4
+ 110 0024 FFF7FEFF 		bl	UART_1_PutString
+ 111              	.LVL12:
+  42:I2C_handler.c ****         //    Combine bytes to a temperature (2 Komplement konvert)
+ 112              		.loc 1 42 0
+ 113 0028 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ 114              	.LVL13:
+  44:I2C_handler.c ****         // Data skal aflæses som 2 komplements int så fortegn er korrekt
+ 115              		.loc 1 44 0
+ 116 002c 45EA0400 		orr	r0, r5, r4
+  46:I2C_handler.c ****         //    Send temperature to UART
+ 117              		.loc 1 46 0
+ 118 0030 00F0FF00 		and	r0, r0, #255
+ 119 0034 0012     		asrs	r0, r0, #8
+ 120 0036 FFF7FEFF 		bl	__aeabi_i2f
+ 121              	.LVL14:
+  48:I2C_handler.c ****     }
+ 122              		.loc 1 48 0
+ 123 003a FFF7FEFF 		bl	writeTempToUART
+ 124              	.LVL15:
+ 125 003e 38BD     		pop	{r3, r4, r5, pc}
+ 126              	.LVL16:
+ 127              	.L6:
+  52:I2C_handler.c **** //    MasterSendStop
+ 128              		.loc 1 52 0
+ 129 0040 0448     		ldr	r0, .L10+8
+ 130              	.LVL17:
+ 131 0042 FFF7FEFF 		bl	UART_1_PutString
+ 132              	.LVL18:
+  54:I2C_handler.c ****     }  
+ 133              		.loc 1 54 0
+ 134 0046 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ 135              	.LVL19:
+ 136 004a 38BD     		pop	{r3, r4, r5, pc}
+ 137              	.L11:
+ 138              		.align	2
+ 139              	.L10:
+ 140 004c 0C000000 		.word	.LC1
+ 141 0050 18000000 		.word	.LC2
+ 142 0054 24000000 		.word	.LC3
+ 143              		.cfi_endproc
+ 144              	.LFE64:
+ 145              		.size	readTemp, .-readTemp
+ 146              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 147              		.align	2
+ 148              	.LC0:
+ 149 0000 54656D70 		.ascii	"Temp: %f \015\012\000"
+ 149      3A202566 
+ 149      200D0A00 
+ 150              	.LC1:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 5
+
+
+ 151 000c 62312073 		.ascii	"b1 success\000"
+ 151      75636365 
+ 151      737300
+ 152 0017 00       		.space	1
+ 153              	.LC2:
+ 154 0018 62322073 		.ascii	"b2 success\000"
+ 154      75636365 
+ 154      737300
+ 155 0023 00       		.space	1
+ 156              	.LC3:
+ 157 0024 4572726F 		.ascii	"Error I2C\000"
+ 157      72204932 
+ 157      4300
+ 158              		.text
+ 159              	.Letext0:
+ 160              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 161              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 162              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 163              		.file 5 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 164              		.file 6 "Generated_Source\\PSoC5/UART_1.h"
+ 165              		.file 7 "Generated_Source\\PSoC5/I2C_1.h"
+ 166              		.file 8 "Generated_Source\\PSoC5/core_cm3.h"
+ 167              		.section	.debug_info,"",%progbits
+ 168              	.Ldebug_info0:
+ 169 0000 A2020000 		.4byte	0x2a2
+ 170 0004 0400     		.2byte	0x4
+ 171 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 172 000a 04       		.byte	0x4
+ 173 000b 01       		.uleb128 0x1
+ 174 000c 7E000000 		.4byte	.LASF31
+ 175 0010 0C       		.byte	0xc
+ 176 0011 4B020000 		.4byte	.LASF32
+ 177 0015 43010000 		.4byte	.LASF33
+ 178 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 179 001d 00000000 		.4byte	0
+ 180 0021 00000000 		.4byte	.Ldebug_line0
+ 181 0025 02       		.uleb128 0x2
+ 182 0026 04       		.byte	0x4
+ 183 0027 04       		.byte	0x4
+ 184 0028 61000000 		.4byte	.LASF0
+ 185 002c 02       		.uleb128 0x2
+ 186 002d 01       		.byte	0x1
+ 187 002e 06       		.byte	0x6
+ 188 002f 91020000 		.4byte	.LASF1
+ 189 0033 02       		.uleb128 0x2
+ 190 0034 01       		.byte	0x1
+ 191 0035 08       		.byte	0x8
+ 192 0036 70000000 		.4byte	.LASF2
+ 193 003a 03       		.uleb128 0x3
+ 194 003b 0C000000 		.4byte	.LASF5
+ 195 003f 02       		.byte	0x2
+ 196 0040 29       		.byte	0x29
+ 197 0041 45000000 		.4byte	0x45
+ 198 0045 02       		.uleb128 0x2
+ 199 0046 02       		.byte	0x2
+ 200 0047 05       		.byte	0x5
+ 201 0048 3B020000 		.4byte	.LASF3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 6
+
+
+ 202 004c 02       		.uleb128 0x2
+ 203 004d 02       		.byte	0x2
+ 204 004e 07       		.byte	0x7
+ 205 004f 30010000 		.4byte	.LASF4
+ 206 0053 03       		.uleb128 0x3
+ 207 0054 16000000 		.4byte	.LASF6
+ 208 0058 02       		.byte	0x2
+ 209 0059 3F       		.byte	0x3f
+ 210 005a 5E000000 		.4byte	0x5e
+ 211 005e 02       		.uleb128 0x2
+ 212 005f 04       		.byte	0x4
+ 213 0060 05       		.byte	0x5
+ 214 0061 7C020000 		.4byte	.LASF7
+ 215 0065 02       		.uleb128 0x2
+ 216 0066 04       		.byte	0x4
+ 217 0067 07       		.byte	0x7
+ 218 0068 19010000 		.4byte	.LASF8
+ 219 006c 02       		.uleb128 0x2
+ 220 006d 08       		.byte	0x8
+ 221 006e 05       		.byte	0x5
+ 222 006f 59020000 		.4byte	.LASF9
+ 223 0073 02       		.uleb128 0x2
+ 224 0074 08       		.byte	0x8
+ 225 0075 07       		.byte	0x7
+ 226 0076 E4010000 		.4byte	.LASF10
+ 227 007a 04       		.uleb128 0x4
+ 228 007b 04       		.byte	0x4
+ 229 007c 05       		.byte	0x5
+ 230 007d 696E7400 		.ascii	"int\000"
+ 231 0081 02       		.uleb128 0x2
+ 232 0082 04       		.byte	0x4
+ 233 0083 07       		.byte	0x7
+ 234 0084 D7010000 		.4byte	.LASF11
+ 235 0088 03       		.uleb128 0x3
+ 236 0089 FB010000 		.4byte	.LASF12
+ 237 008d 03       		.byte	0x3
+ 238 008e 20       		.byte	0x20
+ 239 008f 3A000000 		.4byte	0x3a
+ 240 0093 03       		.uleb128 0x3
+ 241 0094 03020000 		.4byte	.LASF13
+ 242 0098 03       		.byte	0x3
+ 243 0099 2C       		.byte	0x2c
+ 244 009a 53000000 		.4byte	0x53
+ 245 009e 05       		.uleb128 0x5
+ 246 009f 45020000 		.4byte	.LASF14
+ 247 00a3 04       		.byte	0x4
+ 248 00a4 E401     		.2byte	0x1e4
+ 249 00a6 33000000 		.4byte	0x33
+ 250 00aa 02       		.uleb128 0x2
+ 251 00ab 08       		.byte	0x8
+ 252 00ac 04       		.byte	0x4
+ 253 00ad C0010000 		.4byte	.LASF15
+ 254 00b1 02       		.uleb128 0x2
+ 255 00b2 01       		.byte	0x1
+ 256 00b3 08       		.byte	0x8
+ 257 00b4 29020000 		.4byte	.LASF16
+ 258 00b8 02       		.uleb128 0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 7
+
+
+ 259 00b9 08       		.byte	0x8
+ 260 00ba 04       		.byte	0x4
+ 261 00bb 85020000 		.4byte	.LASF17
+ 262 00bf 02       		.uleb128 0x2
+ 263 00c0 04       		.byte	0x4
+ 264 00c1 07       		.byte	0x7
+ 265 00c2 0B020000 		.4byte	.LASF18
+ 266 00c6 06       		.uleb128 0x6
+ 267 00c7 C7010000 		.4byte	.LASF34
+ 268 00cb 01       		.byte	0x1
+ 269 00cc 3A       		.byte	0x3a
+ 270 00cd 00000000 		.4byte	.LFB65
+ 271 00d1 28000000 		.4byte	.LFE65-.LFB65
+ 272 00d5 01       		.uleb128 0x1
+ 273 00d6 9C       		.byte	0x9c
+ 274 00d7 30010000 		.4byte	0x130
+ 275 00db 07       		.uleb128 0x7
+ 276 00dc 2B010000 		.4byte	.LASF24
+ 277 00e0 01       		.byte	0x1
+ 278 00e1 3A       		.byte	0x3a
+ 279 00e2 25000000 		.4byte	0x25
+ 280 00e6 00000000 		.4byte	.LLST0
+ 281 00ea 08       		.uleb128 0x8
+ 282 00eb 0C010000 		.4byte	.LASF19
+ 283 00ef 01       		.byte	0x1
+ 284 00f0 3C       		.byte	0x3c
+ 285 00f1 30010000 		.4byte	0x130
+ 286 00f5 03       		.uleb128 0x3
+ 287 00f6 91       		.byte	0x91
+ 288 00f7 F87D     		.sleb128 -264
+ 289 00f9 09       		.uleb128 0x9
+ 290 00fa 18000000 		.4byte	.LVL2
+ 291 00fe 6E020000 		.4byte	0x26e
+ 292 0102 1E010000 		.4byte	0x11e
+ 293 0106 0A       		.uleb128 0xa
+ 294 0107 01       		.uleb128 0x1
+ 295 0108 50       		.byte	0x50
+ 296 0109 03       		.uleb128 0x3
+ 297 010a 91       		.byte	0x91
+ 298 010b F87D     		.sleb128 -264
+ 299 010d 0A       		.uleb128 0xa
+ 300 010e 01       		.uleb128 0x1
+ 301 010f 51       		.byte	0x51
+ 302 0110 03       		.uleb128 0x3
+ 303 0111 0A       		.byte	0xa
+ 304 0112 0001     		.2byte	0x100
+ 305 0114 0A       		.uleb128 0xa
+ 306 0115 01       		.uleb128 0x1
+ 307 0116 52       		.byte	0x52
+ 308 0117 05       		.uleb128 0x5
+ 309 0118 03       		.byte	0x3
+ 310 0119 00000000 		.4byte	.LC0
+ 311 011d 00       		.byte	0
+ 312 011e 0B       		.uleb128 0xb
+ 313 011f 1E000000 		.4byte	.LVL3
+ 314 0123 79020000 		.4byte	0x279
+ 315 0127 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 8
+
+
+ 316 0128 01       		.uleb128 0x1
+ 317 0129 50       		.byte	0x50
+ 318 012a 03       		.uleb128 0x3
+ 319 012b 91       		.byte	0x91
+ 320 012c F87D     		.sleb128 -264
+ 321 012e 00       		.byte	0
+ 322 012f 00       		.byte	0
+ 323 0130 0C       		.uleb128 0xc
+ 324 0131 B1000000 		.4byte	0xb1
+ 325 0135 40010000 		.4byte	0x140
+ 326 0139 0D       		.uleb128 0xd
+ 327 013a BF000000 		.4byte	0xbf
+ 328 013e FF       		.byte	0xff
+ 329 013f 00       		.byte	0
+ 330 0140 0E       		.uleb128 0xe
+ 331 0141 3F000000 		.4byte	.LASF35
+ 332 0145 01       		.byte	0x1
+ 333 0146 14       		.byte	0x14
+ 334 0147 00000000 		.4byte	.LFB64
+ 335 014b 58000000 		.4byte	.LFE64-.LFB64
+ 336 014f 01       		.uleb128 0x1
+ 337 0150 9C       		.byte	0x9c
+ 338 0151 5D020000 		.4byte	0x25d
+ 339 0155 0F       		.uleb128 0xf
+ 340 0156 623100   		.ascii	"b1\000"
+ 341 0159 01       		.byte	0x1
+ 342 015a 17       		.byte	0x17
+ 343 015b 9E000000 		.4byte	0x9e
+ 344 015f 23000000 		.4byte	.LLST1
+ 345 0163 0F       		.uleb128 0xf
+ 346 0164 623200   		.ascii	"b2\000"
+ 347 0167 01       		.byte	0x1
+ 348 0168 17       		.byte	0x17
+ 349 0169 9E000000 		.4byte	0x9e
+ 350 016d 36000000 		.4byte	.LLST2
+ 351 0171 10       		.uleb128 0x10
+ 352 0172 2E020000 		.4byte	.LASF20
+ 353 0176 01       		.byte	0x1
+ 354 0177 18       		.byte	0x18
+ 355 0178 9E000000 		.4byte	0x9e
+ 356 017c 24       		.byte	0x24
+ 357 017d 10       		.uleb128 0x10
+ 358 017e 00000000 		.4byte	.LASF21
+ 359 0182 01       		.byte	0x1
+ 360 0183 19       		.byte	0x19
+ 361 0184 9E000000 		.4byte	0x9e
+ 362 0188 01       		.byte	0x1
+ 363 0189 11       		.uleb128 0x11
+ 364 018a 4F000000 		.4byte	.LASF22
+ 365 018e 01       		.byte	0x1
+ 366 018f 1A       		.byte	0x1a
+ 367 0190 9E000000 		.4byte	0x9e
+ 368 0194 11       		.uleb128 0x11
+ 369 0195 67000000 		.4byte	.LASF23
+ 370 0199 01       		.byte	0x1
+ 371 019a 1B       		.byte	0x1b
+ 372 019b 88000000 		.4byte	0x88
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 9
+
+
+ 373 019f 12       		.uleb128 0x12
+ 374 01a0 2B010000 		.4byte	.LASF24
+ 375 01a4 01       		.byte	0x1
+ 376 01a5 1C       		.byte	0x1c
+ 377 01a6 25000000 		.4byte	0x25
+ 378 01aa 49000000 		.4byte	.LLST3
+ 379 01ae 12       		.uleb128 0x12
+ 380 01af 48000000 		.4byte	.LASF25
+ 381 01b3 01       		.byte	0x1
+ 382 01b4 1F       		.byte	0x1f
+ 383 01b5 9E000000 		.4byte	0x9e
+ 384 01b9 5C000000 		.4byte	.LLST4
+ 385 01bd 09       		.uleb128 0x9
+ 386 01be 0A000000 		.4byte	.LVL5
+ 387 01c2 84020000 		.4byte	0x284
+ 388 01c6 D6010000 		.4byte	0x1d6
+ 389 01ca 0A       		.uleb128 0xa
+ 390 01cb 01       		.uleb128 0x1
+ 391 01cc 50       		.byte	0x50
+ 392 01cd 02       		.uleb128 0x2
+ 393 01ce 08       		.byte	0x8
+ 394 01cf 24       		.byte	0x24
+ 395 01d0 0A       		.uleb128 0xa
+ 396 01d1 01       		.uleb128 0x1
+ 397 01d2 51       		.byte	0x51
+ 398 01d3 01       		.uleb128 0x1
+ 399 01d4 31       		.byte	0x31
+ 400 01d5 00       		.byte	0
+ 401 01d6 09       		.uleb128 0x9
+ 402 01d7 12000000 		.4byte	.LVL7
+ 403 01db 8F020000 		.4byte	0x28f
+ 404 01df E9010000 		.4byte	0x1e9
+ 405 01e3 0A       		.uleb128 0xa
+ 406 01e4 01       		.uleb128 0x1
+ 407 01e5 50       		.byte	0x50
+ 408 01e6 01       		.uleb128 0x1
+ 409 01e7 31       		.byte	0x31
+ 410 01e8 00       		.byte	0
+ 411 01e9 09       		.uleb128 0x9
+ 412 01ea 1A000000 		.4byte	.LVL9
+ 413 01ee 79020000 		.4byte	0x279
+ 414 01f2 00020000 		.4byte	0x200
+ 415 01f6 0A       		.uleb128 0xa
+ 416 01f7 01       		.uleb128 0x1
+ 417 01f8 50       		.byte	0x50
+ 418 01f9 05       		.uleb128 0x5
+ 419 01fa 03       		.byte	0x3
+ 420 01fb 0C000000 		.4byte	.LC1
+ 421 01ff 00       		.byte	0
+ 422 0200 09       		.uleb128 0x9
+ 423 0201 20000000 		.4byte	.LVL10
+ 424 0205 8F020000 		.4byte	0x28f
+ 425 0209 13020000 		.4byte	0x213
+ 426 020d 0A       		.uleb128 0xa
+ 427 020e 01       		.uleb128 0x1
+ 428 020f 50       		.byte	0x50
+ 429 0210 01       		.uleb128 0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 10
+
+
+ 430 0211 30       		.byte	0x30
+ 431 0212 00       		.byte	0
+ 432 0213 09       		.uleb128 0x9
+ 433 0214 28000000 		.4byte	.LVL12
+ 434 0218 79020000 		.4byte	0x279
+ 435 021c 2A020000 		.4byte	0x22a
+ 436 0220 0A       		.uleb128 0xa
+ 437 0221 01       		.uleb128 0x1
+ 438 0222 50       		.byte	0x50
+ 439 0223 05       		.uleb128 0x5
+ 440 0224 03       		.byte	0x3
+ 441 0225 18000000 		.4byte	.LC2
+ 442 0229 00       		.byte	0
+ 443 022a 13       		.uleb128 0x13
+ 444 022b 2C000000 		.4byte	.LVL13
+ 445 022f 9A020000 		.4byte	0x29a
+ 446 0233 13       		.uleb128 0x13
+ 447 0234 3E000000 		.4byte	.LVL15
+ 448 0238 C6000000 		.4byte	0xc6
+ 449 023c 09       		.uleb128 0x9
+ 450 023d 46000000 		.4byte	.LVL18
+ 451 0241 79020000 		.4byte	0x279
+ 452 0245 53020000 		.4byte	0x253
+ 453 0249 0A       		.uleb128 0xa
+ 454 024a 01       		.uleb128 0x1
+ 455 024b 50       		.byte	0x50
+ 456 024c 05       		.uleb128 0x5
+ 457 024d 03       		.byte	0x3
+ 458 024e 24000000 		.4byte	.LC3
+ 459 0252 00       		.byte	0
+ 460 0253 13       		.uleb128 0x13
+ 461 0254 4A000000 		.4byte	.LVL19
+ 462 0258 9A020000 		.4byte	0x29a
+ 463 025c 00       		.byte	0
+ 464 025d 14       		.uleb128 0x14
+ 465 025e B3010000 		.4byte	.LASF36
+ 466 0262 08       		.byte	0x8
+ 467 0263 1207     		.2byte	0x712
+ 468 0265 69020000 		.4byte	0x269
+ 469 0269 15       		.uleb128 0x15
+ 470 026a 93000000 		.4byte	0x93
+ 471 026e 16       		.uleb128 0x16
+ 472 026f 36000000 		.4byte	.LASF26
+ 473 0273 36000000 		.4byte	.LASF26
+ 474 0277 05       		.byte	0x5
+ 475 0278 FD       		.byte	0xfd
+ 476 0279 16       		.uleb128 0x16
+ 477 027a 9D020000 		.4byte	.LASF27
+ 478 027e 9D020000 		.4byte	.LASF27
+ 479 0282 06       		.byte	0x6
+ 480 0283 8B       		.byte	0x8b
+ 481 0284 16       		.uleb128 0x16
+ 482 0285 20000000 		.4byte	.LASF28
+ 483 0289 20000000 		.4byte	.LASF28
+ 484 028d 07       		.byte	0x7
+ 485 028e B1       		.byte	0xb1
+ 486 028f 16       		.uleb128 0x16
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 11
+
+
+ 487 0290 14020000 		.4byte	.LASF29
+ 488 0294 14020000 		.4byte	.LASF29
+ 489 0298 07       		.byte	0x7
+ 490 0299 B7       		.byte	0xb7
+ 491 029a 16       		.uleb128 0x16
+ 492 029b 67020000 		.4byte	.LASF30
+ 493 029f 67020000 		.4byte	.LASF30
+ 494 02a3 07       		.byte	0x7
+ 495 02a4 B5       		.byte	0xb5
+ 496 02a5 00       		.byte	0
+ 497              		.section	.debug_abbrev,"",%progbits
+ 498              	.Ldebug_abbrev0:
+ 499 0000 01       		.uleb128 0x1
+ 500 0001 11       		.uleb128 0x11
+ 501 0002 01       		.byte	0x1
+ 502 0003 25       		.uleb128 0x25
+ 503 0004 0E       		.uleb128 0xe
+ 504 0005 13       		.uleb128 0x13
+ 505 0006 0B       		.uleb128 0xb
+ 506 0007 03       		.uleb128 0x3
+ 507 0008 0E       		.uleb128 0xe
+ 508 0009 1B       		.uleb128 0x1b
+ 509 000a 0E       		.uleb128 0xe
+ 510 000b 55       		.uleb128 0x55
+ 511 000c 17       		.uleb128 0x17
+ 512 000d 11       		.uleb128 0x11
+ 513 000e 01       		.uleb128 0x1
+ 514 000f 10       		.uleb128 0x10
+ 515 0010 17       		.uleb128 0x17
+ 516 0011 00       		.byte	0
+ 517 0012 00       		.byte	0
+ 518 0013 02       		.uleb128 0x2
+ 519 0014 24       		.uleb128 0x24
+ 520 0015 00       		.byte	0
+ 521 0016 0B       		.uleb128 0xb
+ 522 0017 0B       		.uleb128 0xb
+ 523 0018 3E       		.uleb128 0x3e
+ 524 0019 0B       		.uleb128 0xb
+ 525 001a 03       		.uleb128 0x3
+ 526 001b 0E       		.uleb128 0xe
+ 527 001c 00       		.byte	0
+ 528 001d 00       		.byte	0
+ 529 001e 03       		.uleb128 0x3
+ 530 001f 16       		.uleb128 0x16
+ 531 0020 00       		.byte	0
+ 532 0021 03       		.uleb128 0x3
+ 533 0022 0E       		.uleb128 0xe
+ 534 0023 3A       		.uleb128 0x3a
+ 535 0024 0B       		.uleb128 0xb
+ 536 0025 3B       		.uleb128 0x3b
+ 537 0026 0B       		.uleb128 0xb
+ 538 0027 49       		.uleb128 0x49
+ 539 0028 13       		.uleb128 0x13
+ 540 0029 00       		.byte	0
+ 541 002a 00       		.byte	0
+ 542 002b 04       		.uleb128 0x4
+ 543 002c 24       		.uleb128 0x24
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 12
+
+
+ 544 002d 00       		.byte	0
+ 545 002e 0B       		.uleb128 0xb
+ 546 002f 0B       		.uleb128 0xb
+ 547 0030 3E       		.uleb128 0x3e
+ 548 0031 0B       		.uleb128 0xb
+ 549 0032 03       		.uleb128 0x3
+ 550 0033 08       		.uleb128 0x8
+ 551 0034 00       		.byte	0
+ 552 0035 00       		.byte	0
+ 553 0036 05       		.uleb128 0x5
+ 554 0037 16       		.uleb128 0x16
+ 555 0038 00       		.byte	0
+ 556 0039 03       		.uleb128 0x3
+ 557 003a 0E       		.uleb128 0xe
+ 558 003b 3A       		.uleb128 0x3a
+ 559 003c 0B       		.uleb128 0xb
+ 560 003d 3B       		.uleb128 0x3b
+ 561 003e 05       		.uleb128 0x5
+ 562 003f 49       		.uleb128 0x49
+ 563 0040 13       		.uleb128 0x13
+ 564 0041 00       		.byte	0
+ 565 0042 00       		.byte	0
+ 566 0043 06       		.uleb128 0x6
+ 567 0044 2E       		.uleb128 0x2e
+ 568 0045 01       		.byte	0x1
+ 569 0046 3F       		.uleb128 0x3f
+ 570 0047 19       		.uleb128 0x19
+ 571 0048 03       		.uleb128 0x3
+ 572 0049 0E       		.uleb128 0xe
+ 573 004a 3A       		.uleb128 0x3a
+ 574 004b 0B       		.uleb128 0xb
+ 575 004c 3B       		.uleb128 0x3b
+ 576 004d 0B       		.uleb128 0xb
+ 577 004e 27       		.uleb128 0x27
+ 578 004f 19       		.uleb128 0x19
+ 579 0050 11       		.uleb128 0x11
+ 580 0051 01       		.uleb128 0x1
+ 581 0052 12       		.uleb128 0x12
+ 582 0053 06       		.uleb128 0x6
+ 583 0054 40       		.uleb128 0x40
+ 584 0055 18       		.uleb128 0x18
+ 585 0056 9642     		.uleb128 0x2116
+ 586 0058 19       		.uleb128 0x19
+ 587 0059 01       		.uleb128 0x1
+ 588 005a 13       		.uleb128 0x13
+ 589 005b 00       		.byte	0
+ 590 005c 00       		.byte	0
+ 591 005d 07       		.uleb128 0x7
+ 592 005e 05       		.uleb128 0x5
+ 593 005f 00       		.byte	0
+ 594 0060 03       		.uleb128 0x3
+ 595 0061 0E       		.uleb128 0xe
+ 596 0062 3A       		.uleb128 0x3a
+ 597 0063 0B       		.uleb128 0xb
+ 598 0064 3B       		.uleb128 0x3b
+ 599 0065 0B       		.uleb128 0xb
+ 600 0066 49       		.uleb128 0x49
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 13
+
+
+ 601 0067 13       		.uleb128 0x13
+ 602 0068 02       		.uleb128 0x2
+ 603 0069 17       		.uleb128 0x17
+ 604 006a 00       		.byte	0
+ 605 006b 00       		.byte	0
+ 606 006c 08       		.uleb128 0x8
+ 607 006d 34       		.uleb128 0x34
+ 608 006e 00       		.byte	0
+ 609 006f 03       		.uleb128 0x3
+ 610 0070 0E       		.uleb128 0xe
+ 611 0071 3A       		.uleb128 0x3a
+ 612 0072 0B       		.uleb128 0xb
+ 613 0073 3B       		.uleb128 0x3b
+ 614 0074 0B       		.uleb128 0xb
+ 615 0075 49       		.uleb128 0x49
+ 616 0076 13       		.uleb128 0x13
+ 617 0077 02       		.uleb128 0x2
+ 618 0078 18       		.uleb128 0x18
+ 619 0079 00       		.byte	0
+ 620 007a 00       		.byte	0
+ 621 007b 09       		.uleb128 0x9
+ 622 007c 898201   		.uleb128 0x4109
+ 623 007f 01       		.byte	0x1
+ 624 0080 11       		.uleb128 0x11
+ 625 0081 01       		.uleb128 0x1
+ 626 0082 31       		.uleb128 0x31
+ 627 0083 13       		.uleb128 0x13
+ 628 0084 01       		.uleb128 0x1
+ 629 0085 13       		.uleb128 0x13
+ 630 0086 00       		.byte	0
+ 631 0087 00       		.byte	0
+ 632 0088 0A       		.uleb128 0xa
+ 633 0089 8A8201   		.uleb128 0x410a
+ 634 008c 00       		.byte	0
+ 635 008d 02       		.uleb128 0x2
+ 636 008e 18       		.uleb128 0x18
+ 637 008f 9142     		.uleb128 0x2111
+ 638 0091 18       		.uleb128 0x18
+ 639 0092 00       		.byte	0
+ 640 0093 00       		.byte	0
+ 641 0094 0B       		.uleb128 0xb
+ 642 0095 898201   		.uleb128 0x4109
+ 643 0098 01       		.byte	0x1
+ 644 0099 11       		.uleb128 0x11
+ 645 009a 01       		.uleb128 0x1
+ 646 009b 31       		.uleb128 0x31
+ 647 009c 13       		.uleb128 0x13
+ 648 009d 00       		.byte	0
+ 649 009e 00       		.byte	0
+ 650 009f 0C       		.uleb128 0xc
+ 651 00a0 01       		.uleb128 0x1
+ 652 00a1 01       		.byte	0x1
+ 653 00a2 49       		.uleb128 0x49
+ 654 00a3 13       		.uleb128 0x13
+ 655 00a4 01       		.uleb128 0x1
+ 656 00a5 13       		.uleb128 0x13
+ 657 00a6 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 14
+
+
+ 658 00a7 00       		.byte	0
+ 659 00a8 0D       		.uleb128 0xd
+ 660 00a9 21       		.uleb128 0x21
+ 661 00aa 00       		.byte	0
+ 662 00ab 49       		.uleb128 0x49
+ 663 00ac 13       		.uleb128 0x13
+ 664 00ad 2F       		.uleb128 0x2f
+ 665 00ae 0B       		.uleb128 0xb
+ 666 00af 00       		.byte	0
+ 667 00b0 00       		.byte	0
+ 668 00b1 0E       		.uleb128 0xe
+ 669 00b2 2E       		.uleb128 0x2e
+ 670 00b3 01       		.byte	0x1
+ 671 00b4 3F       		.uleb128 0x3f
+ 672 00b5 19       		.uleb128 0x19
+ 673 00b6 03       		.uleb128 0x3
+ 674 00b7 0E       		.uleb128 0xe
+ 675 00b8 3A       		.uleb128 0x3a
+ 676 00b9 0B       		.uleb128 0xb
+ 677 00ba 3B       		.uleb128 0x3b
+ 678 00bb 0B       		.uleb128 0xb
+ 679 00bc 11       		.uleb128 0x11
+ 680 00bd 01       		.uleb128 0x1
+ 681 00be 12       		.uleb128 0x12
+ 682 00bf 06       		.uleb128 0x6
+ 683 00c0 40       		.uleb128 0x40
+ 684 00c1 18       		.uleb128 0x18
+ 685 00c2 9642     		.uleb128 0x2116
+ 686 00c4 19       		.uleb128 0x19
+ 687 00c5 01       		.uleb128 0x1
+ 688 00c6 13       		.uleb128 0x13
+ 689 00c7 00       		.byte	0
+ 690 00c8 00       		.byte	0
+ 691 00c9 0F       		.uleb128 0xf
+ 692 00ca 34       		.uleb128 0x34
+ 693 00cb 00       		.byte	0
+ 694 00cc 03       		.uleb128 0x3
+ 695 00cd 08       		.uleb128 0x8
+ 696 00ce 3A       		.uleb128 0x3a
+ 697 00cf 0B       		.uleb128 0xb
+ 698 00d0 3B       		.uleb128 0x3b
+ 699 00d1 0B       		.uleb128 0xb
+ 700 00d2 49       		.uleb128 0x49
+ 701 00d3 13       		.uleb128 0x13
+ 702 00d4 02       		.uleb128 0x2
+ 703 00d5 17       		.uleb128 0x17
+ 704 00d6 00       		.byte	0
+ 705 00d7 00       		.byte	0
+ 706 00d8 10       		.uleb128 0x10
+ 707 00d9 34       		.uleb128 0x34
+ 708 00da 00       		.byte	0
+ 709 00db 03       		.uleb128 0x3
+ 710 00dc 0E       		.uleb128 0xe
+ 711 00dd 3A       		.uleb128 0x3a
+ 712 00de 0B       		.uleb128 0xb
+ 713 00df 3B       		.uleb128 0x3b
+ 714 00e0 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 15
+
+
+ 715 00e1 49       		.uleb128 0x49
+ 716 00e2 13       		.uleb128 0x13
+ 717 00e3 1C       		.uleb128 0x1c
+ 718 00e4 0B       		.uleb128 0xb
+ 719 00e5 00       		.byte	0
+ 720 00e6 00       		.byte	0
+ 721 00e7 11       		.uleb128 0x11
+ 722 00e8 34       		.uleb128 0x34
+ 723 00e9 00       		.byte	0
+ 724 00ea 03       		.uleb128 0x3
+ 725 00eb 0E       		.uleb128 0xe
+ 726 00ec 3A       		.uleb128 0x3a
+ 727 00ed 0B       		.uleb128 0xb
+ 728 00ee 3B       		.uleb128 0x3b
+ 729 00ef 0B       		.uleb128 0xb
+ 730 00f0 49       		.uleb128 0x49
+ 731 00f1 13       		.uleb128 0x13
+ 732 00f2 00       		.byte	0
+ 733 00f3 00       		.byte	0
+ 734 00f4 12       		.uleb128 0x12
+ 735 00f5 34       		.uleb128 0x34
+ 736 00f6 00       		.byte	0
+ 737 00f7 03       		.uleb128 0x3
+ 738 00f8 0E       		.uleb128 0xe
+ 739 00f9 3A       		.uleb128 0x3a
+ 740 00fa 0B       		.uleb128 0xb
+ 741 00fb 3B       		.uleb128 0x3b
+ 742 00fc 0B       		.uleb128 0xb
+ 743 00fd 49       		.uleb128 0x49
+ 744 00fe 13       		.uleb128 0x13
+ 745 00ff 02       		.uleb128 0x2
+ 746 0100 17       		.uleb128 0x17
+ 747 0101 00       		.byte	0
+ 748 0102 00       		.byte	0
+ 749 0103 13       		.uleb128 0x13
+ 750 0104 898201   		.uleb128 0x4109
+ 751 0107 00       		.byte	0
+ 752 0108 11       		.uleb128 0x11
+ 753 0109 01       		.uleb128 0x1
+ 754 010a 31       		.uleb128 0x31
+ 755 010b 13       		.uleb128 0x13
+ 756 010c 00       		.byte	0
+ 757 010d 00       		.byte	0
+ 758 010e 14       		.uleb128 0x14
+ 759 010f 34       		.uleb128 0x34
+ 760 0110 00       		.byte	0
+ 761 0111 03       		.uleb128 0x3
+ 762 0112 0E       		.uleb128 0xe
+ 763 0113 3A       		.uleb128 0x3a
+ 764 0114 0B       		.uleb128 0xb
+ 765 0115 3B       		.uleb128 0x3b
+ 766 0116 05       		.uleb128 0x5
+ 767 0117 49       		.uleb128 0x49
+ 768 0118 13       		.uleb128 0x13
+ 769 0119 3F       		.uleb128 0x3f
+ 770 011a 19       		.uleb128 0x19
+ 771 011b 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 16
+
+
+ 772 011c 19       		.uleb128 0x19
+ 773 011d 00       		.byte	0
+ 774 011e 00       		.byte	0
+ 775 011f 15       		.uleb128 0x15
+ 776 0120 35       		.uleb128 0x35
+ 777 0121 00       		.byte	0
+ 778 0122 49       		.uleb128 0x49
+ 779 0123 13       		.uleb128 0x13
+ 780 0124 00       		.byte	0
+ 781 0125 00       		.byte	0
+ 782 0126 16       		.uleb128 0x16
+ 783 0127 2E       		.uleb128 0x2e
+ 784 0128 00       		.byte	0
+ 785 0129 3F       		.uleb128 0x3f
+ 786 012a 19       		.uleb128 0x19
+ 787 012b 3C       		.uleb128 0x3c
+ 788 012c 19       		.uleb128 0x19
+ 789 012d 6E       		.uleb128 0x6e
+ 790 012e 0E       		.uleb128 0xe
+ 791 012f 03       		.uleb128 0x3
+ 792 0130 0E       		.uleb128 0xe
+ 793 0131 3A       		.uleb128 0x3a
+ 794 0132 0B       		.uleb128 0xb
+ 795 0133 3B       		.uleb128 0x3b
+ 796 0134 0B       		.uleb128 0xb
+ 797 0135 00       		.byte	0
+ 798 0136 00       		.byte	0
+ 799 0137 00       		.byte	0
+ 800              		.section	.debug_loc,"",%progbits
+ 801              	.Ldebug_loc0:
+ 802              	.LLST0:
+ 803 0000 00000000 		.4byte	.LVL0
+ 804 0004 07000000 		.4byte	.LVL1-1
+ 805 0008 0100     		.2byte	0x1
+ 806 000a 50       		.byte	0x50
+ 807 000b 07000000 		.4byte	.LVL1-1
+ 808 000f 28000000 		.4byte	.LFE65
+ 809 0013 0600     		.2byte	0x6
+ 810 0015 F3       		.byte	0xf3
+ 811 0016 03       		.uleb128 0x3
+ 812 0017 F5       		.byte	0xf5
+ 813 0018 00       		.uleb128 0
+ 814 0019 25       		.uleb128 0x25
+ 815 001a 9F       		.byte	0x9f
+ 816 001b 00000000 		.4byte	0
+ 817 001f 00000000 		.4byte	0
+ 818              	.LLST1:
+ 819 0023 14000000 		.4byte	.LVL8
+ 820 0027 40000000 		.4byte	.LVL16
+ 821 002b 0100     		.2byte	0x1
+ 822 002d 55       		.byte	0x55
+ 823 002e 00000000 		.4byte	0
+ 824 0032 00000000 		.4byte	0
+ 825              	.LLST2:
+ 826 0036 22000000 		.4byte	.LVL11
+ 827 003a 40000000 		.4byte	.LVL16
+ 828 003e 0100     		.2byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 17
+
+
+ 829 0040 54       		.byte	0x54
+ 830 0041 00000000 		.4byte	0
+ 831 0045 00000000 		.4byte	0
+ 832              	.LLST3:
+ 833 0049 3A000000 		.4byte	.LVL14
+ 834 004d 3D000000 		.4byte	.LVL15-1
+ 835 0051 0100     		.2byte	0x1
+ 836 0053 50       		.byte	0x50
+ 837 0054 00000000 		.4byte	0
+ 838 0058 00000000 		.4byte	0
+ 839              	.LLST4:
+ 840 005c 0A000000 		.4byte	.LVL5
+ 841 0060 0E000000 		.4byte	.LVL6
+ 842 0064 0100     		.2byte	0x1
+ 843 0066 50       		.byte	0x50
+ 844 0067 40000000 		.4byte	.LVL16
+ 845 006b 42000000 		.4byte	.LVL17
+ 846 006f 0100     		.2byte	0x1
+ 847 0071 50       		.byte	0x50
+ 848 0072 00000000 		.4byte	0
+ 849 0076 00000000 		.4byte	0
+ 850              		.section	.debug_aranges,"",%progbits
+ 851 0000 24000000 		.4byte	0x24
+ 852 0004 0200     		.2byte	0x2
+ 853 0006 00000000 		.4byte	.Ldebug_info0
+ 854 000a 04       		.byte	0x4
+ 855 000b 00       		.byte	0
+ 856 000c 0000     		.2byte	0
+ 857 000e 0000     		.2byte	0
+ 858 0010 00000000 		.4byte	.LFB65
+ 859 0014 28000000 		.4byte	.LFE65-.LFB65
+ 860 0018 00000000 		.4byte	.LFB64
+ 861 001c 58000000 		.4byte	.LFE64-.LFB64
+ 862 0020 00000000 		.4byte	0
+ 863 0024 00000000 		.4byte	0
+ 864              		.section	.debug_ranges,"",%progbits
+ 865              	.Ldebug_ranges0:
+ 866 0000 00000000 		.4byte	.LFB65
+ 867 0004 28000000 		.4byte	.LFE65
+ 868 0008 00000000 		.4byte	.LFB64
+ 869 000c 58000000 		.4byte	.LFE64
+ 870 0010 00000000 		.4byte	0
+ 871 0014 00000000 		.4byte	0
+ 872              		.section	.debug_line,"",%progbits
+ 873              	.Ldebug_line0:
+ 874 0000 12020000 		.section	.debug_str,"MS",%progbits,1
+ 874      0200DD01 
+ 874      00000201 
+ 874      FB0E0D00 
+ 874      01010101 
+ 875              	.LASF21:
+ 876 0000 72656164 		.ascii	"readCommand\000"
+ 876      436F6D6D 
+ 876      616E6400 
+ 877              	.LASF5:
+ 878 000c 5F5F696E 		.ascii	"__int16_t\000"
+ 878      7431365F 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 18
+
+
+ 878      7400
+ 879              	.LASF6:
+ 880 0016 5F5F696E 		.ascii	"__int32_t\000"
+ 880      7433325F 
+ 880      7400
+ 881              	.LASF28:
+ 882 0020 4932435F 		.ascii	"I2C_1_MasterSendStart\000"
+ 882      315F4D61 
+ 882      73746572 
+ 882      53656E64 
+ 882      53746172 
+ 883              	.LASF26:
+ 884 0036 736E7072 		.ascii	"snprintf\000"
+ 884      696E7466 
+ 884      00
+ 885              	.LASF35:
+ 886 003f 72656164 		.ascii	"readTemp\000"
+ 886      54656D70 
+ 886      00
+ 887              	.LASF25:
+ 888 0048 73746174 		.ascii	"status\000"
+ 888      757300
+ 889              	.LASF22:
+ 890 004f 4932435F 		.ascii	"I2C_MSTR_NO_ERROR\000"
+ 890      4D535452 
+ 890      5F4E4F5F 
+ 890      4552524F 
+ 890      5200
+ 891              	.LASF0:
+ 892 0061 666C6F61 		.ascii	"float\000"
+ 892      7400
+ 893              	.LASF23:
+ 894 0067 74656D70 		.ascii	"tempData\000"
+ 894      44617461 
+ 894      00
+ 895              	.LASF2:
+ 896 0070 756E7369 		.ascii	"unsigned char\000"
+ 896      676E6564 
+ 896      20636861 
+ 896      7200
+ 897              	.LASF31:
+ 898 007e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 898      43313120 
+ 898      352E342E 
+ 898      31203230 
+ 898      31363036 
+ 899 00b1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 899      20726576 
+ 899      6973696F 
+ 899      6E203233 
+ 899      37373135 
+ 900 00e4 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 900      66756E63 
+ 900      74696F6E 
+ 900      2D736563 
+ 900      74696F6E 
+ 901              	.LASF19:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 19
+
+
+ 902 010c 6F757470 		.ascii	"outputBuffer\000"
+ 902      75744275 
+ 902      66666572 
+ 902      00
+ 903              	.LASF8:
+ 904 0119 6C6F6E67 		.ascii	"long unsigned int\000"
+ 904      20756E73 
+ 904      69676E65 
+ 904      6420696E 
+ 904      7400
+ 905              	.LASF24:
+ 906 012b 74656D70 		.ascii	"temp\000"
+ 906      00
+ 907              	.LASF4:
+ 908 0130 73686F72 		.ascii	"short unsigned int\000"
+ 908      7420756E 
+ 908      7369676E 
+ 908      65642069 
+ 908      6E7400
+ 909              	.LASF33:
+ 910 0143 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 910      73657273 
+ 910      5C53696D 
+ 910      6F6E5C44 
+ 910      65736B74 
+ 911 0171 65325F43 		.ascii	"e2_Communicationbuses\\Communicationbuses\\Communic"
+ 911      6F6D6D75 
+ 911      6E696361 
+ 911      74696F6E 
+ 911      62757365 
+ 912 01a2 6174696F 		.ascii	"ationbuses.cydsn\000"
+ 912      6E627573 
+ 912      65732E63 
+ 912      7964736E 
+ 912      00
+ 913              	.LASF36:
+ 914 01b3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 914      52784275 
+ 914      66666572 
+ 914      00
+ 915              	.LASF15:
+ 916 01c0 646F7562 		.ascii	"double\000"
+ 916      6C6500
+ 917              	.LASF34:
+ 918 01c7 77726974 		.ascii	"writeTempToUART\000"
+ 918      6554656D 
+ 918      70546F55 
+ 918      41525400 
+ 919              	.LASF11:
+ 920 01d7 756E7369 		.ascii	"unsigned int\000"
+ 920      676E6564 
+ 920      20696E74 
+ 920      00
+ 921              	.LASF10:
+ 922 01e4 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 922      206C6F6E 
+ 922      6720756E 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 20
+
+
+ 922      7369676E 
+ 922      65642069 
+ 923              	.LASF12:
+ 924 01fb 696E7431 		.ascii	"int16_t\000"
+ 924      365F7400 
+ 925              	.LASF13:
+ 926 0203 696E7433 		.ascii	"int32_t\000"
+ 926      325F7400 
+ 927              	.LASF18:
+ 928 020b 73697A65 		.ascii	"sizetype\000"
+ 928      74797065 
+ 928      00
+ 929              	.LASF29:
+ 930 0214 4932435F 		.ascii	"I2C_1_MasterReadByte\000"
+ 930      315F4D61 
+ 930      73746572 
+ 930      52656164 
+ 930      42797465 
+ 931              	.LASF16:
+ 932 0229 63686172 		.ascii	"char\000"
+ 932      00
+ 933              	.LASF20:
+ 934 022e 736C6176 		.ascii	"slaveAddress\000"
+ 934      65416464 
+ 934      72657373 
+ 934      00
+ 935              	.LASF3:
+ 936 023b 73686F72 		.ascii	"short int\000"
+ 936      7420696E 
+ 936      7400
+ 937              	.LASF14:
+ 938 0245 75696E74 		.ascii	"uint8\000"
+ 938      3800
+ 939              	.LASF32:
+ 940 024b 4932435F 		.ascii	"I2C_handler.c\000"
+ 940      68616E64 
+ 940      6C65722E 
+ 940      6300
+ 941              	.LASF9:
+ 942 0259 6C6F6E67 		.ascii	"long long int\000"
+ 942      206C6F6E 
+ 942      6720696E 
+ 942      7400
+ 943              	.LASF30:
+ 944 0267 4932435F 		.ascii	"I2C_1_MasterSendStop\000"
+ 944      315F4D61 
+ 944      73746572 
+ 944      53656E64 
+ 944      53746F70 
+ 945              	.LASF7:
+ 946 027c 6C6F6E67 		.ascii	"long int\000"
+ 946      20696E74 
+ 946      00
+ 947              	.LASF17:
+ 948 0285 6C6F6E67 		.ascii	"long double\000"
+ 948      20646F75 
+ 948      626C6500 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc4n88q8.s 			page 21
+
+
+ 949              	.LASF1:
+ 950 0291 7369676E 		.ascii	"signed char\000"
+ 950      65642063 
+ 950      68617200 
+ 951              	.LASF27:
+ 952 029d 55415254 		.ascii	"UART_1_PutString\000"
+ 952      5F315F50 
+ 952      75745374 
+ 952      72696E67 
+ 952      00
+ 953              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

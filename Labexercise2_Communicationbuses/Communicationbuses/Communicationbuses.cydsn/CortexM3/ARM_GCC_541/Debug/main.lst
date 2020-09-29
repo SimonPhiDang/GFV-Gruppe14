@@ -1,0 +1,639 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB64:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** /* Inkludering af I2C håndtering headerfil  */
+  15:main.c        **** #include <I2C_handler.h>
+  16:main.c        **** /* Inkludering af SPI håndtering headerfil */
+  17:main.c        **** #include <SPI_handler.h>
+  18:main.c        **** 
+  19:main.c        **** 
+  20:main.c        **** 
+  21:main.c        **** int main(void)
+  22:main.c        **** {
+  28              		.loc 1 22 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 2
+
+
+  36              		.cfi_offset 14, -4
+  23:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  37              		.loc 1 23 0
+  38              		.syntax unified
+  39              	@ 23 "main.c" 1
+  40 0002 62B6     		CPSIE   i
+  41              	@ 0 "" 2
+  24:main.c        ****     UART_1_Start();
+  42              		.loc 1 24 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0004 FFF7FEFF 		bl	UART_1_Start
+  46              	.LVL0:
+  25:main.c        ****     I2C_1_Start();
+  47              		.loc 1 25 0
+  48 0008 FFF7FEFF 		bl	I2C_1_Start
+  49              	.LVL1:
+  26:main.c        ****     
+  27:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  28:main.c        ****     
+  29:main.c        ****     UART_1_PutString("Test");
+  50              		.loc 1 29 0
+  51 000c 0548     		ldr	r0, .L4
+  52 000e FFF7FEFF 		bl	UART_1_PutString
+  53              	.LVL2:
+  30:main.c        ****     readTemp();
+  54              		.loc 1 30 0
+  55 0012 FFF7FEFF 		bl	readTemp
+  56              	.LVL3:
+  57              	.L2:
+  31:main.c        ****     for(;;)
+  32:main.c        ****     {
+  33:main.c        ****         readTemp();       
+  58              		.loc 1 33 0 discriminator 1
+  59 0016 FFF7FEFF 		bl	readTemp
+  60              	.LVL4:
+  34:main.c        ****         CyDelay(1000);
+  61              		.loc 1 34 0 discriminator 1
+  62 001a 4FF47A70 		mov	r0, #1000
+  63 001e FFF7FEFF 		bl	CyDelay
+  64              	.LVL5:
+  65 0022 F8E7     		b	.L2
+  66              	.L5:
+  67              		.align	2
+  68              	.L4:
+  69 0024 00000000 		.word	.LC0
+  70              		.cfi_endproc
+  71              	.LFE64:
+  72              		.size	main, .-main
+  73              		.section	.rodata.str1.4,"aMS",%progbits,1
+  74              		.align	2
+  75              	.LC0:
+  76 0000 54657374 		.ascii	"Test\000"
+  76      00
+  77              		.text
+  78              	.Letext0:
+  79              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 3
+
+
+  80              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+  81              		.file 4 "Generated_Source\\PSoC5/UART_1.h"
+  82              		.file 5 "Generated_Source\\PSoC5/I2C_1.h"
+  83              		.file 6 "./I2C_handler.h"
+  84              		.file 7 "Generated_Source\\PSoC5/CyLib.h"
+  85              		.file 8 "Generated_Source\\PSoC5/core_cm3.h"
+  86              		.section	.debug_info,"",%progbits
+  87              	.Ldebug_info0:
+  88 0000 4F010000 		.4byte	0x14f
+  89 0004 0400     		.2byte	0x4
+  90 0006 00000000 		.4byte	.Ldebug_abbrev0
+  91 000a 04       		.byte	0x4
+  92 000b 01       		.uleb128 0x1
+  93 000c AA000000 		.4byte	.LASF21
+  94 0010 0C       		.byte	0xc
+  95 0011 9E000000 		.4byte	.LASF22
+  96 0015 2E000000 		.4byte	.LASF23
+  97 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  98 001d 00000000 		.4byte	0
+  99 0021 00000000 		.4byte	.Ldebug_line0
+ 100 0025 02       		.uleb128 0x2
+ 101 0026 01       		.byte	0x1
+ 102 0027 06       		.byte	0x6
+ 103 0028 CC010000 		.4byte	.LASF0
+ 104 002c 02       		.uleb128 0x2
+ 105 002d 01       		.byte	0x1
+ 106 002e 08       		.byte	0x8
+ 107 002f 93010000 		.4byte	.LASF1
+ 108 0033 02       		.uleb128 0x2
+ 109 0034 02       		.byte	0x2
+ 110 0035 05       		.byte	0x5
+ 111 0036 F4010000 		.4byte	.LASF2
+ 112 003a 02       		.uleb128 0x2
+ 113 003b 02       		.byte	0x2
+ 114 003c 07       		.byte	0x7
+ 115 003d 0E000000 		.4byte	.LASF3
+ 116 0041 03       		.uleb128 0x3
+ 117 0042 E4010000 		.4byte	.LASF9
+ 118 0046 02       		.byte	0x2
+ 119 0047 3F       		.byte	0x3f
+ 120 0048 4C000000 		.4byte	0x4c
+ 121 004c 02       		.uleb128 0x2
+ 122 004d 04       		.byte	0x4
+ 123 004e 05       		.byte	0x5
+ 124 004f AF010000 		.4byte	.LASF4
+ 125 0053 02       		.uleb128 0x2
+ 126 0054 04       		.byte	0x4
+ 127 0055 07       		.byte	0x7
+ 128 0056 40010000 		.4byte	.LASF5
+ 129 005a 02       		.uleb128 0x2
+ 130 005b 08       		.byte	0x8
+ 131 005c 05       		.byte	0x5
+ 132 005d 00000000 		.4byte	.LASF6
+ 133 0061 02       		.uleb128 0x2
+ 134 0062 08       		.byte	0x8
+ 135 0063 07       		.byte	0x7
+ 136 0064 52010000 		.4byte	.LASF7
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 4
+
+
+ 137 0068 04       		.uleb128 0x4
+ 138 0069 04       		.byte	0x4
+ 139 006a 05       		.byte	0x5
+ 140 006b 696E7400 		.ascii	"int\000"
+ 141 006f 02       		.uleb128 0x2
+ 142 0070 04       		.byte	0x4
+ 143 0071 07       		.byte	0x7
+ 144 0072 21000000 		.4byte	.LASF8
+ 145 0076 03       		.uleb128 0x3
+ 146 0077 FE010000 		.4byte	.LASF10
+ 147 007b 03       		.byte	0x3
+ 148 007c 2C       		.byte	0x2c
+ 149 007d 41000000 		.4byte	0x41
+ 150 0081 02       		.uleb128 0x2
+ 151 0082 04       		.byte	0x4
+ 152 0083 04       		.byte	0x4
+ 153 0084 EE010000 		.4byte	.LASF11
+ 154 0088 02       		.uleb128 0x2
+ 155 0089 08       		.byte	0x8
+ 156 008a 04       		.byte	0x4
+ 157 008b B8010000 		.4byte	.LASF12
+ 158 008f 02       		.uleb128 0x2
+ 159 0090 01       		.byte	0x1
+ 160 0091 08       		.byte	0x8
+ 161 0092 A1010000 		.4byte	.LASF13
+ 162 0096 02       		.uleb128 0x2
+ 163 0097 08       		.byte	0x8
+ 164 0098 04       		.byte	0x4
+ 165 0099 D8010000 		.4byte	.LASF14
+ 166 009d 02       		.uleb128 0x2
+ 167 009e 04       		.byte	0x4
+ 168 009f 07       		.byte	0x7
+ 169 00a0 06020000 		.4byte	.LASF15
+ 170 00a4 05       		.uleb128 0x5
+ 171 00a5 A5000000 		.4byte	.LASF24
+ 172 00a9 01       		.byte	0x1
+ 173 00aa 15       		.byte	0x15
+ 174 00ab 68000000 		.4byte	0x68
+ 175 00af 00000000 		.4byte	.LFB64
+ 176 00b3 28000000 		.4byte	.LFE64-.LFB64
+ 177 00b7 01       		.uleb128 0x1
+ 178 00b8 9C       		.byte	0x9c
+ 179 00b9 0A010000 		.4byte	0x10a
+ 180 00bd 06       		.uleb128 0x6
+ 181 00be 08000000 		.4byte	.LVL0
+ 182 00c2 1B010000 		.4byte	0x11b
+ 183 00c6 06       		.uleb128 0x6
+ 184 00c7 0C000000 		.4byte	.LVL1
+ 185 00cb 26010000 		.4byte	0x126
+ 186 00cf 07       		.uleb128 0x7
+ 187 00d0 12000000 		.4byte	.LVL2
+ 188 00d4 31010000 		.4byte	0x131
+ 189 00d8 E6000000 		.4byte	0xe6
+ 190 00dc 08       		.uleb128 0x8
+ 191 00dd 01       		.uleb128 0x1
+ 192 00de 50       		.byte	0x50
+ 193 00df 05       		.uleb128 0x5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 5
+
+
+ 194 00e0 03       		.byte	0x3
+ 195 00e1 00000000 		.4byte	.LC0
+ 196 00e5 00       		.byte	0
+ 197 00e6 06       		.uleb128 0x6
+ 198 00e7 16000000 		.4byte	.LVL3
+ 199 00eb 3C010000 		.4byte	0x13c
+ 200 00ef 06       		.uleb128 0x6
+ 201 00f0 1A000000 		.4byte	.LVL4
+ 202 00f4 3C010000 		.4byte	0x13c
+ 203 00f8 09       		.uleb128 0x9
+ 204 00f9 22000000 		.4byte	.LVL5
+ 205 00fd 47010000 		.4byte	0x147
+ 206 0101 08       		.uleb128 0x8
+ 207 0102 01       		.uleb128 0x1
+ 208 0103 50       		.byte	0x50
+ 209 0104 03       		.uleb128 0x3
+ 210 0105 0A       		.byte	0xa
+ 211 0106 E803     		.2byte	0x3e8
+ 212 0108 00       		.byte	0
+ 213 0109 00       		.byte	0
+ 214 010a 0A       		.uleb128 0xa
+ 215 010b BF010000 		.4byte	.LASF25
+ 216 010f 08       		.byte	0x8
+ 217 0110 1207     		.2byte	0x712
+ 218 0112 16010000 		.4byte	0x116
+ 219 0116 0B       		.uleb128 0xb
+ 220 0117 76000000 		.4byte	0x76
+ 221 011b 0C       		.uleb128 0xc
+ 222 011c 7A010000 		.4byte	.LASF16
+ 223 0120 7A010000 		.4byte	.LASF16
+ 224 0124 04       		.byte	0x4
+ 225 0125 54       		.byte	0x54
+ 226 0126 0C       		.uleb128 0xc
+ 227 0127 87010000 		.4byte	.LASF17
+ 228 012b 87010000 		.4byte	.LASF17
+ 229 012f 05       		.byte	0x5
+ 230 0130 93       		.byte	0x93
+ 231 0131 0C       		.uleb128 0xc
+ 232 0132 69010000 		.4byte	.LASF18
+ 233 0136 69010000 		.4byte	.LASF18
+ 234 013a 04       		.byte	0x4
+ 235 013b 8B       		.byte	0x8b
+ 236 013c 0C       		.uleb128 0xc
+ 237 013d A6010000 		.4byte	.LASF19
+ 238 0141 A6010000 		.4byte	.LASF19
+ 239 0145 06       		.byte	0x6
+ 240 0146 10       		.byte	0x10
+ 241 0147 0C       		.uleb128 0xc
+ 242 0148 38010000 		.4byte	.LASF20
+ 243 014c 38010000 		.4byte	.LASF20
+ 244 0150 07       		.byte	0x7
+ 245 0151 76       		.byte	0x76
+ 246 0152 00       		.byte	0
+ 247              		.section	.debug_abbrev,"",%progbits
+ 248              	.Ldebug_abbrev0:
+ 249 0000 01       		.uleb128 0x1
+ 250 0001 11       		.uleb128 0x11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 6
+
+
+ 251 0002 01       		.byte	0x1
+ 252 0003 25       		.uleb128 0x25
+ 253 0004 0E       		.uleb128 0xe
+ 254 0005 13       		.uleb128 0x13
+ 255 0006 0B       		.uleb128 0xb
+ 256 0007 03       		.uleb128 0x3
+ 257 0008 0E       		.uleb128 0xe
+ 258 0009 1B       		.uleb128 0x1b
+ 259 000a 0E       		.uleb128 0xe
+ 260 000b 55       		.uleb128 0x55
+ 261 000c 17       		.uleb128 0x17
+ 262 000d 11       		.uleb128 0x11
+ 263 000e 01       		.uleb128 0x1
+ 264 000f 10       		.uleb128 0x10
+ 265 0010 17       		.uleb128 0x17
+ 266 0011 00       		.byte	0
+ 267 0012 00       		.byte	0
+ 268 0013 02       		.uleb128 0x2
+ 269 0014 24       		.uleb128 0x24
+ 270 0015 00       		.byte	0
+ 271 0016 0B       		.uleb128 0xb
+ 272 0017 0B       		.uleb128 0xb
+ 273 0018 3E       		.uleb128 0x3e
+ 274 0019 0B       		.uleb128 0xb
+ 275 001a 03       		.uleb128 0x3
+ 276 001b 0E       		.uleb128 0xe
+ 277 001c 00       		.byte	0
+ 278 001d 00       		.byte	0
+ 279 001e 03       		.uleb128 0x3
+ 280 001f 16       		.uleb128 0x16
+ 281 0020 00       		.byte	0
+ 282 0021 03       		.uleb128 0x3
+ 283 0022 0E       		.uleb128 0xe
+ 284 0023 3A       		.uleb128 0x3a
+ 285 0024 0B       		.uleb128 0xb
+ 286 0025 3B       		.uleb128 0x3b
+ 287 0026 0B       		.uleb128 0xb
+ 288 0027 49       		.uleb128 0x49
+ 289 0028 13       		.uleb128 0x13
+ 290 0029 00       		.byte	0
+ 291 002a 00       		.byte	0
+ 292 002b 04       		.uleb128 0x4
+ 293 002c 24       		.uleb128 0x24
+ 294 002d 00       		.byte	0
+ 295 002e 0B       		.uleb128 0xb
+ 296 002f 0B       		.uleb128 0xb
+ 297 0030 3E       		.uleb128 0x3e
+ 298 0031 0B       		.uleb128 0xb
+ 299 0032 03       		.uleb128 0x3
+ 300 0033 08       		.uleb128 0x8
+ 301 0034 00       		.byte	0
+ 302 0035 00       		.byte	0
+ 303 0036 05       		.uleb128 0x5
+ 304 0037 2E       		.uleb128 0x2e
+ 305 0038 01       		.byte	0x1
+ 306 0039 3F       		.uleb128 0x3f
+ 307 003a 19       		.uleb128 0x19
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 7
+
+
+ 308 003b 03       		.uleb128 0x3
+ 309 003c 0E       		.uleb128 0xe
+ 310 003d 3A       		.uleb128 0x3a
+ 311 003e 0B       		.uleb128 0xb
+ 312 003f 3B       		.uleb128 0x3b
+ 313 0040 0B       		.uleb128 0xb
+ 314 0041 27       		.uleb128 0x27
+ 315 0042 19       		.uleb128 0x19
+ 316 0043 49       		.uleb128 0x49
+ 317 0044 13       		.uleb128 0x13
+ 318 0045 8701     		.uleb128 0x87
+ 319 0047 19       		.uleb128 0x19
+ 320 0048 11       		.uleb128 0x11
+ 321 0049 01       		.uleb128 0x1
+ 322 004a 12       		.uleb128 0x12
+ 323 004b 06       		.uleb128 0x6
+ 324 004c 40       		.uleb128 0x40
+ 325 004d 18       		.uleb128 0x18
+ 326 004e 9742     		.uleb128 0x2117
+ 327 0050 19       		.uleb128 0x19
+ 328 0051 01       		.uleb128 0x1
+ 329 0052 13       		.uleb128 0x13
+ 330 0053 00       		.byte	0
+ 331 0054 00       		.byte	0
+ 332 0055 06       		.uleb128 0x6
+ 333 0056 898201   		.uleb128 0x4109
+ 334 0059 00       		.byte	0
+ 335 005a 11       		.uleb128 0x11
+ 336 005b 01       		.uleb128 0x1
+ 337 005c 31       		.uleb128 0x31
+ 338 005d 13       		.uleb128 0x13
+ 339 005e 00       		.byte	0
+ 340 005f 00       		.byte	0
+ 341 0060 07       		.uleb128 0x7
+ 342 0061 898201   		.uleb128 0x4109
+ 343 0064 01       		.byte	0x1
+ 344 0065 11       		.uleb128 0x11
+ 345 0066 01       		.uleb128 0x1
+ 346 0067 31       		.uleb128 0x31
+ 347 0068 13       		.uleb128 0x13
+ 348 0069 01       		.uleb128 0x1
+ 349 006a 13       		.uleb128 0x13
+ 350 006b 00       		.byte	0
+ 351 006c 00       		.byte	0
+ 352 006d 08       		.uleb128 0x8
+ 353 006e 8A8201   		.uleb128 0x410a
+ 354 0071 00       		.byte	0
+ 355 0072 02       		.uleb128 0x2
+ 356 0073 18       		.uleb128 0x18
+ 357 0074 9142     		.uleb128 0x2111
+ 358 0076 18       		.uleb128 0x18
+ 359 0077 00       		.byte	0
+ 360 0078 00       		.byte	0
+ 361 0079 09       		.uleb128 0x9
+ 362 007a 898201   		.uleb128 0x4109
+ 363 007d 01       		.byte	0x1
+ 364 007e 11       		.uleb128 0x11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 8
+
+
+ 365 007f 01       		.uleb128 0x1
+ 366 0080 31       		.uleb128 0x31
+ 367 0081 13       		.uleb128 0x13
+ 368 0082 00       		.byte	0
+ 369 0083 00       		.byte	0
+ 370 0084 0A       		.uleb128 0xa
+ 371 0085 34       		.uleb128 0x34
+ 372 0086 00       		.byte	0
+ 373 0087 03       		.uleb128 0x3
+ 374 0088 0E       		.uleb128 0xe
+ 375 0089 3A       		.uleb128 0x3a
+ 376 008a 0B       		.uleb128 0xb
+ 377 008b 3B       		.uleb128 0x3b
+ 378 008c 05       		.uleb128 0x5
+ 379 008d 49       		.uleb128 0x49
+ 380 008e 13       		.uleb128 0x13
+ 381 008f 3F       		.uleb128 0x3f
+ 382 0090 19       		.uleb128 0x19
+ 383 0091 3C       		.uleb128 0x3c
+ 384 0092 19       		.uleb128 0x19
+ 385 0093 00       		.byte	0
+ 386 0094 00       		.byte	0
+ 387 0095 0B       		.uleb128 0xb
+ 388 0096 35       		.uleb128 0x35
+ 389 0097 00       		.byte	0
+ 390 0098 49       		.uleb128 0x49
+ 391 0099 13       		.uleb128 0x13
+ 392 009a 00       		.byte	0
+ 393 009b 00       		.byte	0
+ 394 009c 0C       		.uleb128 0xc
+ 395 009d 2E       		.uleb128 0x2e
+ 396 009e 00       		.byte	0
+ 397 009f 3F       		.uleb128 0x3f
+ 398 00a0 19       		.uleb128 0x19
+ 399 00a1 3C       		.uleb128 0x3c
+ 400 00a2 19       		.uleb128 0x19
+ 401 00a3 6E       		.uleb128 0x6e
+ 402 00a4 0E       		.uleb128 0xe
+ 403 00a5 03       		.uleb128 0x3
+ 404 00a6 0E       		.uleb128 0xe
+ 405 00a7 3A       		.uleb128 0x3a
+ 406 00a8 0B       		.uleb128 0xb
+ 407 00a9 3B       		.uleb128 0x3b
+ 408 00aa 0B       		.uleb128 0xb
+ 409 00ab 00       		.byte	0
+ 410 00ac 00       		.byte	0
+ 411 00ad 00       		.byte	0
+ 412              		.section	.debug_aranges,"",%progbits
+ 413 0000 1C000000 		.4byte	0x1c
+ 414 0004 0200     		.2byte	0x2
+ 415 0006 00000000 		.4byte	.Ldebug_info0
+ 416 000a 04       		.byte	0x4
+ 417 000b 00       		.byte	0
+ 418 000c 0000     		.2byte	0
+ 419 000e 0000     		.2byte	0
+ 420 0010 00000000 		.4byte	.LFB64
+ 421 0014 28000000 		.4byte	.LFE64-.LFB64
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 9
+
+
+ 422 0018 00000000 		.4byte	0
+ 423 001c 00000000 		.4byte	0
+ 424              		.section	.debug_ranges,"",%progbits
+ 425              	.Ldebug_ranges0:
+ 426 0000 00000000 		.4byte	.LFB64
+ 427 0004 28000000 		.4byte	.LFE64
+ 428 0008 00000000 		.4byte	0
+ 429 000c 00000000 		.4byte	0
+ 430              		.section	.debug_line,"",%progbits
+ 431              	.Ldebug_line0:
+ 432 0000 98010000 		.section	.debug_str,"MS",%progbits,1
+ 432      02007401 
+ 432      00000201 
+ 432      FB0E0D00 
+ 432      01010101 
+ 433              	.LASF6:
+ 434 0000 6C6F6E67 		.ascii	"long long int\000"
+ 434      206C6F6E 
+ 434      6720696E 
+ 434      7400
+ 435              	.LASF3:
+ 436 000e 73686F72 		.ascii	"short unsigned int\000"
+ 436      7420756E 
+ 436      7369676E 
+ 436      65642069 
+ 436      6E7400
+ 437              	.LASF8:
+ 438 0021 756E7369 		.ascii	"unsigned int\000"
+ 438      676E6564 
+ 438      20696E74 
+ 438      00
+ 439              	.LASF23:
+ 440 002e 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 440      73657273 
+ 440      5C53696D 
+ 440      6F6E5C44 
+ 440      65736B74 
+ 441 005c 65325F43 		.ascii	"e2_Communicationbuses\\Communicationbuses\\Communic"
+ 441      6F6D6D75 
+ 441      6E696361 
+ 441      74696F6E 
+ 441      62757365 
+ 442 008d 6174696F 		.ascii	"ationbuses.cydsn\000"
+ 442      6E627573 
+ 442      65732E63 
+ 442      7964736E 
+ 442      00
+ 443              	.LASF22:
+ 444 009e 6D61696E 		.ascii	"main.c\000"
+ 444      2E6300
+ 445              	.LASF24:
+ 446 00a5 6D61696E 		.ascii	"main\000"
+ 446      00
+ 447              	.LASF21:
+ 448 00aa 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 448      43313120 
+ 448      352E342E 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 10
+
+
+ 448      31203230 
+ 448      31363036 
+ 449 00dd 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 449      20726576 
+ 449      6973696F 
+ 449      6E203233 
+ 449      37373135 
+ 450 0110 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 450      66756E63 
+ 450      74696F6E 
+ 450      2D736563 
+ 450      74696F6E 
+ 451              	.LASF20:
+ 452 0138 43794465 		.ascii	"CyDelay\000"
+ 452      6C617900 
+ 453              	.LASF5:
+ 454 0140 6C6F6E67 		.ascii	"long unsigned int\000"
+ 454      20756E73 
+ 454      69676E65 
+ 454      6420696E 
+ 454      7400
+ 455              	.LASF7:
+ 456 0152 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 456      206C6F6E 
+ 456      6720756E 
+ 456      7369676E 
+ 456      65642069 
+ 457              	.LASF18:
+ 458 0169 55415254 		.ascii	"UART_1_PutString\000"
+ 458      5F315F50 
+ 458      75745374 
+ 458      72696E67 
+ 458      00
+ 459              	.LASF16:
+ 460 017a 55415254 		.ascii	"UART_1_Start\000"
+ 460      5F315F53 
+ 460      74617274 
+ 460      00
+ 461              	.LASF17:
+ 462 0187 4932435F 		.ascii	"I2C_1_Start\000"
+ 462      315F5374 
+ 462      61727400 
+ 463              	.LASF1:
+ 464 0193 756E7369 		.ascii	"unsigned char\000"
+ 464      676E6564 
+ 464      20636861 
+ 464      7200
+ 465              	.LASF13:
+ 466 01a1 63686172 		.ascii	"char\000"
+ 466      00
+ 467              	.LASF19:
+ 468 01a6 72656164 		.ascii	"readTemp\000"
+ 468      54656D70 
+ 468      00
+ 469              	.LASF4:
+ 470 01af 6C6F6E67 		.ascii	"long int\000"
+ 470      20696E74 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccRogUEB.s 			page 11
+
+
+ 470      00
+ 471              	.LASF12:
+ 472 01b8 646F7562 		.ascii	"double\000"
+ 472      6C6500
+ 473              	.LASF25:
+ 474 01bf 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 474      52784275 
+ 474      66666572 
+ 474      00
+ 475              	.LASF0:
+ 476 01cc 7369676E 		.ascii	"signed char\000"
+ 476      65642063 
+ 476      68617200 
+ 477              	.LASF14:
+ 478 01d8 6C6F6E67 		.ascii	"long double\000"
+ 478      20646F75 
+ 478      626C6500 
+ 479              	.LASF9:
+ 480 01e4 5F5F696E 		.ascii	"__int32_t\000"
+ 480      7433325F 
+ 480      7400
+ 481              	.LASF11:
+ 482 01ee 666C6F61 		.ascii	"float\000"
+ 482      7400
+ 483              	.LASF2:
+ 484 01f4 73686F72 		.ascii	"short int\000"
+ 484      7420696E 
+ 484      7400
+ 485              	.LASF10:
+ 486 01fe 696E7433 		.ascii	"int32_t\000"
+ 486      325F7400 
+ 487              	.LASF15:
+ 488 0206 73697A65 		.ascii	"sizetype\000"
+ 488      74797065 
+ 488      00
+ 489              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
