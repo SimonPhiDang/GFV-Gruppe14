@@ -24,7 +24,6 @@
 #include "SDA_1.h"
 #include "SCL_1_aliases.h"
 #include "SCL_1.h"
-#include "Clock_1.h"
 #include "RST_1_aliases.h"
 #include "RST_1.h"
 #include "I2C_1.h"

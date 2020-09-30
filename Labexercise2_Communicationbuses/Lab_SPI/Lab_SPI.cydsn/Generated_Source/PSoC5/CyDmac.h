@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file CyDmac.h
-* \version 5.90
+* \version 6.0
 *
 * \brief Provides the function definitions for the DMA Controller.
 *

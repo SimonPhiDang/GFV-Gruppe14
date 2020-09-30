@@ -2,7 +2,7 @@
 --	Conversion of Lab_SPI.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Wed Sep 30 00:15:27 2020
+--	Wed Sep 30 14:34:42 2020
 --
 
 USE cypress.cypress.all;

@@ -92,6 +92,7 @@ int8 readTemp()
             I2C_1_MasterSendStop();
         }
 
+
     errorStatus2[0] = I2C_1_MasterSendStart(LM75address2,I2C_1_READ_XFER_MODE);    
     
     if (errorStatus2[0] == I2C_1_MSTR_NO_ERROR)

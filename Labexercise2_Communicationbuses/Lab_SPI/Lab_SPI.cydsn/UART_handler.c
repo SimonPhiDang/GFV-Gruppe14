@@ -18,15 +18,14 @@ void handleByteReceived(uint8_t byteReceived)
     {
         case '1' :
         {
-           UART_1_PutString("LED On\r\n");
+
         }
         break;
         case '2' :
         {
-            UART_1_PutString("LED Off \r\n");
+
         }
 
-        
         break;
         default :
         {

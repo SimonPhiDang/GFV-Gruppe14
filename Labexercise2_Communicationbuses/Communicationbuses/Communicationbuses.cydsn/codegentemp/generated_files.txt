@@ -29,8 +29,6 @@
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\SCL_1_aliases.h" value="HEADER;;;;;SCL_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\SCL_1.c" value="SOURCE_C;CortexM3;;;;SCL_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\SCL_1.h" value="HEADER;;;;;SCL_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\Clock_1.c" value="SOURCE_C;CortexM3;;;;Clock_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\Clock_1.h" value="HEADER;;;;;Clock_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\RST_1_aliases.h" value="HEADER;;;;;RST_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\RST_1.c" value="SOURCE_C;CortexM3;;;;RST_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\codegentemp\RST_1.h" value="HEADER;;;;;RST_1" />

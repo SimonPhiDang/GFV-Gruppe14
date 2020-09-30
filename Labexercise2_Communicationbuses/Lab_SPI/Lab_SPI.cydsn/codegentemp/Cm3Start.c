@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file Cm3Start.c
-* \version 5.90
+* \version 6.0
 *
 *  \brief
 *  Startup code for the ARM CM3.
