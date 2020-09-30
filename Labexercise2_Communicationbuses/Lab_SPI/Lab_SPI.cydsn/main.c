@@ -22,6 +22,7 @@ int main(void)
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     UART_1_Start();
     SPIM_1_Start();
+    
     for(;;)
     {
         /* Place your application code here. */
