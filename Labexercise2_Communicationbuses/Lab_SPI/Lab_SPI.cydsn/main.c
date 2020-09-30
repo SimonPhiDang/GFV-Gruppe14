@@ -17,41 +17,53 @@
 #include <SPI_handler.h>
 
 CY_ISR_PROTO(ISR_UART_rx_handler);
+CY_ISR_PROTO(SPI_rx_handler);
 
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
-
+    isruart_StartEx(ISR_UART_rx_handler);
+    isrspim_StartEx(SPI_rx_handler);
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     UART_1_Start();
     SPIM_1_Start();
-    
-    pushButtonState();
+    SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
     
    
     for(;;)
     {
-        pushButtonState();
         
         /* Place your application code here. */
         
-        CyDelay(1000);
     }
 }
 
 CY_ISR(ISR_UART_rx_handler)
 {
-    uint8_t bytesToRead = UART_1_GetRxBufferSize();
+    uint8_t bytesToRead = UART_1_GetRxBufferSize(); // Aflæs bytes fra UART Master
     while (bytesToRead > 0)
     {
-        uint8_t byteReceived = UART_1_ReadRxData();
-        UART_1_WriteTxData(byteReceived); // echo back
+        uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
+//        UART_1_WriteTxData(byteReceived); // echo back
+        SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
         
-        handleByteReceived(byteReceived);
+//        handleByteReceived(byteReceived);
         
         bytesToRead--;
     }
 }
+CY_ISR(SPI_rx_handler)
+{
+    uint8_t bytesToRead = SPIM_1_GetRxBufferSize();  // SPI Master rx interrupt få size
+    while (bytesToRead > 0)
+    {
+        uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
+        UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART
+        
+        SPIM_handleByteReceived(byteReceived); 
+        bytesToRead = SPIM_1_GetRxBufferSize();
 
+    }
+}
 
 /* [] END OF FILE */

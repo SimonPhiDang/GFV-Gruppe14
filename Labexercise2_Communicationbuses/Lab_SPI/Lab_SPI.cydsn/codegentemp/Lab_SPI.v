@@ -1,6 +1,6 @@
 // ======================================================================
 // Lab_SPI.v generated from TopDesign.cysch
-// 09/30/2020 at 14:34
+// 09/30/2020 at 15:09
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -377,7 +377,6 @@ module top ;
 
           wire  Net_45;
           wire  Net_44;
-          wire  Net_43;
           wire  Net_42;
           wire  Net_41;
           wire  Net_40;
@@ -385,7 +384,6 @@ module top ;
           wire  Net_12;
           wire  Net_11;
           wire  Net_10;
-          wire  Net_9;
           wire  Net_8;
           wire  Net_7;
           wire  Net_6;
@@ -393,10 +391,12 @@ module top ;
           wire  Net_4;
           wire  Net_3;
           wire  Net_1;
-          wire  Net_2;
-          wire  Net_27;
+          wire  Net_63;
+          wire  Net_62;
           wire  Net_25;
+          wire  Net_27;
           wire  Net_19;
+          wire  Net_2;
 
     UART_v2_50_0 UART_1 (
         .cts_n(1'b0),
@@ -407,7 +407,7 @@ module top ;
         .reset(1'b0),
         .rx(Net_7),
         .tx_interrupt(Net_8),
-        .rx_interrupt(Net_9),
+        .rx_interrupt(Net_62),
         .tx_data(Net_10),
         .tx_clk(Net_11),
         .rx_data(Net_12),
@@ -805,13 +805,27 @@ module top ;
         .miso(Net_19),
         .clock(1'b0),
         .reset(1'b0),
-        .rx_interrupt(Net_43),
+        .rx_interrupt(Net_63),
         .sdat(Net_44),
         .tx_interrupt(Net_45));
     defparam SPIM_1.BidirectMode = 0;
     defparam SPIM_1.HighSpeedMode = 0;
     defparam SPIM_1.NumberOfDataBits = 8;
     defparam SPIM_1.ShiftDir = 0;
+
+
+	cy_isr_v1_0
+		#(.int_type(2'b10))
+		isruart
+		 (.int_signal(Net_62));
+
+
+
+	cy_isr_v1_0
+		#(.int_type(2'b10))
+		isrspim
+		 (.int_signal(Net_63));
+
 
 
 

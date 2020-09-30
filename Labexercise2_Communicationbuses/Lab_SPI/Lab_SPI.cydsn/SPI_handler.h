@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include <project.h>
 
+void SPIM_handleByteReceived(uint8_t byteReceived);
 void pushButtonState();
-void writeLEDSPI();
 
 /* [] END OF FILE */

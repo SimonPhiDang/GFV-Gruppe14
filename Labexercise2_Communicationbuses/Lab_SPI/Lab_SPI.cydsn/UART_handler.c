@@ -12,26 +12,26 @@
 #include <UART_handler.h>
 
 
-void handleByteReceived(uint8_t byteReceived)
-{
-    switch(byteReceived)
-    {
-        case '1' :
-        {
-
-        }
-        break;
-        case '2' :
-        {
-
-        }
-
-        break;
-        default :
-        {
-            // nothing
-        }
-        break;
-    }
-}
+//void handleByteReceived(uint8_t byteReceived)
+//{
+//    switch(byteReceived)
+//    {
+//        case '1' :
+//        {
+//            UART_1_PutString("LED ON");
+//        }
+//        break;
+//        case '2' :
+//        {
+//            UART_1_PutString("LED OF");
+//        }
+//
+//        break;
+//        default :
+//        {
+//            // nothing
+//        }
+//        break;
+//    }
+//}
 /* [] END OF FILE */

@@ -28,6 +28,8 @@
 #include "SCLK.h"
 #include "SPIM_1.h"
 #include "SPIM_1_PVT.h"
+#include "isruart.h"
+#include "isrspim.h"
 #include "UART_1_IntClock.h"
 #include "SPIM_1_IntClock.h"
 #include "core_cm3_psoc5.h"

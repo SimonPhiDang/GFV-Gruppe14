@@ -37,6 +37,10 @@
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_PM.c" value="SOURCE_C;CortexM3;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_INT.c" value="SOURCE_C;CortexM3;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_PVT.h" value="HEADER;;;;;SPIM_1" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\isruart.c" value="SOURCE_C;CortexM3;;;;isruart" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\isruart.h" value="HEADER;;;;;isruart" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\isrspim.c" value="SOURCE_C;CortexM3;;;;isrspim" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\isrspim.h" value="HEADER;;;;;isrspim" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_IntClock.h" value="HEADER;;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_IntClock.c" value="SOURCE_C;CortexM3;;;;SPIM_1_IntClock" />
