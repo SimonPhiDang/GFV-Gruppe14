@@ -1,0 +1,1086 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ISR_UART_rx_handler,"ax",%progbits
+  20              		.align	2
+  21              		.global	ISR_UART_rx_handler
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	ISR_UART_rx_handler, %function
+  25              	ISR_UART_rx_handler:
+  26              	.LFB65:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include <project.h>
+  13:main.c        **** #include <stdio.h>
+  14:main.c        **** #include <stdint.h>
+  15:main.c        **** 
+  16:main.c        **** #include <UART_handler.h>
+  17:main.c        **** #include <SPI_handler.h>
+  18:main.c        **** 
+  19:main.c        **** CY_ISR_PROTO(ISR_UART_rx_handler);
+  20:main.c        **** CY_ISR_PROTO(SPI_rx_handler);
+  21:main.c        **** 
+  22:main.c        **** int main(void)
+  23:main.c        **** {
+  24:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  25:main.c        ****     isruart_StartEx(ISR_UART_rx_handler);
+  26:main.c        ****     isrspim_StartEx(SPI_rx_handler);
+  27:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  28:main.c        ****     UART_1_Start();
+  29:main.c        ****     SPIM_1_Start();
+  30:main.c        ****     SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 2
+
+
+  31:main.c        ****     
+  32:main.c        ****    
+  33:main.c        ****     for(;;)
+  34:main.c        ****     {
+  35:main.c        ****         
+  36:main.c        ****         /* Place your application code here. */
+  37:main.c        ****         
+  38:main.c        ****     }
+  39:main.c        **** }
+  40:main.c        **** 
+  41:main.c        **** CY_ISR(ISR_UART_rx_handler)
+  42:main.c        **** {
+  28              		.loc 1 42 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  43:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize(); // Aflæs bytes fra UART Master
+  36              		.loc 1 43 0
+  37 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
+  38              	.LVL0:
+  39 0006 0446     		mov	r4, r0
+  40              	.LVL1:
+  44:main.c        ****     while (bytesToRead > 0)
+  41              		.loc 1 44 0
+  42 0008 05E0     		b	.L2
+  43              	.L3:
+  44              	.LBB2:
+  45:main.c        ****     {
+  46:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
+  45              		.loc 1 46 0
+  46 000a FFF7FEFF 		bl	UART_1_ReadRxData
+  47              	.LVL2:
+  47:main.c        **** //        UART_1_WriteTxData(byteReceived); // echo back
+  48:main.c        ****         SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
+  48              		.loc 1 48 0
+  49 000e FFF7FEFF 		bl	SPIM_1_WriteTxData
+  50              	.LVL3:
+  49:main.c        ****         
+  50:main.c        **** //        handleByteReceived(byteReceived);
+  51:main.c        ****         
+  52:main.c        ****         bytesToRead--;
+  51              		.loc 1 52 0
+  52 0012 013C     		subs	r4, r4, #1
+  53              	.LVL4:
+  54 0014 E4B2     		uxtb	r4, r4
+  55              	.LVL5:
+  56              	.L2:
+  57              	.LBE2:
+  44:main.c        ****     {
+  58              		.loc 1 44 0
+  59 0016 002C     		cmp	r4, #0
+  60 0018 F7D1     		bne	.L3
+  53:main.c        ****     }
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 3
+
+
+  54:main.c        **** }
+  61              		.loc 1 54 0
+  62 001a 10BD     		pop	{r4, pc}
+  63              		.cfi_endproc
+  64              	.LFE65:
+  65              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
+  66              		.section	.text.SPI_rx_handler,"ax",%progbits
+  67              		.align	2
+  68              		.global	SPI_rx_handler
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	SPI_rx_handler, %function
+  72              	SPI_rx_handler:
+  73              	.LFB66:
+  55:main.c        **** CY_ISR(SPI_rx_handler)
+  56:main.c        **** {
+  74              		.loc 1 56 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78 0000 10B5     		push	{r4, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 4, -8
+  81              		.cfi_offset 14, -4
+  57:main.c        ****     uint8_t bytesToRead = SPIM_1_GetRxBufferSize();  // SPI Master rx interrupt få size
+  82              		.loc 1 57 0
+  83 0002 FFF7FEFF 		bl	SPIM_1_GetRxBufferSize
+  84              	.LVL6:
+  58:main.c        ****     while (bytesToRead > 0)
+  85              		.loc 1 58 0
+  86 0006 09E0     		b	.L6
+  87              	.L7:
+  88              	.LBB3:
+  59:main.c        ****     {
+  60:main.c        ****         uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
+  89              		.loc 1 60 0
+  90 0008 FFF7FEFF 		bl	SPIM_1_ReadRxData
+  91              	.LVL7:
+  92 000c 0446     		mov	r4, r0
+  93              	.LVL8:
+  61:main.c        ****         UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART
+  94              		.loc 1 61 0
+  95 000e FFF7FEFF 		bl	UART_1_WriteTxData
+  96              	.LVL9:
+  62:main.c        ****         
+  63:main.c        ****         SPIM_handleByteReceived(byteReceived); 
+  97              		.loc 1 63 0
+  98 0012 2046     		mov	r0, r4
+  99 0014 FFF7FEFF 		bl	SPIM_handleByteReceived
+ 100              	.LVL10:
+  64:main.c        ****         bytesToRead = SPIM_1_GetRxBufferSize();
+ 101              		.loc 1 64 0
+ 102 0018 FFF7FEFF 		bl	SPIM_1_GetRxBufferSize
+ 103              	.LVL11:
+ 104              	.L6:
+ 105              	.LBE3:
+  58:main.c        ****     {
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 4
+
+
+ 106              		.loc 1 58 0
+ 107 001c 0028     		cmp	r0, #0
+ 108 001e F3D1     		bne	.L7
+  65:main.c        **** 
+  66:main.c        ****     }
+  67:main.c        **** }
+ 109              		.loc 1 67 0
+ 110 0020 10BD     		pop	{r4, pc}
+ 111              		.cfi_endproc
+ 112              	.LFE66:
+ 113              		.size	SPI_rx_handler, .-SPI_rx_handler
+ 114 0022 00BF     		.section	.text.main,"ax",%progbits
+ 115              		.align	2
+ 116              		.global	main
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.type	main, %function
+ 120              	main:
+ 121              	.LFB64:
+  23:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 122              		.loc 1 23 0
+ 123              		.cfi_startproc
+ 124              		@ Volatile: function does not return.
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 08B5     		push	{r3, lr}
+ 128              		.cfi_def_cfa_offset 8
+ 129              		.cfi_offset 3, -8
+ 130              		.cfi_offset 14, -4
+  24:main.c        ****     isruart_StartEx(ISR_UART_rx_handler);
+ 131              		.loc 1 24 0
+ 132              		.syntax unified
+ 133              	@ 24 "main.c" 1
+ 134 0002 62B6     		CPSIE   i
+ 135              	@ 0 "" 2
+  25:main.c        ****     isrspim_StartEx(SPI_rx_handler);
+ 136              		.loc 1 25 0
+ 137              		.thumb
+ 138              		.syntax unified
+ 139 0004 0648     		ldr	r0, .L12
+ 140 0006 FFF7FEFF 		bl	isruart_StartEx
+ 141              	.LVL12:
+  26:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+ 142              		.loc 1 26 0
+ 143 000a 0648     		ldr	r0, .L12+4
+ 144 000c FFF7FEFF 		bl	isrspim_StartEx
+ 145              	.LVL13:
+  28:main.c        ****     SPIM_1_Start();
+ 146              		.loc 1 28 0
+ 147 0010 FFF7FEFF 		bl	UART_1_Start
+ 148              	.LVL14:
+  29:main.c        ****     SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
+ 149              		.loc 1 29 0
+ 150 0014 FFF7FEFF 		bl	SPIM_1_Start
+ 151              	.LVL15:
+  30:main.c        ****     
+ 152              		.loc 1 30 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 5
+
+
+ 153 0018 FFF7FEFF 		bl	SPIM_1_ClearRxBuffer
+ 154              	.LVL16:
+ 155              	.L10:
+ 156 001c FEE7     		b	.L10
+ 157              	.L13:
+ 158 001e 00BF     		.align	2
+ 159              	.L12:
+ 160 0020 00000000 		.word	ISR_UART_rx_handler
+ 161 0024 00000000 		.word	SPI_rx_handler
+ 162              		.cfi_endproc
+ 163              	.LFE64:
+ 164              		.size	main, .-main
+ 165              		.text
+ 166              	.Letext0:
+ 167              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 168              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 169              		.file 4 "Generated_Source\\PSoC5/UART_1.h"
+ 170              		.file 5 "Generated_Source\\PSoC5/SPIM_1.h"
+ 171              		.file 6 "./SPI_handler.h"
+ 172              		.file 7 "Generated_Source\\PSoC5/isruart.h"
+ 173              		.file 8 "Generated_Source\\PSoC5/isrspim.h"
+ 174              		.file 9 "Generated_Source\\PSoC5/core_cm3.h"
+ 175              		.section	.debug_info,"",%progbits
+ 176              	.Ldebug_info0:
+ 177 0000 91020000 		.4byte	0x291
+ 178 0004 0400     		.2byte	0x4
+ 179 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 180 000a 04       		.byte	0x4
+ 181 000b 01       		.uleb128 0x1
+ 182 000c 65000000 		.4byte	.LASF34
+ 183 0010 0C       		.byte	0xc
+ 184 0011 5E020000 		.4byte	.LASF35
+ 185 0015 ED010000 		.4byte	.LASF36
+ 186 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 187 001d 00000000 		.4byte	0
+ 188 0021 00000000 		.4byte	.Ldebug_line0
+ 189 0025 02       		.uleb128 0x2
+ 190 0026 01       		.byte	0x1
+ 191 0027 06       		.byte	0x6
+ 192 0028 BF020000 		.4byte	.LASF0
+ 193 002c 03       		.uleb128 0x3
+ 194 002d 0D000000 		.4byte	.LASF4
+ 195 0031 02       		.byte	0x2
+ 196 0032 1D       		.byte	0x1d
+ 197 0033 37000000 		.4byte	0x37
+ 198 0037 02       		.uleb128 0x2
+ 199 0038 01       		.byte	0x1
+ 200 0039 08       		.byte	0x8
+ 201 003a 57000000 		.4byte	.LASF1
+ 202 003e 02       		.uleb128 0x2
+ 203 003f 02       		.byte	0x2
+ 204 0040 05       		.byte	0x5
+ 205 0041 7C020000 		.4byte	.LASF2
+ 206 0045 02       		.uleb128 0x2
+ 207 0046 02       		.byte	0x2
+ 208 0047 07       		.byte	0x7
+ 209 0048 43010000 		.4byte	.LASF3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 6
+
+
+ 210 004c 03       		.uleb128 0x3
+ 211 004d 24000000 		.4byte	.LASF5
+ 212 0051 02       		.byte	0x2
+ 213 0052 3F       		.byte	0x3f
+ 214 0053 57000000 		.4byte	0x57
+ 215 0057 02       		.uleb128 0x2
+ 216 0058 04       		.byte	0x4
+ 217 0059 05       		.byte	0x5
+ 218 005a AA020000 		.4byte	.LASF6
+ 219 005e 02       		.uleb128 0x2
+ 220 005f 04       		.byte	0x4
+ 221 0060 07       		.byte	0x7
+ 222 0061 1F010000 		.4byte	.LASF7
+ 223 0065 02       		.uleb128 0x2
+ 224 0066 08       		.byte	0x8
+ 225 0067 05       		.byte	0x5
+ 226 0068 50020000 		.4byte	.LASF8
+ 227 006c 02       		.uleb128 0x2
+ 228 006d 08       		.byte	0x8
+ 229 006e 07       		.byte	0x7
+ 230 006f AF010000 		.4byte	.LASF9
+ 231 0073 04       		.uleb128 0x4
+ 232 0074 04       		.byte	0x4
+ 233 0075 05       		.byte	0x5
+ 234 0076 696E7400 		.ascii	"int\000"
+ 235 007a 02       		.uleb128 0x2
+ 236 007b 04       		.byte	0x4
+ 237 007c 07       		.byte	0x7
+ 238 007d A2010000 		.4byte	.LASF10
+ 239 0081 03       		.uleb128 0x3
+ 240 0082 C6010000 		.4byte	.LASF11
+ 241 0086 03       		.byte	0x3
+ 242 0087 18       		.byte	0x18
+ 243 0088 2C000000 		.4byte	0x2c
+ 244 008c 03       		.uleb128 0x3
+ 245 008d E5010000 		.4byte	.LASF12
+ 246 0091 03       		.byte	0x3
+ 247 0092 2C       		.byte	0x2c
+ 248 0093 4C000000 		.4byte	0x4c
+ 249 0097 02       		.uleb128 0x2
+ 250 0098 04       		.byte	0x4
+ 251 0099 04       		.byte	0x4
+ 252 009a 51000000 		.4byte	.LASF13
+ 253 009e 02       		.uleb128 0x2
+ 254 009f 08       		.byte	0x8
+ 255 00a0 04       		.byte	0x4
+ 256 00a1 86010000 		.4byte	.LASF14
+ 257 00a5 02       		.uleb128 0x2
+ 258 00a6 01       		.byte	0x1
+ 259 00a7 08       		.byte	0x8
+ 260 00a8 65020000 		.4byte	.LASF15
+ 261 00ac 02       		.uleb128 0x2
+ 262 00ad 08       		.byte	0x8
+ 263 00ae 04       		.byte	0x4
+ 264 00af B3020000 		.4byte	.LASF16
+ 265 00b3 02       		.uleb128 0x2
+ 266 00b4 04       		.byte	0x4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 7
+
+
+ 267 00b5 07       		.byte	0x7
+ 268 00b6 47020000 		.4byte	.LASF17
+ 269 00ba 05       		.uleb128 0x5
+ 270 00bb 0B010000 		.4byte	.LASF20
+ 271 00bf 01       		.byte	0x1
+ 272 00c0 29       		.byte	0x29
+ 273 00c1 00000000 		.4byte	.LFB65
+ 274 00c5 1C000000 		.4byte	.LFE65-.LFB65
+ 275 00c9 01       		.uleb128 0x1
+ 276 00ca 9C       		.byte	0x9c
+ 277 00cb 17010000 		.4byte	0x117
+ 278 00cf 06       		.uleb128 0x6
+ 279 00d0 2E000000 		.4byte	.LASF18
+ 280 00d4 01       		.byte	0x1
+ 281 00d5 2B       		.byte	0x2b
+ 282 00d6 81000000 		.4byte	0x81
+ 283 00da 00000000 		.4byte	.LLST0
+ 284 00de 07       		.uleb128 0x7
+ 285 00df 0A000000 		.4byte	.LBB2
+ 286 00e3 0C000000 		.4byte	.LBE2-.LBB2
+ 287 00e7 0D010000 		.4byte	0x10d
+ 288 00eb 06       		.uleb128 0x6
+ 289 00ec DE020000 		.4byte	.LASF19
+ 290 00f0 01       		.byte	0x1
+ 291 00f1 2E       		.byte	0x2e
+ 292 00f2 81000000 		.4byte	0x81
+ 293 00f6 1E000000 		.4byte	.LLST1
+ 294 00fa 08       		.uleb128 0x8
+ 295 00fb 0E000000 		.4byte	.LVL2
+ 296 00ff 10020000 		.4byte	0x210
+ 297 0103 08       		.uleb128 0x8
+ 298 0104 12000000 		.4byte	.LVL3
+ 299 0108 1B020000 		.4byte	0x21b
+ 300 010c 00       		.byte	0
+ 301 010d 08       		.uleb128 0x8
+ 302 010e 06000000 		.4byte	.LVL0
+ 303 0112 26020000 		.4byte	0x226
+ 304 0116 00       		.byte	0
+ 305 0117 05       		.uleb128 0x5
+ 306 0118 9B020000 		.4byte	.LASF21
+ 307 011c 01       		.byte	0x1
+ 308 011d 37       		.byte	0x37
+ 309 011e 00000000 		.4byte	.LFB66
+ 310 0122 22000000 		.4byte	.LFE66-.LFB66
+ 311 0126 01       		.uleb128 0x1
+ 312 0127 9C       		.byte	0x9c
+ 313 0128 9C010000 		.4byte	0x19c
+ 314 012c 06       		.uleb128 0x6
+ 315 012d 2E000000 		.4byte	.LASF18
+ 316 0131 01       		.byte	0x1
+ 317 0132 39       		.byte	0x39
+ 318 0133 81000000 		.4byte	0x81
+ 319 0137 31000000 		.4byte	.LLST2
+ 320 013b 07       		.uleb128 0x7
+ 321 013c 08000000 		.4byte	.LBB3
+ 322 0140 14000000 		.4byte	.LBE3-.LBB3
+ 323 0144 92010000 		.4byte	0x192
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 8
+
+
+ 324 0148 06       		.uleb128 0x6
+ 325 0149 DE020000 		.4byte	.LASF19
+ 326 014d 01       		.byte	0x1
+ 327 014e 3C       		.byte	0x3c
+ 328 014f 81000000 		.4byte	0x81
+ 329 0153 4F000000 		.4byte	.LLST3
+ 330 0157 08       		.uleb128 0x8
+ 331 0158 0C000000 		.4byte	.LVL7
+ 332 015c 31020000 		.4byte	0x231
+ 333 0160 09       		.uleb128 0x9
+ 334 0161 12000000 		.4byte	.LVL9
+ 335 0165 3C020000 		.4byte	0x23c
+ 336 0169 74010000 		.4byte	0x174
+ 337 016d 0A       		.uleb128 0xa
+ 338 016e 01       		.uleb128 0x1
+ 339 016f 50       		.byte	0x50
+ 340 0170 02       		.uleb128 0x2
+ 341 0171 74       		.byte	0x74
+ 342 0172 00       		.sleb128 0
+ 343 0173 00       		.byte	0
+ 344 0174 09       		.uleb128 0x9
+ 345 0175 18000000 		.4byte	.LVL10
+ 346 0179 47020000 		.4byte	0x247
+ 347 017d 88010000 		.4byte	0x188
+ 348 0181 0A       		.uleb128 0xa
+ 349 0182 01       		.uleb128 0x1
+ 350 0183 50       		.byte	0x50
+ 351 0184 02       		.uleb128 0x2
+ 352 0185 74       		.byte	0x74
+ 353 0186 00       		.sleb128 0
+ 354 0187 00       		.byte	0
+ 355 0188 08       		.uleb128 0x8
+ 356 0189 1C000000 		.4byte	.LVL11
+ 357 018d 52020000 		.4byte	0x252
+ 358 0191 00       		.byte	0
+ 359 0192 08       		.uleb128 0x8
+ 360 0193 06000000 		.4byte	.LVL6
+ 361 0197 52020000 		.4byte	0x252
+ 362 019b 00       		.byte	0
+ 363 019c 0B       		.uleb128 0xb
+ 364 019d 9D010000 		.4byte	.LASF37
+ 365 01a1 01       		.byte	0x1
+ 366 01a2 16       		.byte	0x16
+ 367 01a3 73000000 		.4byte	0x73
+ 368 01a7 00000000 		.4byte	.LFB64
+ 369 01ab 28000000 		.4byte	.LFE64-.LFB64
+ 370 01af 01       		.uleb128 0x1
+ 371 01b0 9C       		.byte	0x9c
+ 372 01b1 FF010000 		.4byte	0x1ff
+ 373 01b5 09       		.uleb128 0x9
+ 374 01b6 0A000000 		.4byte	.LVL12
+ 375 01ba 5D020000 		.4byte	0x25d
+ 376 01be CC010000 		.4byte	0x1cc
+ 377 01c2 0A       		.uleb128 0xa
+ 378 01c3 01       		.uleb128 0x1
+ 379 01c4 50       		.byte	0x50
+ 380 01c5 05       		.uleb128 0x5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 9
+
+
+ 381 01c6 03       		.byte	0x3
+ 382 01c7 00000000 		.4byte	ISR_UART_rx_handler
+ 383 01cb 00       		.byte	0
+ 384 01cc 09       		.uleb128 0x9
+ 385 01cd 10000000 		.4byte	.LVL13
+ 386 01d1 68020000 		.4byte	0x268
+ 387 01d5 E3010000 		.4byte	0x1e3
+ 388 01d9 0A       		.uleb128 0xa
+ 389 01da 01       		.uleb128 0x1
+ 390 01db 50       		.byte	0x50
+ 391 01dc 05       		.uleb128 0x5
+ 392 01dd 03       		.byte	0x3
+ 393 01de 00000000 		.4byte	SPI_rx_handler
+ 394 01e2 00       		.byte	0
+ 395 01e3 08       		.uleb128 0x8
+ 396 01e4 14000000 		.4byte	.LVL14
+ 397 01e8 73020000 		.4byte	0x273
+ 398 01ec 08       		.uleb128 0x8
+ 399 01ed 18000000 		.4byte	.LVL15
+ 400 01f1 7E020000 		.4byte	0x27e
+ 401 01f5 08       		.uleb128 0x8
+ 402 01f6 1C000000 		.4byte	.LVL16
+ 403 01fa 89020000 		.4byte	0x289
+ 404 01fe 00       		.byte	0
+ 405 01ff 0C       		.uleb128 0xc
+ 406 0200 56010000 		.4byte	.LASF38
+ 407 0204 09       		.byte	0x9
+ 408 0205 1207     		.2byte	0x712
+ 409 0207 0B020000 		.4byte	0x20b
+ 410 020b 0D       		.uleb128 0xd
+ 411 020c 8C000000 		.4byte	0x8c
+ 412 0210 0E       		.uleb128 0xe
+ 413 0211 31010000 		.4byte	.LASF22
+ 414 0215 31010000 		.4byte	.LASF22
+ 415 0219 04       		.byte	0x4
+ 416 021a 6F       		.byte	0x6f
+ 417 021b 0E       		.uleb128 0xe
+ 418 021c CB020000 		.4byte	.LASF23
+ 419 0220 CB020000 		.4byte	.LASF23
+ 420 0224 05       		.byte	0x5
+ 421 0225 5E       		.byte	0x5e
+ 422 0226 0E       		.uleb128 0xe
+ 423 0227 CE010000 		.4byte	.LASF24
+ 424 022b CE010000 		.4byte	.LASF24
+ 425 022f 04       		.byte	0x4
+ 426 0230 73       		.byte	0x73
+ 427 0231 0E       		.uleb128 0xe
+ 428 0232 6A020000 		.4byte	.LASF25
+ 429 0236 6A020000 		.4byte	.LASF25
+ 430 023a 05       		.byte	0x5
+ 431 023b 60       		.byte	0x60
+ 432 023c 0E       		.uleb128 0xe
+ 433 023d 73010000 		.4byte	.LASF26
+ 434 0241 73010000 		.4byte	.LASF26
+ 435 0245 04       		.byte	0x4
+ 436 0246 88       		.byte	0x88
+ 437 0247 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 10
+
+
+ 438 0248 F3000000 		.4byte	.LASF27
+ 439 024c F3000000 		.4byte	.LASF27
+ 440 0250 06       		.byte	0x6
+ 441 0251 10       		.byte	0x10
+ 442 0252 0E       		.uleb128 0xe
+ 443 0253 3A000000 		.4byte	.LASF28
+ 444 0257 3A000000 		.4byte	.LASF28
+ 445 025b 05       		.byte	0x5
+ 446 025c 62       		.byte	0x62
+ 447 025d 0E       		.uleb128 0xe
+ 448 025e 63010000 		.4byte	.LASF29
+ 449 0262 63010000 		.4byte	.LASF29
+ 450 0266 07       		.byte	0x7
+ 451 0267 18       		.byte	0x18
+ 452 0268 0E       		.uleb128 0xe
+ 453 0269 8D010000 		.4byte	.LASF30
+ 454 026d 8D010000 		.4byte	.LASF30
+ 455 0271 08       		.byte	0x8
+ 456 0272 18       		.byte	0x18
+ 457 0273 0E       		.uleb128 0xe
+ 458 0274 00000000 		.4byte	.LASF31
+ 459 0278 00000000 		.4byte	.LASF31
+ 460 027c 04       		.byte	0x4
+ 461 027d 54       		.byte	0x54
+ 462 027e 0E       		.uleb128 0xe
+ 463 027f 17000000 		.4byte	.LASF32
+ 464 0283 17000000 		.4byte	.LASF32
+ 465 0287 05       		.byte	0x5
+ 466 0288 4D       		.byte	0x4d
+ 467 0289 0E       		.uleb128 0xe
+ 468 028a 86020000 		.4byte	.LASF33
+ 469 028e 86020000 		.4byte	.LASF33
+ 470 0292 05       		.byte	0x5
+ 471 0293 64       		.byte	0x64
+ 472 0294 00       		.byte	0
+ 473              		.section	.debug_abbrev,"",%progbits
+ 474              	.Ldebug_abbrev0:
+ 475 0000 01       		.uleb128 0x1
+ 476 0001 11       		.uleb128 0x11
+ 477 0002 01       		.byte	0x1
+ 478 0003 25       		.uleb128 0x25
+ 479 0004 0E       		.uleb128 0xe
+ 480 0005 13       		.uleb128 0x13
+ 481 0006 0B       		.uleb128 0xb
+ 482 0007 03       		.uleb128 0x3
+ 483 0008 0E       		.uleb128 0xe
+ 484 0009 1B       		.uleb128 0x1b
+ 485 000a 0E       		.uleb128 0xe
+ 486 000b 55       		.uleb128 0x55
+ 487 000c 17       		.uleb128 0x17
+ 488 000d 11       		.uleb128 0x11
+ 489 000e 01       		.uleb128 0x1
+ 490 000f 10       		.uleb128 0x10
+ 491 0010 17       		.uleb128 0x17
+ 492 0011 00       		.byte	0
+ 493 0012 00       		.byte	0
+ 494 0013 02       		.uleb128 0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 11
+
+
+ 495 0014 24       		.uleb128 0x24
+ 496 0015 00       		.byte	0
+ 497 0016 0B       		.uleb128 0xb
+ 498 0017 0B       		.uleb128 0xb
+ 499 0018 3E       		.uleb128 0x3e
+ 500 0019 0B       		.uleb128 0xb
+ 501 001a 03       		.uleb128 0x3
+ 502 001b 0E       		.uleb128 0xe
+ 503 001c 00       		.byte	0
+ 504 001d 00       		.byte	0
+ 505 001e 03       		.uleb128 0x3
+ 506 001f 16       		.uleb128 0x16
+ 507 0020 00       		.byte	0
+ 508 0021 03       		.uleb128 0x3
+ 509 0022 0E       		.uleb128 0xe
+ 510 0023 3A       		.uleb128 0x3a
+ 511 0024 0B       		.uleb128 0xb
+ 512 0025 3B       		.uleb128 0x3b
+ 513 0026 0B       		.uleb128 0xb
+ 514 0027 49       		.uleb128 0x49
+ 515 0028 13       		.uleb128 0x13
+ 516 0029 00       		.byte	0
+ 517 002a 00       		.byte	0
+ 518 002b 04       		.uleb128 0x4
+ 519 002c 24       		.uleb128 0x24
+ 520 002d 00       		.byte	0
+ 521 002e 0B       		.uleb128 0xb
+ 522 002f 0B       		.uleb128 0xb
+ 523 0030 3E       		.uleb128 0x3e
+ 524 0031 0B       		.uleb128 0xb
+ 525 0032 03       		.uleb128 0x3
+ 526 0033 08       		.uleb128 0x8
+ 527 0034 00       		.byte	0
+ 528 0035 00       		.byte	0
+ 529 0036 05       		.uleb128 0x5
+ 530 0037 2E       		.uleb128 0x2e
+ 531 0038 01       		.byte	0x1
+ 532 0039 3F       		.uleb128 0x3f
+ 533 003a 19       		.uleb128 0x19
+ 534 003b 03       		.uleb128 0x3
+ 535 003c 0E       		.uleb128 0xe
+ 536 003d 3A       		.uleb128 0x3a
+ 537 003e 0B       		.uleb128 0xb
+ 538 003f 3B       		.uleb128 0x3b
+ 539 0040 0B       		.uleb128 0xb
+ 540 0041 27       		.uleb128 0x27
+ 541 0042 19       		.uleb128 0x19
+ 542 0043 11       		.uleb128 0x11
+ 543 0044 01       		.uleb128 0x1
+ 544 0045 12       		.uleb128 0x12
+ 545 0046 06       		.uleb128 0x6
+ 546 0047 40       		.uleb128 0x40
+ 547 0048 18       		.uleb128 0x18
+ 548 0049 9742     		.uleb128 0x2117
+ 549 004b 19       		.uleb128 0x19
+ 550 004c 01       		.uleb128 0x1
+ 551 004d 13       		.uleb128 0x13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 12
+
+
+ 552 004e 00       		.byte	0
+ 553 004f 00       		.byte	0
+ 554 0050 06       		.uleb128 0x6
+ 555 0051 34       		.uleb128 0x34
+ 556 0052 00       		.byte	0
+ 557 0053 03       		.uleb128 0x3
+ 558 0054 0E       		.uleb128 0xe
+ 559 0055 3A       		.uleb128 0x3a
+ 560 0056 0B       		.uleb128 0xb
+ 561 0057 3B       		.uleb128 0x3b
+ 562 0058 0B       		.uleb128 0xb
+ 563 0059 49       		.uleb128 0x49
+ 564 005a 13       		.uleb128 0x13
+ 565 005b 02       		.uleb128 0x2
+ 566 005c 17       		.uleb128 0x17
+ 567 005d 00       		.byte	0
+ 568 005e 00       		.byte	0
+ 569 005f 07       		.uleb128 0x7
+ 570 0060 0B       		.uleb128 0xb
+ 571 0061 01       		.byte	0x1
+ 572 0062 11       		.uleb128 0x11
+ 573 0063 01       		.uleb128 0x1
+ 574 0064 12       		.uleb128 0x12
+ 575 0065 06       		.uleb128 0x6
+ 576 0066 01       		.uleb128 0x1
+ 577 0067 13       		.uleb128 0x13
+ 578 0068 00       		.byte	0
+ 579 0069 00       		.byte	0
+ 580 006a 08       		.uleb128 0x8
+ 581 006b 898201   		.uleb128 0x4109
+ 582 006e 00       		.byte	0
+ 583 006f 11       		.uleb128 0x11
+ 584 0070 01       		.uleb128 0x1
+ 585 0071 31       		.uleb128 0x31
+ 586 0072 13       		.uleb128 0x13
+ 587 0073 00       		.byte	0
+ 588 0074 00       		.byte	0
+ 589 0075 09       		.uleb128 0x9
+ 590 0076 898201   		.uleb128 0x4109
+ 591 0079 01       		.byte	0x1
+ 592 007a 11       		.uleb128 0x11
+ 593 007b 01       		.uleb128 0x1
+ 594 007c 31       		.uleb128 0x31
+ 595 007d 13       		.uleb128 0x13
+ 596 007e 01       		.uleb128 0x1
+ 597 007f 13       		.uleb128 0x13
+ 598 0080 00       		.byte	0
+ 599 0081 00       		.byte	0
+ 600 0082 0A       		.uleb128 0xa
+ 601 0083 8A8201   		.uleb128 0x410a
+ 602 0086 00       		.byte	0
+ 603 0087 02       		.uleb128 0x2
+ 604 0088 18       		.uleb128 0x18
+ 605 0089 9142     		.uleb128 0x2111
+ 606 008b 18       		.uleb128 0x18
+ 607 008c 00       		.byte	0
+ 608 008d 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 13
+
+
+ 609 008e 0B       		.uleb128 0xb
+ 610 008f 2E       		.uleb128 0x2e
+ 611 0090 01       		.byte	0x1
+ 612 0091 3F       		.uleb128 0x3f
+ 613 0092 19       		.uleb128 0x19
+ 614 0093 03       		.uleb128 0x3
+ 615 0094 0E       		.uleb128 0xe
+ 616 0095 3A       		.uleb128 0x3a
+ 617 0096 0B       		.uleb128 0xb
+ 618 0097 3B       		.uleb128 0x3b
+ 619 0098 0B       		.uleb128 0xb
+ 620 0099 27       		.uleb128 0x27
+ 621 009a 19       		.uleb128 0x19
+ 622 009b 49       		.uleb128 0x49
+ 623 009c 13       		.uleb128 0x13
+ 624 009d 8701     		.uleb128 0x87
+ 625 009f 19       		.uleb128 0x19
+ 626 00a0 11       		.uleb128 0x11
+ 627 00a1 01       		.uleb128 0x1
+ 628 00a2 12       		.uleb128 0x12
+ 629 00a3 06       		.uleb128 0x6
+ 630 00a4 40       		.uleb128 0x40
+ 631 00a5 18       		.uleb128 0x18
+ 632 00a6 9742     		.uleb128 0x2117
+ 633 00a8 19       		.uleb128 0x19
+ 634 00a9 01       		.uleb128 0x1
+ 635 00aa 13       		.uleb128 0x13
+ 636 00ab 00       		.byte	0
+ 637 00ac 00       		.byte	0
+ 638 00ad 0C       		.uleb128 0xc
+ 639 00ae 34       		.uleb128 0x34
+ 640 00af 00       		.byte	0
+ 641 00b0 03       		.uleb128 0x3
+ 642 00b1 0E       		.uleb128 0xe
+ 643 00b2 3A       		.uleb128 0x3a
+ 644 00b3 0B       		.uleb128 0xb
+ 645 00b4 3B       		.uleb128 0x3b
+ 646 00b5 05       		.uleb128 0x5
+ 647 00b6 49       		.uleb128 0x49
+ 648 00b7 13       		.uleb128 0x13
+ 649 00b8 3F       		.uleb128 0x3f
+ 650 00b9 19       		.uleb128 0x19
+ 651 00ba 3C       		.uleb128 0x3c
+ 652 00bb 19       		.uleb128 0x19
+ 653 00bc 00       		.byte	0
+ 654 00bd 00       		.byte	0
+ 655 00be 0D       		.uleb128 0xd
+ 656 00bf 35       		.uleb128 0x35
+ 657 00c0 00       		.byte	0
+ 658 00c1 49       		.uleb128 0x49
+ 659 00c2 13       		.uleb128 0x13
+ 660 00c3 00       		.byte	0
+ 661 00c4 00       		.byte	0
+ 662 00c5 0E       		.uleb128 0xe
+ 663 00c6 2E       		.uleb128 0x2e
+ 664 00c7 00       		.byte	0
+ 665 00c8 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 14
+
+
+ 666 00c9 19       		.uleb128 0x19
+ 667 00ca 3C       		.uleb128 0x3c
+ 668 00cb 19       		.uleb128 0x19
+ 669 00cc 6E       		.uleb128 0x6e
+ 670 00cd 0E       		.uleb128 0xe
+ 671 00ce 03       		.uleb128 0x3
+ 672 00cf 0E       		.uleb128 0xe
+ 673 00d0 3A       		.uleb128 0x3a
+ 674 00d1 0B       		.uleb128 0xb
+ 675 00d2 3B       		.uleb128 0x3b
+ 676 00d3 0B       		.uleb128 0xb
+ 677 00d4 00       		.byte	0
+ 678 00d5 00       		.byte	0
+ 679 00d6 00       		.byte	0
+ 680              		.section	.debug_loc,"",%progbits
+ 681              	.Ldebug_loc0:
+ 682              	.LLST0:
+ 683 0000 08000000 		.4byte	.LVL1
+ 684 0004 14000000 		.4byte	.LVL4
+ 685 0008 0100     		.2byte	0x1
+ 686 000a 54       		.byte	0x54
+ 687 000b 16000000 		.4byte	.LVL5
+ 688 000f 1C000000 		.4byte	.LFE65
+ 689 0013 0100     		.2byte	0x1
+ 690 0015 54       		.byte	0x54
+ 691 0016 00000000 		.4byte	0
+ 692 001a 00000000 		.4byte	0
+ 693              	.LLST1:
+ 694 001e 0E000000 		.4byte	.LVL2
+ 695 0022 11000000 		.4byte	.LVL3-1
+ 696 0026 0100     		.2byte	0x1
+ 697 0028 50       		.byte	0x50
+ 698 0029 00000000 		.4byte	0
+ 699 002d 00000000 		.4byte	0
+ 700              	.LLST2:
+ 701 0031 06000000 		.4byte	.LVL6
+ 702 0035 0B000000 		.4byte	.LVL7-1
+ 703 0039 0100     		.2byte	0x1
+ 704 003b 50       		.byte	0x50
+ 705 003c 1C000000 		.4byte	.LVL11
+ 706 0040 22000000 		.4byte	.LFE66
+ 707 0044 0100     		.2byte	0x1
+ 708 0046 50       		.byte	0x50
+ 709 0047 00000000 		.4byte	0
+ 710 004b 00000000 		.4byte	0
+ 711              	.LLST3:
+ 712 004f 0E000000 		.4byte	.LVL8
+ 713 0053 1C000000 		.4byte	.LVL11
+ 714 0057 0100     		.2byte	0x1
+ 715 0059 54       		.byte	0x54
+ 716 005a 00000000 		.4byte	0
+ 717 005e 00000000 		.4byte	0
+ 718              		.section	.debug_aranges,"",%progbits
+ 719 0000 2C000000 		.4byte	0x2c
+ 720 0004 0200     		.2byte	0x2
+ 721 0006 00000000 		.4byte	.Ldebug_info0
+ 722 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 15
+
+
+ 723 000b 00       		.byte	0
+ 724 000c 0000     		.2byte	0
+ 725 000e 0000     		.2byte	0
+ 726 0010 00000000 		.4byte	.LFB65
+ 727 0014 1C000000 		.4byte	.LFE65-.LFB65
+ 728 0018 00000000 		.4byte	.LFB66
+ 729 001c 22000000 		.4byte	.LFE66-.LFB66
+ 730 0020 00000000 		.4byte	.LFB64
+ 731 0024 28000000 		.4byte	.LFE64-.LFB64
+ 732 0028 00000000 		.4byte	0
+ 733 002c 00000000 		.4byte	0
+ 734              		.section	.debug_ranges,"",%progbits
+ 735              	.Ldebug_ranges0:
+ 736 0000 00000000 		.4byte	.LFB65
+ 737 0004 1C000000 		.4byte	.LFE65
+ 738 0008 00000000 		.4byte	.LFB66
+ 739 000c 22000000 		.4byte	.LFE66
+ 740 0010 00000000 		.4byte	.LFB64
+ 741 0014 28000000 		.4byte	.LFE64
+ 742 0018 00000000 		.4byte	0
+ 743 001c 00000000 		.4byte	0
+ 744              		.section	.debug_line,"",%progbits
+ 745              	.Ldebug_line0:
+ 746 0000 D4010000 		.section	.debug_str,"MS",%progbits,1
+ 746      02008401 
+ 746      00000201 
+ 746      FB0E0D00 
+ 746      01010101 
+ 747              	.LASF31:
+ 748 0000 55415254 		.ascii	"UART_1_Start\000"
+ 748      5F315F53 
+ 748      74617274 
+ 748      00
+ 749              	.LASF4:
+ 750 000d 5F5F7569 		.ascii	"__uint8_t\000"
+ 750      6E74385F 
+ 750      7400
+ 751              	.LASF32:
+ 752 0017 5350494D 		.ascii	"SPIM_1_Start\000"
+ 752      5F315F53 
+ 752      74617274 
+ 752      00
+ 753              	.LASF5:
+ 754 0024 5F5F696E 		.ascii	"__int32_t\000"
+ 754      7433325F 
+ 754      7400
+ 755              	.LASF18:
+ 756 002e 62797465 		.ascii	"bytesToRead\000"
+ 756      73546F52 
+ 756      65616400 
+ 757              	.LASF28:
+ 758 003a 5350494D 		.ascii	"SPIM_1_GetRxBufferSize\000"
+ 758      5F315F47 
+ 758      65745278 
+ 758      42756666 
+ 758      65725369 
+ 759              	.LASF13:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 16
+
+
+ 760 0051 666C6F61 		.ascii	"float\000"
+ 760      7400
+ 761              	.LASF1:
+ 762 0057 756E7369 		.ascii	"unsigned char\000"
+ 762      676E6564 
+ 762      20636861 
+ 762      7200
+ 763              	.LASF34:
+ 764 0065 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 764      43313120 
+ 764      352E342E 
+ 764      31203230 
+ 764      31363036 
+ 765 0098 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 765      20726576 
+ 765      6973696F 
+ 765      6E203233 
+ 765      37373135 
+ 766 00cb 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 766      66756E63 
+ 766      74696F6E 
+ 766      2D736563 
+ 766      74696F6E 
+ 767              	.LASF27:
+ 768 00f3 5350494D 		.ascii	"SPIM_handleByteReceived\000"
+ 768      5F68616E 
+ 768      646C6542 
+ 768      79746552 
+ 768      65636569 
+ 769              	.LASF20:
+ 770 010b 4953525F 		.ascii	"ISR_UART_rx_handler\000"
+ 770      55415254 
+ 770      5F72785F 
+ 770      68616E64 
+ 770      6C657200 
+ 771              	.LASF7:
+ 772 011f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 772      20756E73 
+ 772      69676E65 
+ 772      6420696E 
+ 772      7400
+ 773              	.LASF22:
+ 774 0131 55415254 		.ascii	"UART_1_ReadRxData\000"
+ 774      5F315F52 
+ 774      65616452 
+ 774      78446174 
+ 774      6100
+ 775              	.LASF3:
+ 776 0143 73686F72 		.ascii	"short unsigned int\000"
+ 776      7420756E 
+ 776      7369676E 
+ 776      65642069 
+ 776      6E7400
+ 777              	.LASF38:
+ 778 0156 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 778      52784275 
+ 778      66666572 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 17
+
+
+ 778      00
+ 779              	.LASF29:
+ 780 0163 69737275 		.ascii	"isruart_StartEx\000"
+ 780      6172745F 
+ 780      53746172 
+ 780      74457800 
+ 781              	.LASF26:
+ 782 0173 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 782      5F315F57 
+ 782      72697465 
+ 782      54784461 
+ 782      746100
+ 783              	.LASF14:
+ 784 0186 646F7562 		.ascii	"double\000"
+ 784      6C6500
+ 785              	.LASF30:
+ 786 018d 69737273 		.ascii	"isrspim_StartEx\000"
+ 786      70696D5F 
+ 786      53746172 
+ 786      74457800 
+ 787              	.LASF37:
+ 788 019d 6D61696E 		.ascii	"main\000"
+ 788      00
+ 789              	.LASF10:
+ 790 01a2 756E7369 		.ascii	"unsigned int\000"
+ 790      676E6564 
+ 790      20696E74 
+ 790      00
+ 791              	.LASF9:
+ 792 01af 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 792      206C6F6E 
+ 792      6720756E 
+ 792      7369676E 
+ 792      65642069 
+ 793              	.LASF11:
+ 794 01c6 75696E74 		.ascii	"uint8_t\000"
+ 794      385F7400 
+ 795              	.LASF24:
+ 796 01ce 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
+ 796      5F315F47 
+ 796      65745278 
+ 796      42756666 
+ 796      65725369 
+ 797              	.LASF12:
+ 798 01e5 696E7433 		.ascii	"int32_t\000"
+ 798      325F7400 
+ 799              	.LASF36:
+ 800 01ed 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 800      73657273 
+ 800      5C53696D 
+ 800      6F6E5C44 
+ 800      65736B74 
+ 801 021b 65325F43 		.ascii	"e2_Communicationbuses\\Lab_SPI\\Lab_SPI.cydsn\000"
+ 801      6F6D6D75 
+ 801      6E696361 
+ 801      74696F6E 
+ 801      62757365 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 18
+
+
+ 802              	.LASF17:
+ 803 0247 73697A65 		.ascii	"sizetype\000"
+ 803      74797065 
+ 803      00
+ 804              	.LASF8:
+ 805 0250 6C6F6E67 		.ascii	"long long int\000"
+ 805      206C6F6E 
+ 805      6720696E 
+ 805      7400
+ 806              	.LASF35:
+ 807 025e 6D61696E 		.ascii	"main.c\000"
+ 807      2E6300
+ 808              	.LASF15:
+ 809 0265 63686172 		.ascii	"char\000"
+ 809      00
+ 810              	.LASF25:
+ 811 026a 5350494D 		.ascii	"SPIM_1_ReadRxData\000"
+ 811      5F315F52 
+ 811      65616452 
+ 811      78446174 
+ 811      6100
+ 812              	.LASF2:
+ 813 027c 73686F72 		.ascii	"short int\000"
+ 813      7420696E 
+ 813      7400
+ 814              	.LASF33:
+ 815 0286 5350494D 		.ascii	"SPIM_1_ClearRxBuffer\000"
+ 815      5F315F43 
+ 815      6C656172 
+ 815      52784275 
+ 815      66666572 
+ 816              	.LASF21:
+ 817 029b 5350495F 		.ascii	"SPI_rx_handler\000"
+ 817      72785F68 
+ 817      616E646C 
+ 817      657200
+ 818              	.LASF6:
+ 819 02aa 6C6F6E67 		.ascii	"long int\000"
+ 819      20696E74 
+ 819      00
+ 820              	.LASF16:
+ 821 02b3 6C6F6E67 		.ascii	"long double\000"
+ 821      20646F75 
+ 821      626C6500 
+ 822              	.LASF0:
+ 823 02bf 7369676E 		.ascii	"signed char\000"
+ 823      65642063 
+ 823      68617200 
+ 824              	.LASF23:
+ 825 02cb 5350494D 		.ascii	"SPIM_1_WriteTxData\000"
+ 825      5F315F57 
+ 825      72697465 
+ 825      54784461 
+ 825      746100
+ 826              	.LASF19:
+ 827 02de 62797465 		.ascii	"byteReceived\000"
+ 827      52656365 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cczJkbTp.s 			page 19
+
+
+ 827      69766564 
+ 827      00
+ 828              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,6 @@
+C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\Communicationbuses.cyprj|6535570d-69bf-49d1-b645-fd439e5fdc79
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|ab4016ba-75db-4893-b91f-4c1402637532
+C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|5ec2e017-54bc-4b05-8ac3-c3a18f26469e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|f5185229-5044-49b0-b80e-04ffd576d06d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|bc5c7bc7-d941-4084-90c4-e93f4eaad2dd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|b6fb30e3-066a-41bb-b547-14094d6111d4
