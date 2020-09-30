@@ -74,7 +74,7 @@ set_io "SCL_1(0)" iocell 12 0
 set_location "ClockBlock" clockblockcell -1 -1 0
 # Note: port 12 is the logical name for port 7
 set_io "SDA_1(0)" iocell 12 1
-set_io "RST_1(0)" iocell 2 2
+set_io "RST_1(0)" iocell 2 0
 # Note: port 12 is the logical name for port 7
 set_io "Tx_1(0)" iocell 12 7
 set_location "\I2C_1:I2C_IRQ\" interrupt -1 -1 0

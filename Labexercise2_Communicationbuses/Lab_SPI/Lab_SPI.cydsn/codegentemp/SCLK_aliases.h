@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: MISO_1.h  
+* File Name: SCLK.h  
 * Version 2.20
 *
 * Description:
@@ -15,8 +15,8 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#if !defined(CY_PINS_MISO_1_ALIASES_H) /* Pins MISO_1_ALIASES_H */
-#define CY_PINS_MISO_1_ALIASES_H
+#if !defined(CY_PINS_SCLK_ALIASES_H) /* Pins SCLK_ALIASES_H */
+#define CY_PINS_SCLK_ALIASES_H
 
 #include "cytypes.h"
 #include "cyfitter.h"
@@ -25,12 +25,12 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define MISO_1_0			(MISO_1__0__PC)
-#define MISO_1_0_INTR	((uint16)((uint16)0x0001u << MISO_1__0__SHIFT))
+#define SCLK_0			(SCLK__0__PC)
+#define SCLK_0_INTR	((uint16)((uint16)0x0001u << SCLK__0__SHIFT))
 
-#define MISO_1_INTR_ALL	 ((uint16)(MISO_1_0_INTR))
+#define SCLK_INTR_ALL	 ((uint16)(SCLK_0_INTR))
 
-#endif /* End Pins MISO_1_ALIASES_H */
+#endif /* End Pins SCLK_ALIASES_H */
 
 
 /* [] END OF FILE */

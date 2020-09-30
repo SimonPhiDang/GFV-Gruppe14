@@ -23,20 +23,20 @@
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_PM.c" value="SOURCE_C;CortexM3;;;;UART_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_INT.c" value="SOURCE_C;CortexM3;;;;UART_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_BOOT.c" value="SOURCE_C;CortexM3;;;;UART_1" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO_aliases.h" value="HEADER;;;;;MISO" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO.c" value="SOURCE_C;CortexM3;;;;MISO" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO.h" value="HEADER;;;;;MISO" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI_aliases.h" value="HEADER;;;;;MOSI" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI.c" value="SOURCE_C;CortexM3;;;;MOSI" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI.h" value="HEADER;;;;;MOSI" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK_aliases.h" value="HEADER;;;;;SCLK" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK.c" value="SOURCE_C;CortexM3;;;;SCLK" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK.h" value="HEADER;;;;;SCLK" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1.c" value="SOURCE_C;CortexM3;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1.h" value="HEADER;;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_PM.c" value="SOURCE_C;CortexM3;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_INT.c" value="SOURCE_C;CortexM3;;;;SPIM_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_PVT.h" value="HEADER;;;;;SPIM_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI_1_aliases.h" value="HEADER;;;;;MOSI_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI_1.c" value="SOURCE_C;CortexM3;;;;MOSI_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MOSI_1.h" value="HEADER;;;;;MOSI_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK_1_aliases.h" value="HEADER;;;;;SCLK_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK_1.c" value="SOURCE_C;CortexM3;;;;SCLK_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SCLK_1.h" value="HEADER;;;;;SCLK_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO_1_aliases.h" value="HEADER;;;;;MISO_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO_1.c" value="SOURCE_C;CortexM3;;;;MISO_1" />
-  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\MISO_1.h" value="HEADER;;;;;MISO_1" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\UART_1_IntClock.h" value="HEADER;;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\codegentemp\SPIM_1_IntClock.c" value="SOURCE_C;CortexM3;;;;SPIM_1_IntClock" />

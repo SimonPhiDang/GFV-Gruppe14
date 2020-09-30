@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 1
 
 
    1              		.syntax unified
@@ -43,9 +43,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
   13:main.c        **** #include <stdio.h>
   14:main.c        **** #include <stdint.h>
   15:main.c        **** 
-  16:main.c        **** int main(void)
-  17:main.c        **** {
-  28              		.loc 1 17 0
+  16:main.c        **** #include <UART_handler.h>
+  17:main.c        **** 
+  18:main.c        **** int main(void)
+  19:main.c        **** {
+  28              		.loc 1 19 0
   29              		.cfi_startproc
   30              		@ Volatile: function does not return.
   31              		@ args = 0, pretend = 0, frame = 0
@@ -54,19 +56,19 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
   34              		.cfi_def_cfa_offset 8
   35              		.cfi_offset 3, -8
   36              		.cfi_offset 14, -4
-  18:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
-  37              		.loc 1 18 0
+  20:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  37              		.loc 1 20 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 2
+
+
   38              		.syntax unified
-  39              	@ 18 "main.c" 1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 2
-
-
+  39              	@ 20 "main.c" 1
   40 0002 62B6     		CPSIE   i
   41              	@ 0 "" 2
-  19:main.c        **** 
-  20:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-  21:main.c        ****     UART_1_Start();
-  42              		.loc 1 21 0
+  21:main.c        **** 
+  22:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  23:main.c        ****     UART_1_Start();
+  42              		.loc 1 23 0
   43              		.thumb
   44              		.syntax unified
   45 0004 FFF7FEFF 		bl	UART_1_Start
@@ -116,11 +118,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
   89 0042 A0010000 		.4byte	.LASF9
   90 0046 02       		.byte	0x2
   91 0047 3F       		.byte	0x3f
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 3
+
+
   92 0048 4C000000 		.4byte	0x4c
   93 004c 02       		.uleb128 0x2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 3
-
-
   94 004d 04       		.byte	0x4
   95 004e 05       		.byte	0x5
   96 004f 11010000 		.4byte	.LASF4
@@ -172,15 +174,15 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  142 00a4 05       		.uleb128 0x5
  143 00a5 35000000 		.4byte	.LASF19
  144 00a9 01       		.byte	0x1
- 145 00aa 10       		.byte	0x10
+ 145 00aa 12       		.byte	0x12
  146 00ab 68000000 		.4byte	0x68
  147 00af 00000000 		.4byte	.LFB64
  148 00b3 0A000000 		.4byte	.LFE64-.LFB64
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 4
+
+
  149 00b7 01       		.uleb128 0x1
  150 00b8 9C       		.byte	0x9c
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 4
-
-
  151 00b9 C7000000 		.4byte	0xc7
  152 00bd 06       		.uleb128 0x6
  153 00be 08000000 		.4byte	.LVL0
@@ -236,11 +238,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  203 0020 00       		.byte	0
  204 0021 03       		.uleb128 0x3
  205 0022 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 5
+
+
  206 0023 3A       		.uleb128 0x3a
  207 0024 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 5
-
-
  208 0025 3B       		.uleb128 0x3b
  209 0026 0B       		.uleb128 0xb
  210 0027 49       		.uleb128 0x49
@@ -296,11 +298,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  260 005d 13       		.uleb128 0x13
  261 005e 00       		.byte	0
  262 005f 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 6
+
+
  263 0060 07       		.uleb128 0x7
  264 0061 34       		.uleb128 0x34
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 6
-
-
  265 0062 00       		.byte	0
  266 0063 03       		.uleb128 0x3
  267 0064 0E       		.uleb128 0xe
@@ -356,11 +358,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  317              		.section	.debug_ranges,"",%progbits
  318              	.Ldebug_ranges0:
  319 0000 00000000 		.4byte	.LFB64
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 7
+
+
  320 0004 0A000000 		.4byte	.LFE64
  321 0008 00000000 		.4byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 7
-
-
  322 000c 00000000 		.4byte	0
  323              		.section	.debug_line,"",%progbits
  324              	.Ldebug_line0:
@@ -416,11 +418,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  342              	.LASF7:
  343 00da 6C6F6E67 		.ascii	"long long unsigned int\000"
  343      206C6F6E 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 8
+
+
  343      6720756E 
  343      7369676E 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 8
-
-
  343      65642069 
  344              	.LASF21:
  345 00f1 55415254 		.ascii	"UART_1_Start\000"
@@ -476,11 +478,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 1
  367              	.LASF2:
  368 01b0 73686F72 		.ascii	"short int\000"
  368      7420696E 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccu9ZJID.s 			page 9
+
+
  368      7400
  369              	.LASF10:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccJARAki.s 			page 9
-
-
  370 01ba 696E7433 		.ascii	"int32_t\000"
  370      325F7400 
  371              	.LASF15:

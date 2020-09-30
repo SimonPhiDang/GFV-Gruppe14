@@ -16,11 +16,11 @@ I1209: Started routing
 I1223: Total Nets : 88 
 I1212: Iteration  1 :    73 unrouted : 1 seconds
 I1212: Iteration  2 :    23 unrouted : 0 seconds
-I1212: Iteration  3 :     9 unrouted : 0 seconds
-I1212: Iteration  4 :     9 unrouted : 1 seconds
-I1212: Iteration  5 :     6 unrouted : 0 seconds
-I1212: Iteration  6 :     3 unrouted : 0 seconds
-I1212: Iteration  7 :     3 unrouted : 0 seconds
+I1212: Iteration  3 :    10 unrouted : 0 seconds
+I1212: Iteration  4 :     8 unrouted : 0 seconds
+I1212: Iteration  5 :     5 unrouted : 0 seconds
+I1212: Iteration  6 :     5 unrouted : 0 seconds
+I1212: Iteration  7 :     4 unrouted : 0 seconds
 I1212: Iteration  8 :     4 unrouted : 0 seconds
 I1212: Iteration  9 :     0 unrouted : 0 seconds
 I1215: Routing is successful

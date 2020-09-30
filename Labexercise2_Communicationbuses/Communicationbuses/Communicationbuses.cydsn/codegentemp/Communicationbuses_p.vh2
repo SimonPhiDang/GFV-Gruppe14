@@ -1,5 +1,5 @@
 -- Project:   Communicationbuses
--- Generated: 09/29/2020 11:14:03
+-- Generated: 09/29/2020 23:41:08
 -- PSoC Creator  4.3
 
 ENTITY Communicationbuses IS
@@ -154,7 +154,7 @@ ARCHITECTURE __DEFAULT__ OF Communicationbuses IS
     ATTRIBUTE lib_model OF SCL_1(0) : LABEL IS "iocell4";
     ATTRIBUTE Location OF SCL_1(0) : LABEL IS "P12[0]";
     ATTRIBUTE lib_model OF RST_1(0) : LABEL IS "iocell5";
-    ATTRIBUTE Location OF RST_1(0) : LABEL IS "P2[2]";
+    ATTRIBUTE Location OF RST_1(0) : LABEL IS "P2[0]";
     ATTRIBUTE lib_model OF Net_2 : LABEL IS "macrocell2";
     ATTRIBUTE lib_model OF \UART_1:BUART:counter_load_not\ : LABEL IS "macrocell3";
     ATTRIBUTE lib_model OF \UART_1:BUART:tx_status_0\ : LABEL IS "macrocell4";

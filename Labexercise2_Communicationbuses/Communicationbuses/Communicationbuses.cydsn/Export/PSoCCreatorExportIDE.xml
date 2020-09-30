@@ -40,7 +40,6 @@
           <File BuildType="BUILD" Toolchain="">I2C_handler.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
           <File BuildType="BUILD" Toolchain="">I2C_handler.h</File>
-          <File BuildType="BUILD" Toolchain="">SPI_handler.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\Generated_Source\PSoC5">

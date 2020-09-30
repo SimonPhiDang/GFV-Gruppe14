@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void readTemp();
+int8 readTemp();
 void writeTempToUART(float temp);
 
 /* [] END OF FILE */

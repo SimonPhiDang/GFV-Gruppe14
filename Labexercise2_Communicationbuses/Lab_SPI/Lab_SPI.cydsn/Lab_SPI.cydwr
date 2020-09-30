@@ -243,7 +243,7 @@
   </Group>
   <Group key="Component">
     <Group key="v1">
-      <Data key="cy_boot" value="cy_boot_v5_90" />
+      <Data key="cy_boot" value="cy_boot_v6_0" />
       <Data key="Em_EEPROM_Dynamic" value="Em_EEPROM_Dynamic_v2_20" />
       <Data key="LIN_Dynamic" value="LIN_Dynamic_v5_0" />
     </Group>
@@ -251,6 +251,9 @@
   <Data key="DataVersionKey" value="2" />
   <Group key="DWRInstGuidMapping">
     <Group key="Pin">
+      <Data key="2b7e4873-a24b-4a75-963c-2c72f7d0f8bc" value="MISO" />
+      <Data key="50eefb20-e627-49ce-a253-549ee50b198f" value="MOSI" />
+      <Data key="83b2fde2-60ad-45b6-9e5c-cb3baa6e3f9a" value="SCLK" />
       <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="Rx_1" />
       <Data key="b29c2c84-be12-49f5-859b-e84942b2850a" value="MISO_1" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="MOSI_1" />
@@ -3342,6 +3345,21 @@
     </Group>
   </Group>
   <Group key="Pin2">
+    <Group key="2b7e4873-a24b-4a75-963c-2c72f7d0f8bc">
+      <Group key="0">
+        <Data key="Port Format" value="1,6" />
+      </Group>
+    </Group>
+    <Group key="50eefb20-e627-49ce-a253-549ee50b198f">
+      <Group key="0">
+        <Data key="Port Format" value="1,7" />
+      </Group>
+    </Group>
+    <Group key="83b2fde2-60ad-45b6-9e5c-cb3baa6e3f9a">
+      <Group key="0">
+        <Data key="Port Format" value="2,0" />
+      </Group>
+    </Group>
     <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
       <Group key="0">
         <Data key="Port Format" value="12,6" />

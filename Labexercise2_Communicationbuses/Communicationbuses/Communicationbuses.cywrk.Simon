@@ -31,7 +31,6 @@
 <v>Communicationbuses\Communicationbuses\Header Files</v>
 <v>Communicationbuses\Communicationbuses\Header Files\cyapicallbacks.h</v>
 <v>Communicationbuses\Communicationbuses\Header Files\I2C_handler.h</v>
-<v>Communicationbuses\Communicationbuses\Header Files\SPI_handler.h</v>
 <v>Communicationbuses\Communicationbuses\Source Files</v>
 <v>Communicationbuses\Communicationbuses\Source Files\I2C_handler.c</v>
 <v>Communicationbuses\Communicationbuses\Source Files\main.c</v>
@@ -56,7 +55,6 @@
 <v>Communicationbuses\Communicationbuses\Header Files</v>
 <v>Communicationbuses\Communicationbuses\Header Files\cyapicallbacks.h</v>
 <v>Communicationbuses\Communicationbuses\Header Files\I2C_handler.h</v>
-<v>Communicationbuses\Communicationbuses\Header Files\SPI_handler.h</v>
 <v>Communicationbuses\Communicationbuses\Source Files</v>
 <v>Communicationbuses\Communicationbuses\Source Files\I2C_handler.c</v>
 <v>Communicationbuses\Communicationbuses\Source Files\main.c</v>
@@ -76,6 +74,7 @@
 <v>Communicationbuses\Communicationbuses\Generated_Source\PSoC5\I2C_1\I2C_1_SLAVE.c</v>
 <v>Communicationbuses\Communicationbuses\Generated_Source\PSoC5\RST_1</v>
 <v>Communicationbuses\Communicationbuses\Generated_Source\PSoC5\SCL_1</v>
+<v>Communicationbuses\Communicationbuses\Generated_Source\PSoC5\SDA_1</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -217,7 +216,6 @@
 <name v=".\Communicationbuses.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\Communicationbuses.cydsn\main.c" />
 <name v=".\Communicationbuses.cydsn\I2C_handler.h" />
-<name v=".\Communicationbuses.cydsn\SPI_handler.h" />
 <name v=".\Communicationbuses.cydsn\cyapicallbacks.h" />
 <name v=".\Communicationbuses.cydsn\I2C_handler.c" />
 <name v=".\Communicationbuses.cydsn\Communicationbuses.cydwr" />
@@ -228,7 +226,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1237, 495" SelectedTabbedMdiWindow="d4aeb5bb-8944-4733-88f6-d12314669589"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\TopDesign\TopDesign.cysch" Guid="d0646403-6f51-4ca0-9bd1-05aa1b1a50db" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\main.c" Guid="39be05b8-82c5-4741-b05c-3f28ed4b43db" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\I2C_handler.h" Guid="d6e8f676-939e-4fd9-8a98-fab6dd47bf7d" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\SPI_handler.h" Guid="d9dedfab-77ab-4364-b9df-ca761eb61ff8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\cyapicallbacks.h" Guid="59150ac0-4774-4164-abe8-0913c10562be" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\I2C_handler.c" Guid="d4aeb5bb-8944-4733-88f6-d12314669589" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\Communicationbuses.cydwr" Guid="50468724-872c-47ae-8f50-ccdab1911282" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1237, 495" SelectedTabbedMdiWindow="d6e8f676-939e-4fd9-8a98-fab6dd47bf7d"><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\TopDesign\TopDesign.cysch" Guid="d0646403-6f51-4ca0-9bd1-05aa1b1a50db" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\main.c" Guid="39be05b8-82c5-4741-b05c-3f28ed4b43db" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\I2C_handler.h" Guid="d6e8f676-939e-4fd9-8a98-fab6dd47bf7d" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\cyapicallbacks.h" Guid="59150ac0-4774-4164-abe8-0913c10562be" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\I2C_handler.c" Guid="d4aeb5bb-8944-4733-88f6-d12314669589" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Communicationbuses\Communicationbuses.cydsn\Communicationbuses.cydwr" Guid="50468724-872c-47ae-8f50-ccdab1911282" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
