@@ -1,6 +1,6 @@
-C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\Lab_SPI.cyprj|2b715773-907f-45f8-81b5-4d48f27e08c4
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|687226c7-2d0d-47a5-817b-f322c9b4e0b2
-C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|43eba251-1a1e-40d4-ab6d-f1422f40c2ad
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|79d29771-3102-4a1b-a559-e567b2242507
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|26d05dce-5142-421d-bb09-0cae089f51c6
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|57791d7e-735a-4ff2-bce0-c4fad1c926a0
+C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\Lab_SPI.cyprj|69e7216f-f747-449e-b9ce-0794e93bbec7
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|757b12fd-0b46-4eb9-9213-beb22e92661a
+C:\Users\Lucas\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|6fbced7f-3091-4dfa-baa4-53fd85057218
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|e9d28e6a-5d8e-4bae-976c-cc9da70b0a0d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|1bc228ca-e67e-4a9d-b698-1515ed22e8e9
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|7f054ce5-4b82-430e-a1bf-6726c737db52
