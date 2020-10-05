@@ -13,8 +13,7 @@
 #include <stdint.h>
 #include <project.h>
 
-// Alt efter hvilket tegn der bliver modtaget over UART, ændres de forskellige modes.
-//void handleByteReceived(uint8_t byteReceived);
+void handleByteReceived(uint8_t byteReceived);
 
 
 /* [] END OF FILE */

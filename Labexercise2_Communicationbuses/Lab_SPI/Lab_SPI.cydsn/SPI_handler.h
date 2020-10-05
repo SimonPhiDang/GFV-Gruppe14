@@ -14,6 +14,6 @@
 #include <project.h>
 
 void SPIM_handleByteReceived(uint8_t byteReceived);
-void pushButtonState();
+
 
 /* [] END OF FILE */

@@ -16,6 +16,7 @@
 #include <UART_handler.h>
 #include <SPI_handler.h>
 
+
 CY_ISR_PROTO(ISR_UART_rx_handler);
 CY_ISR_PROTO(SPI_rx_handler);
 
@@ -27,6 +28,7 @@ int main(void)
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     UART_1_Start();
     SPIM_1_Start();
+    
     SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
     
    
@@ -38,32 +40,35 @@ int main(void)
     }
 }
 
-CY_ISR(ISR_UART_rx_handler)
+CY_ISR(ISR_UART_rx_handler) // UART fra master til SPI SLAVE
 {
     uint8_t bytesToRead = UART_1_GetRxBufferSize(); // Aflæs bytes fra UART Master
     while (bytesToRead > 0)
     {
         uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
-//        UART_1_WriteTxData(byteReceived); // echo back
+        UART_1_WriteTxData(byteReceived); // echo back
+        handleByteReceived(byteReceived);   // LED ON eller OFF på UART     
+        
         SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
-        
-//        handleByteReceived(byteReceived);
-        
+            
+    
         bytesToRead--;
     }
 }
-CY_ISR(SPI_rx_handler)
+CY_ISR(SPI_rx_handler) // SPIM modtager fra SPIS status på switch
 {
-    uint8_t bytesToRead = SPIM_1_GetRxBufferSize();  // SPI Master rx interrupt få size
-    while (bytesToRead > 0)
+    uint8_t bytesToRead = SPIM_1_GetRxBufferSize();
+    while(bytesToRead > 0)
     {
-        uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
-        UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART
-        
-        SPIM_handleByteReceived(byteReceived); 
-        bytesToRead = SPIM_1_GetRxBufferSize();
-
+        uint8_t swStatus = SPIM_1_ReadRxData();  // Få byte fra FIFO rx buffer
+        SPIM_handleByteReceived(swStatus); 
+        bytesToRead--;
     }
+//    uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
+//    UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART    
+
+ // Ud fra status udskriv til UART ved hjælp af handler
+
 }
 
 /* [] END OF FILE */

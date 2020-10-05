@@ -11,27 +11,25 @@
 */
 #include <UART_handler.h>
 
+#define LED_ON '1'
+#define LED_OFF '0'
 
-//void handleByteReceived(uint8_t byteReceived)
-//{
-//    switch(byteReceived)
-//    {
-//        case '1' :
-//        {
-//            UART_1_PutString("LED ON");
-//        }
-//        break;
-//        case '2' :
-//        {
-//            UART_1_PutString("LED OF");
-//        }
-//
-//        break;
-//        default :
-//        {
-//            // nothing
-//        }
-//        break;
-//    }
-//}
+
+void handleByteReceived(uint8_t byteReceived)
+{
+    switch(byteReceived)
+    {
+        case LED_ON :
+        UART_1_PutString("LED ON \n");
+        break;
+        case LED_OFF :
+        UART_1_PutString("LED OFF \n");
+        break;
+        default :
+        {}
+        break;
+    }
+    
+    
+}
 /* [] END OF FILE */

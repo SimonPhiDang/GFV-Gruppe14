@@ -12,38 +12,24 @@
 
 #include <SPI_handler.h>
 
-void pushButtonState()
-{
-    /* We need to know the moment when SPI communication is complete
-    * to display received data. SPIS_SPI_DONE status should be polled. 
-    */
-//    while(!(SPIM_1_ReadRxStatus() & SPIM_1_STS_SPI_DONE));
-//    
-//    UART_1_PutChar(SPIM_1_ReadRxData());
-//    
-//    SPIM_1_ClearRxBuffer();
-}
-
 
 void SPIM_handleByteReceived(uint8_t byteReceived)
 {
     switch(byteReceived)
     {
-        case 'b' :
+        case 1 :
         {
-            UART_1_PutString("Button state pressed");
+            UART_1_PutString("Button state Idle \r\n");
         }
         break;
-        case 'i' :
+        case 0 :
         {
-            UART_1_PutString("Button state idle");
+            UART_1_PutString("Button state Pressed \r\n");
         }
 
         break;
         default :
-        {
-            // nothing
-        }
+        {}
         break;
     }
     
