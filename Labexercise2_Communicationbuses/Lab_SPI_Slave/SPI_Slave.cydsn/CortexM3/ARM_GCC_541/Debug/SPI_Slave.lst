@@ -1,0 +1,923 @@
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"SPI_Slave.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.buttonState,"ax",%progbits
+  20              		.align	2
+  21              		.global	buttonState
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	buttonState, %function
+  25              	buttonState:
+  26              	.LFB64:
+  27              		.file 1 "SPI_Slave.c"
+   1:SPI_Slave.c   **** /* ========================================
+   2:SPI_Slave.c   ****  *
+   3:SPI_Slave.c   ****  * Copyright YOUR COMPANY, THE YEAR
+   4:SPI_Slave.c   ****  * All Rights Reserved
+   5:SPI_Slave.c   ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:SPI_Slave.c   ****  *
+   7:SPI_Slave.c   ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:SPI_Slave.c   ****  * WHICH IS THE PROPERTY OF your company.
+   9:SPI_Slave.c   ****  *
+  10:SPI_Slave.c   ****  * ========================================
+  11:SPI_Slave.c   **** */
+  12:SPI_Slave.c   **** #include <SPI_Slave.h>
+  13:SPI_Slave.c   **** #include <project.h>
+  14:SPI_Slave.c   **** #define LED_ON 1
+  15:SPI_Slave.c   **** #define LED_OFF 0
+  16:SPI_Slave.c   **** int status;
+  17:SPI_Slave.c   **** int tx_buf;
+  18:SPI_Slave.c   **** 
+  19:SPI_Slave.c   **** void buttonState()
+  20:SPI_Slave.c   **** {
+  28              		.loc 1 20 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  21:SPI_Slave.c   ****      if(Pin_2_Read() == 00000001)
+  36              		.loc 1 21 0
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 2
+
+
+  37 0002 FFF7FEFF 		bl	Pin_2_Read
+  38              	.LVL0:
+  39 0006 0128     		cmp	r0, #1
+  40 0008 02D1     		bne	.L2
+  22:SPI_Slave.c   ****      {
+  23:SPI_Slave.c   ****          SPIS_1_WriteTxData(1);
+  41              		.loc 1 23 0
+  42 000a FFF7FEFF 		bl	SPIS_1_WriteTxData
+  43              	.LVL1:
+  44 000e 08BD     		pop	{r3, pc}
+  45              	.L2:
+  24:SPI_Slave.c   ****      }
+  25:SPI_Slave.c   ****      else if(Pin_2_Read() == 00000000)
+  46              		.loc 1 25 0
+  47 0010 FFF7FEFF 		bl	Pin_2_Read
+  48              	.LVL2:
+  49 0014 08B9     		cbnz	r0, .L1
+  26:SPI_Slave.c   ****      {
+  27:SPI_Slave.c   ****           SPIS_1_WriteTxData(0);
+  50              		.loc 1 27 0
+  51 0016 FFF7FEFF 		bl	SPIS_1_WriteTxData
+  52              	.LVL3:
+  53              	.L1:
+  54 001a 08BD     		pop	{r3, pc}
+  55              		.cfi_endproc
+  56              	.LFE64:
+  57              		.size	buttonState, .-buttonState
+  58              		.section	.text.SPIS_handleByteReceived,"ax",%progbits
+  59              		.align	2
+  60              		.global	SPIS_handleByteReceived
+  61              		.thumb
+  62              		.thumb_func
+  63              		.type	SPIS_handleByteReceived, %function
+  64              	SPIS_handleByteReceived:
+  65              	.LFB65:
+  28:SPI_Slave.c   ****      }            
+  29:SPI_Slave.c   **** }
+  30:SPI_Slave.c   **** 
+  31:SPI_Slave.c   **** 
+  32:SPI_Slave.c   **** void SPIS_handleByteReceived(uint8_t byteReceived)
+  33:SPI_Slave.c   **** {
+  66              		.loc 1 33 0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              	.LVL4:
+  71 0000 10B5     		push	{r4, lr}
+  72              		.cfi_def_cfa_offset 8
+  73              		.cfi_offset 4, -8
+  74              		.cfi_offset 14, -4
+  75 0002 0446     		mov	r4, r0
+  34:SPI_Slave.c   ****   if(byteReceived=='b')
+  76              		.loc 1 34 0
+  77 0004 6228     		cmp	r0, #98
+  78 0006 22D1     		bne	.L6
+  35:SPI_Slave.c   **** {
+  36:SPI_Slave.c   ****     switch(status)
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 3
+
+
+  79              		.loc 1 36 0
+  80 0008 144B     		ldr	r3, .L11
+  81 000a 1B68     		ldr	r3, [r3]
+  82 000c 83B1     		cbz	r3, .L8
+  83 000e 012B     		cmp	r3, #1
+  84 0010 1FD1     		bne	.L7
+  37:SPI_Slave.c   ****     {
+  38:SPI_Slave.c   ****         case LED_ON:
+  39:SPI_Slave.c   ****             status=LED_OFF;
+  85              		.loc 1 39 0
+  86 0012 0022     		movs	r2, #0
+  87 0014 114B     		ldr	r3, .L11
+  88 0016 1A60     		str	r2, [r3]
+  40:SPI_Slave.c   ****             Pin_1_Write(~Pin_1_Read()); // Toggle LED
+  89              		.loc 1 40 0
+  90 0018 FFF7FEFF 		bl	Pin_1_Read
+  91              	.LVL5:
+  92 001c C043     		mvns	r0, r0
+  93 001e C0B2     		uxtb	r0, r0
+  94 0020 FFF7FEFF 		bl	Pin_1_Write
+  95              	.LVL6:
+  41:SPI_Slave.c   ****             UART_1_WriteTxData(byteReceived); // Skriv UART hvad fået
+  96              		.loc 1 41 0
+  97 0024 2046     		mov	r0, r4
+  98 0026 FFF7FEFF 		bl	UART_1_WriteTxData
+  99              	.LVL7:
+  42:SPI_Slave.c   ****             // Skrive til SPIM fra SPIS
+  43:SPI_Slave.c   ****             buttonState();
+ 100              		.loc 1 43 0
+ 101 002a FFF7FEFF 		bl	buttonState
+ 102              	.LVL8:
+  44:SPI_Slave.c   ****            
+  45:SPI_Slave.c   ****         break;
+ 103              		.loc 1 45 0
+ 104 002e 10E0     		b	.L7
+ 105              	.LVL9:
+ 106              	.L8:
+  46:SPI_Slave.c   ****         
+  47:SPI_Slave.c   ****         case LED_OFF:
+  48:SPI_Slave.c   ****             status=LED_ON;
+ 107              		.loc 1 48 0
+ 108 0030 0122     		movs	r2, #1
+ 109 0032 0A4B     		ldr	r3, .L11
+ 110 0034 1A60     		str	r2, [r3]
+  49:SPI_Slave.c   ****             Pin_1_Write(~Pin_1_Read());
+ 111              		.loc 1 49 0
+ 112 0036 FFF7FEFF 		bl	Pin_1_Read
+ 113              	.LVL10:
+ 114 003a C043     		mvns	r0, r0
+ 115 003c C0B2     		uxtb	r0, r0
+ 116 003e FFF7FEFF 		bl	Pin_1_Write
+ 117              	.LVL11:
+  50:SPI_Slave.c   ****             UART_1_WriteTxData(byteReceived);
+ 118              		.loc 1 50 0
+ 119 0042 2046     		mov	r0, r4
+ 120 0044 FFF7FEFF 		bl	UART_1_WriteTxData
+ 121              	.LVL12:
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 4
+
+
+  51:SPI_Slave.c   ****             buttonState();   
+ 122              		.loc 1 51 0
+ 123 0048 FFF7FEFF 		bl	buttonState
+ 124              	.LVL13:
+  52:SPI_Slave.c   ****            
+  53:SPI_Slave.c   **** 
+  54:SPI_Slave.c   ****         break;
+ 125              		.loc 1 54 0
+ 126 004c 01E0     		b	.L7
+ 127              	.LVL14:
+ 128              	.L6:
+  55:SPI_Slave.c   ****         
+  56:SPI_Slave.c   ****     }
+  57:SPI_Slave.c   **** }
+  58:SPI_Slave.c   **** else
+  59:SPI_Slave.c   **** {
+  60:SPI_Slave.c   **** UART_1_WriteTxData(byteReceived);
+ 129              		.loc 1 60 0
+ 130 004e FFF7FEFF 		bl	UART_1_WriteTxData
+ 131              	.LVL15:
+ 132              	.L7:
+  61:SPI_Slave.c   **** }
+  62:SPI_Slave.c   ****     tx_buf = status;
+ 133              		.loc 1 62 0
+ 134 0052 024B     		ldr	r3, .L11
+ 135 0054 1A68     		ldr	r2, [r3]
+ 136 0056 024B     		ldr	r3, .L11+4
+ 137 0058 1A60     		str	r2, [r3]
+ 138 005a 10BD     		pop	{r4, pc}
+ 139              	.L12:
+ 140              		.align	2
+ 141              	.L11:
+ 142 005c 00000000 		.word	status
+ 143 0060 00000000 		.word	tx_buf
+ 144              		.cfi_endproc
+ 145              	.LFE65:
+ 146              		.size	SPIS_handleByteReceived, .-SPIS_handleByteReceived
+ 147              		.comm	tx_buf,4,4
+ 148              		.comm	status,4,4
+ 149              		.text
+ 150              	.Letext0:
+ 151              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 152              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 153              		.file 4 "Generated_Source\\PSoC5/core_cm3.h"
+ 154              		.file 5 "Generated_Source\\PSoC5/Pin_2.h"
+ 155              		.file 6 "Generated_Source\\PSoC5/SPIS_1.h"
+ 156              		.file 7 "Generated_Source\\PSoC5/Pin_1.h"
+ 157              		.file 8 "Generated_Source\\PSoC5/UART_1.h"
+ 158              		.section	.debug_info,"",%progbits
+ 159              	.Ldebug_info0:
+ 160 0000 E7010000 		.4byte	0x1e7
+ 161 0004 0400     		.2byte	0x4
+ 162 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 163 000a 04       		.byte	0x4
+ 164 000b 01       		.uleb128 0x1
+ 165 000c 86000000 		.4byte	.LASF26
+ 166 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 5
+
+
+ 167 0011 66000000 		.4byte	.LASF27
+ 168 0015 15000000 		.4byte	.LASF28
+ 169 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 170 001d 00000000 		.4byte	0
+ 171 0021 00000000 		.4byte	.Ldebug_line0
+ 172 0025 02       		.uleb128 0x2
+ 173 0026 04       		.byte	0x4
+ 174 0027 07       		.byte	0x7
+ 175 0028 60010000 		.4byte	.LASF0
+ 176 002c 03       		.uleb128 0x3
+ 177 002d 04       		.byte	0x4
+ 178 002e 05       		.byte	0x5
+ 179 002f 696E7400 		.ascii	"int\000"
+ 180 0033 02       		.uleb128 0x2
+ 181 0034 08       		.byte	0x8
+ 182 0035 05       		.byte	0x5
+ 183 0036 A8010000 		.4byte	.LASF1
+ 184 003a 02       		.uleb128 0x2
+ 185 003b 08       		.byte	0x8
+ 186 003c 04       		.byte	0x4
+ 187 003d F9010000 		.4byte	.LASF2
+ 188 0041 02       		.uleb128 0x2
+ 189 0042 01       		.byte	0x1
+ 190 0043 06       		.byte	0x6
+ 191 0044 05020000 		.4byte	.LASF3
+ 192 0048 04       		.uleb128 0x4
+ 193 0049 00000000 		.4byte	.LASF7
+ 194 004d 02       		.byte	0x2
+ 195 004e 1D       		.byte	0x1d
+ 196 004f 53000000 		.4byte	0x53
+ 197 0053 02       		.uleb128 0x2
+ 198 0054 01       		.byte	0x1
+ 199 0055 08       		.byte	0x8
+ 200 0056 78000000 		.4byte	.LASF4
+ 201 005a 02       		.uleb128 0x2
+ 202 005b 02       		.byte	0x2
+ 203 005c 05       		.byte	0x5
+ 204 005d DA010000 		.4byte	.LASF5
+ 205 0061 02       		.uleb128 0x2
+ 206 0062 02       		.byte	0x2
+ 207 0063 07       		.byte	0x7
+ 208 0064 26010000 		.4byte	.LASF6
+ 209 0068 04       		.uleb128 0x4
+ 210 0069 55000000 		.4byte	.LASF8
+ 211 006d 02       		.byte	0x2
+ 212 006e 3F       		.byte	0x3f
+ 213 006f 73000000 		.4byte	0x73
+ 214 0073 02       		.uleb128 0x2
+ 215 0074 04       		.byte	0x4
+ 216 0075 05       		.byte	0x5
+ 217 0076 F0010000 		.4byte	.LASF9
+ 218 007a 02       		.uleb128 0x2
+ 219 007b 04       		.byte	0x4
+ 220 007c 07       		.byte	0x7
+ 221 007d 14010000 		.4byte	.LASF10
+ 222 0081 02       		.uleb128 0x2
+ 223 0082 08       		.byte	0x8
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 6
+
+
+ 224 0083 07       		.byte	0x7
+ 225 0084 6D010000 		.4byte	.LASF11
+ 226 0088 02       		.uleb128 0x2
+ 227 0089 04       		.byte	0x4
+ 228 008a 07       		.byte	0x7
+ 229 008b 94010000 		.4byte	.LASF12
+ 230 008f 02       		.uleb128 0x2
+ 231 0090 01       		.byte	0x1
+ 232 0091 08       		.byte	0x8
+ 233 0092 B6010000 		.4byte	.LASF13
+ 234 0096 04       		.uleb128 0x4
+ 235 0097 84010000 		.4byte	.LASF14
+ 236 009b 03       		.byte	0x3
+ 237 009c 18       		.byte	0x18
+ 238 009d 48000000 		.4byte	0x48
+ 239 00a1 04       		.uleb128 0x4
+ 240 00a2 8C010000 		.4byte	.LASF15
+ 241 00a6 03       		.byte	0x3
+ 242 00a7 2C       		.byte	0x2c
+ 243 00a8 68000000 		.4byte	0x68
+ 244 00ac 02       		.uleb128 0x2
+ 245 00ad 04       		.byte	0x4
+ 246 00ae 04       		.byte	0x4
+ 247 00af 72000000 		.4byte	.LASF16
+ 248 00b3 02       		.uleb128 0x2
+ 249 00b4 08       		.byte	0x8
+ 250 00b5 04       		.byte	0x4
+ 251 00b6 59010000 		.4byte	.LASF17
+ 252 00ba 05       		.uleb128 0x5
+ 253 00bb E4010000 		.4byte	.LASF29
+ 254 00bf 01       		.byte	0x1
+ 255 00c0 13       		.byte	0x13
+ 256 00c1 00000000 		.4byte	.LFB64
+ 257 00c5 1C000000 		.4byte	.LFE64-.LFB64
+ 258 00c9 01       		.uleb128 0x1
+ 259 00ca 9C       		.byte	0x9c
+ 260 00cb F4000000 		.4byte	0xf4
+ 261 00cf 06       		.uleb128 0x6
+ 262 00d0 06000000 		.4byte	.LVL0
+ 263 00d4 B3010000 		.4byte	0x1b3
+ 264 00d8 06       		.uleb128 0x6
+ 265 00d9 0E000000 		.4byte	.LVL1
+ 266 00dd BE010000 		.4byte	0x1be
+ 267 00e1 06       		.uleb128 0x6
+ 268 00e2 14000000 		.4byte	.LVL2
+ 269 00e6 B3010000 		.4byte	0x1b3
+ 270 00ea 06       		.uleb128 0x6
+ 271 00eb 1A000000 		.4byte	.LVL3
+ 272 00ef BE010000 		.4byte	0x1be
+ 273 00f3 00       		.byte	0
+ 274 00f4 07       		.uleb128 0x7
+ 275 00f5 BB010000 		.4byte	.LASF30
+ 276 00f9 01       		.byte	0x1
+ 277 00fa 20       		.byte	0x20
+ 278 00fb 00000000 		.4byte	.LFB65
+ 279 00ff 64000000 		.4byte	.LFE65-.LFB65
+ 280 0103 01       		.uleb128 0x1
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 7
+
+
+ 281 0104 9C       		.byte	0x9c
+ 282 0105 80010000 		.4byte	0x180
+ 283 0109 08       		.uleb128 0x8
+ 284 010a 30020000 		.4byte	.LASF31
+ 285 010e 01       		.byte	0x1
+ 286 010f 20       		.byte	0x20
+ 287 0110 96000000 		.4byte	0x96
+ 288 0114 00000000 		.4byte	.LLST0
+ 289 0118 06       		.uleb128 0x6
+ 290 0119 1C000000 		.4byte	.LVL5
+ 291 011d C9010000 		.4byte	0x1c9
+ 292 0121 06       		.uleb128 0x6
+ 293 0122 24000000 		.4byte	.LVL6
+ 294 0126 D4010000 		.4byte	0x1d4
+ 295 012a 09       		.uleb128 0x9
+ 296 012b 2A000000 		.4byte	.LVL7
+ 297 012f DF010000 		.4byte	0x1df
+ 298 0133 3E010000 		.4byte	0x13e
+ 299 0137 0A       		.uleb128 0xa
+ 300 0138 01       		.uleb128 0x1
+ 301 0139 50       		.byte	0x50
+ 302 013a 02       		.uleb128 0x2
+ 303 013b 74       		.byte	0x74
+ 304 013c 00       		.sleb128 0
+ 305 013d 00       		.byte	0
+ 306 013e 06       		.uleb128 0x6
+ 307 013f 2E000000 		.4byte	.LVL8
+ 308 0143 BA000000 		.4byte	0xba
+ 309 0147 06       		.uleb128 0x6
+ 310 0148 3A000000 		.4byte	.LVL10
+ 311 014c C9010000 		.4byte	0x1c9
+ 312 0150 06       		.uleb128 0x6
+ 313 0151 42000000 		.4byte	.LVL11
+ 314 0155 D4010000 		.4byte	0x1d4
+ 315 0159 09       		.uleb128 0x9
+ 316 015a 48000000 		.4byte	.LVL12
+ 317 015e DF010000 		.4byte	0x1df
+ 318 0162 6D010000 		.4byte	0x16d
+ 319 0166 0A       		.uleb128 0xa
+ 320 0167 01       		.uleb128 0x1
+ 321 0168 50       		.byte	0x50
+ 322 0169 02       		.uleb128 0x2
+ 323 016a 74       		.byte	0x74
+ 324 016b 00       		.sleb128 0
+ 325 016c 00       		.byte	0
+ 326 016d 06       		.uleb128 0x6
+ 327 016e 4C000000 		.4byte	.LVL13
+ 328 0172 BA000000 		.4byte	0xba
+ 329 0176 06       		.uleb128 0x6
+ 330 0177 52000000 		.4byte	.LVL15
+ 331 017b DF010000 		.4byte	0x1df
+ 332 017f 00       		.byte	0
+ 333 0180 0B       		.uleb128 0xb
+ 334 0181 39010000 		.4byte	.LASF18
+ 335 0185 04       		.byte	0x4
+ 336 0186 1207     		.2byte	0x712
+ 337 0188 8C010000 		.4byte	0x18c
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 8
+
+
+ 338 018c 0C       		.uleb128 0xc
+ 339 018d A1000000 		.4byte	0xa1
+ 340 0191 0D       		.uleb128 0xd
+ 341 0192 5F000000 		.4byte	.LASF19
+ 342 0196 01       		.byte	0x1
+ 343 0197 10       		.byte	0x10
+ 344 0198 2C000000 		.4byte	0x2c
+ 345 019c 05       		.uleb128 0x5
+ 346 019d 03       		.byte	0x3
+ 347 019e 00000000 		.4byte	status
+ 348 01a2 0D       		.uleb128 0xd
+ 349 01a3 D3010000 		.4byte	.LASF20
+ 350 01a7 01       		.byte	0x1
+ 351 01a8 11       		.byte	0x11
+ 352 01a9 2C000000 		.4byte	0x2c
+ 353 01ad 05       		.uleb128 0x5
+ 354 01ae 03       		.byte	0x3
+ 355 01af 00000000 		.4byte	tx_buf
+ 356 01b3 0E       		.uleb128 0xe
+ 357 01b4 0A000000 		.4byte	.LASF21
+ 358 01b8 0A000000 		.4byte	.LASF21
+ 359 01bc 05       		.byte	0x5
+ 360 01bd 29       		.byte	0x29
+ 361 01be 0E       		.uleb128 0xe
+ 362 01bf 1D020000 		.4byte	.LASF22
+ 363 01c3 1D020000 		.4byte	.LASF22
+ 364 01c7 06       		.byte	0x6
+ 365 01c8 50       		.byte	0x50
+ 366 01c9 0E       		.uleb128 0xe
+ 367 01ca 9D010000 		.4byte	.LASF23
+ 368 01ce 9D010000 		.4byte	.LASF23
+ 369 01d2 07       		.byte	0x7
+ 370 01d3 29       		.byte	0x29
+ 371 01d4 0E       		.uleb128 0xe
+ 372 01d5 11020000 		.4byte	.LASF24
+ 373 01d9 11020000 		.4byte	.LASF24
+ 374 01dd 07       		.byte	0x7
+ 375 01de 26       		.byte	0x26
+ 376 01df 0E       		.uleb128 0xe
+ 377 01e0 46010000 		.4byte	.LASF25
+ 378 01e4 46010000 		.4byte	.LASF25
+ 379 01e8 08       		.byte	0x8
+ 380 01e9 88       		.byte	0x88
+ 381 01ea 00       		.byte	0
+ 382              		.section	.debug_abbrev,"",%progbits
+ 383              	.Ldebug_abbrev0:
+ 384 0000 01       		.uleb128 0x1
+ 385 0001 11       		.uleb128 0x11
+ 386 0002 01       		.byte	0x1
+ 387 0003 25       		.uleb128 0x25
+ 388 0004 0E       		.uleb128 0xe
+ 389 0005 13       		.uleb128 0x13
+ 390 0006 0B       		.uleb128 0xb
+ 391 0007 03       		.uleb128 0x3
+ 392 0008 0E       		.uleb128 0xe
+ 393 0009 1B       		.uleb128 0x1b
+ 394 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 9
+
+
+ 395 000b 55       		.uleb128 0x55
+ 396 000c 17       		.uleb128 0x17
+ 397 000d 11       		.uleb128 0x11
+ 398 000e 01       		.uleb128 0x1
+ 399 000f 10       		.uleb128 0x10
+ 400 0010 17       		.uleb128 0x17
+ 401 0011 00       		.byte	0
+ 402 0012 00       		.byte	0
+ 403 0013 02       		.uleb128 0x2
+ 404 0014 24       		.uleb128 0x24
+ 405 0015 00       		.byte	0
+ 406 0016 0B       		.uleb128 0xb
+ 407 0017 0B       		.uleb128 0xb
+ 408 0018 3E       		.uleb128 0x3e
+ 409 0019 0B       		.uleb128 0xb
+ 410 001a 03       		.uleb128 0x3
+ 411 001b 0E       		.uleb128 0xe
+ 412 001c 00       		.byte	0
+ 413 001d 00       		.byte	0
+ 414 001e 03       		.uleb128 0x3
+ 415 001f 24       		.uleb128 0x24
+ 416 0020 00       		.byte	0
+ 417 0021 0B       		.uleb128 0xb
+ 418 0022 0B       		.uleb128 0xb
+ 419 0023 3E       		.uleb128 0x3e
+ 420 0024 0B       		.uleb128 0xb
+ 421 0025 03       		.uleb128 0x3
+ 422 0026 08       		.uleb128 0x8
+ 423 0027 00       		.byte	0
+ 424 0028 00       		.byte	0
+ 425 0029 04       		.uleb128 0x4
+ 426 002a 16       		.uleb128 0x16
+ 427 002b 00       		.byte	0
+ 428 002c 03       		.uleb128 0x3
+ 429 002d 0E       		.uleb128 0xe
+ 430 002e 3A       		.uleb128 0x3a
+ 431 002f 0B       		.uleb128 0xb
+ 432 0030 3B       		.uleb128 0x3b
+ 433 0031 0B       		.uleb128 0xb
+ 434 0032 49       		.uleb128 0x49
+ 435 0033 13       		.uleb128 0x13
+ 436 0034 00       		.byte	0
+ 437 0035 00       		.byte	0
+ 438 0036 05       		.uleb128 0x5
+ 439 0037 2E       		.uleb128 0x2e
+ 440 0038 01       		.byte	0x1
+ 441 0039 3F       		.uleb128 0x3f
+ 442 003a 19       		.uleb128 0x19
+ 443 003b 03       		.uleb128 0x3
+ 444 003c 0E       		.uleb128 0xe
+ 445 003d 3A       		.uleb128 0x3a
+ 446 003e 0B       		.uleb128 0xb
+ 447 003f 3B       		.uleb128 0x3b
+ 448 0040 0B       		.uleb128 0xb
+ 449 0041 11       		.uleb128 0x11
+ 450 0042 01       		.uleb128 0x1
+ 451 0043 12       		.uleb128 0x12
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 10
+
+
+ 452 0044 06       		.uleb128 0x6
+ 453 0045 40       		.uleb128 0x40
+ 454 0046 18       		.uleb128 0x18
+ 455 0047 9742     		.uleb128 0x2117
+ 456 0049 19       		.uleb128 0x19
+ 457 004a 01       		.uleb128 0x1
+ 458 004b 13       		.uleb128 0x13
+ 459 004c 00       		.byte	0
+ 460 004d 00       		.byte	0
+ 461 004e 06       		.uleb128 0x6
+ 462 004f 898201   		.uleb128 0x4109
+ 463 0052 00       		.byte	0
+ 464 0053 11       		.uleb128 0x11
+ 465 0054 01       		.uleb128 0x1
+ 466 0055 31       		.uleb128 0x31
+ 467 0056 13       		.uleb128 0x13
+ 468 0057 00       		.byte	0
+ 469 0058 00       		.byte	0
+ 470 0059 07       		.uleb128 0x7
+ 471 005a 2E       		.uleb128 0x2e
+ 472 005b 01       		.byte	0x1
+ 473 005c 3F       		.uleb128 0x3f
+ 474 005d 19       		.uleb128 0x19
+ 475 005e 03       		.uleb128 0x3
+ 476 005f 0E       		.uleb128 0xe
+ 477 0060 3A       		.uleb128 0x3a
+ 478 0061 0B       		.uleb128 0xb
+ 479 0062 3B       		.uleb128 0x3b
+ 480 0063 0B       		.uleb128 0xb
+ 481 0064 27       		.uleb128 0x27
+ 482 0065 19       		.uleb128 0x19
+ 483 0066 11       		.uleb128 0x11
+ 484 0067 01       		.uleb128 0x1
+ 485 0068 12       		.uleb128 0x12
+ 486 0069 06       		.uleb128 0x6
+ 487 006a 40       		.uleb128 0x40
+ 488 006b 18       		.uleb128 0x18
+ 489 006c 9742     		.uleb128 0x2117
+ 490 006e 19       		.uleb128 0x19
+ 491 006f 01       		.uleb128 0x1
+ 492 0070 13       		.uleb128 0x13
+ 493 0071 00       		.byte	0
+ 494 0072 00       		.byte	0
+ 495 0073 08       		.uleb128 0x8
+ 496 0074 05       		.uleb128 0x5
+ 497 0075 00       		.byte	0
+ 498 0076 03       		.uleb128 0x3
+ 499 0077 0E       		.uleb128 0xe
+ 500 0078 3A       		.uleb128 0x3a
+ 501 0079 0B       		.uleb128 0xb
+ 502 007a 3B       		.uleb128 0x3b
+ 503 007b 0B       		.uleb128 0xb
+ 504 007c 49       		.uleb128 0x49
+ 505 007d 13       		.uleb128 0x13
+ 506 007e 02       		.uleb128 0x2
+ 507 007f 17       		.uleb128 0x17
+ 508 0080 00       		.byte	0
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 11
+
+
+ 509 0081 00       		.byte	0
+ 510 0082 09       		.uleb128 0x9
+ 511 0083 898201   		.uleb128 0x4109
+ 512 0086 01       		.byte	0x1
+ 513 0087 11       		.uleb128 0x11
+ 514 0088 01       		.uleb128 0x1
+ 515 0089 31       		.uleb128 0x31
+ 516 008a 13       		.uleb128 0x13
+ 517 008b 01       		.uleb128 0x1
+ 518 008c 13       		.uleb128 0x13
+ 519 008d 00       		.byte	0
+ 520 008e 00       		.byte	0
+ 521 008f 0A       		.uleb128 0xa
+ 522 0090 8A8201   		.uleb128 0x410a
+ 523 0093 00       		.byte	0
+ 524 0094 02       		.uleb128 0x2
+ 525 0095 18       		.uleb128 0x18
+ 526 0096 9142     		.uleb128 0x2111
+ 527 0098 18       		.uleb128 0x18
+ 528 0099 00       		.byte	0
+ 529 009a 00       		.byte	0
+ 530 009b 0B       		.uleb128 0xb
+ 531 009c 34       		.uleb128 0x34
+ 532 009d 00       		.byte	0
+ 533 009e 03       		.uleb128 0x3
+ 534 009f 0E       		.uleb128 0xe
+ 535 00a0 3A       		.uleb128 0x3a
+ 536 00a1 0B       		.uleb128 0xb
+ 537 00a2 3B       		.uleb128 0x3b
+ 538 00a3 05       		.uleb128 0x5
+ 539 00a4 49       		.uleb128 0x49
+ 540 00a5 13       		.uleb128 0x13
+ 541 00a6 3F       		.uleb128 0x3f
+ 542 00a7 19       		.uleb128 0x19
+ 543 00a8 3C       		.uleb128 0x3c
+ 544 00a9 19       		.uleb128 0x19
+ 545 00aa 00       		.byte	0
+ 546 00ab 00       		.byte	0
+ 547 00ac 0C       		.uleb128 0xc
+ 548 00ad 35       		.uleb128 0x35
+ 549 00ae 00       		.byte	0
+ 550 00af 49       		.uleb128 0x49
+ 551 00b0 13       		.uleb128 0x13
+ 552 00b1 00       		.byte	0
+ 553 00b2 00       		.byte	0
+ 554 00b3 0D       		.uleb128 0xd
+ 555 00b4 34       		.uleb128 0x34
+ 556 00b5 00       		.byte	0
+ 557 00b6 03       		.uleb128 0x3
+ 558 00b7 0E       		.uleb128 0xe
+ 559 00b8 3A       		.uleb128 0x3a
+ 560 00b9 0B       		.uleb128 0xb
+ 561 00ba 3B       		.uleb128 0x3b
+ 562 00bb 0B       		.uleb128 0xb
+ 563 00bc 49       		.uleb128 0x49
+ 564 00bd 13       		.uleb128 0x13
+ 565 00be 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 12
+
+
+ 566 00bf 19       		.uleb128 0x19
+ 567 00c0 02       		.uleb128 0x2
+ 568 00c1 18       		.uleb128 0x18
+ 569 00c2 00       		.byte	0
+ 570 00c3 00       		.byte	0
+ 571 00c4 0E       		.uleb128 0xe
+ 572 00c5 2E       		.uleb128 0x2e
+ 573 00c6 00       		.byte	0
+ 574 00c7 3F       		.uleb128 0x3f
+ 575 00c8 19       		.uleb128 0x19
+ 576 00c9 3C       		.uleb128 0x3c
+ 577 00ca 19       		.uleb128 0x19
+ 578 00cb 6E       		.uleb128 0x6e
+ 579 00cc 0E       		.uleb128 0xe
+ 580 00cd 03       		.uleb128 0x3
+ 581 00ce 0E       		.uleb128 0xe
+ 582 00cf 3A       		.uleb128 0x3a
+ 583 00d0 0B       		.uleb128 0xb
+ 584 00d1 3B       		.uleb128 0x3b
+ 585 00d2 0B       		.uleb128 0xb
+ 586 00d3 00       		.byte	0
+ 587 00d4 00       		.byte	0
+ 588 00d5 00       		.byte	0
+ 589              		.section	.debug_loc,"",%progbits
+ 590              	.Ldebug_loc0:
+ 591              	.LLST0:
+ 592 0000 00000000 		.4byte	.LVL4
+ 593 0004 1B000000 		.4byte	.LVL5-1
+ 594 0008 0100     		.2byte	0x1
+ 595 000a 50       		.byte	0x50
+ 596 000b 1B000000 		.4byte	.LVL5-1
+ 597 000f 30000000 		.4byte	.LVL9
+ 598 0013 0400     		.2byte	0x4
+ 599 0015 F3       		.byte	0xf3
+ 600 0016 01       		.uleb128 0x1
+ 601 0017 50       		.byte	0x50
+ 602 0018 9F       		.byte	0x9f
+ 603 0019 30000000 		.4byte	.LVL9
+ 604 001d 39000000 		.4byte	.LVL10-1
+ 605 0021 0100     		.2byte	0x1
+ 606 0023 50       		.byte	0x50
+ 607 0024 39000000 		.4byte	.LVL10-1
+ 608 0028 4E000000 		.4byte	.LVL14
+ 609 002c 0400     		.2byte	0x4
+ 610 002e F3       		.byte	0xf3
+ 611 002f 01       		.uleb128 0x1
+ 612 0030 50       		.byte	0x50
+ 613 0031 9F       		.byte	0x9f
+ 614 0032 4E000000 		.4byte	.LVL14
+ 615 0036 51000000 		.4byte	.LVL15-1
+ 616 003a 0100     		.2byte	0x1
+ 617 003c 50       		.byte	0x50
+ 618 003d 51000000 		.4byte	.LVL15-1
+ 619 0041 64000000 		.4byte	.LFE65
+ 620 0045 0400     		.2byte	0x4
+ 621 0047 F3       		.byte	0xf3
+ 622 0048 01       		.uleb128 0x1
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 13
+
+
+ 623 0049 50       		.byte	0x50
+ 624 004a 9F       		.byte	0x9f
+ 625 004b 00000000 		.4byte	0
+ 626 004f 00000000 		.4byte	0
+ 627              		.section	.debug_aranges,"",%progbits
+ 628 0000 24000000 		.4byte	0x24
+ 629 0004 0200     		.2byte	0x2
+ 630 0006 00000000 		.4byte	.Ldebug_info0
+ 631 000a 04       		.byte	0x4
+ 632 000b 00       		.byte	0
+ 633 000c 0000     		.2byte	0
+ 634 000e 0000     		.2byte	0
+ 635 0010 00000000 		.4byte	.LFB64
+ 636 0014 1C000000 		.4byte	.LFE64-.LFB64
+ 637 0018 00000000 		.4byte	.LFB65
+ 638 001c 64000000 		.4byte	.LFE65-.LFB65
+ 639 0020 00000000 		.4byte	0
+ 640 0024 00000000 		.4byte	0
+ 641              		.section	.debug_ranges,"",%progbits
+ 642              	.Ldebug_ranges0:
+ 643 0000 00000000 		.4byte	.LFB64
+ 644 0004 1C000000 		.4byte	.LFE64
+ 645 0008 00000000 		.4byte	.LFB65
+ 646 000c 64000000 		.4byte	.LFE65
+ 647 0010 00000000 		.4byte	0
+ 648 0014 00000000 		.4byte	0
+ 649              		.section	.debug_line,"",%progbits
+ 650              	.Ldebug_line0:
+ 651 0000 A8010000 		.section	.debug_str,"MS",%progbits,1
+ 651      02007201 
+ 651      00000201 
+ 651      FB0E0D00 
+ 651      01010101 
+ 652              	.LASF7:
+ 653 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 653      6E74385F 
+ 653      7400
+ 654              	.LASF21:
+ 655 000a 50696E5F 		.ascii	"Pin_2_Read\000"
+ 655      325F5265 
+ 655      616400
+ 656              	.LASF28:
+ 657 0015 433A5C55 		.ascii	"C:\\Users\\Lucas\\Documents\\PSoC Creator\\SPI_Slav"
+ 657      73657273 
+ 657      5C4C7563 
+ 657      61735C44 
+ 657      6F63756D 
+ 658 0043 655C5350 		.ascii	"e\\SPI_Slave.cydsn\000"
+ 658      495F536C 
+ 658      6176652E 
+ 658      63796473 
+ 658      6E00
+ 659              	.LASF8:
+ 660 0055 5F5F696E 		.ascii	"__int32_t\000"
+ 660      7433325F 
+ 660      7400
+ 661              	.LASF19:
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 14
+
+
+ 662 005f 73746174 		.ascii	"status\000"
+ 662      757300
+ 663              	.LASF27:
+ 664 0066 5350495F 		.ascii	"SPI_Slave.c\000"
+ 664      536C6176 
+ 664      652E6300 
+ 665              	.LASF16:
+ 666 0072 666C6F61 		.ascii	"float\000"
+ 666      7400
+ 667              	.LASF4:
+ 668 0078 756E7369 		.ascii	"unsigned char\000"
+ 668      676E6564 
+ 668      20636861 
+ 668      7200
+ 669              	.LASF26:
+ 670 0086 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 670      43313120 
+ 670      352E342E 
+ 670      31203230 
+ 670      31363036 
+ 671 00b9 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 671      20726576 
+ 671      6973696F 
+ 671      6E203233 
+ 671      37373135 
+ 672 00ec 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 672      66756E63 
+ 672      74696F6E 
+ 672      2D736563 
+ 672      74696F6E 
+ 673              	.LASF10:
+ 674 0114 6C6F6E67 		.ascii	"long unsigned int\000"
+ 674      20756E73 
+ 674      69676E65 
+ 674      6420696E 
+ 674      7400
+ 675              	.LASF6:
+ 676 0126 73686F72 		.ascii	"short unsigned int\000"
+ 676      7420756E 
+ 676      7369676E 
+ 676      65642069 
+ 676      6E7400
+ 677              	.LASF18:
+ 678 0139 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 678      52784275 
+ 678      66666572 
+ 678      00
+ 679              	.LASF25:
+ 680 0146 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 680      5F315F57 
+ 680      72697465 
+ 680      54784461 
+ 680      746100
+ 681              	.LASF17:
+ 682 0159 646F7562 		.ascii	"double\000"
+ 682      6C6500
+ 683              	.LASF0:
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 15
+
+
+ 684 0160 756E7369 		.ascii	"unsigned int\000"
+ 684      676E6564 
+ 684      20696E74 
+ 684      00
+ 685              	.LASF11:
+ 686 016d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 686      206C6F6E 
+ 686      6720756E 
+ 686      7369676E 
+ 686      65642069 
+ 687              	.LASF14:
+ 688 0184 75696E74 		.ascii	"uint8_t\000"
+ 688      385F7400 
+ 689              	.LASF15:
+ 690 018c 696E7433 		.ascii	"int32_t\000"
+ 690      325F7400 
+ 691              	.LASF12:
+ 692 0194 73697A65 		.ascii	"sizetype\000"
+ 692      74797065 
+ 692      00
+ 693              	.LASF23:
+ 694 019d 50696E5F 		.ascii	"Pin_1_Read\000"
+ 694      315F5265 
+ 694      616400
+ 695              	.LASF1:
+ 696 01a8 6C6F6E67 		.ascii	"long long int\000"
+ 696      206C6F6E 
+ 696      6720696E 
+ 696      7400
+ 697              	.LASF13:
+ 698 01b6 63686172 		.ascii	"char\000"
+ 698      00
+ 699              	.LASF30:
+ 700 01bb 53504953 		.ascii	"SPIS_handleByteReceived\000"
+ 700      5F68616E 
+ 700      646C6542 
+ 700      79746552 
+ 700      65636569 
+ 701              	.LASF20:
+ 702 01d3 74785F62 		.ascii	"tx_buf\000"
+ 702      756600
+ 703              	.LASF5:
+ 704 01da 73686F72 		.ascii	"short int\000"
+ 704      7420696E 
+ 704      7400
+ 705              	.LASF29:
+ 706 01e4 62757474 		.ascii	"buttonState\000"
+ 706      6F6E5374 
+ 706      61746500 
+ 707              	.LASF9:
+ 708 01f0 6C6F6E67 		.ascii	"long int\000"
+ 708      20696E74 
+ 708      00
+ 709              	.LASF2:
+ 710 01f9 6C6F6E67 		.ascii	"long double\000"
+ 710      20646F75 
+ 710      626C6500 
+ARM GAS  C:\Users\Lucas\AppData\Local\Temp\cc45u6Q2.s 			page 16
+
+
+ 711              	.LASF3:
+ 712 0205 7369676E 		.ascii	"signed char\000"
+ 712      65642063 
+ 712      68617200 
+ 713              	.LASF24:
+ 714 0211 50696E5F 		.ascii	"Pin_1_Write\000"
+ 714      315F5772 
+ 714      69746500 
+ 715              	.LASF22:
+ 716 021d 53504953 		.ascii	"SPIS_1_WriteTxData\000"
+ 716      5F315F57 
+ 716      72697465 
+ 716      54784461 
+ 716      746100
+ 717              	.LASF31:
+ 718 0230 62797465 		.ascii	"byteReceived\000"
+ 718      52656365 
+ 718      69766564 
+ 718      00
+ 719              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
