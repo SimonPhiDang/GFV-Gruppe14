@@ -1040,25 +1040,25 @@ END GROUP
  .debug_abbrev  0x000012ce      0x1a7 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyFlash.o)
  .debug_abbrev  0x00001475      0x194 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CySpc.o)
 
-.debug_line     0x00000000     0x24fc
+.debug_line     0x00000000     0x24fa
  *(.debug_line)
- .debug_line    0x00000000      0x1eb .\CortexM3\ARM_GCC_541\Debug\main.o
- .debug_line    0x000001eb      0x170 .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
- .debug_line    0x0000035b      0x16f .\CortexM3\ARM_GCC_541\Debug\SPI_handler.o
- .debug_line    0x000004ca      0x1f5 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_line    0x000006bf      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_line    0x00000800      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_line    0x00000a34      0x2c0 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(UART_1.o)
- .debug_line    0x00000cf4      0x247 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(SPIM_1.o)
- .debug_line    0x00000f3b      0x17e .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(UART_1_IntClock.o)
- .debug_line    0x000010b9      0x17e .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(SPIM_1_IntClock.o)
- .debug_line    0x00001237      0x816 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyLib.o)
- .debug_line    0x00001a4d      0x367 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(cyPm.o)
- .debug_line    0x00001db4      0x134 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(isruart.o)
- .debug_line    0x00001ee8      0x134 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(isrspim.o)
- .debug_line    0x0000201c       0x66 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyBootAsmGnu.o)
- .debug_line    0x00002082      0x21a .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyFlash.o)
- .debug_line    0x0000229c      0x260 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CySpc.o)
+ .debug_line    0x00000000      0x1e9 .\CortexM3\ARM_GCC_541\Debug\main.o
+ .debug_line    0x000001e9      0x170 .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
+ .debug_line    0x00000359      0x16f .\CortexM3\ARM_GCC_541\Debug\SPI_handler.o
+ .debug_line    0x000004c8      0x1f5 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x000006bd      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x000007fe      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_line    0x00000a32      0x2c0 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(UART_1.o)
+ .debug_line    0x00000cf2      0x247 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(SPIM_1.o)
+ .debug_line    0x00000f39      0x17e .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(UART_1_IntClock.o)
+ .debug_line    0x000010b7      0x17e .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(SPIM_1_IntClock.o)
+ .debug_line    0x00001235      0x816 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyLib.o)
+ .debug_line    0x00001a4b      0x367 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(cyPm.o)
+ .debug_line    0x00001db2      0x134 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(isruart.o)
+ .debug_line    0x00001ee6      0x134 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(isrspim.o)
+ .debug_line    0x0000201a       0x66 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyBootAsmGnu.o)
+ .debug_line    0x00002080      0x21a .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CyFlash.o)
+ .debug_line    0x0000229a      0x260 .\CortexM3\ARM_GCC_541\Debug\Lab_SPI.a(CySpc.o)
 
 .debug_frame    0x00000000     0x175c
  *(.debug_frame)

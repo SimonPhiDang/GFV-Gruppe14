@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 1
 
 
    1              		.syntax unified
@@ -58,24 +58,19 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
   28:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
   29:main.c        ****     UART_1_Start();
   30:main.c        ****     SPIM_1_Start();
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 2
 
 
   31:main.c        ****     
   32:main.c        ****     SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
   33:main.c        ****     
-  34:main.c        ****    
-  35:main.c        ****     for(;;)
-  36:main.c        ****     {
-  37:main.c        ****         
-  38:main.c        ****         /* Place your application code here. */
-  39:main.c        ****         
-  40:main.c        ****     }
-  41:main.c        **** }
-  42:main.c        **** 
-  43:main.c        **** CY_ISR(ISR_UART_rx_handler) // UART fra master til SPI SLAVE
-  44:main.c        **** {
-  28              		.loc 1 44 0
+  34:main.c        ****     for(;;)
+  35:main.c        ****     {}
+  36:main.c        **** }
+  37:main.c        **** 
+  38:main.c        **** CY_ISR(ISR_UART_rx_handler) // UART fra master til SPI SLAVE
+  39:main.c        **** {
+  28              		.loc 1 39 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -85,59 +80,58 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
   35              		.cfi_offset 4, -12
   36              		.cfi_offset 5, -8
   37              		.cfi_offset 14, -4
-  45:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize(); // Aflæs bytes fra UART Master
-  38              		.loc 1 45 0
+  40:main.c        ****     uint8_t bytesToRead = UART_1_GetRxBufferSize(); // Aflæs bytes fra UART Master
+  38              		.loc 1 40 0
   39 0002 FFF7FEFF 		bl	UART_1_GetRxBufferSize
   40              	.LVL0:
   41 0006 0446     		mov	r4, r0
   42              	.LVL1:
-  46:main.c        ****     while (bytesToRead > 0)
-  43              		.loc 1 46 0
+  41:main.c        ****     while (bytesToRead > 0)
+  43              		.loc 1 41 0
   44 0008 0CE0     		b	.L2
   45              	.L3:
   46              	.LBB2:
-  47:main.c        ****     {
-  48:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
-  47              		.loc 1 48 0
+  42:main.c        ****     {
+  43:main.c        ****         uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
+  47              		.loc 1 43 0
   48 000a FFF7FEFF 		bl	UART_1_ReadRxData
   49              	.LVL2:
   50 000e 0546     		mov	r5, r0
   51              	.LVL3:
-  49:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
-  52              		.loc 1 49 0
+  44:main.c        ****         UART_1_WriteTxData(byteReceived); // echo back
+  52              		.loc 1 44 0
   53 0010 FFF7FEFF 		bl	UART_1_WriteTxData
   54              	.LVL4:
-  50:main.c        ****         handleByteReceived(byteReceived);   // LED ON eller OFF på UART     
-  55              		.loc 1 50 0
+  45:main.c        ****         handleByteReceived(byteReceived);   // LED ON eller OFF på UART     
+  55              		.loc 1 45 0
   56 0014 2846     		mov	r0, r5
   57 0016 FFF7FEFF 		bl	handleByteReceived
   58              	.LVL5:
-  51:main.c        ****         
-  52:main.c        ****         SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
-  59              		.loc 1 52 0
+  46:main.c        ****         
+  47:main.c        ****         SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
+  59              		.loc 1 47 0
   60 001a 2846     		mov	r0, r5
   61 001c FFF7FEFF 		bl	SPIM_1_WriteTxData
   62              	.LVL6:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 3
-
-
-  53:main.c        ****             
-  54:main.c        ****     
-  55:main.c        ****         bytesToRead--;
-  63              		.loc 1 55 0
+  48:main.c        ****             
+  49:main.c        ****         bytesToRead--;
+  63              		.loc 1 49 0
   64 0020 013C     		subs	r4, r4, #1
   65              	.LVL7:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 3
+
+
   66 0022 E4B2     		uxtb	r4, r4
   67              	.LVL8:
   68              	.L2:
   69              	.LBE2:
-  46:main.c        ****     {
-  70              		.loc 1 46 0
+  41:main.c        ****     {
+  70              		.loc 1 41 0
   71 0024 002C     		cmp	r4, #0
   72 0026 F0D1     		bne	.L3
-  56:main.c        ****     }
-  57:main.c        **** }
-  73              		.loc 1 57 0
+  50:main.c        ****     }
+  51:main.c        **** }
+  73              		.loc 1 51 0
   74 0028 38BD     		pop	{r3, r4, r5, pc}
   75              		.cfi_endproc
   76              	.LFE65:
@@ -150,9 +144,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
   83              		.type	SPI_rx_handler, %function
   84              	SPI_rx_handler:
   85              	.LFB66:
-  58:main.c        **** CY_ISR(SPI_rx_handler) // SPIM modtager fra SPIS status på switch
-  59:main.c        **** {
-  86              		.loc 1 59 0
+  52:main.c        **** CY_ISR(SPI_rx_handler) // SPIM modtager fra SPIS status på switch
+  53:main.c        **** {
+  86              		.loc 1 53 0
   87              		.cfi_startproc
   88              		@ args = 0, pretend = 0, frame = 0
   89              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -160,49 +154,45 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
   91              		.cfi_def_cfa_offset 8
   92              		.cfi_offset 4, -8
   93              		.cfi_offset 14, -4
-  60:main.c        ****     uint8_t bytesToRead = SPIM_1_GetRxBufferSize();
-  94              		.loc 1 60 0
+  54:main.c        ****     uint8_t bytesToRead = SPIM_1_GetRxBufferSize();
+  94              		.loc 1 54 0
   95 0002 FFF7FEFF 		bl	SPIM_1_GetRxBufferSize
   96              	.LVL9:
   97 0006 0446     		mov	r4, r0
   98              	.LVL10:
-  61:main.c        ****     while(bytesToRead > 0)
-  99              		.loc 1 61 0
+  55:main.c        ****     while(bytesToRead > 0)
+  99              		.loc 1 55 0
  100 0008 05E0     		b	.L6
  101              	.L7:
  102              	.LBB3:
-  62:main.c        ****     {
-  63:main.c        ****         uint8_t swStatus = SPIM_1_ReadRxData();  // Få byte fra FIFO rx buffer
- 103              		.loc 1 63 0
+  56:main.c        ****     {
+  57:main.c        ****         uint8_t swStatus = SPIM_1_ReadRxData();  // Få byte fra FIFO rx buffer
+ 103              		.loc 1 57 0
  104 000a FFF7FEFF 		bl	SPIM_1_ReadRxData
  105              	.LVL11:
-  64:main.c        ****         SPIM_handleByteReceived(swStatus); 
- 106              		.loc 1 64 0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 4
-
-
+  58:main.c        ****         SPIM_handleByteReceived(swStatus); 
+ 106              		.loc 1 58 0
  107 000e FFF7FEFF 		bl	SPIM_handleByteReceived
  108              	.LVL12:
-  65:main.c        ****         bytesToRead--;
- 109              		.loc 1 65 0
+  59:main.c        ****         bytesToRead--;
+ 109              		.loc 1 59 0
  110 0012 013C     		subs	r4, r4, #1
  111              	.LVL13:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 4
+
+
  112 0014 E4B2     		uxtb	r4, r4
  113              	.LVL14:
  114              	.L6:
  115              	.LBE3:
-  61:main.c        ****     {
- 116              		.loc 1 61 0
+  55:main.c        ****     {
+ 116              		.loc 1 55 0
  117 0016 002C     		cmp	r4, #0
  118 0018 F7D1     		bne	.L7
-  66:main.c        ****     }
-  67:main.c        **** //    uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
-  68:main.c        **** //    UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART    
-  69:main.c        **** 
-  70:main.c        ****  // Ud fra status udskriv til UART ved hjælp af handler
-  71:main.c        **** 
-  72:main.c        **** }
- 119              		.loc 1 72 0
+  60:main.c        ****     }
+  61:main.c        **** 
+  62:main.c        **** }
+ 119              		.loc 1 62 0
  120 001a 10BD     		pop	{r4, pc}
  121              		.cfi_endproc
  122              	.LFE66:
@@ -238,9 +228,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  149 0004 0648     		ldr	r0, .L12
  150 0006 FFF7FEFF 		bl	isruart_StartEx
  151              	.LVL15:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 5
-
-
   27:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
  152              		.loc 1 27 0
  153 000a 0648     		ldr	r0, .L12+4
@@ -251,6 +238,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  157 0010 FFF7FEFF 		bl	UART_1_Start
  158              	.LVL17:
   30:main.c        ****     
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 5
+
+
  159              		.loc 1 30 0
  160 0014 FFF7FEFF 		bl	SPIM_1_Start
  161              	.LVL18:
@@ -298,9 +288,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  202 0027 06       		.byte	0x6
  203 0028 DB020000 		.4byte	.LASF0
  204 002c 03       		.uleb128 0x3
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 6
-
-
  205 002d 0D000000 		.4byte	.LASF4
  206 0031 02       		.byte	0x2
  207 0032 1D       		.byte	0x1d
@@ -311,6 +298,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  212 003a 73000000 		.4byte	.LASF1
  213 003e 02       		.uleb128 0x2
  214 003f 02       		.byte	0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 6
+
+
  215 0040 05       		.byte	0x5
  216 0041 98020000 		.4byte	.LASF2
  217 0045 02       		.uleb128 0x2
@@ -358,9 +348,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  259 0093 4C000000 		.4byte	0x4c
  260 0097 02       		.uleb128 0x2
  261 0098 04       		.byte	0x4
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 7
-
-
  262 0099 04       		.byte	0x4
  263 009a 6D000000 		.4byte	.LASF13
  264 009e 02       		.uleb128 0x2
@@ -371,6 +358,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  269 00a6 01       		.byte	0x1
  270 00a7 08       		.byte	0x8
  271 00a8 81020000 		.4byte	.LASF15
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 7
+
+
  272 00ac 02       		.uleb128 0x2
  273 00ad 08       		.byte	0x8
  274 00ae 04       		.byte	0x4
@@ -382,7 +372,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  280 00ba 05       		.uleb128 0x5
  281 00bb 27010000 		.4byte	.LASF20
  282 00bf 01       		.byte	0x1
- 283 00c0 2B       		.byte	0x2b
+ 283 00c0 26       		.byte	0x26
  284 00c1 00000000 		.4byte	.LFB65
  285 00c5 2A000000 		.4byte	.LFE65-.LFB65
  286 00c9 01       		.uleb128 0x1
@@ -391,7 +381,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  289 00cf 06       		.uleb128 0x6
  290 00d0 41000000 		.4byte	.LASF18
  291 00d4 01       		.byte	0x1
- 292 00d5 2D       		.byte	0x2d
+ 292 00d5 28       		.byte	0x28
  293 00d6 81000000 		.4byte	0x81
  294 00da 00000000 		.4byte	.LLST0
  295 00de 07       		.uleb128 0x7
@@ -401,7 +391,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  299 00eb 06       		.uleb128 0x6
  300 00ec FA020000 		.4byte	.LASF19
  301 00f0 01       		.byte	0x1
- 302 00f1 30       		.byte	0x30
+ 302 00f1 2B       		.byte	0x2b
  303 00f2 81000000 		.4byte	0x81
  304 00f6 1E000000 		.4byte	.LLST1
  305 00fa 08       		.uleb128 0x8
@@ -418,9 +408,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  316 0114 75       		.byte	0x75
  317 0115 00       		.sleb128 0
  318 0116 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 8
-
-
  319 0117 09       		.uleb128 0x9
  320 0118 1A000000 		.4byte	.LVL5
  321 011c 2D020000 		.4byte	0x22d
@@ -431,6 +418,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  326 0127 02       		.uleb128 0x2
  327 0128 75       		.byte	0x75
  328 0129 00       		.sleb128 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 8
+
+
  329 012a 00       		.byte	0
  330 012b 0B       		.uleb128 0xb
  331 012c 20000000 		.4byte	.LVL6
@@ -450,7 +440,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  345 0146 05       		.uleb128 0x5
  346 0147 B7020000 		.4byte	.LASF21
  347 014b 01       		.byte	0x1
- 348 014c 3A       		.byte	0x3a
+ 348 014c 34       		.byte	0x34
  349 014d 00000000 		.4byte	.LFB66
  350 0151 1C000000 		.4byte	.LFE66-.LFB66
  351 0155 01       		.uleb128 0x1
@@ -459,7 +449,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  354 015b 06       		.uleb128 0x6
  355 015c 41000000 		.4byte	.LASF18
  356 0160 01       		.byte	0x1
- 357 0161 3C       		.byte	0x3c
+ 357 0161 36       		.byte	0x36
  358 0162 81000000 		.4byte	0x81
  359 0166 31000000 		.4byte	.LLST2
  360 016a 07       		.uleb128 0x7
@@ -469,7 +459,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  364 0177 06       		.uleb128 0x6
  365 0178 4D000000 		.4byte	.LASF22
  366 017c 01       		.byte	0x1
- 367 017d 3F       		.byte	0x3f
+ 367 017d 39       		.byte	0x39
  368 017e 81000000 		.4byte	0x81
  369 0182 4F000000 		.4byte	.LLST3
  370 0186 08       		.uleb128 0x8
@@ -478,9 +468,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  373 018f 08       		.uleb128 0x8
  374 0190 12000000 		.4byte	.LVL12
  375 0194 59020000 		.4byte	0x259
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 9
-
-
  376 0198 00       		.byte	0
  377 0199 08       		.uleb128 0x8
  378 019a 06000000 		.4byte	.LVL9
@@ -491,6 +478,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  383 01a8 01       		.byte	0x1
  384 01a9 17       		.byte	0x17
  385 01aa 73000000 		.4byte	0x73
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 9
+
+
  386 01ae 00000000 		.4byte	.LFB64
  387 01b2 28000000 		.4byte	.LFE64-.LFB64
  388 01b6 01       		.uleb128 0x1
@@ -538,9 +528,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  430 0217 0F       		.uleb128 0xf
  431 0218 4D010000 		.4byte	.LASF23
  432 021c 4D010000 		.4byte	.LASF23
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 10
-
-
  433 0220 04       		.byte	0x4
  434 0221 6F       		.byte	0x6f
  435 0222 0F       		.uleb128 0xf
@@ -551,6 +538,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  440 022d 0F       		.uleb128 0xf
  441 022e 5F010000 		.4byte	.LASF25
  442 0232 5F010000 		.4byte	.LASF25
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 10
+
+
  443 0236 05       		.byte	0x5
  444 0237 10       		.byte	0x10
  445 0238 0F       		.uleb128 0xf
@@ -598,9 +588,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  487 0295 17000000 		.4byte	.LASF34
  488 0299 06       		.byte	0x6
  489 029a 4D       		.byte	0x4d
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 11
-
-
  490 029b 0F       		.uleb128 0xf
  491 029c A2020000 		.4byte	.LASF35
  492 02a0 A2020000 		.4byte	.LASF35
@@ -611,6 +598,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  497              	.Ldebug_abbrev0:
  498 0000 01       		.uleb128 0x1
  499 0001 11       		.uleb128 0x11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 11
+
+
  500 0002 01       		.byte	0x1
  501 0003 25       		.uleb128 0x25
  502 0004 0E       		.uleb128 0xe
@@ -658,9 +648,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  544 002e 0B       		.uleb128 0xb
  545 002f 0B       		.uleb128 0xb
  546 0030 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 12
-
-
  547 0031 0B       		.uleb128 0xb
  548 0032 03       		.uleb128 0x3
  549 0033 08       		.uleb128 0x8
@@ -671,6 +658,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  554 0038 01       		.byte	0x1
  555 0039 3F       		.uleb128 0x3f
  556 003a 19       		.uleb128 0x19
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 12
+
+
  557 003b 03       		.uleb128 0x3
  558 003c 0E       		.uleb128 0xe
  559 003d 3A       		.uleb128 0x3a
@@ -718,9 +708,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  601 0068 00       		.byte	0
  602 0069 00       		.byte	0
  603 006a 08       		.uleb128 0x8
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 13
-
-
  604 006b 898201   		.uleb128 0x4109
  605 006e 00       		.byte	0
  606 006f 11       		.uleb128 0x11
@@ -731,6 +718,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  611 0074 00       		.byte	0
  612 0075 09       		.uleb128 0x9
  613 0076 898201   		.uleb128 0x4109
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 13
+
+
  614 0079 01       		.byte	0x1
  615 007a 11       		.uleb128 0x11
  616 007b 01       		.uleb128 0x1
@@ -778,9 +768,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  658 00ab 11       		.uleb128 0x11
  659 00ac 01       		.uleb128 0x1
  660 00ad 12       		.uleb128 0x12
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 14
-
-
  661 00ae 06       		.uleb128 0x6
  662 00af 40       		.uleb128 0x40
  663 00b0 18       		.uleb128 0x18
@@ -791,6 +778,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  668 00b6 00       		.byte	0
  669 00b7 00       		.byte	0
  670 00b8 0D       		.uleb128 0xd
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 14
+
+
  671 00b9 34       		.uleb128 0x34
  672 00ba 00       		.byte	0
  673 00bb 03       		.uleb128 0x3
@@ -838,9 +828,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  715 0000 08000000 		.4byte	.LVL1
  716 0004 22000000 		.4byte	.LVL7
  717 0008 0100     		.2byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 15
-
-
  718 000a 54       		.byte	0x54
  719 000b 24000000 		.4byte	.LVL8
  720 000f 2A000000 		.4byte	.LFE65
@@ -851,6 +838,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  725              	.LLST1:
  726 001e 10000000 		.4byte	.LVL3
  727 0022 24000000 		.4byte	.LVL8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 15
+
+
  728 0026 0100     		.2byte	0x1
  729 0028 55       		.byte	0x55
  730 0029 00000000 		.4byte	0
@@ -898,19 +888,19 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  772 0010 00000000 		.4byte	.LFB64
  773 0014 28000000 		.4byte	.LFE64
  774 0018 00000000 		.4byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 16
-
-
  775 001c 00000000 		.4byte	0
  776              		.section	.debug_line,"",%progbits
  777              	.Ldebug_line0:
- 778 0000 E7010000 		.section	.debug_str,"MS",%progbits,1
+ 778 0000 E5010000 		.section	.debug_str,"MS",%progbits,1
  778      02009801 
  778      00000201 
  778      FB0E0D00 
  778      01010101 
  779              	.LASF33:
  780 0000 55415254 		.ascii	"UART_1_Start\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 16
+
+
  780      5F315F53 
  780      74617274 
  780      00
@@ -958,9 +948,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  799              	.LASF36:
  800 0081 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
  800      43313120 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 17
-
-
  800      352E342E 
  800      31203230 
  800      31363036 
@@ -971,6 +958,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  801      37373135 
  802 00e7 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
  802      66756E63 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 17
+
+
  802      74696F6E 
  802      2D736563 
  802      74696F6E 
@@ -1018,9 +1008,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  818 018f 55415254 		.ascii	"UART_1_WriteTxData\000"
  818      5F315F57 
  818      72697465 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 18
-
-
  818      54784461 
  818      746100
  819              	.LASF14:
@@ -1031,6 +1018,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  822      70696D5F 
  822      53746172 
  822      74457800 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 18
+
+
  823              	.LASF39:
  824 01b9 6D61696E 		.ascii	"main\000"
  824      00
@@ -1078,9 +1068,6 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  841      6720696E 
  841      7400
  842              	.LASF37:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 19
-
-
  843 027a 6D61696E 		.ascii	"main.c\000"
  843      2E6300
  844              	.LASF15:
@@ -1091,6 +1078,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc73PJI4.s 			page 1
  847      5F315F52 
  847      65616452 
  847      78446174 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccBRaAQb.s 			page 19
+
+
  847      6100
  848              	.LASF2:
  849 0298 73686F72 		.ascii	"short int\000"
