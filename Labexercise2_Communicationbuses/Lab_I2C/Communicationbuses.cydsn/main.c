@@ -15,20 +15,18 @@
 #include <I2C_handler.h>
 
 
-
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
-    UART_1_Start();
-    I2C_1_Start();
-    /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-    
+    UART_1_Start();  // Start af UART
+    I2C_1_Start();  // Start af I2C
+
     UART_1_PutString("Start program \n");
+    
     readTemp();
+    
     for(;;)
-    {   
-        
-    }
+    {   }
 }
 
 /* [] END OF FILE */
