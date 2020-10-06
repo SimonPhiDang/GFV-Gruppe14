@@ -76,6 +76,18 @@
 <v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\UART_1_IntClock</v>
 <v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cycodeshareexport.ld</v>
 <v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cycodeshareimport.ld</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cycodeshareimport.scat</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevice.h</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevice_trm.h</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevicegnu.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevicegnu_trm.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydeviceiar.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydeviceiar_trm.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevicerv.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydevicerv_trm.inc</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cydisabledsheets.h</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cyfitter.h</v>
+<v>Lab_SPI\Lab_SPI\Generated_Source\PSoC5\cyfitter_cfg.c</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -172,6 +184,10 @@
 <v>Lab_SPI\Lab_SPI\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_handler.lst</v>
 <v>Lab_SPI\Lab_SPI\CortexM3\ARM_GCC_541\Debug\Lab_SPI.elf</v>
 <v>Lab_SPI\Lab_SPI\CortexM3\ARM_GCC_541\Debug\Lab_SPI.hex</v>
+<v>Lab_SPI\Lab_SPI\CortexM3\ARM_GCC_541\Debug\Lab_SPI.map</v>
+<v>Lab_SPI\Lab_SPI\Lab_SPI.gpdsc</v>
+<v>Lab_SPI\Lab_SPI\Lab_SPI.rpt</v>
+<v>Lab_SPI\Lab_SPI\Lab_SPI_timing.html</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -186,7 +202,6 @@
 <v>Lab_SPI\Lab_SPI\PSoC 5LP Architecture TRM</v>
 <v>Lab_SPI\Lab_SPI\CY8C58LP Family Datasheet</v>
 <v>Lab_SPI\Lab_SPI\System Reference Guides</v>
-<v>Lab_SPI\Lab_SPI\System Reference Guides\cy_boot_v6_0</v>
 <v>Lab_SPI\Lab_SPI\cy_isr_v1_70</v>
 <v>Lab_SPI\Lab_SPI\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
 <v>Lab_SPI\Lab_SPI\cy_pins_v2_20</v>
@@ -200,7 +215,6 @@
 <v>Lab_SPI\Lab_SPI\PSoC 5LP Architecture TRM</v>
 <v>Lab_SPI\Lab_SPI\CY8C58LP Family Datasheet</v>
 <v>Lab_SPI\Lab_SPI\System Reference Guides</v>
-<v>Lab_SPI\Lab_SPI\System Reference Guides\cy_boot_v6_0</v>
 <v>Lab_SPI\Lab_SPI\cy_isr_v1_70</v>
 <v>Lab_SPI\Lab_SPI\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
 <v>Lab_SPI\Lab_SPI\cy_pins_v2_20</v>
@@ -236,7 +250,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1332, 495" SelectedTabbedMdiWindow="30b32293-158b-490d-938e-ac4972c08823"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\TopDesign\TopDesign.cysch" Guid="e0770247-0a7f-46bc-95ac-1e3de828bd37" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\Lab_SPI.cydwr" Guid="30b32293-158b-490d-938e-ac4972c08823" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\UART_handler.h" Guid="9703da05-baaa-41ed-9e9c-424145d68c83" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\UART_handler.c" Guid="58f512e3-bf0e-4abd-8db9-335fcc39e1ae" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\main.c" Guid="5498ea75-4c39-47a8-b3c1-7b59380cf9c2" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\cyapicallbacks.h" Guid="1d7b2e76-69bd-4096-9b5a-accdc8e77a58" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\SPI_handler.h" Guid="482ba479-28cb-4c66-b2d7-de70de1c5b30" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\SPI_handler.c" Guid="acc9523f-0028-4468-8155-65726723531a" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1439, 711" SelectedTabbedMdiWindow="58f512e3-bf0e-4abd-8db9-335fcc39e1ae"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\TopDesign\TopDesign.cysch" Guid="e0770247-0a7f-46bc-95ac-1e3de828bd37" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\Lab_SPI.cydwr" Guid="30b32293-158b-490d-938e-ac4972c08823" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\UART_handler.h" Guid="9703da05-baaa-41ed-9e9c-424145d68c83" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\UART_handler.c" Guid="58f512e3-bf0e-4abd-8db9-335fcc39e1ae" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\main.c" Guid="5498ea75-4c39-47a8-b3c1-7b59380cf9c2" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\cyapicallbacks.h" Guid="1d7b2e76-69bd-4096-9b5a-accdc8e77a58" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\SPI_handler.h" Guid="482ba479-28cb-4c66-b2d7-de70de1c5b30" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn\SPI_handler.c" Guid="acc9523f-0028-4468-8155-65726723531a" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
