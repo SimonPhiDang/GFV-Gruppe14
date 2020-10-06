@@ -18,14 +18,13 @@ void SPIM_handleByteReceived(uint8_t byteReceived)
     {
         case 1 :
         {
-            UART_1_PutString("Button state Idle \r\n");
+            UART_1_PutString("Button state Idle \r\n"); // Print på UART hvis der ikke trykkes på switch
         }
         break;
         case 0 :
         {
-            UART_1_PutString("Button state Pressed \r\n");
+            UART_1_PutString("Button state Pressed \r\n"); // Print på UART hvis der trykkes på switch
         }
-
         break;
         default :
         {}
@@ -33,5 +32,4 @@ void SPIM_handleByteReceived(uint8_t byteReceived)
     }
     
 }
-
 /* [] END OF FILE */

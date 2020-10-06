@@ -37,10 +37,8 @@
       <Folder BuildType="STRICT" Path="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn">
         <Files Root="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI\Lab_SPI.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
-          <File BuildType="BUILD" Toolchain="">UART_handler.c</File>
           <File BuildType="BUILD" Toolchain="">SPI_handler.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
-          <File BuildType="BUILD" Toolchain="">UART_handler.h</File>
           <File BuildType="BUILD" Toolchain="">SPI_handler.h</File>
         </Files>
       </Folder>

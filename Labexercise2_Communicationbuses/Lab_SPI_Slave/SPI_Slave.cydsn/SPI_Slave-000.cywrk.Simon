@@ -18,7 +18,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="SPI_Slave-000\SPI_Slave\Source Files\main.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="SPI_Slave-000\SPI_Slave\Source Files\SPI_Slave.c">
 <ExpandedNodeIds>
 <v>SPI_Slave-000</v>
 <v>SPI_Slave-000\SPI_Slave</v>
@@ -36,11 +36,9 @@
 <v>SPI_Slave-000\SPI_Slave\Header Files</v>
 <v>SPI_Slave-000\SPI_Slave\Header Files\cyapicallbacks.h</v>
 <v>SPI_Slave-000\SPI_Slave\Header Files\SPI_Slave.h</v>
-<v>SPI_Slave-000\SPI_Slave\Header Files\UART_handler.h</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files\main.c</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files\SPI_Slave.c</v>
-<v>SPI_Slave-000\SPI_Slave\Source Files\UART_handler.c</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5</v>
 </ExpandedNodeIds>
@@ -61,11 +59,9 @@
 <v>SPI_Slave-000\SPI_Slave\Header Files</v>
 <v>SPI_Slave-000\SPI_Slave\Header Files\cyapicallbacks.h</v>
 <v>SPI_Slave-000\SPI_Slave\Header Files\SPI_Slave.h</v>
-<v>SPI_Slave-000\SPI_Slave\Header Files\UART_handler.h</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files\main.c</v>
 <v>SPI_Slave-000\SPI_Slave\Source Files\SPI_Slave.c</v>
-<v>SPI_Slave-000\SPI_Slave\Source Files\UART_handler.c</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\cy_boot</v>
@@ -81,6 +77,8 @@
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\SPIS_1_IntClock</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\UART_1</v>
 <v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\UART_1_IntClock</v>
+<v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\cycodeshareexport.ld</v>
+<v>SPI_Slave-000\SPI_Slave\Generated_Source\PSoC5\cycodeshareimport.ld</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -135,7 +133,6 @@
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_INT.lst</v>
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_IntClock.lst</v>
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_PM.lst</v>
-<v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_handler.lst</v>
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\SPI_Slave.elf</v>
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\SPI_Slave.hex</v>
 <v>SPI_Slave-000\SPI_Slave\CortexM3\ARM_GCC_541\Debug\SPI_Slave.map</v>
@@ -194,6 +191,14 @@
 <v>SPI_Slave-000\SPI_Slave\PSoC 5LP Architecture TRM</v>
 <v>SPI_Slave-000\SPI_Slave\CY8C58LP Family Datasheet</v>
 <v>SPI_Slave-000\SPI_Slave\System Reference Guides</v>
+<v>SPI_Slave-000\SPI_Slave\System Reference Guides\cy_boot_v5_90</v>
+<v>SPI_Slave-000\SPI_Slave\cy_isr_v1_70</v>
+<v>SPI_Slave-000\SPI_Slave\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\cy_pins_v2_20</v>
+<v>SPI_Slave-000\SPI_Slave\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\SPI_Slave_v2_70.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\UART_v2_50.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\ZeroTerminal.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>SPI_Slave-000</v>
@@ -201,6 +206,14 @@
 <v>SPI_Slave-000\SPI_Slave\PSoC 5LP Architecture TRM</v>
 <v>SPI_Slave-000\SPI_Slave\CY8C58LP Family Datasheet</v>
 <v>SPI_Slave-000\SPI_Slave\System Reference Guides</v>
+<v>SPI_Slave-000\SPI_Slave\System Reference Guides\cy_boot_v5_90</v>
+<v>SPI_Slave-000\SPI_Slave\cy_isr_v1_70</v>
+<v>SPI_Slave-000\SPI_Slave\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\cy_pins_v2_20</v>
+<v>SPI_Slave-000\SPI_Slave\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\SPI_Slave_v2_70.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\UART_v2_50.pdf</v>
+<v>SPI_Slave-000\SPI_Slave\ZeroTerminal.pdf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -211,11 +224,10 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\main.c" />
-<name v=".\UART_handler.c" />
 <name v=".\SPI_Slave.c" />
 <name v=".\SPI_Slave.h" />
-<name v=".\UART_handler.h" />
 <name v=".\SPI_Slave.cydwr" />
+<name v=".\cyapicallbacks.h" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -223,7 +235,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1332, 495" SelectedTabbedMdiWindow="ef9e4ce3-d214-4427-a3c0-4f4752ab1ee1"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\main.c" Guid="c760b558-6f45-4d1f-9fa3-a858d59b7771" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\UART_handler.c" Guid="988b8a75-067b-4027-85c3-84c9a19f9fd0" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.c" Guid="71a3e09e-6b2c-4dd7-aa9c-2258bd39c727" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.h" Guid="4cd2c059-ae88-49a3-b901-1fbc0f4cd922" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\UART_handler.h" Guid="90d5f5f5-45e9-434d-b937-1eb2d4016cff" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.cydwr" Guid="ef9e4ce3-d214-4427-a3c0-4f4752ab1ee1" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1237, 495" SelectedTabbedMdiWindow="71a3e09e-6b2c-4dd7-aa9c-2258bd39c727"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\main.c" Guid="c760b558-6f45-4d1f-9fa3-a858d59b7771" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.c" Guid="71a3e09e-6b2c-4dd7-aa9c-2258bd39c727" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.h" Guid="4cd2c059-ae88-49a3-b901-1fbc0f4cd922" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.cydwr" Guid="ef9e4ce3-d214-4427-a3c0-4f4752ab1ee1" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\cyapicallbacks.h" Guid="8c821e99-8add-4d64-a689-cfe8d48aefde" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
