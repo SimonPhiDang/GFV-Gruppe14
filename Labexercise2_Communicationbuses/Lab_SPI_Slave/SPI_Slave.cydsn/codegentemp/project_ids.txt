@@ -1,0 +1,6 @@
+C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\SPI_Slave.cyprj|3feaae1a-5986-4c13-9b9d-dce8a89648e4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|03b94ec2-ba38-42ea-a3ce-e4ca946bfde0
+C:\Users\Lucas\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|13823c59-6ef4-44d7-9c32-fef220da728c
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2558412a-5ed9-4ec9-90e6-5fab0308c2cc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|25ed694a-6a3c-470e-8153-bc175bef03f3
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|58866b0c-ebbc-4fcf-af75-8b83b6114d86

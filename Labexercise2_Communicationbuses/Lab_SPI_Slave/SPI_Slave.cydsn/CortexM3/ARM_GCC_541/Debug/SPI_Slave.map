@@ -1046,26 +1046,26 @@ END GROUP
  .debug_abbrev  0x00001262      0x1a7 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyFlash.o)
  .debug_abbrev  0x00001409      0x194 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CySpc.o)
 
-.debug_line     0x00000000     0x247a
+.debug_line     0x00000000     0x2476
  *(.debug_line)
- .debug_line    0x00000000      0x1d5 .\CortexM3\ARM_GCC_541\Debug\main.o
- .debug_line    0x000001d5      0x1ac .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.o
- .debug_line    0x00000381      0x13f .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
- .debug_line    0x000004c0      0x1d9 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_line    0x00000699      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_line    0x000007da      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_line    0x00000a0e      0x245 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(SPIS_1.o)
- .debug_line    0x00000c53       0x92 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_1.o)
- .debug_line    0x00000ce5      0x816 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyLib.o)
- .debug_line    0x000014fb      0x367 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(cyPm.o)
- .debug_line    0x00001862      0x2c0 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1.o)
- .debug_line    0x00001b22      0x134 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isruart.o)
- .debug_line    0x00001c56       0x92 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_2.o)
- .debug_line    0x00001ce8      0x17e .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1_IntClock.o)
- .debug_line    0x00001e66      0x134 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isrspis.o)
- .debug_line    0x00001f9a       0x66 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyBootAsmGnu.o)
- .debug_line    0x00002000      0x21a .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyFlash.o)
- .debug_line    0x0000221a      0x260 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CySpc.o)
+ .debug_line    0x00000000      0x1d1 .\CortexM3\ARM_GCC_541\Debug\main.o
+ .debug_line    0x000001d1      0x1ac .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.o
+ .debug_line    0x0000037d      0x13f .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
+ .debug_line    0x000004bc      0x1d9 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x00000695      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x000007d6      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_line    0x00000a0a      0x245 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(SPIS_1.o)
+ .debug_line    0x00000c4f       0x92 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_1.o)
+ .debug_line    0x00000ce1      0x816 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyLib.o)
+ .debug_line    0x000014f7      0x367 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(cyPm.o)
+ .debug_line    0x0000185e      0x2c0 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1.o)
+ .debug_line    0x00001b1e      0x134 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isruart.o)
+ .debug_line    0x00001c52       0x92 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_2.o)
+ .debug_line    0x00001ce4      0x17e .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1_IntClock.o)
+ .debug_line    0x00001e62      0x134 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isrspis.o)
+ .debug_line    0x00001f96       0x66 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyBootAsmGnu.o)
+ .debug_line    0x00001ffc      0x21a .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyFlash.o)
+ .debug_line    0x00002216      0x260 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CySpc.o)
 
 .debug_frame    0x00000000     0x1718
  *(.debug_frame)
@@ -1090,41 +1090,41 @@ END GROUP
  .debug_frame   0x000016d0       0x28 c:/program files (x86)/cypress/psoc creator/4.3/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy-stub.o)
  .debug_frame   0x000016f8       0x20 c:/program files (x86)/cypress/psoc creator/4.3/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
 
-.debug_str      0x00000000     0x1cc3
+.debug_str      0x00000000     0x1d29
  *(.debug_str)
- .debug_str     0x00000000      0x26f .\CortexM3\ARM_GCC_541\Debug\main.o
-                                0x2bf (size before relaxing)
- .debug_str     0x0000026f       0x54 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.o
-                                0x23d (size before relaxing)
- .debug_str     0x000002c3        0xf .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
+ .debug_str     0x00000000      0x295 .\CortexM3\ARM_GCC_541\Debug\main.o
+                                0x2e5 (size before relaxing)
+ .debug_str     0x00000295       0x54 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.o
+                                0x263 (size before relaxing)
+ .debug_str     0x000002e9       0x4f .\CortexM3\ARM_GCC_541\Debug\UART_handler.o
                                 0x1a7 (size before relaxing)
- .debug_str     0x000002d2      0x187 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_str     0x00000338      0x187 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
                                 0x30d (size before relaxing)
- .debug_str     0x00000459       0x75 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_str     0x000004bf       0x75 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
                                 0x1e2 (size before relaxing)
- .debug_str     0x000004ce      0x144 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_str     0x00000534      0x144 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
                                 0x308 (size before relaxing)
- .debug_str     0x00000612      0x256 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(SPIS_1.o)
+ .debug_str     0x00000678      0x256 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(SPIS_1.o)
                                 0x43d (size before relaxing)
- .debug_str     0x00000868       0x54 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_1.o)
+ .debug_str     0x000008ce       0x54 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_1.o)
                                 0x1e0 (size before relaxing)
- .debug_str     0x000008bc      0x818 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyLib.o)
+ .debug_str     0x00000922      0x818 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyLib.o)
                                 0xa45 (size before relaxing)
- .debug_str     0x000010d4      0x365 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(cyPm.o)
+ .debug_str     0x0000113a      0x365 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(cyPm.o)
                                 0x731 (size before relaxing)
- .debug_str     0x00001439      0x25f .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1.o)
+ .debug_str     0x0000149f      0x25f .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1.o)
                                 0x4b1 (size before relaxing)
- .debug_str     0x00001698       0xf2 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isruart.o)
+ .debug_str     0x000016fe       0xf2 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isruart.o)
                                 0x2c0 (size before relaxing)
- .debug_str     0x0000178a       0x50 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_2.o)
+ .debug_str     0x000017f0       0x50 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(Pin_2.o)
                                 0x1e0 (size before relaxing)
- .debug_str     0x000017da      0x197 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1_IntClock.o)
+ .debug_str     0x00001840      0x197 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(UART_1_IntClock.o)
                                 0x34c (size before relaxing)
- .debug_str     0x00001971       0xf2 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isrspis.o)
+ .debug_str     0x000019d7       0xf2 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(isrspis.o)
                                 0x2c0 (size before relaxing)
- .debug_str     0x00001a63      0x1b4 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyFlash.o)
+ .debug_str     0x00001ac9      0x1b4 .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CyFlash.o)
                                 0x3be (size before relaxing)
- .debug_str     0x00001c17       0xac .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CySpc.o)
+ .debug_str     0x00001c7d       0xac .\CortexM3\ARM_GCC_541\Debug\SPI_Slave.a(CySpc.o)
                                 0x336 (size before relaxing)
 
 .debug_loc      0x00000000     0x201f
@@ -1265,4 +1265,4 @@ END GROUP
 
 /DISCARD/
  *(.note.GNU-stack)
-OUTPUT(C:\Users\Lucas\Documents\PSoC Creator\SPI_Slave\SPI_Slave.cydsn\CortexM3\ARM_GCC_541\Debug\SPI_Slave.elf elf32-littlearm)
+OUTPUT(C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_SPI_Slave\SPI_Slave.cydsn\CortexM3\ARM_GCC_541\Debug\SPI_Slave.elf elf32-littlearm)
