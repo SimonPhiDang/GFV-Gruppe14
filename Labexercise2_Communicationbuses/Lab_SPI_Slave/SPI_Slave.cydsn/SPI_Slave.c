@@ -11,18 +11,18 @@
 */
 #include <SPI_Slave.h>
 #include <project.h>
+
+// Definering af LED modes
 #define LED_ON 1
 #define LED_OFF 0
-int status;
-int tx_buf;
 
-void buttonState()
+void buttonState() // Funktion til aflæsning af bitsekvens fra switch
 {
-     if(Pin_2_Read() == 00000001)
+     if(Pin_2_Read() == 00000001) // Hvis idle
      {
-         SPIS_1_WriteTxData(1);
+         SPIS_1_WriteTxData(1); // Skriv 1 til SPIM
      }
-     else if(Pin_2_Read() == 00000000)
+     else if(Pin_2_Read() == 00000000) // Hvis 
      {
           SPIS_1_WriteTxData(0);
      }            
@@ -31,33 +31,33 @@ void buttonState()
 
 void SPIS_handleByteReceived(uint8_t byteReceived)
 {
+    // Variabler
+    int status;
+    int tx_buf;
+ 
     if(byteReceived=='b')
     {
         switch(status)
         {
             case LED_ON:
-                status=LED_OFF;
-                Pin_1_Write(~Pin_1_Read()); // Toggle LED
-                UART_1_WriteTxData(byteReceived); // Skriv UART hvad fået
-                // Skrive til SPIM fra SPIS
-                buttonState();
-               
+            status=LED_OFF; // Skift toggle
+            Pin_1_Write(~Pin_1_Read()); // Toggle LED
+            UART_1_WriteTxData(byteReceived); // Skriv UART (DEBUGGING)
+            buttonState(); // Aflæs button state og skriv det til SPIM
             break;
-            
-            case LED_OFF:
+            case LED_OFF: // Gentagelse af case med toggle skift
                 status=LED_ON;
                 Pin_1_Write(~Pin_1_Read());
                 UART_1_WriteTxData(byteReceived);
-                buttonState();   
-              
+                buttonState();
             break;
         }
     }
     else
     {
-    UART_1_WriteTxData(byteReceived);
+        UART_1_WriteTxData(byteReceived); // Skriv UART da det ikke er specifik til at tænde LED
     }
     
-    tx_buf = status;
+    tx_buf = status;  
 }
 /* [] END OF FILE */

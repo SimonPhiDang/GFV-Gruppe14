@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define LM75address 0x48  // 1001 +  A0 = 0 , A1 = 0 A2 = 0
-#define LM75address2 0x49 // 1001 +  A0 = 1 , A1 = 0 , A2 = 0
+#define LM75address 0x48  // 1001 +  A0: 0 , A1: 0 A2: 0 = 1001000
+#define LM75address2 0x49 // 1001 +  A0: 1 , A1: 0 , A2: 0 = 1001001
 
 #define CHECK_BIT(var,pos) (((var)>>(pos)) & 1) // Bit manipulation
 
