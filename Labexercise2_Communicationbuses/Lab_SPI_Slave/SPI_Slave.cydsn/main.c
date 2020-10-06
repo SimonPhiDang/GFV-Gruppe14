@@ -29,8 +29,6 @@ int main(void)
     SPIS_1_Start();
     SPIS_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
     
-   
-    
     for(;;)
     {
         
@@ -47,7 +45,6 @@ CY_ISR(ISR_UART_rx_handler)
         uint8_t byteReceived = UART_1_ReadRxData();  // Aflæs bytes fra UART
         UART_1_WriteTxData(byteReceived); // echo back
 //        SPIS_1_WriteTxData(byteReceived);  //Skriv bytes til SPI master
-        
 //        handleByteReceived(byteReceived);
         
         bytesToRead--;
@@ -58,13 +55,8 @@ CY_ISR(SPIS_rx_handler)
     uint8_t bytesToRead = SPIS_1_GetRxBufferSize();  // SPI Master rx interrupt få size
     while (bytesToRead > 0)
     {
-        uint8_t byteReceived = SPIS_1_ReadRxData(); // Aflæs Rx data
- //       UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART
- //      UART_1_PutString("TEST");
-        
+        uint8_t byteReceived = SPIS_1_ReadRxData(); // Aflæs Rx data    
         SPIS_handleByteReceived(byteReceived); 
-        
-       // bytesToRead = SPIS_1_GetRxBufferSize();
         bytesToRead--;
     }
 }

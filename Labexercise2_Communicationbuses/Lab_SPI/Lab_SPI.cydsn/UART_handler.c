@@ -29,7 +29,5 @@ void handleByteReceived(uint8_t byteReceived)
         {}
         break;
     }
-    
-    
 }
 /* [] END OF FILE */

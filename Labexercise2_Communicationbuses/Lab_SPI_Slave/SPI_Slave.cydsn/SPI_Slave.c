@@ -31,37 +31,33 @@ void buttonState()
 
 void SPIS_handleByteReceived(uint8_t byteReceived)
 {
-  if(byteReceived=='b')
-{
-    switch(status)
+    if(byteReceived=='b')
     {
-        case LED_ON:
-            status=LED_OFF;
-            Pin_1_Write(~Pin_1_Read()); // Toggle LED
-            UART_1_WriteTxData(byteReceived); // Skriv UART hvad fået
-            // Skrive til SPIM fra SPIS
-            buttonState();
-           
-        break;
-        
-        case LED_OFF:
-            status=LED_ON;
-            Pin_1_Write(~Pin_1_Read());
-            UART_1_WriteTxData(byteReceived);
-            buttonState();   
-           
-
-        break;
-        
+        switch(status)
+        {
+            case LED_ON:
+                status=LED_OFF;
+                Pin_1_Write(~Pin_1_Read()); // Toggle LED
+                UART_1_WriteTxData(byteReceived); // Skriv UART hvad fået
+                // Skrive til SPIM fra SPIS
+                buttonState();
+               
+            break;
+            
+            case LED_OFF:
+                status=LED_ON;
+                Pin_1_Write(~Pin_1_Read());
+                UART_1_WriteTxData(byteReceived);
+                buttonState();   
+              
+            break;
+        }
     }
-}
-else
-{
-UART_1_WriteTxData(byteReceived);
-}
-    tx_buf = status;
+    else
+    {
+    UART_1_WriteTxData(byteReceived);
+    }
     
+    tx_buf = status;
 }
-
-
 /* [] END OF FILE */

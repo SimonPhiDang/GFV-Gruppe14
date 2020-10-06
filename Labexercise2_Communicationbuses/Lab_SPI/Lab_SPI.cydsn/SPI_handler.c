@@ -12,7 +12,6 @@
 
 #include <SPI_handler.h>
 
-
 void SPIM_handleByteReceived(uint8_t byteReceived)
 {
     switch(byteReceived)

@@ -31,13 +31,8 @@ int main(void)
     
     SPIM_1_ClearRxBuffer(); // Clear Rx buffer en gang i starten.
     
-   
     for(;;)
-    {
-        
-        /* Place your application code here. */
-        
-    }
+    {}
 }
 
 CY_ISR(ISR_UART_rx_handler) // UART fra master til SPI SLAVE
@@ -51,7 +46,6 @@ CY_ISR(ISR_UART_rx_handler) // UART fra master til SPI SLAVE
         
         SPIM_1_WriteTxData(byteReceived);  //Skriv bytes til SPI Slave
             
-    
         bytesToRead--;
     }
 }
@@ -64,10 +58,6 @@ CY_ISR(SPI_rx_handler) // SPIM modtager fra SPIS status på switch
         SPIM_handleByteReceived(swStatus); 
         bytesToRead--;
     }
-//    uint8_t byteReceived = SPIM_1_ReadRxData(); // Aflæs Rx data
-//    UART_1_WriteTxData(byteReceived);  // Skriv bytes til UART    
-
- // Ud fra status udskriv til UART ved hjælp af handler
 
 }
 
