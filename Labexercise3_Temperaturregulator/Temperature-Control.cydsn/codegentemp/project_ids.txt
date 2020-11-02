@@ -1,0 +1,6 @@
+C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cyprj|e7d7f3dd-5616-474f-bc46-891bf22c2cc7
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|58c2d1f1-757a-4723-b32f-947242f9f9ca
+C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|14829379-3ef7-4902-90b1-4e1c3a978bb2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|01971f90-76ea-419e-af53-fc7c41d2a2ac
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|33ecf49b-bc8c-44b8-b258-e8cdd8f40ee9
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|6aedc7e2-8146-45e9-a2c4-56fb54a40542

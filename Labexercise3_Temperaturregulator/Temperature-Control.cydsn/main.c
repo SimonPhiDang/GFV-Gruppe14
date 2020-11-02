@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "project.h"
 #include "PIDControl.h"
+#include "I2C_handler.h"
 
 static char outputBuffer[256];
 static float setPoint = 50; // degrees celcius
@@ -22,7 +23,9 @@ static uint16_t sampleWaitTimeInMilliseconds = 1000 / SAMPLES_PER_SECOND;
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
-
+    PWM_1_Start();
+    I2C_1_Start();
+    UART_1_Start();
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
     float Kp = 2.0f;
@@ -37,10 +40,11 @@ int main(void)
     PIDControl_init(Kp, Ki, Kd, integralMax, integralMin, dt);
     PIDControl_changeSetPoint(setPoint);
 
-//    UART_1_PutString("Temperature control application started\r\n");
-
+    UART_1_PutString("Temperature control application started\r\n");
     for(;;)
     {
+        readTemp();
+        
         /* Place your application code here. */
         float error = setPoint - temp;
         float proportionalPart = 0;
@@ -51,8 +55,10 @@ int main(void)
         snprintf(outputBuffer, sizeof(outputBuffer), "%f, %f, %f, %f, %f, %f, %f, %f, %f, %f \r\n", 
                                                       setPoint, temp, error, controlSignal, Kp, Ki, Kd, 
                                                       proportionalPart, integralPart, derivativePart);
-//        UART_1_PutString(outputBuffer);
-
+        UART_1_PutString(outputBuffer);
+        
+        PWM_1_WriteCompare(controlSignal);
+        
         CyDelay(sampleWaitTimeInMilliseconds);
     }
 }
