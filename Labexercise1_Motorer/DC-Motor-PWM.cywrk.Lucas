@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DC-Motor-PWM\DC-Motor-PWM\TopDesign">
 <ExpandedNodeIds>
 <v>DC-Motor-PWM</v>
 <v>DC-Motor-PWM\DC-Motor-PWM</v>
@@ -209,6 +209,7 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\DC-Motor-PWM.cydsn\main.c" />
+<name v=".\DC-Motor-PWM.cydsn\TopDesign\TopDesign.cysch" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -216,7 +217,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1001, 495" SelectedTabbedMdiWindow="2e6e3bd5-fa4b-4de4-9f32-e1af601e7862"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="2fad8462-a513-4692-ad26-9fa21f3f06e0" /><DocumentWindow Key="C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise1_Motorer\DC-Motor-PWM.cydsn\main.c" Guid="2e6e3bd5-fa4b-4de4-9f32-e1af601e7862" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="958, 495" SelectedTabbedMdiWindow="4d697ded-d7ec-4733-b6e5-10b923a190d3"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="2fad8462-a513-4692-ad26-9fa21f3f06e0" /><DocumentWindow Key="C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise1_Motorer\DC-Motor-PWM.cydsn\main.c" Guid="2e6e3bd5-fa4b-4de4-9f32-e1af601e7862" /><DocumentWindow Key="C:\Users\Lucas\Desktop\GFV\GFV-Gruppe14\Labexercise1_Motorer\DC-Motor-PWM.cydsn\TopDesign\TopDesign.cysch" Guid="4d697ded-d7ec-4733-b6e5-10b923a190d3" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
