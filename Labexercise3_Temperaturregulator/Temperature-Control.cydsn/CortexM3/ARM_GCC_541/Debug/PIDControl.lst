@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 1
 
 
    1              		.syntax unified
@@ -45,9 +45,9 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
   15:PIDControl.c  **** static float Ki = 0;
   16:PIDControl.c  **** static float Kd = 0;
   17:PIDControl.c  **** static float dt = 0;
-  18:PIDControl.c  **** static float integralMax = 0;
-  19:PIDControl.c  **** static float integralMin = 0;
-  20:PIDControl.c  **** static float setPoint = 0;
+  18:PIDControl.c  **** static float setPoint = 0;
+  19:PIDControl.c  **** static float integralMax = 0;
+  20:PIDControl.c  **** static float integralMin = 0;
   21:PIDControl.c  **** static float integral = 0;
   22:PIDControl.c  **** static float previousError = 0;
   23:PIDControl.c  **** 
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
   30              		@ args = 8, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32              		@ link register save eliminated.
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 2
 
 
   33              	.LVL0:
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
   77              		@ frame_needed = 0, uses_anonymous_args = 0
   78              		@ link register save eliminated.
   79              	.LVL3:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 3
 
 
   36:PIDControl.c  ****     setPoint = _setPoint;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
   43:PIDControl.c  ****     float derivative = 0;
   44:PIDControl.c  ****     float currentError = 0;
   45:PIDControl.c  ****     
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 4
 
 
   46:PIDControl.c  ****     // calculate current error
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
   59:PIDControl.c  ****     // calculate derivative part
   60:PIDControl.c  ****     derivative = (currentError - previousError) / dt;
  168              		.loc 1 60 0 is_stmt 1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 5
 
 
  169 0048 154C     		ldr	r4, .L16
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  214              		.loc 1 69 0
  215 0098 03B0     		add	sp, sp, #12
  216              		.cfi_def_cfa_offset 36
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 6
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 6
 
 
  217              		@ sp needed
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  271 0004 0400     		.2byte	0x4
  272 0006 00000000 		.4byte	.Ldebug_abbrev0
  273 000a 04       		.byte	0x4
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 7
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 7
 
 
  274 000b 01       		.uleb128 0x1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  328 0086 06       		.uleb128 0x6
  329 0087 5F647400 		.ascii	"_dt\000"
  330 008b 01       		.byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 8
 
 
  331 008c 18       		.byte	0x18
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  385 010a E8000000 		.4byte	.LLST6
  386 010e 09       		.uleb128 0x9
  387 010f 0D000000 		.4byte	.LASF9
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 9
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 9
 
 
  388 0113 01       		.byte	0x1
@@ -538,34 +538,34 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  442 0187 25000000 		.4byte	0x25
  443 018b 05       		.uleb128 0x5
  444 018c 03       		.byte	0x3
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 10
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 10
 
 
  445 018d 14000000 		.4byte	dt
  446 0191 0C       		.uleb128 0xc
- 447 0192 5B010000 		.4byte	.LASF13
+ 447 0192 76010000 		.4byte	.LASF13
  448 0196 01       		.byte	0x1
  449 0197 12       		.byte	0x12
  450 0198 25000000 		.4byte	0x25
  451 019c 05       		.uleb128 0x5
  452 019d 03       		.byte	0x3
- 453 019e 0C000000 		.4byte	integralMax
+ 453 019e 18000000 		.4byte	setPoint
  454 01a2 0C       		.uleb128 0xc
- 455 01a3 EA000000 		.4byte	.LASF14
+ 455 01a3 5B010000 		.4byte	.LASF14
  456 01a7 01       		.byte	0x1
  457 01a8 13       		.byte	0x13
  458 01a9 25000000 		.4byte	0x25
  459 01ad 05       		.uleb128 0x5
  460 01ae 03       		.byte	0x3
- 461 01af 10000000 		.4byte	integralMin
+ 461 01af 0C000000 		.4byte	integralMax
  462 01b3 0C       		.uleb128 0xc
- 463 01b4 76010000 		.4byte	.LASF15
+ 463 01b4 EA000000 		.4byte	.LASF15
  464 01b8 01       		.byte	0x1
  465 01b9 14       		.byte	0x14
  466 01ba 25000000 		.4byte	0x25
  467 01be 05       		.uleb128 0x5
  468 01bf 03       		.byte	0x3
- 469 01c0 18000000 		.4byte	setPoint
+ 469 01c0 10000000 		.4byte	integralMin
  470 01c4 0C       		.uleb128 0xc
  471 01c5 1F000000 		.4byte	.LASF16
  472 01c9 01       		.byte	0x1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  499 000a 0E       		.uleb128 0xe
  500 000b 55       		.uleb128 0x55
  501 000c 17       		.uleb128 0x17
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 11
 
 
  502 000d 11       		.uleb128 0x11
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  556 0044 18       		.uleb128 0x18
  557 0045 00       		.byte	0
  558 0046 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 12
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 12
 
 
  559 0047 05       		.uleb128 0x5
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  613 007d 3B       		.uleb128 0x3b
  614 007e 0B       		.uleb128 0xb
  615 007f 27       		.uleb128 0x27
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 13
 
 
  616 0080 19       		.uleb128 0x19
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  670 00b7 0C       		.uleb128 0xc
  671 00b8 34       		.uleb128 0x34
  672 00b9 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 14
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 14
 
 
  673 00ba 03       		.uleb128 0x3
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  727 0062 00000000 		.4byte	.LVL4
  728 0066 12000000 		.4byte	.LVL7
  729 006a 0100     		.2byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 15
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 15
 
 
  730 006c 50       		.byte	0x50
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  784 00ec 15000000 		.4byte	.LVL8-1
  785 00f0 0100     		.2byte	0x1
  786 00f2 53       		.byte	0x53
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 16
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 16
 
 
  787 00f3 15000000 		.4byte	.LVL8-1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  841 0180 00000000 		.4byte	0
  842 0184 5A000000 		.4byte	.LVL16
  843 0188 5E000000 		.4byte	.LVL17
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 17
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 17
 
 
  844 018c 0100     		.2byte	0x1
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  888 001f 696E7465 		.ascii	"integral\000"
  888      6772616C 
  888      00
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 18
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 18
 
 
  889              	.LASF2:
@@ -1052,7 +1052,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  898 00e0 5F736574 		.ascii	"_setPoint\000"
  898      506F696E 
  898      7400
- 899              	.LASF14:
+ 899              	.LASF15:
  900 00ea 696E7465 		.ascii	"integralMin\000"
  900      6772616C 
  900      4D696E00 
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  908      00
  909              	.LASF6:
  910 012a 70726F70 		.ascii	"proportionalPart\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 19
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccjmkrSY.s 			page 19
 
 
  910      6F727469 
@@ -1096,7 +1096,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  914      696F7573 
  914      4572726F 
  914      7200
- 915              	.LASF13:
+ 915              	.LASF14:
  916 015b 696E7465 		.ascii	"integralMax\000"
  916      6772616C 
  916      4D617800 
@@ -1105,7 +1105,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccAEzyfJ.s 			page 1
  918      76617469 
  918      76655061 
  918      727400
- 919              	.LASF15:
+ 919              	.LASF13:
  920 0176 73657450 		.ascii	"setPoint\000"
  920      6F696E74 
  920      00

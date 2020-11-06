@@ -16,7 +16,6 @@
 // Prototyper til implementerings filen
 int8 readTemp();
 void writeTempToUART(float temp);
-void writeTempToUART2(float temp);
 /* [] END OF FILE */
 
 

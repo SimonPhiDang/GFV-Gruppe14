@@ -15,9 +15,9 @@ static float Kp = 0;
 static float Ki = 0;
 static float Kd = 0;
 static float dt = 0;
+static float setPoint = 0;
 static float integralMax = 0;
 static float integralMin = 0;
-static float setPoint = 0;
 static float integral = 0;
 static float previousError = 0;
 

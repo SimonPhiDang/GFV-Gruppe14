@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 1
 
 
    1              		.syntax unified
@@ -19,16 +19,19 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 1
   16              		.text
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
-  19              		.global	__aeabi_f2d
-  20              		.section	.text.writeTempToUART,"ax",%progbits
-  21              		.align	2
-  22              		.global	writeTempToUART
-  23              		.thumb
-  24              		.thumb_func
-  25              		.type	writeTempToUART, %function
-  26              	writeTempToUART:
-  27              	.LFB65:
-  28              		.file 1 "..\\..\\Labexercise2_Communicationbuses\\Lab_I2C\\Communicationbuses.cydsn\\I2C_handler.c
+  19              		.global	__aeabi_ui2f
+  20              		.global	__aeabi_fadd
+  21              		.global	__aeabi_fsub
+  22              		.global	__aeabi_f2iz
+  23              		.section	.text.readTemp,"ax",%progbits
+  24              		.align	2
+  25              		.global	readTemp
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	readTemp, %function
+  29              	readTemp:
+  30              	.LFB64:
+  31              		.file 1 "..\\..\\Labexercise2_Communicationbuses\\Lab_I2C\\Communicationbuses.cydsn\\I2C_handler.c
    1:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** /* ========================================
    2:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****  *
    3:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****  * Copyright YOUR COMPANY, THE YEAR
@@ -53,1340 +56,1295 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 1
   22:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** 
   23:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** int8 readTemp()
   24:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** {
+  32              		.loc 1 24 0
+  33              		.cfi_startproc
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 2
+
+
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36 0000 38B5     		push	{r3, r4, r5, lr}
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 3, -16
+  39              		.cfi_offset 4, -12
+  40              		.cfi_offset 5, -8
+  41              		.cfi_offset 14, -4
+  42              	.L2:
   25:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     //Variabler 
   26:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     uint8 dataRecv[2] = {0,0};
   27:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     uint8 errorStatus[2] = {0,0};
   28:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     float temp;
   29:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 2
-
-
   30:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     while(1)  // Uendelig loop til måling af temp
   31:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     {
   32:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     errorStatus[0] = I2C_1_MasterSendStart(LM75address,I2C_1_READ_XFER_MODE); // Start den første 
+  43              		.loc 1 32 0
+  44 0002 0121     		movs	r1, #1
+  45 0004 4820     		movs	r0, #72
+  46 0006 FFF7FEFF 		bl	I2C_1_MasterSendStart
+  47              	.LVL0:
   33:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     if (errorStatus[0] == I2C_1_MSTR_NO_ERROR)  // Tjekker for fejl
+  48              		.loc 1 33 0
+  49 000a E0B9     		cbnz	r0, .L3
   34:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   35:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             dataRecv[0] = I2C_1_MasterReadByte(I2C_1_ACK_DATA);  // Læser MSB 8 bit som er tempera
+  50              		.loc 1 35 0
+  51 000c 0120     		movs	r0, #1
+  52 000e FFF7FEFF 		bl	I2C_1_MasterReadByte
+  53              	.LVL1:
+  54 0012 0446     		mov	r4, r0
   36:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             dataRecv[1] = I2C_1_MasterReadByte(I2C_1_NAK_DATA);  // Læser LSB 8 bit hvor 0.5 finde
+  55              		.loc 1 36 0
+  56 0014 0020     		movs	r0, #0
+  57 0016 FFF7FEFF 		bl	I2C_1_MasterReadByte
+  58              	.LVL2:
+  59 001a 0546     		mov	r5, r0
   37:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             I2C_1_MasterSendStop();    //  Data er opsamlet så der sendes stop til I2C master  
+  60              		.loc 1 37 0
+  61 001c FFF7FEFF 		bl	I2C_1_MasterSendStop
+  62              	.LVL3:
   38:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** 
   39:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             temp = dataRecv[0]; // uint8 temperaturen sættes i float
+  63              		.loc 1 39 0
+  64 0020 2046     		mov	r0, r4
+  65 0022 FFF7FEFF 		bl	__aeabi_ui2f
+  66              	.LVL4:
   40:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             if(CHECK_BIT(dataRecv[1],7) == 1)  // Tjekker om det specifikke bit er 1, dvs at man ha
+  67              		.loc 1 40 0
+  68 0026 C5F3C715 		ubfx	r5, r5, #7, #8
+  69 002a 1DB1     		cbz	r5, .L4
   41:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             {
   42:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****                 temp += 0.5;
+  70              		.loc 1 42 0
+  71 002c 4FF07C51 		mov	r1, #1056964608
+  72 0030 FFF7FEFF 		bl	__aeabi_fadd
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 3
+
+
+  73              	.LVL5:
+  74              	.L4:
   43:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             }
   44:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             if(CHECK_BIT(dataRecv[0],7) == 1) // Tjekker fortegn om det + eller - temperatur
+  75              		.loc 1 44 0
+  76 0034 C4F3C714 		ubfx	r4, r4, #7, #8
+  77 0038 002C     		cmp	r4, #0
+  78 003a 40D0     		beq	.L5
   45:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             {
   46:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****                 temp -=128;
+  79              		.loc 1 46 0
+  80 003c 4FF08641 		mov	r1, #1124073472
+  81 0040 FFF7FEFF 		bl	__aeabi_fsub
+  82              	.LVL6:
+  83 0044 3BE0     		b	.L5
+  84              	.LVL7:
+  85              	.L3:
   47:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             }
-  48:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** 
+  48:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             return temp;
   49:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             writeTempToUART(temp);  // Send temperature to UART
   50:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             CyDelay(1000);  // Delay med at få ny temperatur måling
   51:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   52:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     else if(errorStatus[0] == I2C_1_MSTR_BUS_BUSY)
+  86              		.loc 1 52 0
+  87 0046 0128     		cmp	r0, #1
+  88 0048 09D1     		bne	.L6
   53:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   54:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           UART_1_PutString("Error I2C_1_MSTR_BUS_BUSY\n");  // Report specifik error på UART
+  89              		.loc 1 54 0
+  90 004a 1F48     		ldr	r0, .L13
+  91 004c FFF7FEFF 		bl	UART_1_PutString
+  92              	.LVL8:
   55:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
+  93              		.loc 1 55 0
+  94 0050 FFF7FEFF 		bl	I2C_1_MasterSendStop
+  95              	.LVL9:
   56:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
+  96              		.loc 1 56 0
+  97 0054 4FF47A70 		mov	r0, #1000
+  98 0058 FFF7FEFF 		bl	CyDelay
+  99              	.LVL10:
+ 100 005c D1E7     		b	.L2
+ 101              	.L6:
   57:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   58:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     else if(errorStatus[0] == I2C_1_MSTR_NOT_READY)
+ 102              		.loc 1 58 0
+ 103 005e 0228     		cmp	r0, #2
+ 104 0060 09D1     		bne	.L8
   59:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   60:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           UART_1_PutString("Error I2C_1_MSTR_NOT_READY\n"); // Report specifik error på UART
+ 105              		.loc 1 60 0
+ 106 0062 1A48     		ldr	r0, .L13+4
+ 107 0064 FFF7FEFF 		bl	UART_1_PutString
+ 108              	.LVL11:
   61:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
+ 109              		.loc 1 61 0
+ 110 0068 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 4
+
+
+ 111              	.LVL12:
   62:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
+ 112              		.loc 1 62 0
+ 113 006c 4FF47A70 		mov	r0, #1000
+ 114 0070 FFF7FEFF 		bl	CyDelay
+ 115              	.LVL13:
+ 116 0074 C5E7     		b	.L2
+ 117              	.L8:
   63:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   64:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     else if(errorStatus[0] == I2C_1_MSTR_ERR_LB_NAK)
+ 118              		.loc 1 64 0
+ 119 0076 0328     		cmp	r0, #3
+ 120 0078 09D1     		bne	.L9
   65:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   66:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           UART_1_PutString("Error I2C_1_MSTR_ERR_LB_NAK\n"); // Report specifik error på UART
+ 121              		.loc 1 66 0
+ 122 007a 1548     		ldr	r0, .L13+8
+ 123 007c FFF7FEFF 		bl	UART_1_PutString
+ 124              	.LVL14:
   67:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
+ 125              		.loc 1 67 0
+ 126 0080 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ 127              	.LVL15:
   68:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
+ 128              		.loc 1 68 0
+ 129 0084 4FF47A70 		mov	r0, #1000
+ 130 0088 FFF7FEFF 		bl	CyDelay
+ 131              	.LVL16:
+ 132 008c B9E7     		b	.L2
+ 133              	.L9:
   69:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   70:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     else if(errorStatus[0] == I2C_1_MSTR_ERR_ARB_LOST)
+ 134              		.loc 1 70 0
+ 135 008e 0428     		cmp	r0, #4
+ 136 0090 09D1     		bne	.L10
   71:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   72:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           UART_1_PutString("Error I2C_1_MSTR_ERR_ARB_LOST\n"); // Report specifik error på UART
+ 137              		.loc 1 72 0
+ 138 0092 1048     		ldr	r0, .L13+12
+ 139 0094 FFF7FEFF 		bl	UART_1_PutString
+ 140              	.LVL17:
   73:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
+ 141              		.loc 1 73 0
+ 142 0098 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ 143              	.LVL18:
   74:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
+ 144              		.loc 1 74 0
+ 145 009c 4FF47A70 		mov	r0, #1000
+ 146 00a0 FFF7FEFF 		bl	CyDelay
+ 147              	.LVL19:
+ 148 00a4 ADE7     		b	.L2
+ 149              	.L10:
   75:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   76:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     else if (errorStatus[0] == I2C_1_MSTR_ERR_ABORT_START_GEN)
+ 150              		.loc 1 76 0
+ 151 00a6 0528     		cmp	r0, #5
+ 152 00a8 ABD1     		bne	.L2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 5
+
+
   77:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
   78:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           UART_1_PutString("Error I2C_1_MSTR_ERR_ABORT_START_GE\n"); // Report specifik error på U
+ 153              		.loc 1 78 0
+ 154 00aa 0B48     		ldr	r0, .L13+16
+ 155 00ac FFF7FEFF 		bl	UART_1_PutString
+ 156              	.LVL20:
   79:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
+ 157              		.loc 1 79 0
+ 158 00b0 FFF7FEFF 		bl	I2C_1_MasterSendStop
+ 159              	.LVL21:
   80:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
+ 160              		.loc 1 80 0
+ 161 00b4 4FF47A70 		mov	r0, #1000
+ 162 00b8 FFF7FEFF 		bl	CyDelay
+ 163              	.LVL22:
+ 164 00bc A1E7     		b	.L2
+ 165              	.LVL23:
+ 166              	.L5:
+  48:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             writeTempToUART(temp);  // Send temperature to UART
+ 167              		.loc 1 48 0
+ 168 00be FFF7FEFF 		bl	__aeabi_f2iz
+ 169              	.LVL24:
+ 170 00c2 40B2     		sxtb	r0, r0
   81:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
   82:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     
   83:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     }  //While(1) 
-  84:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     return 0;
+  84:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     return 0.0;
   85:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** }
+ 171              		.loc 1 85 0
+ 172 00c4 38BD     		pop	{r3, r4, r5, pc}
+ 173              	.L14:
+ 174 00c6 00BF     		.align	2
+ 175              	.L13:
+ 176 00c8 00000000 		.word	.LC0
+ 177 00cc 1C000000 		.word	.LC1
+ 178 00d0 38000000 		.word	.LC2
+ 179 00d4 58000000 		.word	.LC3
+ 180 00d8 78000000 		.word	.LC4
+ 181              		.cfi_endproc
+ 182              	.LFE64:
+ 183              		.size	readTemp, .-readTemp
+ 184              		.global	__aeabi_f2d
+ 185              		.section	.text.writeTempToUART,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	writeTempToUART
+ 188              		.thumb
+ 189              		.thumb_func
+ 190              		.type	writeTempToUART, %function
+ 191              	writeTempToUART:
+ 192              	.LFB65:
   86:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** 
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 3
-
-
   87:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** void writeTempToUART(float temp) // Udprintning til UART temperaturen af første LM75
   88:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** {
-  29              		.loc 1 88 0
-  30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 256
-  32              		@ frame_needed = 0, uses_anonymous_args = 0
-  33              	.LVL0:
-  34 0000 00B5     		push	{lr}
-  35              		.cfi_def_cfa_offset 4
-  36              		.cfi_offset 14, -4
-  37 0002 C3B0     		sub	sp, sp, #268
-  38              		.cfi_def_cfa_offset 272
+ 193              		.loc 1 88 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 256
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 6
+
+
+ 197              	.LVL25:
+ 198 0000 00B5     		push	{lr}
+ 199              		.cfi_def_cfa_offset 4
+ 200              		.cfi_offset 14, -4
+ 201 0002 C3B0     		sub	sp, sp, #268
+ 202              		.cfi_def_cfa_offset 272
   89:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     char outputBuffer[256];
-  90:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     snprintf(outputBuffer, sizeof(outputBuffer), "Temp 1: %.2f \r\n", temp);
-  39              		.loc 1 90 0
-  40 0004 FFF7FEFF 		bl	__aeabi_f2d
-  41              	.LVL1:
-  42 0008 CDE90001 		strd	r0, [sp]
-  43 000c 054A     		ldr	r2, .L3
-  44 000e 4FF48071 		mov	r1, #256
-  45 0012 02A8     		add	r0, sp, #8
-  46 0014 FFF7FEFF 		bl	snprintf
-  47              	.LVL2:
+  90:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     snprintf(outputBuffer, sizeof(outputBuffer), "Temp nu: %.2f  temp desired: 50 \r\n", temp);
+ 203              		.loc 1 90 0
+ 204 0004 FFF7FEFF 		bl	__aeabi_f2d
+ 205              	.LVL26:
+ 206 0008 CDE90001 		strd	r0, [sp]
+ 207 000c 054A     		ldr	r2, .L17
+ 208 000e 4FF48071 		mov	r1, #256
+ 209 0012 02A8     		add	r0, sp, #8
+ 210 0014 FFF7FEFF 		bl	snprintf
+ 211              	.LVL27:
   91:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     UART_1_PutString(outputBuffer);
-  48              		.loc 1 91 0
-  49 0018 02A8     		add	r0, sp, #8
-  50 001a FFF7FEFF 		bl	UART_1_PutString
-  51              	.LVL3:
+ 212              		.loc 1 91 0
+ 213 0018 02A8     		add	r0, sp, #8
+ 214 001a FFF7FEFF 		bl	UART_1_PutString
+ 215              	.LVL28:
   92:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** }
-  52              		.loc 1 92 0
-  53 001e 43B0     		add	sp, sp, #268
-  54              		.cfi_def_cfa_offset 4
-  55              		@ sp needed
-  56 0020 5DF804FB 		ldr	pc, [sp], #4
-  57              	.L4:
-  58              		.align	2
-  59              	.L3:
-  60 0024 00000000 		.word	.LC0
-  61              		.cfi_endproc
-  62              	.LFE65:
-  63              		.size	writeTempToUART, .-writeTempToUART
-  64              		.global	__aeabi_ui2f
-  65              		.global	__aeabi_fadd
-  66              		.global	__aeabi_fsub
-  67              		.section	.text.readTemp,"ax",%progbits
-  68              		.align	2
-  69              		.global	readTemp
-  70              		.thumb
-  71              		.thumb_func
-  72              		.type	readTemp, %function
-  73              	readTemp:
-  74              	.LFB64:
-  24:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     //Variabler 
-  75              		.loc 1 24 0
-  76              		.cfi_startproc
-  77              		@ args = 0, pretend = 0, frame = 0
-  78              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 4
+ 216              		.loc 1 92 0
+ 217 001e 43B0     		add	sp, sp, #268
+ 218              		.cfi_def_cfa_offset 4
+ 219              		@ sp needed
+ 220 0020 5DF804FB 		ldr	pc, [sp], #4
+ 221              	.L18:
+ 222              		.align	2
+ 223              	.L17:
+ 224 0024 A0000000 		.word	.LC5
+ 225              		.cfi_endproc
+ 226              	.LFE65:
+ 227              		.size	writeTempToUART, .-writeTempToUART
+ 228              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 229              		.align	2
+ 230              	.LC0:
+ 231 0000 4572726F 		.ascii	"Error I2C_1_MSTR_BUS_BUSY\012\000"
+ 231      72204932 
+ 231      435F315F 
+ 231      4D535452 
+ 231      5F425553 
+ 232 001b 00       		.space	1
+ 233              	.LC1:
+ 234 001c 4572726F 		.ascii	"Error I2C_1_MSTR_NOT_READY\012\000"
+ 234      72204932 
+ 234      435F315F 
+ 234      4D535452 
+ 234      5F4E4F54 
+ 235              	.LC2:
+ 236 0038 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_LB_NAK\012\000"
+ 236      72204932 
+ 236      435F315F 
+ 236      4D535452 
+ 236      5F455252 
+ 237 0055 000000   		.space	3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 7
 
 
-  79 0000 38B5     		push	{r3, r4, r5, lr}
-  80              		.cfi_def_cfa_offset 16
-  81              		.cfi_offset 3, -16
-  82              		.cfi_offset 4, -12
-  83              		.cfi_offset 5, -8
-  84              		.cfi_offset 14, -4
-  85              	.L6:
-  32:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****     if (errorStatus[0] == I2C_1_MSTR_NO_ERROR)  // Tjekker for fejl
-  86              		.loc 1 32 0
-  87 0002 0121     		movs	r1, #1
-  88 0004 4820     		movs	r0, #72
-  89 0006 FFF7FEFF 		bl	I2C_1_MasterSendStart
-  90              	.LVL4:
-  33:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
-  91              		.loc 1 33 0
-  92 000a 08BB     		cbnz	r0, .L7
-  35:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             dataRecv[1] = I2C_1_MasterReadByte(I2C_1_NAK_DATA);  // Læser LSB 8 bit hvor 0.5 finde
-  93              		.loc 1 35 0
-  94 000c 0120     		movs	r0, #1
-  95 000e FFF7FEFF 		bl	I2C_1_MasterReadByte
-  96              	.LVL5:
-  97 0012 0446     		mov	r4, r0
-  36:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             I2C_1_MasterSendStop();    //  Data er opsamlet så der sendes stop til I2C master  
-  98              		.loc 1 36 0
-  99 0014 0020     		movs	r0, #0
- 100 0016 FFF7FEFF 		bl	I2C_1_MasterReadByte
- 101              	.LVL6:
- 102 001a 0546     		mov	r5, r0
-  37:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c **** 
- 103              		.loc 1 37 0
- 104 001c FFF7FEFF 		bl	I2C_1_MasterSendStop
- 105              	.LVL7:
-  39:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             if(CHECK_BIT(dataRecv[1],7) == 1)  // Tjekker om det specifikke bit er 1, dvs at man ha
- 106              		.loc 1 39 0
- 107 0020 2046     		mov	r0, r4
- 108 0022 FFF7FEFF 		bl	__aeabi_ui2f
- 109              	.LVL8:
-  40:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             {
- 110              		.loc 1 40 0
- 111 0026 C5F3C715 		ubfx	r5, r5, #7, #8
- 112 002a 1DB1     		cbz	r5, .L8
-  42:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             }
- 113              		.loc 1 42 0
- 114 002c 4FF07C51 		mov	r1, #1056964608
- 115 0030 FFF7FEFF 		bl	__aeabi_fadd
- 116              	.LVL9:
- 117              	.L8:
-  44:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             {
- 118              		.loc 1 44 0
- 119 0034 C4F3C714 		ubfx	r4, r4, #7, #8
- 120 0038 1CB1     		cbz	r4, .L9
-  46:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             }
- 121              		.loc 1 46 0
- 122 003a 4FF08641 		mov	r1, #1124073472
- 123 003e FFF7FEFF 		bl	__aeabi_fsub
- 124              	.LVL10:
- 125              	.L9:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 5
+ 238              	.LC3:
+ 239 0058 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_ARB_LOST\012\000"
+ 239      72204932 
+ 239      435F315F 
+ 239      4D535452 
+ 239      5F455252 
+ 240 0077 00       		.space	1
+ 241              	.LC4:
+ 242 0078 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_ABORT_START_GE\012\000"
+ 242      72204932 
+ 242      435F315F 
+ 242      4D535452 
+ 242      5F455252 
+ 243 009d 000000   		.space	3
+ 244              	.LC5:
+ 245 00a0 54656D70 		.ascii	"Temp nu: %.2f  temp desired: 50 \015\012\000"
+ 245      206E753A 
+ 245      20252E32 
+ 245      66202074 
+ 245      656D7020 
+ 246              		.text
+ 247              	.Letext0:
+ 248              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 249              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 250              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 251              		.file 5 "Generated_Source\\PSoC5/I2C_1.h"
+ 252              		.file 6 "Generated_Source\\PSoC5/UART_1.h"
+ 253              		.file 7 "Generated_Source\\PSoC5/CyLib.h"
+ 254              		.file 8 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 255              		.file 9 "Generated_Source\\PSoC5/core_cm3.h"
+ 256              		.section	.debug_info,"",%progbits
+ 257              	.Ldebug_info0:
+ 258 0000 22030000 		.4byte	0x322
+ 259 0004 0400     		.2byte	0x4
+ 260 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 261 000a 04       		.byte	0x4
+ 262 000b 01       		.uleb128 0x1
+ 263 000c 5B000000 		.4byte	.LASF30
+ 264 0010 0C       		.byte	0xc
+ 265 0011 F6000000 		.4byte	.LASF31
+ 266 0015 9E010000 		.4byte	.LASF32
+ 267 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 268 001d 00000000 		.4byte	0
+ 269 0021 00000000 		.4byte	.Ldebug_line0
+ 270 0025 02       		.uleb128 0x2
+ 271 0026 04       		.byte	0x4
+ 272 0027 04       		.byte	0x4
+ 273 0028 47000000 		.4byte	.LASF0
+ 274 002c 02       		.uleb128 0x2
+ 275 002d 01       		.byte	0x1
+ 276 002e 06       		.byte	0x6
+ 277 002f 94020000 		.4byte	.LASF1
+ 278 0033 02       		.uleb128 0x2
+ 279 0034 01       		.byte	0x1
+ 280 0035 08       		.byte	0x8
+ 281 0036 4D000000 		.4byte	.LASF2
+ 282 003a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 8
 
 
-  49:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****             CyDelay(1000);  // Delay med at få ny temperatur måling
- 126              		.loc 1 49 0
- 127 0042 FFF7FEFF 		bl	writeTempToUART
- 128              	.LVL11:
-  50:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 129              		.loc 1 50 0
- 130 0046 4FF47A70 		mov	r0, #1000
- 131 004a FFF7FEFF 		bl	CyDelay
- 132              	.LVL12:
- 133 004e D8E7     		b	.L6
- 134              	.L7:
-  52:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
- 135              		.loc 1 52 0
- 136 0050 0128     		cmp	r0, #1
- 137 0052 09D1     		bne	.L11
-  54:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
- 138              		.loc 1 54 0
- 139 0054 1C48     		ldr	r0, .L16
- 140 0056 FFF7FEFF 		bl	UART_1_PutString
- 141              	.LVL13:
-  55:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
- 142              		.loc 1 55 0
- 143 005a FFF7FEFF 		bl	I2C_1_MasterSendStop
- 144              	.LVL14:
-  56:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 145              		.loc 1 56 0
- 146 005e 4FF47A70 		mov	r0, #1000
- 147 0062 FFF7FEFF 		bl	CyDelay
- 148              	.LVL15:
- 149 0066 CCE7     		b	.L6
- 150              	.L11:
-  58:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
- 151              		.loc 1 58 0
- 152 0068 0228     		cmp	r0, #2
- 153 006a 09D1     		bne	.L12
-  60:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
- 154              		.loc 1 60 0
- 155 006c 1748     		ldr	r0, .L16+4
- 156 006e FFF7FEFF 		bl	UART_1_PutString
- 157              	.LVL16:
-  61:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
- 158              		.loc 1 61 0
- 159 0072 FFF7FEFF 		bl	I2C_1_MasterSendStop
- 160              	.LVL17:
-  62:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 161              		.loc 1 62 0
- 162 0076 4FF47A70 		mov	r0, #1000
- 163 007a FFF7FEFF 		bl	CyDelay
- 164              	.LVL18:
- 165 007e C0E7     		b	.L6
- 166              	.L12:
-  64:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
- 167              		.loc 1 64 0
- 168 0080 0328     		cmp	r0, #3
- 169 0082 09D1     		bne	.L13
-  66:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
- 170              		.loc 1 66 0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 6
+ 283 003b 02       		.byte	0x2
+ 284 003c 05       		.byte	0x5
+ 285 003d 5A020000 		.4byte	.LASF3
+ 286 0041 02       		.uleb128 0x2
+ 287 0042 02       		.byte	0x2
+ 288 0043 07       		.byte	0x7
+ 289 0044 62010000 		.4byte	.LASF4
+ 290 0048 03       		.uleb128 0x3
+ 291 0049 09000000 		.4byte	.LASF10
+ 292 004d 02       		.byte	0x2
+ 293 004e 3F       		.byte	0x3f
+ 294 004f 53000000 		.4byte	0x53
+ 295 0053 02       		.uleb128 0x2
+ 296 0054 04       		.byte	0x4
+ 297 0055 05       		.byte	0x5
+ 298 0056 7F020000 		.4byte	.LASF5
+ 299 005a 02       		.uleb128 0x2
+ 300 005b 04       		.byte	0x4
+ 301 005c 07       		.byte	0x7
+ 302 005d 4B010000 		.4byte	.LASF6
+ 303 0061 02       		.uleb128 0x2
+ 304 0062 08       		.byte	0x8
+ 305 0063 05       		.byte	0x5
+ 306 0064 32020000 		.4byte	.LASF7
+ 307 0068 02       		.uleb128 0x2
+ 308 0069 08       		.byte	0x8
+ 309 006a 07       		.byte	0x7
+ 310 006b 0A020000 		.4byte	.LASF8
+ 311 006f 04       		.uleb128 0x4
+ 312 0070 04       		.byte	0x4
+ 313 0071 05       		.byte	0x5
+ 314 0072 696E7400 		.ascii	"int\000"
+ 315 0076 02       		.uleb128 0x2
+ 316 0077 04       		.byte	0x4
+ 317 0078 07       		.byte	0x7
+ 318 0079 FD010000 		.4byte	.LASF9
+ 319 007d 03       		.uleb128 0x3
+ 320 007e 21020000 		.4byte	.LASF11
+ 321 0082 03       		.byte	0x3
+ 322 0083 2C       		.byte	0x2c
+ 323 0084 48000000 		.4byte	0x48
+ 324 0088 05       		.uleb128 0x5
+ 325 0089 64020000 		.4byte	.LASF12
+ 326 008d 04       		.byte	0x4
+ 327 008e 9201     		.2byte	0x192
+ 328 0090 33000000 		.4byte	0x33
+ 329 0094 05       		.uleb128 0x5
+ 330 0095 89010000 		.4byte	.LASF13
+ 331 0099 04       		.byte	0x4
+ 332 009a 9501     		.2byte	0x195
+ 333 009c 2C000000 		.4byte	0x2c
+ 334 00a0 02       		.uleb128 0x2
+ 335 00a1 08       		.byte	0x8
+ 336 00a2 04       		.byte	0x4
+ 337 00a3 82010000 		.4byte	.LASF14
+ 338 00a7 02       		.uleb128 0x2
+ 339 00a8 01       		.byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 9
 
 
- 171 0084 1248     		ldr	r0, .L16+8
- 172 0086 FFF7FEFF 		bl	UART_1_PutString
- 173              	.LVL19:
-  67:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
- 174              		.loc 1 67 0
- 175 008a FFF7FEFF 		bl	I2C_1_MasterSendStop
- 176              	.LVL20:
-  68:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 177              		.loc 1 68 0
- 178 008e 4FF47A70 		mov	r0, #1000
- 179 0092 FFF7FEFF 		bl	CyDelay
- 180              	.LVL21:
- 181 0096 B4E7     		b	.L6
- 182              	.L13:
-  70:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
- 183              		.loc 1 70 0
- 184 0098 0428     		cmp	r0, #4
- 185 009a 09D1     		bne	.L14
-  72:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
- 186              		.loc 1 72 0
- 187 009c 0D48     		ldr	r0, .L16+12
- 188 009e FFF7FEFF 		bl	UART_1_PutString
- 189              	.LVL22:
-  73:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
- 190              		.loc 1 73 0
- 191 00a2 FFF7FEFF 		bl	I2C_1_MasterSendStop
- 192              	.LVL23:
-  74:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 193              		.loc 1 74 0
- 194 00a6 4FF47A70 		mov	r0, #1000
- 195 00aa FFF7FEFF 		bl	CyDelay
- 196              	.LVL24:
- 197 00ae A8E7     		b	.L6
- 198              	.L14:
-  76:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         {
- 199              		.loc 1 76 0
- 200 00b0 0528     		cmp	r0, #5
- 201 00b2 A6D1     		bne	.L6
-  78:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           I2C_1_MasterSendStop();    //  Fejl så I2C master skal sende stop
- 202              		.loc 1 78 0
- 203 00b4 0848     		ldr	r0, .L16+16
- 204 00b6 FFF7FEFF 		bl	UART_1_PutString
- 205              	.LVL25:
-  79:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****           CyDelay(1000);  // Delay med næste temperatur måling
- 206              		.loc 1 79 0
- 207 00ba FFF7FEFF 		bl	I2C_1_MasterSendStop
- 208              	.LVL26:
-  80:..\..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn/I2C_handler.c ****         }
- 209              		.loc 1 80 0
- 210 00be 4FF47A70 		mov	r0, #1000
- 211 00c2 FFF7FEFF 		bl	CyDelay
- 212              	.LVL27:
- 213 00c6 9CE7     		b	.L6
- 214              	.L17:
- 215              		.align	2
- 216              	.L16:
- 217 00c8 10000000 		.word	.LC1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 7
+ 340 00a9 08       		.byte	0x8
+ 341 00aa 55020000 		.4byte	.LASF15
+ 342 00ae 02       		.uleb128 0x2
+ 343 00af 08       		.byte	0x8
+ 344 00b0 04       		.byte	0x4
+ 345 00b1 88020000 		.4byte	.LASF16
+ 346 00b5 02       		.uleb128 0x2
+ 347 00b6 04       		.byte	0x4
+ 348 00b7 07       		.byte	0x7
+ 349 00b8 29020000 		.4byte	.LASF17
+ 350 00bc 06       		.uleb128 0x6
+ 351 00bd 32000000 		.4byte	.LASF20
+ 352 00c1 01       		.byte	0x1
+ 353 00c2 17       		.byte	0x17
+ 354 00c3 94000000 		.4byte	0x94
+ 355 00c7 00000000 		.4byte	.LFB64
+ 356 00cb DC000000 		.4byte	.LFE64-.LFB64
+ 357 00cf 01       		.uleb128 0x1
+ 358 00d0 9C       		.byte	0x9c
+ 359 00d1 48020000 		.4byte	0x248
+ 360 00d5 07       		.uleb128 0x7
+ 361 00d6 00000000 		.4byte	.LASF18
+ 362 00da 01       		.byte	0x1
+ 363 00db 1A       		.byte	0x1a
+ 364 00dc 48020000 		.4byte	0x248
+ 365 00e0 07       		.uleb128 0x7
+ 366 00e1 3B000000 		.4byte	.LASF19
+ 367 00e5 01       		.byte	0x1
+ 368 00e6 1B       		.byte	0x1b
+ 369 00e7 48020000 		.4byte	0x248
+ 370 00eb 08       		.uleb128 0x8
+ 371 00ec 5D010000 		.4byte	.LASF22
+ 372 00f0 01       		.byte	0x1
+ 373 00f1 1C       		.byte	0x1c
+ 374 00f2 25000000 		.4byte	0x25
+ 375 00f6 00000000 		.4byte	.LLST0
+ 376 00fa 09       		.uleb128 0x9
+ 377 00fb 0A000000 		.4byte	.LVL0
+ 378 00ff E3020000 		.4byte	0x2e3
+ 379 0103 13010000 		.4byte	0x113
+ 380 0107 0A       		.uleb128 0xa
+ 381 0108 01       		.uleb128 0x1
+ 382 0109 50       		.byte	0x50
+ 383 010a 02       		.uleb128 0x2
+ 384 010b 08       		.byte	0x8
+ 385 010c 48       		.byte	0x48
+ 386 010d 0A       		.uleb128 0xa
+ 387 010e 01       		.uleb128 0x1
+ 388 010f 51       		.byte	0x51
+ 389 0110 01       		.uleb128 0x1
+ 390 0111 31       		.byte	0x31
+ 391 0112 00       		.byte	0
+ 392 0113 09       		.uleb128 0x9
+ 393 0114 12000000 		.4byte	.LVL1
+ 394 0118 EE020000 		.4byte	0x2ee
+ 395 011c 26010000 		.4byte	0x126
+ 396 0120 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 10
 
 
- 218 00cc 2C000000 		.word	.LC2
- 219 00d0 48000000 		.word	.LC3
- 220 00d4 68000000 		.word	.LC4
- 221 00d8 88000000 		.word	.LC5
- 222              		.cfi_endproc
- 223              	.LFE64:
- 224              		.size	readTemp, .-readTemp
- 225              		.section	.rodata.str1.4,"aMS",%progbits,1
- 226              		.align	2
- 227              	.LC0:
- 228 0000 54656D70 		.ascii	"Temp 1: %.2f \015\012\000"
- 228      20313A20 
- 228      252E3266 
- 228      200D0A00 
- 229              	.LC1:
- 230 0010 4572726F 		.ascii	"Error I2C_1_MSTR_BUS_BUSY\012\000"
- 230      72204932 
- 230      435F315F 
- 230      4D535452 
- 230      5F425553 
- 231 002b 00       		.space	1
- 232              	.LC2:
- 233 002c 4572726F 		.ascii	"Error I2C_1_MSTR_NOT_READY\012\000"
- 233      72204932 
- 233      435F315F 
- 233      4D535452 
- 233      5F4E4F54 
- 234              	.LC3:
- 235 0048 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_LB_NAK\012\000"
- 235      72204932 
- 235      435F315F 
- 235      4D535452 
- 235      5F455252 
- 236 0065 000000   		.space	3
- 237              	.LC4:
- 238 0068 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_ARB_LOST\012\000"
- 238      72204932 
- 238      435F315F 
- 238      4D535452 
- 238      5F455252 
- 239 0087 00       		.space	1
- 240              	.LC5:
- 241 0088 4572726F 		.ascii	"Error I2C_1_MSTR_ERR_ABORT_START_GE\012\000"
- 241      72204932 
- 241      435F315F 
- 241      4D535452 
- 241      5F455252 
- 242              		.text
- 243              	.Letext0:
- 244              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
- 245              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
- 246              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
- 247              		.file 5 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
- 248              		.file 6 "Generated_Source\\PSoC5/UART_1.h"
- 249              		.file 7 "Generated_Source\\PSoC5/I2C_1.h"
- 250              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
- 251              		.file 9 "Generated_Source\\PSoC5/core_cm3.h"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 8
+ 397 0121 01       		.uleb128 0x1
+ 398 0122 50       		.byte	0x50
+ 399 0123 01       		.uleb128 0x1
+ 400 0124 31       		.byte	0x31
+ 401 0125 00       		.byte	0
+ 402 0126 09       		.uleb128 0x9
+ 403 0127 1A000000 		.4byte	.LVL2
+ 404 012b EE020000 		.4byte	0x2ee
+ 405 012f 39010000 		.4byte	0x139
+ 406 0133 0A       		.uleb128 0xa
+ 407 0134 01       		.uleb128 0x1
+ 408 0135 50       		.byte	0x50
+ 409 0136 01       		.uleb128 0x1
+ 410 0137 30       		.byte	0x30
+ 411 0138 00       		.byte	0
+ 412 0139 0B       		.uleb128 0xb
+ 413 013a 20000000 		.4byte	.LVL3
+ 414 013e F9020000 		.4byte	0x2f9
+ 415 0142 09       		.uleb128 0x9
+ 416 0143 50000000 		.4byte	.LVL8
+ 417 0147 04030000 		.4byte	0x304
+ 418 014b 59010000 		.4byte	0x159
+ 419 014f 0A       		.uleb128 0xa
+ 420 0150 01       		.uleb128 0x1
+ 421 0151 50       		.byte	0x50
+ 422 0152 05       		.uleb128 0x5
+ 423 0153 03       		.byte	0x3
+ 424 0154 00000000 		.4byte	.LC0
+ 425 0158 00       		.byte	0
+ 426 0159 0B       		.uleb128 0xb
+ 427 015a 54000000 		.4byte	.LVL9
+ 428 015e F9020000 		.4byte	0x2f9
+ 429 0162 09       		.uleb128 0x9
+ 430 0163 5C000000 		.4byte	.LVL10
+ 431 0167 0F030000 		.4byte	0x30f
+ 432 016b 77010000 		.4byte	0x177
+ 433 016f 0A       		.uleb128 0xa
+ 434 0170 01       		.uleb128 0x1
+ 435 0171 50       		.byte	0x50
+ 436 0172 03       		.uleb128 0x3
+ 437 0173 0A       		.byte	0xa
+ 438 0174 E803     		.2byte	0x3e8
+ 439 0176 00       		.byte	0
+ 440 0177 09       		.uleb128 0x9
+ 441 0178 68000000 		.4byte	.LVL11
+ 442 017c 04030000 		.4byte	0x304
+ 443 0180 8E010000 		.4byte	0x18e
+ 444 0184 0A       		.uleb128 0xa
+ 445 0185 01       		.uleb128 0x1
+ 446 0186 50       		.byte	0x50
+ 447 0187 05       		.uleb128 0x5
+ 448 0188 03       		.byte	0x3
+ 449 0189 1C000000 		.4byte	.LC1
+ 450 018d 00       		.byte	0
+ 451 018e 0B       		.uleb128 0xb
+ 452 018f 6C000000 		.4byte	.LVL12
+ 453 0193 F9020000 		.4byte	0x2f9
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 11
 
 
- 252              		.section	.debug_info,"",%progbits
- 253              	.Ldebug_info0:
- 254 0000 40030000 		.4byte	0x340
- 255 0004 0400     		.2byte	0x4
- 256 0006 00000000 		.4byte	.Ldebug_abbrev0
- 257 000a 04       		.byte	0x4
- 258 000b 01       		.uleb128 0x1
- 259 000c 5B000000 		.4byte	.LASF28
- 260 0010 0C       		.byte	0xc
- 261 0011 F6000000 		.4byte	.LASF29
- 262 0015 9E010000 		.4byte	.LASF30
- 263 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 264 001d 00000000 		.4byte	0
- 265 0021 00000000 		.4byte	.Ldebug_line0
- 266 0025 02       		.uleb128 0x2
- 267 0026 04       		.byte	0x4
- 268 0027 04       		.byte	0x4
- 269 0028 47000000 		.4byte	.LASF0
- 270 002c 02       		.uleb128 0x2
- 271 002d 01       		.byte	0x1
- 272 002e 06       		.byte	0x6
- 273 002f 94020000 		.4byte	.LASF1
- 274 0033 02       		.uleb128 0x2
- 275 0034 01       		.byte	0x1
- 276 0035 08       		.byte	0x8
- 277 0036 4D000000 		.4byte	.LASF2
- 278 003a 02       		.uleb128 0x2
- 279 003b 02       		.byte	0x2
- 280 003c 05       		.byte	0x5
- 281 003d 5A020000 		.4byte	.LASF3
- 282 0041 02       		.uleb128 0x2
- 283 0042 02       		.byte	0x2
- 284 0043 07       		.byte	0x7
- 285 0044 62010000 		.4byte	.LASF4
- 286 0048 03       		.uleb128 0x3
- 287 0049 09000000 		.4byte	.LASF10
- 288 004d 02       		.byte	0x2
- 289 004e 3F       		.byte	0x3f
- 290 004f 53000000 		.4byte	0x53
- 291 0053 02       		.uleb128 0x2
- 292 0054 04       		.byte	0x4
- 293 0055 05       		.byte	0x5
- 294 0056 7F020000 		.4byte	.LASF5
- 295 005a 02       		.uleb128 0x2
- 296 005b 04       		.byte	0x4
- 297 005c 07       		.byte	0x7
- 298 005d 4B010000 		.4byte	.LASF6
- 299 0061 02       		.uleb128 0x2
- 300 0062 08       		.byte	0x8
- 301 0063 05       		.byte	0x5
- 302 0064 32020000 		.4byte	.LASF7
- 303 0068 02       		.uleb128 0x2
- 304 0069 08       		.byte	0x8
- 305 006a 07       		.byte	0x7
- 306 006b 0A020000 		.4byte	.LASF8
- 307 006f 04       		.uleb128 0x4
- 308 0070 04       		.byte	0x4
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 9
+ 454 0197 09       		.uleb128 0x9
+ 455 0198 74000000 		.4byte	.LVL13
+ 456 019c 0F030000 		.4byte	0x30f
+ 457 01a0 AC010000 		.4byte	0x1ac
+ 458 01a4 0A       		.uleb128 0xa
+ 459 01a5 01       		.uleb128 0x1
+ 460 01a6 50       		.byte	0x50
+ 461 01a7 03       		.uleb128 0x3
+ 462 01a8 0A       		.byte	0xa
+ 463 01a9 E803     		.2byte	0x3e8
+ 464 01ab 00       		.byte	0
+ 465 01ac 09       		.uleb128 0x9
+ 466 01ad 80000000 		.4byte	.LVL14
+ 467 01b1 04030000 		.4byte	0x304
+ 468 01b5 C3010000 		.4byte	0x1c3
+ 469 01b9 0A       		.uleb128 0xa
+ 470 01ba 01       		.uleb128 0x1
+ 471 01bb 50       		.byte	0x50
+ 472 01bc 05       		.uleb128 0x5
+ 473 01bd 03       		.byte	0x3
+ 474 01be 38000000 		.4byte	.LC2
+ 475 01c2 00       		.byte	0
+ 476 01c3 0B       		.uleb128 0xb
+ 477 01c4 84000000 		.4byte	.LVL15
+ 478 01c8 F9020000 		.4byte	0x2f9
+ 479 01cc 09       		.uleb128 0x9
+ 480 01cd 8C000000 		.4byte	.LVL16
+ 481 01d1 0F030000 		.4byte	0x30f
+ 482 01d5 E1010000 		.4byte	0x1e1
+ 483 01d9 0A       		.uleb128 0xa
+ 484 01da 01       		.uleb128 0x1
+ 485 01db 50       		.byte	0x50
+ 486 01dc 03       		.uleb128 0x3
+ 487 01dd 0A       		.byte	0xa
+ 488 01de E803     		.2byte	0x3e8
+ 489 01e0 00       		.byte	0
+ 490 01e1 09       		.uleb128 0x9
+ 491 01e2 98000000 		.4byte	.LVL17
+ 492 01e6 04030000 		.4byte	0x304
+ 493 01ea F8010000 		.4byte	0x1f8
+ 494 01ee 0A       		.uleb128 0xa
+ 495 01ef 01       		.uleb128 0x1
+ 496 01f0 50       		.byte	0x50
+ 497 01f1 05       		.uleb128 0x5
+ 498 01f2 03       		.byte	0x3
+ 499 01f3 58000000 		.4byte	.LC3
+ 500 01f7 00       		.byte	0
+ 501 01f8 0B       		.uleb128 0xb
+ 502 01f9 9C000000 		.4byte	.LVL18
+ 503 01fd F9020000 		.4byte	0x2f9
+ 504 0201 09       		.uleb128 0x9
+ 505 0202 A4000000 		.4byte	.LVL19
+ 506 0206 0F030000 		.4byte	0x30f
+ 507 020a 16020000 		.4byte	0x216
+ 508 020e 0A       		.uleb128 0xa
+ 509 020f 01       		.uleb128 0x1
+ 510 0210 50       		.byte	0x50
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 12
 
 
- 309 0071 05       		.byte	0x5
- 310 0072 696E7400 		.ascii	"int\000"
- 311 0076 02       		.uleb128 0x2
- 312 0077 04       		.byte	0x4
- 313 0078 07       		.byte	0x7
- 314 0079 FD010000 		.4byte	.LASF9
- 315 007d 03       		.uleb128 0x3
- 316 007e 21020000 		.4byte	.LASF11
- 317 0082 03       		.byte	0x3
- 318 0083 2C       		.byte	0x2c
- 319 0084 48000000 		.4byte	0x48
- 320 0088 05       		.uleb128 0x5
- 321 0089 64020000 		.4byte	.LASF12
- 322 008d 04       		.byte	0x4
- 323 008e 9201     		.2byte	0x192
- 324 0090 33000000 		.4byte	0x33
- 325 0094 05       		.uleb128 0x5
- 326 0095 89010000 		.4byte	.LASF13
- 327 0099 04       		.byte	0x4
- 328 009a 9501     		.2byte	0x195
- 329 009c 2C000000 		.4byte	0x2c
- 330 00a0 02       		.uleb128 0x2
- 331 00a1 08       		.byte	0x8
- 332 00a2 04       		.byte	0x4
- 333 00a3 82010000 		.4byte	.LASF14
- 334 00a7 02       		.uleb128 0x2
- 335 00a8 01       		.byte	0x1
- 336 00a9 08       		.byte	0x8
- 337 00aa 55020000 		.4byte	.LASF15
- 338 00ae 02       		.uleb128 0x2
- 339 00af 08       		.byte	0x8
- 340 00b0 04       		.byte	0x4
- 341 00b1 88020000 		.4byte	.LASF16
- 342 00b5 02       		.uleb128 0x2
- 343 00b6 04       		.byte	0x4
- 344 00b7 07       		.byte	0x7
- 345 00b8 29020000 		.4byte	.LASF17
- 346 00bc 06       		.uleb128 0x6
- 347 00bd 8E010000 		.4byte	.LASF31
- 348 00c1 01       		.byte	0x1
- 349 00c2 57       		.byte	0x57
- 350 00c3 00000000 		.4byte	.LFB65
- 351 00c7 28000000 		.4byte	.LFE65-.LFB65
- 352 00cb 01       		.uleb128 0x1
- 353 00cc 9C       		.byte	0x9c
- 354 00cd 26010000 		.4byte	0x126
- 355 00d1 07       		.uleb128 0x7
- 356 00d2 5D010000 		.4byte	.LASF21
- 357 00d6 01       		.byte	0x1
- 358 00d7 57       		.byte	0x57
- 359 00d8 25000000 		.4byte	0x25
- 360 00dc 00000000 		.4byte	.LLST0
- 361 00e0 08       		.uleb128 0x8
- 362 00e1 E9000000 		.4byte	.LASF20
- 363 00e5 01       		.byte	0x1
- 364 00e6 59       		.byte	0x59
- 365 00e7 26010000 		.4byte	0x126
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 10
+ 511 0211 03       		.uleb128 0x3
+ 512 0212 0A       		.byte	0xa
+ 513 0213 E803     		.2byte	0x3e8
+ 514 0215 00       		.byte	0
+ 515 0216 09       		.uleb128 0x9
+ 516 0217 B0000000 		.4byte	.LVL20
+ 517 021b 04030000 		.4byte	0x304
+ 518 021f 2D020000 		.4byte	0x22d
+ 519 0223 0A       		.uleb128 0xa
+ 520 0224 01       		.uleb128 0x1
+ 521 0225 50       		.byte	0x50
+ 522 0226 05       		.uleb128 0x5
+ 523 0227 03       		.byte	0x3
+ 524 0228 78000000 		.4byte	.LC4
+ 525 022c 00       		.byte	0
+ 526 022d 0B       		.uleb128 0xb
+ 527 022e B4000000 		.4byte	.LVL21
+ 528 0232 F9020000 		.4byte	0x2f9
+ 529 0236 0C       		.uleb128 0xc
+ 530 0237 BC000000 		.4byte	.LVL22
+ 531 023b 0F030000 		.4byte	0x30f
+ 532 023f 0A       		.uleb128 0xa
+ 533 0240 01       		.uleb128 0x1
+ 534 0241 50       		.byte	0x50
+ 535 0242 03       		.uleb128 0x3
+ 536 0243 0A       		.byte	0xa
+ 537 0244 E803     		.2byte	0x3e8
+ 538 0246 00       		.byte	0
+ 539 0247 00       		.byte	0
+ 540 0248 0D       		.uleb128 0xd
+ 541 0249 88000000 		.4byte	0x88
+ 542 024d 58020000 		.4byte	0x258
+ 543 0251 0E       		.uleb128 0xe
+ 544 0252 B5000000 		.4byte	0xb5
+ 545 0256 01       		.byte	0x1
+ 546 0257 00       		.byte	0
+ 547 0258 0F       		.uleb128 0xf
+ 548 0259 8E010000 		.4byte	.LASF21
+ 549 025d 01       		.byte	0x1
+ 550 025e 57       		.byte	0x57
+ 551 025f 00000000 		.4byte	.LFB65
+ 552 0263 28000000 		.4byte	.LFE65-.LFB65
+ 553 0267 01       		.uleb128 0x1
+ 554 0268 9C       		.byte	0x9c
+ 555 0269 C2020000 		.4byte	0x2c2
+ 556 026d 10       		.uleb128 0x10
+ 557 026e 5D010000 		.4byte	.LASF22
+ 558 0272 01       		.byte	0x1
+ 559 0273 57       		.byte	0x57
+ 560 0274 25000000 		.4byte	0x25
+ 561 0278 34000000 		.4byte	.LLST1
+ 562 027c 11       		.uleb128 0x11
+ 563 027d E9000000 		.4byte	.LASF23
+ 564 0281 01       		.byte	0x1
+ 565 0282 59       		.byte	0x59
+ 566 0283 C2020000 		.4byte	0x2c2
+ 567 0287 03       		.uleb128 0x3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 13
 
 
- 366 00eb 03       		.uleb128 0x3
- 367 00ec 91       		.byte	0x91
- 368 00ed F87D     		.sleb128 -264
- 369 00ef 09       		.uleb128 0x9
- 370 00f0 18000000 		.4byte	.LVL2
- 371 00f4 01030000 		.4byte	0x301
- 372 00f8 14010000 		.4byte	0x114
- 373 00fc 0A       		.uleb128 0xa
- 374 00fd 01       		.uleb128 0x1
- 375 00fe 50       		.byte	0x50
- 376 00ff 03       		.uleb128 0x3
- 377 0100 91       		.byte	0x91
- 378 0101 F87D     		.sleb128 -264
- 379 0103 0A       		.uleb128 0xa
- 380 0104 01       		.uleb128 0x1
- 381 0105 51       		.byte	0x51
- 382 0106 03       		.uleb128 0x3
- 383 0107 0A       		.byte	0xa
- 384 0108 0001     		.2byte	0x100
- 385 010a 0A       		.uleb128 0xa
- 386 010b 01       		.uleb128 0x1
- 387 010c 52       		.byte	0x52
- 388 010d 05       		.uleb128 0x5
- 389 010e 03       		.byte	0x3
- 390 010f 00000000 		.4byte	.LC0
- 391 0113 00       		.byte	0
- 392 0114 0B       		.uleb128 0xb
- 393 0115 1E000000 		.4byte	.LVL3
- 394 0119 0C030000 		.4byte	0x30c
- 395 011d 0A       		.uleb128 0xa
- 396 011e 01       		.uleb128 0x1
- 397 011f 50       		.byte	0x50
- 398 0120 03       		.uleb128 0x3
- 399 0121 91       		.byte	0x91
- 400 0122 F87D     		.sleb128 -264
- 401 0124 00       		.byte	0
- 402 0125 00       		.byte	0
- 403 0126 0C       		.uleb128 0xc
- 404 0127 A7000000 		.4byte	0xa7
- 405 012b 36010000 		.4byte	0x136
- 406 012f 0D       		.uleb128 0xd
- 407 0130 B5000000 		.4byte	0xb5
- 408 0134 FF       		.byte	0xff
- 409 0135 00       		.byte	0
- 410 0136 0E       		.uleb128 0xe
- 411 0137 32000000 		.4byte	.LASF32
- 412 013b 01       		.byte	0x1
- 413 013c 17       		.byte	0x17
- 414 013d 94000000 		.4byte	0x94
- 415 0141 00000000 		.4byte	.LFB64
- 416 0145 DC000000 		.4byte	.LFE64-.LFB64
- 417 0149 01       		.uleb128 0x1
- 418 014a 9C       		.byte	0x9c
- 419 014b E0020000 		.4byte	0x2e0
- 420 014f 0F       		.uleb128 0xf
- 421 0150 00000000 		.4byte	.LASF18
- 422 0154 01       		.byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 11
+ 568 0288 91       		.byte	0x91
+ 569 0289 F87D     		.sleb128 -264
+ 570 028b 09       		.uleb128 0x9
+ 571 028c 18000000 		.4byte	.LVL27
+ 572 0290 1A030000 		.4byte	0x31a
+ 573 0294 B0020000 		.4byte	0x2b0
+ 574 0298 0A       		.uleb128 0xa
+ 575 0299 01       		.uleb128 0x1
+ 576 029a 50       		.byte	0x50
+ 577 029b 03       		.uleb128 0x3
+ 578 029c 91       		.byte	0x91
+ 579 029d F87D     		.sleb128 -264
+ 580 029f 0A       		.uleb128 0xa
+ 581 02a0 01       		.uleb128 0x1
+ 582 02a1 51       		.byte	0x51
+ 583 02a2 03       		.uleb128 0x3
+ 584 02a3 0A       		.byte	0xa
+ 585 02a4 0001     		.2byte	0x100
+ 586 02a6 0A       		.uleb128 0xa
+ 587 02a7 01       		.uleb128 0x1
+ 588 02a8 52       		.byte	0x52
+ 589 02a9 05       		.uleb128 0x5
+ 590 02aa 03       		.byte	0x3
+ 591 02ab A0000000 		.4byte	.LC5
+ 592 02af 00       		.byte	0
+ 593 02b0 0C       		.uleb128 0xc
+ 594 02b1 1E000000 		.4byte	.LVL28
+ 595 02b5 04030000 		.4byte	0x304
+ 596 02b9 0A       		.uleb128 0xa
+ 597 02ba 01       		.uleb128 0x1
+ 598 02bb 50       		.byte	0x50
+ 599 02bc 03       		.uleb128 0x3
+ 600 02bd 91       		.byte	0x91
+ 601 02be F87D     		.sleb128 -264
+ 602 02c0 00       		.byte	0
+ 603 02c1 00       		.byte	0
+ 604 02c2 0D       		.uleb128 0xd
+ 605 02c3 A7000000 		.4byte	0xa7
+ 606 02c7 D2020000 		.4byte	0x2d2
+ 607 02cb 0E       		.uleb128 0xe
+ 608 02cc B5000000 		.4byte	0xb5
+ 609 02d0 FF       		.byte	0xff
+ 610 02d1 00       		.byte	0
+ 611 02d2 12       		.uleb128 0x12
+ 612 02d3 75010000 		.4byte	.LASF33
+ 613 02d7 09       		.byte	0x9
+ 614 02d8 9606     		.2byte	0x696
+ 615 02da DE020000 		.4byte	0x2de
+ 616 02de 13       		.uleb128 0x13
+ 617 02df 7D000000 		.4byte	0x7d
+ 618 02e3 14       		.uleb128 0x14
+ 619 02e4 13000000 		.4byte	.LASF24
+ 620 02e8 13000000 		.4byte	.LASF24
+ 621 02ec 05       		.byte	0x5
+ 622 02ed B1       		.byte	0xb1
+ 623 02ee 14       		.uleb128 0x14
+ 624 02ef 40020000 		.4byte	.LASF25
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 14
 
 
- 423 0155 1A       		.byte	0x1a
- 424 0156 E0020000 		.4byte	0x2e0
- 425 015a 0F       		.uleb128 0xf
- 426 015b 3B000000 		.4byte	.LASF19
- 427 015f 01       		.byte	0x1
- 428 0160 1B       		.byte	0x1b
- 429 0161 E0020000 		.4byte	0x2e0
- 430 0165 10       		.uleb128 0x10
- 431 0166 5D010000 		.4byte	.LASF21
- 432 016a 01       		.byte	0x1
- 433 016b 1C       		.byte	0x1c
- 434 016c 25000000 		.4byte	0x25
- 435 0170 23000000 		.4byte	.LLST1
- 436 0174 09       		.uleb128 0x9
- 437 0175 0A000000 		.4byte	.LVL4
- 438 0179 17030000 		.4byte	0x317
- 439 017d 8D010000 		.4byte	0x18d
- 440 0181 0A       		.uleb128 0xa
- 441 0182 01       		.uleb128 0x1
- 442 0183 50       		.byte	0x50
- 443 0184 02       		.uleb128 0x2
- 444 0185 08       		.byte	0x8
- 445 0186 48       		.byte	0x48
- 446 0187 0A       		.uleb128 0xa
- 447 0188 01       		.uleb128 0x1
- 448 0189 51       		.byte	0x51
- 449 018a 01       		.uleb128 0x1
- 450 018b 31       		.byte	0x31
- 451 018c 00       		.byte	0
- 452 018d 09       		.uleb128 0x9
- 453 018e 12000000 		.4byte	.LVL5
- 454 0192 22030000 		.4byte	0x322
- 455 0196 A0010000 		.4byte	0x1a0
- 456 019a 0A       		.uleb128 0xa
- 457 019b 01       		.uleb128 0x1
- 458 019c 50       		.byte	0x50
- 459 019d 01       		.uleb128 0x1
- 460 019e 31       		.byte	0x31
- 461 019f 00       		.byte	0
- 462 01a0 09       		.uleb128 0x9
- 463 01a1 1A000000 		.4byte	.LVL6
- 464 01a5 22030000 		.4byte	0x322
- 465 01a9 B3010000 		.4byte	0x1b3
- 466 01ad 0A       		.uleb128 0xa
- 467 01ae 01       		.uleb128 0x1
- 468 01af 50       		.byte	0x50
- 469 01b0 01       		.uleb128 0x1
- 470 01b1 30       		.byte	0x30
- 471 01b2 00       		.byte	0
- 472 01b3 11       		.uleb128 0x11
- 473 01b4 20000000 		.4byte	.LVL7
- 474 01b8 2D030000 		.4byte	0x32d
- 475 01bc 11       		.uleb128 0x11
- 476 01bd 46000000 		.4byte	.LVL11
- 477 01c1 BC000000 		.4byte	0xbc
- 478 01c5 09       		.uleb128 0x9
- 479 01c6 4E000000 		.4byte	.LVL12
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 12
+ 625 02f3 40020000 		.4byte	.LASF25
+ 626 02f7 05       		.byte	0x5
+ 627 02f8 B7       		.byte	0xb7
+ 628 02f9 14       		.uleb128 0x14
+ 629 02fa 6A020000 		.4byte	.LASF26
+ 630 02fe 6A020000 		.4byte	.LASF26
+ 631 0302 05       		.byte	0x5
+ 632 0303 B5       		.byte	0xb5
+ 633 0304 14       		.uleb128 0x14
+ 634 0305 A0020000 		.4byte	.LASF27
+ 635 0309 A0020000 		.4byte	.LASF27
+ 636 030d 06       		.byte	0x6
+ 637 030e 8B       		.byte	0x8b
+ 638 030f 14       		.uleb128 0x14
+ 639 0310 B1020000 		.4byte	.LASF28
+ 640 0314 B1020000 		.4byte	.LASF28
+ 641 0318 07       		.byte	0x7
+ 642 0319 76       		.byte	0x76
+ 643 031a 14       		.uleb128 0x14
+ 644 031b 29000000 		.4byte	.LASF29
+ 645 031f 29000000 		.4byte	.LASF29
+ 646 0323 08       		.byte	0x8
+ 647 0324 FD       		.byte	0xfd
+ 648 0325 00       		.byte	0
+ 649              		.section	.debug_abbrev,"",%progbits
+ 650              	.Ldebug_abbrev0:
+ 651 0000 01       		.uleb128 0x1
+ 652 0001 11       		.uleb128 0x11
+ 653 0002 01       		.byte	0x1
+ 654 0003 25       		.uleb128 0x25
+ 655 0004 0E       		.uleb128 0xe
+ 656 0005 13       		.uleb128 0x13
+ 657 0006 0B       		.uleb128 0xb
+ 658 0007 03       		.uleb128 0x3
+ 659 0008 0E       		.uleb128 0xe
+ 660 0009 1B       		.uleb128 0x1b
+ 661 000a 0E       		.uleb128 0xe
+ 662 000b 55       		.uleb128 0x55
+ 663 000c 17       		.uleb128 0x17
+ 664 000d 11       		.uleb128 0x11
+ 665 000e 01       		.uleb128 0x1
+ 666 000f 10       		.uleb128 0x10
+ 667 0010 17       		.uleb128 0x17
+ 668 0011 00       		.byte	0
+ 669 0012 00       		.byte	0
+ 670 0013 02       		.uleb128 0x2
+ 671 0014 24       		.uleb128 0x24
+ 672 0015 00       		.byte	0
+ 673 0016 0B       		.uleb128 0xb
+ 674 0017 0B       		.uleb128 0xb
+ 675 0018 3E       		.uleb128 0x3e
+ 676 0019 0B       		.uleb128 0xb
+ 677 001a 03       		.uleb128 0x3
+ 678 001b 0E       		.uleb128 0xe
+ 679 001c 00       		.byte	0
+ 680 001d 00       		.byte	0
+ 681 001e 03       		.uleb128 0x3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 15
 
 
- 480 01ca 38030000 		.4byte	0x338
- 481 01ce DA010000 		.4byte	0x1da
- 482 01d2 0A       		.uleb128 0xa
- 483 01d3 01       		.uleb128 0x1
- 484 01d4 50       		.byte	0x50
- 485 01d5 03       		.uleb128 0x3
- 486 01d6 0A       		.byte	0xa
- 487 01d7 E803     		.2byte	0x3e8
- 488 01d9 00       		.byte	0
- 489 01da 09       		.uleb128 0x9
- 490 01db 5A000000 		.4byte	.LVL13
- 491 01df 0C030000 		.4byte	0x30c
- 492 01e3 F1010000 		.4byte	0x1f1
- 493 01e7 0A       		.uleb128 0xa
- 494 01e8 01       		.uleb128 0x1
- 495 01e9 50       		.byte	0x50
- 496 01ea 05       		.uleb128 0x5
- 497 01eb 03       		.byte	0x3
- 498 01ec 10000000 		.4byte	.LC1
- 499 01f0 00       		.byte	0
- 500 01f1 11       		.uleb128 0x11
- 501 01f2 5E000000 		.4byte	.LVL14
- 502 01f6 2D030000 		.4byte	0x32d
- 503 01fa 09       		.uleb128 0x9
- 504 01fb 66000000 		.4byte	.LVL15
- 505 01ff 38030000 		.4byte	0x338
- 506 0203 0F020000 		.4byte	0x20f
- 507 0207 0A       		.uleb128 0xa
- 508 0208 01       		.uleb128 0x1
- 509 0209 50       		.byte	0x50
- 510 020a 03       		.uleb128 0x3
- 511 020b 0A       		.byte	0xa
- 512 020c E803     		.2byte	0x3e8
- 513 020e 00       		.byte	0
- 514 020f 09       		.uleb128 0x9
- 515 0210 72000000 		.4byte	.LVL16
- 516 0214 0C030000 		.4byte	0x30c
- 517 0218 26020000 		.4byte	0x226
- 518 021c 0A       		.uleb128 0xa
- 519 021d 01       		.uleb128 0x1
- 520 021e 50       		.byte	0x50
- 521 021f 05       		.uleb128 0x5
- 522 0220 03       		.byte	0x3
- 523 0221 2C000000 		.4byte	.LC2
- 524 0225 00       		.byte	0
- 525 0226 11       		.uleb128 0x11
- 526 0227 76000000 		.4byte	.LVL17
- 527 022b 2D030000 		.4byte	0x32d
- 528 022f 09       		.uleb128 0x9
- 529 0230 7E000000 		.4byte	.LVL18
- 530 0234 38030000 		.4byte	0x338
- 531 0238 44020000 		.4byte	0x244
- 532 023c 0A       		.uleb128 0xa
- 533 023d 01       		.uleb128 0x1
- 534 023e 50       		.byte	0x50
- 535 023f 03       		.uleb128 0x3
- 536 0240 0A       		.byte	0xa
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 13
+ 682 001f 16       		.uleb128 0x16
+ 683 0020 00       		.byte	0
+ 684 0021 03       		.uleb128 0x3
+ 685 0022 0E       		.uleb128 0xe
+ 686 0023 3A       		.uleb128 0x3a
+ 687 0024 0B       		.uleb128 0xb
+ 688 0025 3B       		.uleb128 0x3b
+ 689 0026 0B       		.uleb128 0xb
+ 690 0027 49       		.uleb128 0x49
+ 691 0028 13       		.uleb128 0x13
+ 692 0029 00       		.byte	0
+ 693 002a 00       		.byte	0
+ 694 002b 04       		.uleb128 0x4
+ 695 002c 24       		.uleb128 0x24
+ 696 002d 00       		.byte	0
+ 697 002e 0B       		.uleb128 0xb
+ 698 002f 0B       		.uleb128 0xb
+ 699 0030 3E       		.uleb128 0x3e
+ 700 0031 0B       		.uleb128 0xb
+ 701 0032 03       		.uleb128 0x3
+ 702 0033 08       		.uleb128 0x8
+ 703 0034 00       		.byte	0
+ 704 0035 00       		.byte	0
+ 705 0036 05       		.uleb128 0x5
+ 706 0037 16       		.uleb128 0x16
+ 707 0038 00       		.byte	0
+ 708 0039 03       		.uleb128 0x3
+ 709 003a 0E       		.uleb128 0xe
+ 710 003b 3A       		.uleb128 0x3a
+ 711 003c 0B       		.uleb128 0xb
+ 712 003d 3B       		.uleb128 0x3b
+ 713 003e 05       		.uleb128 0x5
+ 714 003f 49       		.uleb128 0x49
+ 715 0040 13       		.uleb128 0x13
+ 716 0041 00       		.byte	0
+ 717 0042 00       		.byte	0
+ 718 0043 06       		.uleb128 0x6
+ 719 0044 2E       		.uleb128 0x2e
+ 720 0045 01       		.byte	0x1
+ 721 0046 3F       		.uleb128 0x3f
+ 722 0047 19       		.uleb128 0x19
+ 723 0048 03       		.uleb128 0x3
+ 724 0049 0E       		.uleb128 0xe
+ 725 004a 3A       		.uleb128 0x3a
+ 726 004b 0B       		.uleb128 0xb
+ 727 004c 3B       		.uleb128 0x3b
+ 728 004d 0B       		.uleb128 0xb
+ 729 004e 49       		.uleb128 0x49
+ 730 004f 13       		.uleb128 0x13
+ 731 0050 11       		.uleb128 0x11
+ 732 0051 01       		.uleb128 0x1
+ 733 0052 12       		.uleb128 0x12
+ 734 0053 06       		.uleb128 0x6
+ 735 0054 40       		.uleb128 0x40
+ 736 0055 18       		.uleb128 0x18
+ 737 0056 9642     		.uleb128 0x2116
+ 738 0058 19       		.uleb128 0x19
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 16
 
 
- 537 0241 E803     		.2byte	0x3e8
- 538 0243 00       		.byte	0
- 539 0244 09       		.uleb128 0x9
- 540 0245 8A000000 		.4byte	.LVL19
- 541 0249 0C030000 		.4byte	0x30c
- 542 024d 5B020000 		.4byte	0x25b
- 543 0251 0A       		.uleb128 0xa
- 544 0252 01       		.uleb128 0x1
- 545 0253 50       		.byte	0x50
- 546 0254 05       		.uleb128 0x5
- 547 0255 03       		.byte	0x3
- 548 0256 48000000 		.4byte	.LC3
- 549 025a 00       		.byte	0
- 550 025b 11       		.uleb128 0x11
- 551 025c 8E000000 		.4byte	.LVL20
- 552 0260 2D030000 		.4byte	0x32d
- 553 0264 09       		.uleb128 0x9
- 554 0265 96000000 		.4byte	.LVL21
- 555 0269 38030000 		.4byte	0x338
- 556 026d 79020000 		.4byte	0x279
- 557 0271 0A       		.uleb128 0xa
- 558 0272 01       		.uleb128 0x1
- 559 0273 50       		.byte	0x50
- 560 0274 03       		.uleb128 0x3
- 561 0275 0A       		.byte	0xa
- 562 0276 E803     		.2byte	0x3e8
- 563 0278 00       		.byte	0
- 564 0279 09       		.uleb128 0x9
- 565 027a A2000000 		.4byte	.LVL22
- 566 027e 0C030000 		.4byte	0x30c
- 567 0282 90020000 		.4byte	0x290
- 568 0286 0A       		.uleb128 0xa
- 569 0287 01       		.uleb128 0x1
- 570 0288 50       		.byte	0x50
- 571 0289 05       		.uleb128 0x5
- 572 028a 03       		.byte	0x3
- 573 028b 68000000 		.4byte	.LC4
- 574 028f 00       		.byte	0
- 575 0290 11       		.uleb128 0x11
- 576 0291 A6000000 		.4byte	.LVL23
- 577 0295 2D030000 		.4byte	0x32d
- 578 0299 09       		.uleb128 0x9
- 579 029a AE000000 		.4byte	.LVL24
- 580 029e 38030000 		.4byte	0x338
- 581 02a2 AE020000 		.4byte	0x2ae
- 582 02a6 0A       		.uleb128 0xa
- 583 02a7 01       		.uleb128 0x1
- 584 02a8 50       		.byte	0x50
- 585 02a9 03       		.uleb128 0x3
- 586 02aa 0A       		.byte	0xa
- 587 02ab E803     		.2byte	0x3e8
- 588 02ad 00       		.byte	0
- 589 02ae 09       		.uleb128 0x9
- 590 02af BA000000 		.4byte	.LVL25
- 591 02b3 0C030000 		.4byte	0x30c
- 592 02b7 C5020000 		.4byte	0x2c5
- 593 02bb 0A       		.uleb128 0xa
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 14
+ 739 0059 01       		.uleb128 0x1
+ 740 005a 13       		.uleb128 0x13
+ 741 005b 00       		.byte	0
+ 742 005c 00       		.byte	0
+ 743 005d 07       		.uleb128 0x7
+ 744 005e 34       		.uleb128 0x34
+ 745 005f 00       		.byte	0
+ 746 0060 03       		.uleb128 0x3
+ 747 0061 0E       		.uleb128 0xe
+ 748 0062 3A       		.uleb128 0x3a
+ 749 0063 0B       		.uleb128 0xb
+ 750 0064 3B       		.uleb128 0x3b
+ 751 0065 0B       		.uleb128 0xb
+ 752 0066 49       		.uleb128 0x49
+ 753 0067 13       		.uleb128 0x13
+ 754 0068 00       		.byte	0
+ 755 0069 00       		.byte	0
+ 756 006a 08       		.uleb128 0x8
+ 757 006b 34       		.uleb128 0x34
+ 758 006c 00       		.byte	0
+ 759 006d 03       		.uleb128 0x3
+ 760 006e 0E       		.uleb128 0xe
+ 761 006f 3A       		.uleb128 0x3a
+ 762 0070 0B       		.uleb128 0xb
+ 763 0071 3B       		.uleb128 0x3b
+ 764 0072 0B       		.uleb128 0xb
+ 765 0073 49       		.uleb128 0x49
+ 766 0074 13       		.uleb128 0x13
+ 767 0075 02       		.uleb128 0x2
+ 768 0076 17       		.uleb128 0x17
+ 769 0077 00       		.byte	0
+ 770 0078 00       		.byte	0
+ 771 0079 09       		.uleb128 0x9
+ 772 007a 898201   		.uleb128 0x4109
+ 773 007d 01       		.byte	0x1
+ 774 007e 11       		.uleb128 0x11
+ 775 007f 01       		.uleb128 0x1
+ 776 0080 31       		.uleb128 0x31
+ 777 0081 13       		.uleb128 0x13
+ 778 0082 01       		.uleb128 0x1
+ 779 0083 13       		.uleb128 0x13
+ 780 0084 00       		.byte	0
+ 781 0085 00       		.byte	0
+ 782 0086 0A       		.uleb128 0xa
+ 783 0087 8A8201   		.uleb128 0x410a
+ 784 008a 00       		.byte	0
+ 785 008b 02       		.uleb128 0x2
+ 786 008c 18       		.uleb128 0x18
+ 787 008d 9142     		.uleb128 0x2111
+ 788 008f 18       		.uleb128 0x18
+ 789 0090 00       		.byte	0
+ 790 0091 00       		.byte	0
+ 791 0092 0B       		.uleb128 0xb
+ 792 0093 898201   		.uleb128 0x4109
+ 793 0096 00       		.byte	0
+ 794 0097 11       		.uleb128 0x11
+ 795 0098 01       		.uleb128 0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 17
 
 
- 594 02bc 01       		.uleb128 0x1
- 595 02bd 50       		.byte	0x50
- 596 02be 05       		.uleb128 0x5
- 597 02bf 03       		.byte	0x3
- 598 02c0 88000000 		.4byte	.LC5
- 599 02c4 00       		.byte	0
- 600 02c5 11       		.uleb128 0x11
- 601 02c6 BE000000 		.4byte	.LVL26
- 602 02ca 2D030000 		.4byte	0x32d
- 603 02ce 0B       		.uleb128 0xb
- 604 02cf C6000000 		.4byte	.LVL27
- 605 02d3 38030000 		.4byte	0x338
- 606 02d7 0A       		.uleb128 0xa
- 607 02d8 01       		.uleb128 0x1
- 608 02d9 50       		.byte	0x50
- 609 02da 03       		.uleb128 0x3
- 610 02db 0A       		.byte	0xa
- 611 02dc E803     		.2byte	0x3e8
- 612 02de 00       		.byte	0
- 613 02df 00       		.byte	0
- 614 02e0 0C       		.uleb128 0xc
- 615 02e1 88000000 		.4byte	0x88
- 616 02e5 F0020000 		.4byte	0x2f0
- 617 02e9 0D       		.uleb128 0xd
- 618 02ea B5000000 		.4byte	0xb5
- 619 02ee 01       		.byte	0x1
- 620 02ef 00       		.byte	0
- 621 02f0 12       		.uleb128 0x12
- 622 02f1 75010000 		.4byte	.LASF33
- 623 02f5 09       		.byte	0x9
- 624 02f6 9606     		.2byte	0x696
- 625 02f8 FC020000 		.4byte	0x2fc
- 626 02fc 13       		.uleb128 0x13
- 627 02fd 7D000000 		.4byte	0x7d
- 628 0301 14       		.uleb128 0x14
- 629 0302 29000000 		.4byte	.LASF22
- 630 0306 29000000 		.4byte	.LASF22
- 631 030a 05       		.byte	0x5
- 632 030b FD       		.byte	0xfd
- 633 030c 14       		.uleb128 0x14
- 634 030d A0020000 		.4byte	.LASF23
- 635 0311 A0020000 		.4byte	.LASF23
- 636 0315 06       		.byte	0x6
- 637 0316 8B       		.byte	0x8b
- 638 0317 14       		.uleb128 0x14
- 639 0318 13000000 		.4byte	.LASF24
- 640 031c 13000000 		.4byte	.LASF24
- 641 0320 07       		.byte	0x7
- 642 0321 B1       		.byte	0xb1
- 643 0322 14       		.uleb128 0x14
- 644 0323 40020000 		.4byte	.LASF25
- 645 0327 40020000 		.4byte	.LASF25
- 646 032b 07       		.byte	0x7
- 647 032c B7       		.byte	0xb7
- 648 032d 14       		.uleb128 0x14
- 649 032e 6A020000 		.4byte	.LASF26
- 650 0332 6A020000 		.4byte	.LASF26
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 15
+ 796 0099 31       		.uleb128 0x31
+ 797 009a 13       		.uleb128 0x13
+ 798 009b 00       		.byte	0
+ 799 009c 00       		.byte	0
+ 800 009d 0C       		.uleb128 0xc
+ 801 009e 898201   		.uleb128 0x4109
+ 802 00a1 01       		.byte	0x1
+ 803 00a2 11       		.uleb128 0x11
+ 804 00a3 01       		.uleb128 0x1
+ 805 00a4 31       		.uleb128 0x31
+ 806 00a5 13       		.uleb128 0x13
+ 807 00a6 00       		.byte	0
+ 808 00a7 00       		.byte	0
+ 809 00a8 0D       		.uleb128 0xd
+ 810 00a9 01       		.uleb128 0x1
+ 811 00aa 01       		.byte	0x1
+ 812 00ab 49       		.uleb128 0x49
+ 813 00ac 13       		.uleb128 0x13
+ 814 00ad 01       		.uleb128 0x1
+ 815 00ae 13       		.uleb128 0x13
+ 816 00af 00       		.byte	0
+ 817 00b0 00       		.byte	0
+ 818 00b1 0E       		.uleb128 0xe
+ 819 00b2 21       		.uleb128 0x21
+ 820 00b3 00       		.byte	0
+ 821 00b4 49       		.uleb128 0x49
+ 822 00b5 13       		.uleb128 0x13
+ 823 00b6 2F       		.uleb128 0x2f
+ 824 00b7 0B       		.uleb128 0xb
+ 825 00b8 00       		.byte	0
+ 826 00b9 00       		.byte	0
+ 827 00ba 0F       		.uleb128 0xf
+ 828 00bb 2E       		.uleb128 0x2e
+ 829 00bc 01       		.byte	0x1
+ 830 00bd 3F       		.uleb128 0x3f
+ 831 00be 19       		.uleb128 0x19
+ 832 00bf 03       		.uleb128 0x3
+ 833 00c0 0E       		.uleb128 0xe
+ 834 00c1 3A       		.uleb128 0x3a
+ 835 00c2 0B       		.uleb128 0xb
+ 836 00c3 3B       		.uleb128 0x3b
+ 837 00c4 0B       		.uleb128 0xb
+ 838 00c5 27       		.uleb128 0x27
+ 839 00c6 19       		.uleb128 0x19
+ 840 00c7 11       		.uleb128 0x11
+ 841 00c8 01       		.uleb128 0x1
+ 842 00c9 12       		.uleb128 0x12
+ 843 00ca 06       		.uleb128 0x6
+ 844 00cb 40       		.uleb128 0x40
+ 845 00cc 18       		.uleb128 0x18
+ 846 00cd 9642     		.uleb128 0x2116
+ 847 00cf 19       		.uleb128 0x19
+ 848 00d0 01       		.uleb128 0x1
+ 849 00d1 13       		.uleb128 0x13
+ 850 00d2 00       		.byte	0
+ 851 00d3 00       		.byte	0
+ 852 00d4 10       		.uleb128 0x10
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 18
 
 
- 651 0336 07       		.byte	0x7
- 652 0337 B5       		.byte	0xb5
- 653 0338 14       		.uleb128 0x14
- 654 0339 B1020000 		.4byte	.LASF27
- 655 033d B1020000 		.4byte	.LASF27
- 656 0341 08       		.byte	0x8
- 657 0342 76       		.byte	0x76
- 658 0343 00       		.byte	0
- 659              		.section	.debug_abbrev,"",%progbits
- 660              	.Ldebug_abbrev0:
- 661 0000 01       		.uleb128 0x1
- 662 0001 11       		.uleb128 0x11
- 663 0002 01       		.byte	0x1
- 664 0003 25       		.uleb128 0x25
- 665 0004 0E       		.uleb128 0xe
- 666 0005 13       		.uleb128 0x13
- 667 0006 0B       		.uleb128 0xb
- 668 0007 03       		.uleb128 0x3
- 669 0008 0E       		.uleb128 0xe
- 670 0009 1B       		.uleb128 0x1b
- 671 000a 0E       		.uleb128 0xe
- 672 000b 55       		.uleb128 0x55
- 673 000c 17       		.uleb128 0x17
- 674 000d 11       		.uleb128 0x11
- 675 000e 01       		.uleb128 0x1
- 676 000f 10       		.uleb128 0x10
- 677 0010 17       		.uleb128 0x17
- 678 0011 00       		.byte	0
- 679 0012 00       		.byte	0
- 680 0013 02       		.uleb128 0x2
- 681 0014 24       		.uleb128 0x24
- 682 0015 00       		.byte	0
- 683 0016 0B       		.uleb128 0xb
- 684 0017 0B       		.uleb128 0xb
- 685 0018 3E       		.uleb128 0x3e
- 686 0019 0B       		.uleb128 0xb
- 687 001a 03       		.uleb128 0x3
- 688 001b 0E       		.uleb128 0xe
- 689 001c 00       		.byte	0
- 690 001d 00       		.byte	0
- 691 001e 03       		.uleb128 0x3
- 692 001f 16       		.uleb128 0x16
- 693 0020 00       		.byte	0
- 694 0021 03       		.uleb128 0x3
- 695 0022 0E       		.uleb128 0xe
- 696 0023 3A       		.uleb128 0x3a
- 697 0024 0B       		.uleb128 0xb
- 698 0025 3B       		.uleb128 0x3b
- 699 0026 0B       		.uleb128 0xb
- 700 0027 49       		.uleb128 0x49
- 701 0028 13       		.uleb128 0x13
- 702 0029 00       		.byte	0
- 703 002a 00       		.byte	0
- 704 002b 04       		.uleb128 0x4
- 705 002c 24       		.uleb128 0x24
- 706 002d 00       		.byte	0
- 707 002e 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 16
+ 853 00d5 05       		.uleb128 0x5
+ 854 00d6 00       		.byte	0
+ 855 00d7 03       		.uleb128 0x3
+ 856 00d8 0E       		.uleb128 0xe
+ 857 00d9 3A       		.uleb128 0x3a
+ 858 00da 0B       		.uleb128 0xb
+ 859 00db 3B       		.uleb128 0x3b
+ 860 00dc 0B       		.uleb128 0xb
+ 861 00dd 49       		.uleb128 0x49
+ 862 00de 13       		.uleb128 0x13
+ 863 00df 02       		.uleb128 0x2
+ 864 00e0 17       		.uleb128 0x17
+ 865 00e1 00       		.byte	0
+ 866 00e2 00       		.byte	0
+ 867 00e3 11       		.uleb128 0x11
+ 868 00e4 34       		.uleb128 0x34
+ 869 00e5 00       		.byte	0
+ 870 00e6 03       		.uleb128 0x3
+ 871 00e7 0E       		.uleb128 0xe
+ 872 00e8 3A       		.uleb128 0x3a
+ 873 00e9 0B       		.uleb128 0xb
+ 874 00ea 3B       		.uleb128 0x3b
+ 875 00eb 0B       		.uleb128 0xb
+ 876 00ec 49       		.uleb128 0x49
+ 877 00ed 13       		.uleb128 0x13
+ 878 00ee 02       		.uleb128 0x2
+ 879 00ef 18       		.uleb128 0x18
+ 880 00f0 00       		.byte	0
+ 881 00f1 00       		.byte	0
+ 882 00f2 12       		.uleb128 0x12
+ 883 00f3 34       		.uleb128 0x34
+ 884 00f4 00       		.byte	0
+ 885 00f5 03       		.uleb128 0x3
+ 886 00f6 0E       		.uleb128 0xe
+ 887 00f7 3A       		.uleb128 0x3a
+ 888 00f8 0B       		.uleb128 0xb
+ 889 00f9 3B       		.uleb128 0x3b
+ 890 00fa 05       		.uleb128 0x5
+ 891 00fb 49       		.uleb128 0x49
+ 892 00fc 13       		.uleb128 0x13
+ 893 00fd 3F       		.uleb128 0x3f
+ 894 00fe 19       		.uleb128 0x19
+ 895 00ff 3C       		.uleb128 0x3c
+ 896 0100 19       		.uleb128 0x19
+ 897 0101 00       		.byte	0
+ 898 0102 00       		.byte	0
+ 899 0103 13       		.uleb128 0x13
+ 900 0104 35       		.uleb128 0x35
+ 901 0105 00       		.byte	0
+ 902 0106 49       		.uleb128 0x49
+ 903 0107 13       		.uleb128 0x13
+ 904 0108 00       		.byte	0
+ 905 0109 00       		.byte	0
+ 906 010a 14       		.uleb128 0x14
+ 907 010b 2E       		.uleb128 0x2e
+ 908 010c 00       		.byte	0
+ 909 010d 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 19
 
 
- 708 002f 0B       		.uleb128 0xb
- 709 0030 3E       		.uleb128 0x3e
- 710 0031 0B       		.uleb128 0xb
- 711 0032 03       		.uleb128 0x3
- 712 0033 08       		.uleb128 0x8
- 713 0034 00       		.byte	0
- 714 0035 00       		.byte	0
- 715 0036 05       		.uleb128 0x5
- 716 0037 16       		.uleb128 0x16
- 717 0038 00       		.byte	0
- 718 0039 03       		.uleb128 0x3
- 719 003a 0E       		.uleb128 0xe
- 720 003b 3A       		.uleb128 0x3a
- 721 003c 0B       		.uleb128 0xb
- 722 003d 3B       		.uleb128 0x3b
- 723 003e 05       		.uleb128 0x5
- 724 003f 49       		.uleb128 0x49
- 725 0040 13       		.uleb128 0x13
- 726 0041 00       		.byte	0
- 727 0042 00       		.byte	0
- 728 0043 06       		.uleb128 0x6
- 729 0044 2E       		.uleb128 0x2e
- 730 0045 01       		.byte	0x1
- 731 0046 3F       		.uleb128 0x3f
- 732 0047 19       		.uleb128 0x19
- 733 0048 03       		.uleb128 0x3
- 734 0049 0E       		.uleb128 0xe
- 735 004a 3A       		.uleb128 0x3a
- 736 004b 0B       		.uleb128 0xb
- 737 004c 3B       		.uleb128 0x3b
- 738 004d 0B       		.uleb128 0xb
- 739 004e 27       		.uleb128 0x27
- 740 004f 19       		.uleb128 0x19
- 741 0050 11       		.uleb128 0x11
- 742 0051 01       		.uleb128 0x1
- 743 0052 12       		.uleb128 0x12
- 744 0053 06       		.uleb128 0x6
- 745 0054 40       		.uleb128 0x40
- 746 0055 18       		.uleb128 0x18
- 747 0056 9642     		.uleb128 0x2116
- 748 0058 19       		.uleb128 0x19
- 749 0059 01       		.uleb128 0x1
- 750 005a 13       		.uleb128 0x13
- 751 005b 00       		.byte	0
- 752 005c 00       		.byte	0
- 753 005d 07       		.uleb128 0x7
- 754 005e 05       		.uleb128 0x5
- 755 005f 00       		.byte	0
- 756 0060 03       		.uleb128 0x3
- 757 0061 0E       		.uleb128 0xe
- 758 0062 3A       		.uleb128 0x3a
- 759 0063 0B       		.uleb128 0xb
- 760 0064 3B       		.uleb128 0x3b
- 761 0065 0B       		.uleb128 0xb
- 762 0066 49       		.uleb128 0x49
- 763 0067 13       		.uleb128 0x13
- 764 0068 02       		.uleb128 0x2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 17
+ 910 010e 19       		.uleb128 0x19
+ 911 010f 3C       		.uleb128 0x3c
+ 912 0110 19       		.uleb128 0x19
+ 913 0111 6E       		.uleb128 0x6e
+ 914 0112 0E       		.uleb128 0xe
+ 915 0113 03       		.uleb128 0x3
+ 916 0114 0E       		.uleb128 0xe
+ 917 0115 3A       		.uleb128 0x3a
+ 918 0116 0B       		.uleb128 0xb
+ 919 0117 3B       		.uleb128 0x3b
+ 920 0118 0B       		.uleb128 0xb
+ 921 0119 00       		.byte	0
+ 922 011a 00       		.byte	0
+ 923 011b 00       		.byte	0
+ 924              		.section	.debug_loc,"",%progbits
+ 925              	.Ldebug_loc0:
+ 926              	.LLST0:
+ 927 0000 26000000 		.4byte	.LVL4
+ 928 0004 33000000 		.4byte	.LVL5-1
+ 929 0008 0100     		.2byte	0x1
+ 930 000a 50       		.byte	0x50
+ 931 000b 34000000 		.4byte	.LVL5
+ 932 000f 43000000 		.4byte	.LVL6-1
+ 933 0013 0100     		.2byte	0x1
+ 934 0015 50       		.byte	0x50
+ 935 0016 44000000 		.4byte	.LVL6
+ 936 001a 46000000 		.4byte	.LVL7
+ 937 001e 0100     		.2byte	0x1
+ 938 0020 50       		.byte	0x50
+ 939 0021 BE000000 		.4byte	.LVL23
+ 940 0025 C1000000 		.4byte	.LVL24-1
+ 941 0029 0100     		.2byte	0x1
+ 942 002b 50       		.byte	0x50
+ 943 002c 00000000 		.4byte	0
+ 944 0030 00000000 		.4byte	0
+ 945              	.LLST1:
+ 946 0034 00000000 		.4byte	.LVL25
+ 947 0038 07000000 		.4byte	.LVL26-1
+ 948 003c 0100     		.2byte	0x1
+ 949 003e 50       		.byte	0x50
+ 950 003f 07000000 		.4byte	.LVL26-1
+ 951 0043 28000000 		.4byte	.LFE65
+ 952 0047 0600     		.2byte	0x6
+ 953 0049 F3       		.byte	0xf3
+ 954 004a 03       		.uleb128 0x3
+ 955 004b F5       		.byte	0xf5
+ 956 004c 00       		.uleb128 0
+ 957 004d 25       		.uleb128 0x25
+ 958 004e 9F       		.byte	0x9f
+ 959 004f 00000000 		.4byte	0
+ 960 0053 00000000 		.4byte	0
+ 961              		.section	.debug_aranges,"",%progbits
+ 962 0000 24000000 		.4byte	0x24
+ 963 0004 0200     		.2byte	0x2
+ 964 0006 00000000 		.4byte	.Ldebug_info0
+ 965 000a 04       		.byte	0x4
+ 966 000b 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 20
 
 
- 765 0069 17       		.uleb128 0x17
- 766 006a 00       		.byte	0
- 767 006b 00       		.byte	0
- 768 006c 08       		.uleb128 0x8
- 769 006d 34       		.uleb128 0x34
- 770 006e 00       		.byte	0
- 771 006f 03       		.uleb128 0x3
- 772 0070 0E       		.uleb128 0xe
- 773 0071 3A       		.uleb128 0x3a
- 774 0072 0B       		.uleb128 0xb
- 775 0073 3B       		.uleb128 0x3b
- 776 0074 0B       		.uleb128 0xb
- 777 0075 49       		.uleb128 0x49
- 778 0076 13       		.uleb128 0x13
- 779 0077 02       		.uleb128 0x2
- 780 0078 18       		.uleb128 0x18
- 781 0079 00       		.byte	0
- 782 007a 00       		.byte	0
- 783 007b 09       		.uleb128 0x9
- 784 007c 898201   		.uleb128 0x4109
- 785 007f 01       		.byte	0x1
- 786 0080 11       		.uleb128 0x11
- 787 0081 01       		.uleb128 0x1
- 788 0082 31       		.uleb128 0x31
- 789 0083 13       		.uleb128 0x13
- 790 0084 01       		.uleb128 0x1
- 791 0085 13       		.uleb128 0x13
- 792 0086 00       		.byte	0
- 793 0087 00       		.byte	0
- 794 0088 0A       		.uleb128 0xa
- 795 0089 8A8201   		.uleb128 0x410a
- 796 008c 00       		.byte	0
- 797 008d 02       		.uleb128 0x2
- 798 008e 18       		.uleb128 0x18
- 799 008f 9142     		.uleb128 0x2111
- 800 0091 18       		.uleb128 0x18
- 801 0092 00       		.byte	0
- 802 0093 00       		.byte	0
- 803 0094 0B       		.uleb128 0xb
- 804 0095 898201   		.uleb128 0x4109
- 805 0098 01       		.byte	0x1
- 806 0099 11       		.uleb128 0x11
- 807 009a 01       		.uleb128 0x1
- 808 009b 31       		.uleb128 0x31
- 809 009c 13       		.uleb128 0x13
- 810 009d 00       		.byte	0
- 811 009e 00       		.byte	0
- 812 009f 0C       		.uleb128 0xc
- 813 00a0 01       		.uleb128 0x1
- 814 00a1 01       		.byte	0x1
- 815 00a2 49       		.uleb128 0x49
- 816 00a3 13       		.uleb128 0x13
- 817 00a4 01       		.uleb128 0x1
- 818 00a5 13       		.uleb128 0x13
- 819 00a6 00       		.byte	0
- 820 00a7 00       		.byte	0
- 821 00a8 0D       		.uleb128 0xd
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 18
-
-
- 822 00a9 21       		.uleb128 0x21
- 823 00aa 00       		.byte	0
- 824 00ab 49       		.uleb128 0x49
- 825 00ac 13       		.uleb128 0x13
- 826 00ad 2F       		.uleb128 0x2f
- 827 00ae 0B       		.uleb128 0xb
- 828 00af 00       		.byte	0
- 829 00b0 00       		.byte	0
- 830 00b1 0E       		.uleb128 0xe
- 831 00b2 2E       		.uleb128 0x2e
- 832 00b3 01       		.byte	0x1
- 833 00b4 3F       		.uleb128 0x3f
- 834 00b5 19       		.uleb128 0x19
- 835 00b6 03       		.uleb128 0x3
- 836 00b7 0E       		.uleb128 0xe
- 837 00b8 3A       		.uleb128 0x3a
- 838 00b9 0B       		.uleb128 0xb
- 839 00ba 3B       		.uleb128 0x3b
- 840 00bb 0B       		.uleb128 0xb
- 841 00bc 49       		.uleb128 0x49
- 842 00bd 13       		.uleb128 0x13
- 843 00be 8701     		.uleb128 0x87
- 844 00c0 19       		.uleb128 0x19
- 845 00c1 11       		.uleb128 0x11
- 846 00c2 01       		.uleb128 0x1
- 847 00c3 12       		.uleb128 0x12
- 848 00c4 06       		.uleb128 0x6
- 849 00c5 40       		.uleb128 0x40
- 850 00c6 18       		.uleb128 0x18
- 851 00c7 9642     		.uleb128 0x2116
- 852 00c9 19       		.uleb128 0x19
- 853 00ca 01       		.uleb128 0x1
- 854 00cb 13       		.uleb128 0x13
- 855 00cc 00       		.byte	0
- 856 00cd 00       		.byte	0
- 857 00ce 0F       		.uleb128 0xf
- 858 00cf 34       		.uleb128 0x34
- 859 00d0 00       		.byte	0
- 860 00d1 03       		.uleb128 0x3
- 861 00d2 0E       		.uleb128 0xe
- 862 00d3 3A       		.uleb128 0x3a
- 863 00d4 0B       		.uleb128 0xb
- 864 00d5 3B       		.uleb128 0x3b
- 865 00d6 0B       		.uleb128 0xb
- 866 00d7 49       		.uleb128 0x49
- 867 00d8 13       		.uleb128 0x13
- 868 00d9 00       		.byte	0
- 869 00da 00       		.byte	0
- 870 00db 10       		.uleb128 0x10
- 871 00dc 34       		.uleb128 0x34
- 872 00dd 00       		.byte	0
- 873 00de 03       		.uleb128 0x3
- 874 00df 0E       		.uleb128 0xe
- 875 00e0 3A       		.uleb128 0x3a
- 876 00e1 0B       		.uleb128 0xb
- 877 00e2 3B       		.uleb128 0x3b
- 878 00e3 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 19
-
-
- 879 00e4 49       		.uleb128 0x49
- 880 00e5 13       		.uleb128 0x13
- 881 00e6 02       		.uleb128 0x2
- 882 00e7 17       		.uleb128 0x17
- 883 00e8 00       		.byte	0
- 884 00e9 00       		.byte	0
- 885 00ea 11       		.uleb128 0x11
- 886 00eb 898201   		.uleb128 0x4109
- 887 00ee 00       		.byte	0
- 888 00ef 11       		.uleb128 0x11
- 889 00f0 01       		.uleb128 0x1
- 890 00f1 31       		.uleb128 0x31
- 891 00f2 13       		.uleb128 0x13
- 892 00f3 00       		.byte	0
- 893 00f4 00       		.byte	0
- 894 00f5 12       		.uleb128 0x12
- 895 00f6 34       		.uleb128 0x34
- 896 00f7 00       		.byte	0
- 897 00f8 03       		.uleb128 0x3
- 898 00f9 0E       		.uleb128 0xe
- 899 00fa 3A       		.uleb128 0x3a
- 900 00fb 0B       		.uleb128 0xb
- 901 00fc 3B       		.uleb128 0x3b
- 902 00fd 05       		.uleb128 0x5
- 903 00fe 49       		.uleb128 0x49
- 904 00ff 13       		.uleb128 0x13
- 905 0100 3F       		.uleb128 0x3f
- 906 0101 19       		.uleb128 0x19
- 907 0102 3C       		.uleb128 0x3c
- 908 0103 19       		.uleb128 0x19
- 909 0104 00       		.byte	0
- 910 0105 00       		.byte	0
- 911 0106 13       		.uleb128 0x13
- 912 0107 35       		.uleb128 0x35
- 913 0108 00       		.byte	0
- 914 0109 49       		.uleb128 0x49
- 915 010a 13       		.uleb128 0x13
- 916 010b 00       		.byte	0
- 917 010c 00       		.byte	0
- 918 010d 14       		.uleb128 0x14
- 919 010e 2E       		.uleb128 0x2e
- 920 010f 00       		.byte	0
- 921 0110 3F       		.uleb128 0x3f
- 922 0111 19       		.uleb128 0x19
- 923 0112 3C       		.uleb128 0x3c
- 924 0113 19       		.uleb128 0x19
- 925 0114 6E       		.uleb128 0x6e
- 926 0115 0E       		.uleb128 0xe
- 927 0116 03       		.uleb128 0x3
- 928 0117 0E       		.uleb128 0xe
- 929 0118 3A       		.uleb128 0x3a
- 930 0119 0B       		.uleb128 0xb
- 931 011a 3B       		.uleb128 0x3b
- 932 011b 0B       		.uleb128 0xb
- 933 011c 00       		.byte	0
- 934 011d 00       		.byte	0
- 935 011e 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 20
-
-
- 936              		.section	.debug_loc,"",%progbits
- 937              	.Ldebug_loc0:
- 938              	.LLST0:
- 939 0000 00000000 		.4byte	.LVL0
- 940 0004 07000000 		.4byte	.LVL1-1
- 941 0008 0100     		.2byte	0x1
- 942 000a 50       		.byte	0x50
- 943 000b 07000000 		.4byte	.LVL1-1
- 944 000f 28000000 		.4byte	.LFE65
- 945 0013 0600     		.2byte	0x6
- 946 0015 F3       		.byte	0xf3
- 947 0016 03       		.uleb128 0x3
- 948 0017 F5       		.byte	0xf5
- 949 0018 00       		.uleb128 0
- 950 0019 25       		.uleb128 0x25
- 951 001a 9F       		.byte	0x9f
- 952 001b 00000000 		.4byte	0
- 953 001f 00000000 		.4byte	0
- 954              	.LLST1:
- 955 0023 26000000 		.4byte	.LVL8
- 956 0027 33000000 		.4byte	.LVL9-1
- 957 002b 0100     		.2byte	0x1
- 958 002d 50       		.byte	0x50
- 959 002e 34000000 		.4byte	.LVL9
- 960 0032 41000000 		.4byte	.LVL10-1
- 961 0036 0100     		.2byte	0x1
- 962 0038 50       		.byte	0x50
- 963 0039 42000000 		.4byte	.LVL10
- 964 003d 45000000 		.4byte	.LVL11-1
- 965 0041 0100     		.2byte	0x1
- 966 0043 50       		.byte	0x50
- 967 0044 00000000 		.4byte	0
- 968 0048 00000000 		.4byte	0
- 969              		.section	.debug_aranges,"",%progbits
- 970 0000 24000000 		.4byte	0x24
- 971 0004 0200     		.2byte	0x2
- 972 0006 00000000 		.4byte	.Ldebug_info0
- 973 000a 04       		.byte	0x4
- 974 000b 00       		.byte	0
- 975 000c 0000     		.2byte	0
- 976 000e 0000     		.2byte	0
- 977 0010 00000000 		.4byte	.LFB65
- 978 0014 28000000 		.4byte	.LFE65-.LFB65
- 979 0018 00000000 		.4byte	.LFB64
- 980 001c DC000000 		.4byte	.LFE64-.LFB64
- 981 0020 00000000 		.4byte	0
- 982 0024 00000000 		.4byte	0
- 983              		.section	.debug_ranges,"",%progbits
- 984              	.Ldebug_ranges0:
- 985 0000 00000000 		.4byte	.LFB65
- 986 0004 28000000 		.4byte	.LFE65
- 987 0008 00000000 		.4byte	.LFB64
- 988 000c DC000000 		.4byte	.LFE64
- 989 0010 00000000 		.4byte	0
- 990 0014 00000000 		.4byte	0
- 991              		.section	.debug_line,"",%progbits
- 992              	.Ldebug_line0:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 21
-
-
- 993 0000 77020000 		.section	.debug_str,"MS",%progbits,1
- 993      02002F02 
- 993      00000201 
- 993      FB0E0D00 
- 993      01010101 
- 994              	.LASF18:
- 995 0000 64617461 		.ascii	"dataRecv\000"
- 995      52656376 
+ 967 000c 0000     		.2byte	0
+ 968 000e 0000     		.2byte	0
+ 969 0010 00000000 		.4byte	.LFB64
+ 970 0014 DC000000 		.4byte	.LFE64-.LFB64
+ 971 0018 00000000 		.4byte	.LFB65
+ 972 001c 28000000 		.4byte	.LFE65-.LFB65
+ 973 0020 00000000 		.4byte	0
+ 974 0024 00000000 		.4byte	0
+ 975              		.section	.debug_ranges,"",%progbits
+ 976              	.Ldebug_ranges0:
+ 977 0000 00000000 		.4byte	.LFB64
+ 978 0004 DC000000 		.4byte	.LFE64
+ 979 0008 00000000 		.4byte	.LFB65
+ 980 000c 28000000 		.4byte	.LFE65
+ 981 0010 00000000 		.4byte	0
+ 982 0014 00000000 		.4byte	0
+ 983              		.section	.debug_line,"",%progbits
+ 984              	.Ldebug_line0:
+ 985 0000 7B020000 		.section	.debug_str,"MS",%progbits,1
+ 985      02002F02 
+ 985      00000201 
+ 985      FB0E0D00 
+ 985      01010101 
+ 986              	.LASF18:
+ 987 0000 64617461 		.ascii	"dataRecv\000"
+ 987      52656376 
+ 987      00
+ 988              	.LASF10:
+ 989 0009 5F5F696E 		.ascii	"__int32_t\000"
+ 989      7433325F 
+ 989      7400
+ 990              	.LASF24:
+ 991 0013 4932435F 		.ascii	"I2C_1_MasterSendStart\000"
+ 991      315F4D61 
+ 991      73746572 
+ 991      53656E64 
+ 991      53746172 
+ 992              	.LASF29:
+ 993 0029 736E7072 		.ascii	"snprintf\000"
+ 993      696E7466 
+ 993      00
+ 994              	.LASF20:
+ 995 0032 72656164 		.ascii	"readTemp\000"
+ 995      54656D70 
  995      00
- 996              	.LASF10:
- 997 0009 5F5F696E 		.ascii	"__int32_t\000"
- 997      7433325F 
- 997      7400
- 998              	.LASF24:
- 999 0013 4932435F 		.ascii	"I2C_1_MasterSendStart\000"
- 999      315F4D61 
- 999      73746572 
- 999      53656E64 
- 999      53746172 
- 1000              	.LASF22:
- 1001 0029 736E7072 		.ascii	"snprintf\000"
- 1001      696E7466 
- 1001      00
- 1002              	.LASF32:
- 1003 0032 72656164 		.ascii	"readTemp\000"
- 1003      54656D70 
- 1003      00
- 1004              	.LASF19:
- 1005 003b 6572726F 		.ascii	"errorStatus\000"
- 1005      72537461 
- 1005      74757300 
- 1006              	.LASF0:
- 1007 0047 666C6F61 		.ascii	"float\000"
- 1007      7400
- 1008              	.LASF2:
- 1009 004d 756E7369 		.ascii	"unsigned char\000"
- 1009      676E6564 
- 1009      20636861 
- 1009      7200
- 1010              	.LASF28:
- 1011 005b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1011      43313120 
- 1011      352E342E 
- 1011      31203230 
- 1011      31363036 
- 1012 008e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1012      20726576 
- 1012      6973696F 
- 1012      6E203233 
- 1012      37373135 
- 1013 00c1 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1013      66756E63 
- 1013      74696F6E 
- 1013      2D736563 
- 1013      74696F6E 
- 1014              	.LASF20:
- 1015 00e9 6F757470 		.ascii	"outputBuffer\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 22
+ 996              	.LASF19:
+ 997 003b 6572726F 		.ascii	"errorStatus\000"
+ 997      72537461 
+ 997      74757300 
+ 998              	.LASF0:
+ 999 0047 666C6F61 		.ascii	"float\000"
+ 999      7400
+ 1000              	.LASF2:
+ 1001 004d 756E7369 		.ascii	"unsigned char\000"
+ 1001      676E6564 
+ 1001      20636861 
+ 1001      7200
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 21
 
 
- 1015      75744275 
- 1015      66666572 
- 1015      00
- 1016              	.LASF29:
- 1017 00f6 2E2E5C2E 		.ascii	"..\\..\\Labexercise2_Communicationbuses\\Lab_I2C\\C"
- 1017      2E5C4C61 
- 1017      62657865 
- 1017      72636973 
- 1017      65325F43 
- 1018 0125 6F6D6D75 		.ascii	"ommunicationbuses.cydsn\\I2C_handler.c\000"
- 1018      6E696361 
- 1018      74696F6E 
- 1018      62757365 
- 1018      732E6379 
- 1019              	.LASF6:
- 1020 014b 6C6F6E67 		.ascii	"long unsigned int\000"
- 1020      20756E73 
- 1020      69676E65 
- 1020      6420696E 
- 1020      7400
- 1021              	.LASF21:
- 1022 015d 74656D70 		.ascii	"temp\000"
+ 1002              	.LASF30:
+ 1003 005b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1003      43313120 
+ 1003      352E342E 
+ 1003      31203230 
+ 1003      31363036 
+ 1004 008e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1004      20726576 
+ 1004      6973696F 
+ 1004      6E203233 
+ 1004      37373135 
+ 1005 00c1 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1005      66756E63 
+ 1005      74696F6E 
+ 1005      2D736563 
+ 1005      74696F6E 
+ 1006              	.LASF23:
+ 1007 00e9 6F757470 		.ascii	"outputBuffer\000"
+ 1007      75744275 
+ 1007      66666572 
+ 1007      00
+ 1008              	.LASF31:
+ 1009 00f6 2E2E5C2E 		.ascii	"..\\..\\Labexercise2_Communicationbuses\\Lab_I2C\\C"
+ 1009      2E5C4C61 
+ 1009      62657865 
+ 1009      72636973 
+ 1009      65325F43 
+ 1010 0125 6F6D6D75 		.ascii	"ommunicationbuses.cydsn\\I2C_handler.c\000"
+ 1010      6E696361 
+ 1010      74696F6E 
+ 1010      62757365 
+ 1010      732E6379 
+ 1011              	.LASF6:
+ 1012 014b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1012      20756E73 
+ 1012      69676E65 
+ 1012      6420696E 
+ 1012      7400
+ 1013              	.LASF22:
+ 1014 015d 74656D70 		.ascii	"temp\000"
+ 1014      00
+ 1015              	.LASF4:
+ 1016 0162 73686F72 		.ascii	"short unsigned int\000"
+ 1016      7420756E 
+ 1016      7369676E 
+ 1016      65642069 
+ 1016      6E7400
+ 1017              	.LASF33:
+ 1018 0175 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1018      52784275 
+ 1018      66666572 
+ 1018      00
+ 1019              	.LASF14:
+ 1020 0182 646F7562 		.ascii	"double\000"
+ 1020      6C6500
+ 1021              	.LASF13:
+ 1022 0189 696E7438 		.ascii	"int8\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 22
+
+
  1022      00
- 1023              	.LASF4:
- 1024 0162 73686F72 		.ascii	"short unsigned int\000"
- 1024      7420756E 
- 1024      7369676E 
- 1024      65642069 
- 1024      6E7400
- 1025              	.LASF33:
- 1026 0175 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1026      52784275 
- 1026      66666572 
- 1026      00
- 1027              	.LASF14:
- 1028 0182 646F7562 		.ascii	"double\000"
- 1028      6C6500
- 1029              	.LASF13:
- 1030 0189 696E7438 		.ascii	"int8\000"
- 1030      00
- 1031              	.LASF31:
- 1032 018e 77726974 		.ascii	"writeTempToUART\000"
- 1032      6554656D 
- 1032      70546F55 
- 1032      41525400 
- 1033              	.LASF30:
- 1034 019e 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
- 1034      73657273 
- 1034      5C53696D 
- 1034      6F6E5C44 
- 1034      65736B74 
- 1035 01cc 65335F54 		.ascii	"e3_Temperaturregulator\\Temperature-Control.cydsn\000"
- 1035      656D7065 
- 1035      72617475 
- 1035      72726567 
- 1035      756C6174 
- 1036              	.LASF9:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 23
+ 1023              	.LASF21:
+ 1024 018e 77726974 		.ascii	"writeTempToUART\000"
+ 1024      6554656D 
+ 1024      70546F55 
+ 1024      41525400 
+ 1025              	.LASF32:
+ 1026 019e 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 1026      73657273 
+ 1026      5C53696D 
+ 1026      6F6E5C44 
+ 1026      65736B74 
+ 1027 01cc 65335F54 		.ascii	"e3_Temperaturregulator\\Temperature-Control.cydsn\000"
+ 1027      656D7065 
+ 1027      72617475 
+ 1027      72726567 
+ 1027      756C6174 
+ 1028              	.LASF9:
+ 1029 01fd 756E7369 		.ascii	"unsigned int\000"
+ 1029      676E6564 
+ 1029      20696E74 
+ 1029      00
+ 1030              	.LASF8:
+ 1031 020a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1031      206C6F6E 
+ 1031      6720756E 
+ 1031      7369676E 
+ 1031      65642069 
+ 1032              	.LASF11:
+ 1033 0221 696E7433 		.ascii	"int32_t\000"
+ 1033      325F7400 
+ 1034              	.LASF17:
+ 1035 0229 73697A65 		.ascii	"sizetype\000"
+ 1035      74797065 
+ 1035      00
+ 1036              	.LASF7:
+ 1037 0232 6C6F6E67 		.ascii	"long long int\000"
+ 1037      206C6F6E 
+ 1037      6720696E 
+ 1037      7400
+ 1038              	.LASF25:
+ 1039 0240 4932435F 		.ascii	"I2C_1_MasterReadByte\000"
+ 1039      315F4D61 
+ 1039      73746572 
+ 1039      52656164 
+ 1039      42797465 
+ 1040              	.LASF15:
+ 1041 0255 63686172 		.ascii	"char\000"
+ 1041      00
+ 1042              	.LASF3:
+ 1043 025a 73686F72 		.ascii	"short int\000"
+ 1043      7420696E 
+ 1043      7400
+ 1044              	.LASF12:
+ 1045 0264 75696E74 		.ascii	"uint8\000"
+ 1045      3800
+ 1046              	.LASF26:
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccc1hLbS.s 			page 23
 
 
- 1037 01fd 756E7369 		.ascii	"unsigned int\000"
- 1037      676E6564 
- 1037      20696E74 
- 1037      00
- 1038              	.LASF8:
- 1039 020a 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1039      206C6F6E 
- 1039      6720756E 
- 1039      7369676E 
- 1039      65642069 
- 1040              	.LASF11:
- 1041 0221 696E7433 		.ascii	"int32_t\000"
- 1041      325F7400 
- 1042              	.LASF17:
- 1043 0229 73697A65 		.ascii	"sizetype\000"
- 1043      74797065 
- 1043      00
- 1044              	.LASF7:
- 1045 0232 6C6F6E67 		.ascii	"long long int\000"
- 1045      206C6F6E 
- 1045      6720696E 
- 1045      7400
- 1046              	.LASF25:
- 1047 0240 4932435F 		.ascii	"I2C_1_MasterReadByte\000"
+ 1047 026a 4932435F 		.ascii	"I2C_1_MasterSendStop\000"
  1047      315F4D61 
  1047      73746572 
- 1047      52656164 
- 1047      42797465 
- 1048              	.LASF15:
- 1049 0255 63686172 		.ascii	"char\000"
+ 1047      53656E64 
+ 1047      53746F70 
+ 1048              	.LASF5:
+ 1049 027f 6C6F6E67 		.ascii	"long int\000"
+ 1049      20696E74 
  1049      00
- 1050              	.LASF3:
- 1051 025a 73686F72 		.ascii	"short int\000"
- 1051      7420696E 
- 1051      7400
- 1052              	.LASF12:
- 1053 0264 75696E74 		.ascii	"uint8\000"
- 1053      3800
- 1054              	.LASF26:
- 1055 026a 4932435F 		.ascii	"I2C_1_MasterSendStop\000"
- 1055      315F4D61 
- 1055      73746572 
- 1055      53656E64 
- 1055      53746F70 
- 1056              	.LASF5:
- 1057 027f 6C6F6E67 		.ascii	"long int\000"
- 1057      20696E74 
- 1057      00
- 1058              	.LASF16:
- 1059 0288 6C6F6E67 		.ascii	"long double\000"
- 1059      20646F75 
- 1059      626C6500 
- 1060              	.LASF1:
- 1061 0294 7369676E 		.ascii	"signed char\000"
- 1061      65642063 
- 1061      68617200 
- 1062              	.LASF23:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccADjWCj.s 			page 24
-
-
- 1063 02a0 55415254 		.ascii	"UART_1_PutString\000"
- 1063      5F315F50 
- 1063      75745374 
- 1063      72696E67 
- 1063      00
- 1064              	.LASF27:
- 1065 02b1 43794465 		.ascii	"CyDelay\000"
- 1065      6C617900 
- 1066              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1050              	.LASF16:
+ 1051 0288 6C6F6E67 		.ascii	"long double\000"
+ 1051      20646F75 
+ 1051      626C6500 
+ 1052              	.LASF1:
+ 1053 0294 7369676E 		.ascii	"signed char\000"
+ 1053      65642063 
+ 1053      68617200 
+ 1054              	.LASF27:
+ 1055 02a0 55415254 		.ascii	"UART_1_PutString\000"
+ 1055      5F315F50 
+ 1055      75745374 
+ 1055      72696E67 
+ 1055      00
+ 1056              	.LASF28:
+ 1057 02b1 43794465 		.ascii	"CyDelay\000"
+ 1057      6C617900 
+ 1058              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -2,7 +2,7 @@
 --	Conversion of Temperature-Control.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Mon Nov 02 09:54:25 2020
+--	Wed Nov 04 13:49:01 2020
 --
 
 USE cypress.cypress.all;
@@ -29,9 +29,9 @@ SIGNAL \UART_1:BUART:reset_sr\ : bit;
 SIGNAL \UART_1:BUART:HalfDuplexSend_last\ : bit;
 SIGNAL Net_114 : bit;
 SIGNAL \UART_1:BUART:txn\ : bit;
-SIGNAL Net_120 : bit;
+SIGNAL Net_188 : bit;
 SIGNAL \UART_1:BUART:tx_interrupt_out\ : bit;
-SIGNAL Net_121 : bit;
+SIGNAL Net_187 : bit;
 SIGNAL \UART_1:BUART:rx_interrupt_out\ : bit;
 SIGNAL \UART_1:BUART:tx_state_1\ : bit;
 SIGNAL \UART_1:BUART:tx_state_0\ : bit;
@@ -1231,7 +1231,7 @@ Net_116D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
 		clock=>\UART_1:BUART:clock_op\,
 		status=>(zero, \UART_1:BUART:rx_status_5\, \UART_1:BUART:rx_status_4\, \UART_1:BUART:rx_status_3\,
 			\UART_1:BUART:rx_status_2\, zero, zero),
-		interrupt=>\UART_1:BUART:rx_interrupt_out\);
+		interrupt=>Net_187);
 Rx_1:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"1425177d-0d0e-4468-8bcc-e638e5509a9b",
 		drive_mode=>"001",
@@ -1744,6 +1744,10 @@ Pin_PWM:cy_psoc3_pins_v1_10
 		out_clock_en=>one,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Pin_PWM_net_0);
+isr_uart_rx:cy_isr_v1_0
+	GENERIC MAP(int_type=>"10",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_187);
 \UART_1:BUART:reset_reg\:cy_dff
 	PORT MAP(d=>zero,
 		clk=>\UART_1:BUART:clock_op\,

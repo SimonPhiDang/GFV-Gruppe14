@@ -1,5 +1,5 @@
 -- Project:   Temperature-Control
--- Generated: 11/02/2020 09:54:26
+-- Generated: 11/04/2020 13:49:02
 -- PSoC Creator  4.3
 
 ENTITY \Temperature-Control\ IS
@@ -35,6 +35,7 @@ ARCHITECTURE __DEFAULT__ OF \Temperature-Control\ IS
     SIGNAL Net_100 : bit;
     SIGNAL Net_114 : bit;
     SIGNAL Net_119 : bit;
+    SIGNAL Net_187 : bit;
     SIGNAL Net_46 : bit;
     ATTRIBUTE udbclken_assigned OF Net_46 : SIGNAL IS "True";
     ATTRIBUTE global_signal OF Net_46 : SIGNAL IS true;
@@ -1247,7 +1248,8 @@ BEGIN
             status_3 => \UART_1:BUART:rx_status_3\,
             status_2 => open,
             status_1 => open,
-            status_0 => open);
+            status_0 => open,
+            interrupt => Net_187);
 
     \PWM_1:PWMUDB:genblk1:ctrlreg\:controlcell
         GENERIC MAP(
@@ -1342,6 +1344,14 @@ BEGIN
             scl_out => \I2C_1:Net_643_0\,
             sda_out => \I2C_1:sda_x_wire\,
             interrupt => \I2C_1:Net_697\);
+
+    isr_uart_rx:interrupt
+        GENERIC MAP(
+            int_type => "10",
+            is_nmi => 0)
+        PORT MAP(
+            interrupt => Net_187,
+            clock => ClockBlock_BUS_CLK);
 
     \UART_1:BUART:txn\:macrocell
         GENERIC MAP(

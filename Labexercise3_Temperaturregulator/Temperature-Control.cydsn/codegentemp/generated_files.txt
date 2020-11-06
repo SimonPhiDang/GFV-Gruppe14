@@ -45,6 +45,8 @@
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\Pin_PWM_aliases.h" value="HEADER;;;;;Pin_PWM" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\Pin_PWM.c" value="SOURCE_C;CortexM3;;;;Pin_PWM" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\Pin_PWM.h" value="HEADER;;;;;Pin_PWM" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\isr_uart_rx.c" value="SOURCE_C;CortexM3;;;;isr_uart_rx" />
+  <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\isr_uart_rx.h" value="HEADER;;;;;isr_uart_rx" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\UART_1_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\UART_1_IntClock.h" value="HEADER;;;;;UART_1_IntClock" />
   <file name="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\codegentemp\cm3gcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />

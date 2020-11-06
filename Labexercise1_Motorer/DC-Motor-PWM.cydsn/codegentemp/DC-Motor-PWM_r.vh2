@@ -1,5 +1,5 @@
 -- Project:   DC-Motor-PWM
--- Generated: 09/09/2020 12:56:32
+-- Generated: 11/04/2020 13:38:24
 -- PSoC Creator  4.3
 
 ENTITY \DC-Motor-PWM\ IS

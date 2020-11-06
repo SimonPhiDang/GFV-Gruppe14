@@ -6,7 +6,7 @@
 
 #Build Date:         Sep  9 2019 11:47:43
 
-#File Generated:     Nov 2 2020 09:54:27
+#File Generated:     Nov 4 2020 13:49:02
 
 #Purpose:            
 
@@ -143,14 +143,14 @@ analysis after routing.
                      Clock Summary 
 ======================================================================
 Number of clocks: 8
-Clock: Clock_PWM            | Frequency:  76.8 MHz | Target:   0.1 MHz
-Clock: CyBUS_CLK            | Frequency:   2.9 MHz | Target:  24.0 MHz
+Clock: Clock_PWM            | Frequency:  81.0 MHz | Target:   0.1 MHz
+Clock: CyBUS_CLK            | Frequency:   3.1 MHz | Target:  24.0 MHz
 Clock: CyBUS_CLK(fixed-function) | Frequency: N/A       | Target:  24.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:   3.0 MHz
 Clock: CyMASTER_CLK         | Frequency: N/A       | Target:  24.0 MHz
 Clock: CyPLL_OUT            | Frequency: N/A       | Target:  24.0 MHz
-Clock: UART_1_IntClock      | Frequency:   2.9 MHz | Target:   0.5 MHz
+Clock: UART_1_IntClock      | Frequency:   3.1 MHz | Target:   0.5 MHz
 
 ======================================================================
                      End of Clock Summary
@@ -161,5 +161,5 @@ D2088: Phase 8, elapsed time : 0.0 (sec)
 
 D2054: Placement of the design completed successfully
 
-I2076: Total run-time: 1.1 sec.
+I2076: Total run-time: 0.9 sec.
 
