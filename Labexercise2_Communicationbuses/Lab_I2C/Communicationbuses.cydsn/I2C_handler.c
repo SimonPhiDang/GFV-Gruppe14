@@ -45,7 +45,7 @@ int8 readTemp()
             {
                 temp -=128;
             }
-
+            return temp;
             writeTempToUART(temp);  // Send temperature to UART
             CyDelay(1000);  // Delay med at få ny temperatur måling
         }
@@ -81,7 +81,7 @@ int8 readTemp()
         }
     
     }  //While(1) 
-    return 0;
+    return 0.0;
 }
 
 void writeTempToUART(float temp) // Udprintning til UART temperaturen af første LM75

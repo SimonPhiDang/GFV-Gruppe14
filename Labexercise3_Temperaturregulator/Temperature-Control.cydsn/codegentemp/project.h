@@ -30,6 +30,7 @@
 #include "Clock_PWM.h"
 #include "Pin_PWM_aliases.h"
 #include "Pin_PWM.h"
+#include "isr_uart_rx.h"
 #include "UART_1_IntClock.h"
 #include "core_cm3_psoc5.h"
 #include "CyDmac.h"
