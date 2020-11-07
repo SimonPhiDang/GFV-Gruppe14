@@ -237,7 +237,21 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\Temperature-Control.cydsn\Temperature-Control.cydwr" />
+<name v=".\Temperature-Control.cydsn\main.c" />
+<name v=".\Temperature-Control.cydsn\PIDControl.c" />
+<name v="..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn\I2C_handler.h" />
+<name v="..\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn\I2C_handler.c" />
+<name v=".\Temperature-Control.cydsn\TopDesign\TopDesign.cysch" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1615, 711" SelectedTabbedMdiWindow="641e6d9e-a837-432d-bea7-0ca055df301d"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cydwr" Guid="96b00a5c-1b81-4a12-9e5e-517887156b62" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\main.c" Guid="eadb8572-d888-4e60-805b-ee4113c3b8e3" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\PIDControl.c" Guid="641e6d9e-a837-432d-bea7-0ca055df301d" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn\I2C_handler.h" Guid="f03c9257-a5a0-47c9-92bb-72fda8432fc2" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise2_Communicationbuses\Lab_I2C\Communicationbuses.cydsn\I2C_handler.c" Guid="312e296e-6077-41a5-b390-dc220a747a5e" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\TopDesign\TopDesign.cysch" Guid="b63d8794-6ed3-4f2d-9e58-870699c7f106" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
