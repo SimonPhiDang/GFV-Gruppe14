@@ -1,6 +1,6 @@
-C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cyprj|33e0e5f2-c140-4a93-99f8-65612ed6d90b
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|188b36b4-04c3-4f0c-bfcc-6aa699877d90
-C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|7a0ed850-5b75-4173-b157-141c62927346
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|3245aa36-3dab-4f3e-b4c5-9dae84194264
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|fca2c346-bf03-44b2-9716-e30fe50797da
-C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|e78e8c14-efe1-4795-8100-3f5c98c5b817
+C:\Users\Simon\Documents\GitHub\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cyprj|347f4961-b61c-41bc-82b1-1ec708ab52b6
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|38a4c02b-d064-4627-8a0b-3047898535b0
+C:\Users\Simon\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|fc310c32-3735-4c3a-8287-63ed5175d7c1
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|3438da45-f518-431d-84fe-2c8192f47c06
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|cc670f5e-31c1-4cc4-b5ef-2e3c4febfeba
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|61d66c87-5cdb-4fb1-bf80-e4d6983db73a

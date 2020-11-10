@@ -46,8 +46,8 @@ int8 readTemp()
                 temp -=128;
             }
             return temp;
-            writeTempToUART(temp);  // Send temperature to UART
-            CyDelay(1000);  // Delay med at få ny temperatur måling
+            //writeTempToUART(temp);  // Send temperature to UART
+            // CyDelay(1000);  // Delay med at få ny temperatur måling
         }
     else if(errorStatus[0] == I2C_1_MSTR_BUS_BUSY)
         {
@@ -84,7 +84,7 @@ int8 readTemp()
     return 0.0;
 }
 
-void writeTempToUART(float temp) // Udprintning til UART temperaturen af første LM75
+void writeTempToUART(float temp) // bruges ikke i denne labøvelse
 {
     char outputBuffer[256];
     snprintf(outputBuffer, sizeof(outputBuffer), "Temp nu: %.2f  temp desired: 50 \r\n", temp);

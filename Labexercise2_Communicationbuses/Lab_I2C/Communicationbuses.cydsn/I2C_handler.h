@@ -14,8 +14,8 @@
 #include <stdlib.h>
 
 // Prototyper til implementerings filen
-int8 readTemp();
-void writeTempToUART(float temp);
+int8 readTemp();    // Aflæsning af temp funktion
+void writeTempToUART(float temp);    // Udskrivning til UART bruges ikke i denne labøvelse
 /* [] END OF FILE */
 
 

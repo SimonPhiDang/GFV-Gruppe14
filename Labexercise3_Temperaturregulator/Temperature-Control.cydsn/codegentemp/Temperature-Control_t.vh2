@@ -1,6 +1,6 @@
--- Project:   C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cyprj
--- Generated: 11/04/2020 13:49:05
--- PSoC Creator  4.3
+-- Project:   C:\Users\Simon\Documents\GitHub\GFV-Gruppe14\Labexercise3_Temperaturregulator\Temperature-Control.cydsn\Temperature-Control.cyprj
+-- Generated: 11/10/2020 17:22:54
+-- PSoC Creator  4.4
 
 ENTITY \Temperature-Control\ IS
     PORT(

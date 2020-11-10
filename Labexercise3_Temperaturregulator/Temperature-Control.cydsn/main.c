@@ -15,22 +15,22 @@
 #include "I2C_handler.h"
 
 CY_ISR_PROTO(ISR_UART_rx_handler);
-static char outputBuffer[256];
-static float setPoint = 50; // degrees celcius
+static char outputBuffer[256]; // Buffer til udskriv til UART
+static float setPoint = 50; // SP degrees celcius 
 
 #define SAMPLES_PER_SECOND 3
-static uint16_t sampleWaitTimeInMilliseconds = 1000 / SAMPLES_PER_SECOND;
+static uint16_t sampleWaitTimeInMilliseconds = 1000 / SAMPLES_PER_SECOND; // Sample hver 0,333 sekund
 
 
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
-    PWM_1_Start();
+    PWM_1_Start();  // Init af forskellige dele
     I2C_1_Start();
     UART_1_Start();
-    isr_uart_rx_StartEx(ISR_UART_rx_handler);
-    /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-
+    isr_uart_rx_StartEx(ISR_UART_rx_handler); // Init af ISR interrupt
+    
+    //Opsætning af variabler
     float Kp = 0.5f;
     float Ki = 1.0f/30.0f;
     float Kd = 0.0f;
@@ -45,27 +45,26 @@ int main(void)
     UART_1_PutString("Temperature control application started\r\n");
     for(;;)
     {
-        temp = (float)readTemp();
-        /* Place your application code here. */
-        float error = setPoint - temp;
+        temp = (float)readTemp();  // Temperaturen aflæses og placeres i temp float
+        float error = setPoint - temp;  // Error udregning
         float proportionalPart = 0;
         float integralPart = 0;
         float derivativePart = 0;
         
-        controlSignal = PIDControl_doStep(temp, &proportionalPart, &integralPart, &derivativePart);            
+        controlSignal = PIDControl_doStep(temp, &proportionalPart, &integralPart, &derivativePart); // Udregning af kontrol signal           
         snprintf(outputBuffer, sizeof(outputBuffer), "%2.f,%2.f,%2.f, %2.f, %2.f, %2.f, %2.f, %2.f, %2.f, %2.f \r\n\n", 
                                                      setPoint, temp, error, controlSignal, Kp, Ki, Kd, 
                                                    proportionalPart, integralPart, derivativePart);
         UART_1_PutString(outputBuffer);
         
         
-        PWM_1_WriteCompare(controlSignal);
+        PWM_1_WriteCompare(controlSignal); // Ud fra kontrolsignalet ændres PWM som varmer power resistor op.
         
-        CyDelay(sampleWaitTimeInMilliseconds);
+        CyDelay(sampleWaitTimeInMilliseconds); // delay 0,333 sekunder
     }
 }
 
-void handleByteReceived(uint8_t ByteReceived)
+void handleByteReceived(uint8_t ByteReceived) // Ud fra om man trykker 3 eller 5 sættes setpoint
 {
     switch(ByteReceived)
     {
@@ -90,7 +89,7 @@ void handleByteReceived(uint8_t ByteReceived)
     }
 }
 
-CY_ISR(ISR_UART_rx_handler)
+CY_ISR(ISR_UART_rx_handler) //Interrupt handler på UART
 {
     uint8_t bytesToRead = UART_1_GetRxBufferSize();
     while(bytesToRead > 0)
