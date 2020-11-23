@@ -1,0 +1,991 @@
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"ADC.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ADC_init,"ax",%progbits
+  20              		.align	2
+  21              		.global	ADC_init
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	ADC_init, %function
+  25              	ADC_init:
+  26              	.LFB64:
+  27              		.file 1 "ADC.c"
+   1:ADC.c         **** /* ========================================
+   2:ADC.c         ****  *
+   3:ADC.c         ****  * Copyright YOUR COMPANY, THE YEAR
+   4:ADC.c         ****  * All Rights Reserved
+   5:ADC.c         ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:ADC.c         ****  *
+   7:ADC.c         ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:ADC.c         ****  * WHICH IS THE PROPERTY OF your company.
+   9:ADC.c         ****  *
+  10:ADC.c         ****  * ========================================
+  11:ADC.c         **** */
+  12:ADC.c         **** #include "ADC.h"
+  13:ADC.c         **** #include "project.h"
+  14:ADC.c         **** #include <stdio.h>
+  15:ADC.c         **** 
+  16:ADC.c         **** void ADC_init()
+  17:ADC.c         **** {
+  28              		.loc 1 17 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  18:ADC.c         ****     ADC_SAR_1_Start();
+  36              		.loc 1 18 0
+  37 0002 FFF7FEFF 		bl	ADC_SAR_1_Start
+  38              	.LVL0:
+  19:ADC.c         ****     ADC_SAR_1_StartConvert();
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 2
+
+
+  39              		.loc 1 19 0
+  40 0006 FFF7FEFF 		bl	ADC_SAR_1_StartConvert
+  41              	.LVL1:
+  42 000a 08BD     		pop	{r3, pc}
+  43              		.cfi_endproc
+  44              	.LFE64:
+  45              		.size	ADC_init, .-ADC_init
+  46              		.global	__aeabi_i2d
+  47              		.global	__aeabi_dmul
+  48              		.global	__aeabi_dsub
+  49              		.global	__aeabi_d2f
+  50              		.global	__aeabi_f2d
+  51              		.section	.text.ADC_Measure,"ax",%progbits
+  52              		.align	2
+  53              		.global	ADC_Measure
+  54              		.thumb
+  55              		.thumb_func
+  56              		.type	ADC_Measure, %function
+  57              	ADC_Measure:
+  58              	.LFB65:
+  20:ADC.c         **** }
+  21:ADC.c         **** 
+  22:ADC.c         **** void ADC_Measure()
+  23:ADC.c         **** {
+  59              		.loc 1 23 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 512
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63 0000 10B5     		push	{r4, lr}
+  64              		.cfi_def_cfa_offset 8
+  65              		.cfi_offset 4, -8
+  66              		.cfi_offset 14, -4
+  67 0002 ADF5027D 		sub	sp, sp, #520
+  68              		.cfi_def_cfa_offset 528
+  24:ADC.c         ****     char uartBuffer[256];
+  25:ADC.c         ****     char uartBuffer2[256];
+  26:ADC.c         ****     
+  27:ADC.c         ****     
+  28:ADC.c         ****     if (ADC_SAR_1_IsEndConversion(ADC_SAR_1_WAIT_FOR_RESULT))
+  69              		.loc 1 28 0
+  70 0006 0020     		movs	r0, #0
+  71 0008 FFF7FEFF 		bl	ADC_SAR_1_IsEndConversion
+  72              	.LVL2:
+  73 000c 40B3     		cbz	r0, .L3
+  74              	.LBB2:
+  29:ADC.c         ****         {
+  30:ADC.c         ****             uint16_t result = ADC_SAR_1_GetResult16();
+  75              		.loc 1 30 0
+  76 000e FFF7FEFF 		bl	ADC_SAR_1_GetResult16
+  77              	.LVL3:
+  78 0012 84B2     		uxth	r4, r0
+  79              	.LVL4:
+  31:ADC.c         ****             snprintf(uartBuffer, sizeof(uartBuffer), "ADC result: 0x%x \r\n", result);
+  80              		.loc 1 31 0
+  81 0014 2346     		mov	r3, r4
+  82 0016 184A     		ldr	r2, .L6+16
+  83 0018 4FF48071 		mov	r1, #256
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 3
+
+
+  84 001c 42A8     		add	r0, sp, #264
+  85 001e FFF7FEFF 		bl	snprintf
+  86              	.LVL5:
+  32:ADC.c         ****             UART_1_PutString(uartBuffer);
+  87              		.loc 1 32 0
+  88 0022 42A8     		add	r0, sp, #264
+  89 0024 FFF7FEFF 		bl	UART_1_PutString
+  90              	.LVL6:
+  33:ADC.c         ****             
+  34:ADC.c         ****             float kg = 0.0005 * result - 0.0553;
+  91              		.loc 1 34 0
+  92 0028 2046     		mov	r0, r4
+  93 002a FFF7FEFF 		bl	__aeabi_i2d
+  94              	.LVL7:
+  95 002e 0EA3     		adr	r3, .L6
+  96 0030 D3E90023 		ldrd	r2, [r3]
+  97 0034 FFF7FEFF 		bl	__aeabi_dmul
+  98              	.LVL8:
+  99 0038 0DA3     		adr	r3, .L6+8
+ 100 003a D3E90023 		ldrd	r2, [r3]
+ 101 003e FFF7FEFF 		bl	__aeabi_dsub
+ 102              	.LVL9:
+ 103 0042 FFF7FEFF 		bl	__aeabi_d2f
+ 104              	.LVL10:
+  35:ADC.c         ****             snprintf(uartBuffer2, sizeof(uartBuffer2), "Kg result: %f \r\n", kg);
+ 105              		.loc 1 35 0
+ 106 0046 FFF7FEFF 		bl	__aeabi_f2d
+ 107              	.LVL11:
+ 108 004a CDE90001 		strd	r0, [sp]
+ 109 004e 0B4A     		ldr	r2, .L6+20
+ 110 0050 4FF48071 		mov	r1, #256
+ 111 0054 02A8     		add	r0, sp, #8
+ 112 0056 FFF7FEFF 		bl	snprintf
+ 113              	.LVL12:
+  36:ADC.c         ****             UART_1_PutString(uartBuffer2); 
+ 114              		.loc 1 36 0
+ 115 005a 02A8     		add	r0, sp, #8
+ 116 005c FFF7FEFF 		bl	UART_1_PutString
+ 117              	.LVL13:
+ 118              	.L3:
+ 119              	.LBE2:
+  37:ADC.c         ****         }   
+  38:ADC.c         **** }
+ 120              		.loc 1 38 0
+ 121 0060 0DF5027D 		add	sp, sp, #520
+ 122              		.cfi_def_cfa_offset 8
+ 123              		@ sp needed
+ 124 0064 10BD     		pop	{r4, pc}
+ 125              	.L7:
+ 126 0066 00BF     		.align	3
+ 127              	.L6:
+ 128 0068 FCA9F1D2 		.word	-755914244
+ 129 006c 4D62403F 		.word	1061184077
+ 130 0070 8E06F016 		.word	384829070
+ 131 0074 4850AC3F 		.word	1068257352
+ 132 0078 00000000 		.word	.LC0
+ 133 007c 14000000 		.word	.LC1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 4
+
+
+ 134              		.cfi_endproc
+ 135              	.LFE65:
+ 136              		.size	ADC_Measure, .-ADC_Measure
+ 137              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 138              		.align	2
+ 139              	.LC0:
+ 140 0000 41444320 		.ascii	"ADC result: 0x%x \015\012\000"
+ 140      72657375 
+ 140      6C743A20 
+ 140      30782578 
+ 140      200D0A00 
+ 141              	.LC1:
+ 142 0014 4B672072 		.ascii	"Kg result: %f \015\012\000"
+ 142      6573756C 
+ 142      743A2025 
+ 142      66200D0A 
+ 142      00
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 146              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 147              		.file 4 "Generated_Source\\PSoC5/ADC_SAR_1.h"
+ 148              		.file 5 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 149              		.file 6 "Generated_Source\\PSoC5/UART_1.h"
+ 150              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 151              		.section	.debug_info,"",%progbits
+ 152              	.Ldebug_info0:
+ 153 0000 2F020000 		.4byte	0x22f
+ 154 0004 0400     		.2byte	0x4
+ 155 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 156 000a 04       		.byte	0x4
+ 157 000b 01       		.uleb128 0x1
+ 158 000c 72000000 		.4byte	.LASF29
+ 159 0010 0C       		.byte	0xc
+ 160 0011 55010000 		.4byte	.LASF30
+ 161 0015 29010000 		.4byte	.LASF31
+ 162 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 163 001d 00000000 		.4byte	0
+ 164 0021 00000000 		.4byte	.Ldebug_line0
+ 165 0025 02       		.uleb128 0x2
+ 166 0026 01       		.byte	0x1
+ 167 0027 06       		.byte	0x6
+ 168 0028 15020000 		.4byte	.LASF0
+ 169 002c 02       		.uleb128 0x2
+ 170 002d 01       		.byte	0x1
+ 171 002e 08       		.byte	0x8
+ 172 002f 64000000 		.4byte	.LASF1
+ 173 0033 02       		.uleb128 0x2
+ 174 0034 02       		.byte	0x2
+ 175 0035 05       		.byte	0x5
+ 176 0036 D6010000 		.4byte	.LASF2
+ 177 003a 03       		.uleb128 0x3
+ 178 003b E0010000 		.4byte	.LASF4
+ 179 003f 02       		.byte	0x2
+ 180 0040 2B       		.byte	0x2b
+ 181 0041 45000000 		.4byte	0x45
+ 182 0045 02       		.uleb128 0x2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 5
+
+
+ 183 0046 02       		.byte	0x2
+ 184 0047 07       		.byte	0x7
+ 185 0048 1E000000 		.4byte	.LASF3
+ 186 004c 03       		.uleb128 0x3
+ 187 004d 0B000000 		.4byte	.LASF5
+ 188 0051 02       		.byte	0x2
+ 189 0052 3F       		.byte	0x3f
+ 190 0053 57000000 		.4byte	0x57
+ 191 0057 02       		.uleb128 0x2
+ 192 0058 04       		.byte	0x4
+ 193 0059 05       		.byte	0x5
+ 194 005a F4010000 		.4byte	.LASF6
+ 195 005e 02       		.uleb128 0x2
+ 196 005f 04       		.byte	0x4
+ 197 0060 07       		.byte	0x7
+ 198 0061 00010000 		.4byte	.LASF7
+ 199 0065 02       		.uleb128 0x2
+ 200 0066 08       		.byte	0x8
+ 201 0067 05       		.byte	0x5
+ 202 0068 C3010000 		.4byte	.LASF8
+ 203 006c 02       		.uleb128 0x2
+ 204 006d 08       		.byte	0x8
+ 205 006e 07       		.byte	0x7
+ 206 006f 7E010000 		.4byte	.LASF9
+ 207 0073 04       		.uleb128 0x4
+ 208 0074 04       		.byte	0x4
+ 209 0075 05       		.byte	0x5
+ 210 0076 696E7400 		.ascii	"int\000"
+ 211 007a 02       		.uleb128 0x2
+ 212 007b 04       		.byte	0x4
+ 213 007c 07       		.byte	0x7
+ 214 007d 71010000 		.4byte	.LASF10
+ 215 0081 03       		.uleb128 0x3
+ 216 0082 EB010000 		.4byte	.LASF11
+ 217 0086 03       		.byte	0x3
+ 218 0087 24       		.byte	0x24
+ 219 0088 3A000000 		.4byte	0x3a
+ 220 008c 03       		.uleb128 0x3
+ 221 008d 9C010000 		.4byte	.LASF12
+ 222 0091 03       		.byte	0x3
+ 223 0092 2C       		.byte	0x2c
+ 224 0093 4C000000 		.4byte	0x4c
+ 225 0097 02       		.uleb128 0x2
+ 226 0098 04       		.byte	0x4
+ 227 0099 04       		.byte	0x4
+ 228 009a 44000000 		.4byte	.LASF13
+ 229 009e 02       		.uleb128 0x2
+ 230 009f 08       		.byte	0x8
+ 231 00a0 04       		.byte	0x4
+ 232 00a1 3D000000 		.4byte	.LASF14
+ 233 00a5 02       		.uleb128 0x2
+ 234 00a6 01       		.byte	0x1
+ 235 00a7 08       		.byte	0x8
+ 236 00a8 D1010000 		.4byte	.LASF15
+ 237 00ac 02       		.uleb128 0x2
+ 238 00ad 08       		.byte	0x8
+ 239 00ae 04       		.byte	0x4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 6
+
+
+ 240 00af 09020000 		.4byte	.LASF16
+ 241 00b3 02       		.uleb128 0x2
+ 242 00b4 04       		.byte	0x4
+ 243 00b5 07       		.byte	0x7
+ 244 00b6 A4010000 		.4byte	.LASF17
+ 245 00ba 05       		.uleb128 0x5
+ 246 00bb 5B010000 		.4byte	.LASF18
+ 247 00bf 01       		.byte	0x1
+ 248 00c0 10       		.byte	0x10
+ 249 00c1 00000000 		.4byte	.LFB64
+ 250 00c5 0C000000 		.4byte	.LFE64-.LFB64
+ 251 00c9 01       		.uleb128 0x1
+ 252 00ca 9C       		.byte	0x9c
+ 253 00cb E2000000 		.4byte	0xe2
+ 254 00cf 06       		.uleb128 0x6
+ 255 00d0 06000000 		.4byte	.LVL0
+ 256 00d4 F0010000 		.4byte	0x1f0
+ 257 00d8 06       		.uleb128 0x6
+ 258 00d9 0A000000 		.4byte	.LVL1
+ 259 00dd FB010000 		.4byte	0x1fb
+ 260 00e1 00       		.byte	0
+ 261 00e2 07       		.uleb128 0x7
+ 262 00e3 31000000 		.4byte	.LASF19
+ 263 00e7 01       		.byte	0x1
+ 264 00e8 16       		.byte	0x16
+ 265 00e9 00000000 		.4byte	.LFB65
+ 266 00ed 80000000 		.4byte	.LFE65-.LFB65
+ 267 00f1 01       		.uleb128 0x1
+ 268 00f2 9C       		.byte	0x9c
+ 269 00f3 CF010000 		.4byte	0x1cf
+ 270 00f7 08       		.uleb128 0x8
+ 271 00f8 00000000 		.4byte	.LASF20
+ 272 00fc 01       		.byte	0x1
+ 273 00fd 18       		.byte	0x18
+ 274 00fe CF010000 		.4byte	0x1cf
+ 275 0102 03       		.uleb128 0x3
+ 276 0103 91       		.byte	0x91
+ 277 0104 F87D     		.sleb128 -264
+ 278 0106 08       		.uleb128 0x8
+ 279 0107 FD010000 		.4byte	.LASF21
+ 280 010b 01       		.byte	0x1
+ 281 010c 19       		.byte	0x19
+ 282 010d CF010000 		.4byte	0x1cf
+ 283 0111 03       		.uleb128 0x3
+ 284 0112 91       		.byte	0x91
+ 285 0113 F87B     		.sleb128 -520
+ 286 0115 09       		.uleb128 0x9
+ 287 0116 0E000000 		.4byte	.LBB2
+ 288 011a 52000000 		.4byte	.LBE2-.LBB2
+ 289 011e BF010000 		.4byte	0x1bf
+ 290 0122 0A       		.uleb128 0xa
+ 291 0123 95010000 		.4byte	.LASF22
+ 292 0127 01       		.byte	0x1
+ 293 0128 1E       		.byte	0x1e
+ 294 0129 81000000 		.4byte	0x81
+ 295 012d 00000000 		.4byte	.LLST0
+ 296 0131 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 7
+
+
+ 297 0132 6B6700   		.ascii	"kg\000"
+ 298 0135 01       		.byte	0x1
+ 299 0136 22       		.byte	0x22
+ 300 0137 97000000 		.4byte	0x97
+ 301 013b 13000000 		.4byte	.LLST1
+ 302 013f 06       		.uleb128 0x6
+ 303 0140 12000000 		.4byte	.LVL3
+ 304 0144 06020000 		.4byte	0x206
+ 305 0148 0C       		.uleb128 0xc
+ 306 0149 22000000 		.4byte	.LVL5
+ 307 014d 11020000 		.4byte	0x211
+ 308 0151 73010000 		.4byte	0x173
+ 309 0155 0D       		.uleb128 0xd
+ 310 0156 01       		.uleb128 0x1
+ 311 0157 50       		.byte	0x50
+ 312 0158 03       		.uleb128 0x3
+ 313 0159 91       		.byte	0x91
+ 314 015a F87D     		.sleb128 -264
+ 315 015c 0D       		.uleb128 0xd
+ 316 015d 01       		.uleb128 0x1
+ 317 015e 51       		.byte	0x51
+ 318 015f 03       		.uleb128 0x3
+ 319 0160 0A       		.byte	0xa
+ 320 0161 0001     		.2byte	0x100
+ 321 0163 0D       		.uleb128 0xd
+ 322 0164 01       		.uleb128 0x1
+ 323 0165 52       		.byte	0x52
+ 324 0166 05       		.uleb128 0x5
+ 325 0167 03       		.byte	0x3
+ 326 0168 00000000 		.4byte	.LC0
+ 327 016c 0D       		.uleb128 0xd
+ 328 016d 01       		.uleb128 0x1
+ 329 016e 53       		.byte	0x53
+ 330 016f 02       		.uleb128 0x2
+ 331 0170 74       		.byte	0x74
+ 332 0171 00       		.sleb128 0
+ 333 0172 00       		.byte	0
+ 334 0173 0C       		.uleb128 0xc
+ 335 0174 28000000 		.4byte	.LVL6
+ 336 0178 1C020000 		.4byte	0x21c
+ 337 017c 88010000 		.4byte	0x188
+ 338 0180 0D       		.uleb128 0xd
+ 339 0181 01       		.uleb128 0x1
+ 340 0182 50       		.byte	0x50
+ 341 0183 03       		.uleb128 0x3
+ 342 0184 91       		.byte	0x91
+ 343 0185 F87D     		.sleb128 -264
+ 344 0187 00       		.byte	0
+ 345 0188 0C       		.uleb128 0xc
+ 346 0189 5A000000 		.4byte	.LVL12
+ 347 018d 11020000 		.4byte	0x211
+ 348 0191 AD010000 		.4byte	0x1ad
+ 349 0195 0D       		.uleb128 0xd
+ 350 0196 01       		.uleb128 0x1
+ 351 0197 50       		.byte	0x50
+ 352 0198 03       		.uleb128 0x3
+ 353 0199 91       		.byte	0x91
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 8
+
+
+ 354 019a F87B     		.sleb128 -520
+ 355 019c 0D       		.uleb128 0xd
+ 356 019d 01       		.uleb128 0x1
+ 357 019e 51       		.byte	0x51
+ 358 019f 03       		.uleb128 0x3
+ 359 01a0 0A       		.byte	0xa
+ 360 01a1 0001     		.2byte	0x100
+ 361 01a3 0D       		.uleb128 0xd
+ 362 01a4 01       		.uleb128 0x1
+ 363 01a5 52       		.byte	0x52
+ 364 01a6 05       		.uleb128 0x5
+ 365 01a7 03       		.byte	0x3
+ 366 01a8 14000000 		.4byte	.LC1
+ 367 01ac 00       		.byte	0
+ 368 01ad 0E       		.uleb128 0xe
+ 369 01ae 60000000 		.4byte	.LVL13
+ 370 01b2 1C020000 		.4byte	0x21c
+ 371 01b6 0D       		.uleb128 0xd
+ 372 01b7 01       		.uleb128 0x1
+ 373 01b8 50       		.byte	0x50
+ 374 01b9 03       		.uleb128 0x3
+ 375 01ba 91       		.byte	0x91
+ 376 01bb F87B     		.sleb128 -520
+ 377 01bd 00       		.byte	0
+ 378 01be 00       		.byte	0
+ 379 01bf 0E       		.uleb128 0xe
+ 380 01c0 0C000000 		.4byte	.LVL2
+ 381 01c4 27020000 		.4byte	0x227
+ 382 01c8 0D       		.uleb128 0xd
+ 383 01c9 01       		.uleb128 0x1
+ 384 01ca 50       		.byte	0x50
+ 385 01cb 01       		.uleb128 0x1
+ 386 01cc 30       		.byte	0x30
+ 387 01cd 00       		.byte	0
+ 388 01ce 00       		.byte	0
+ 389 01cf 0F       		.uleb128 0xf
+ 390 01d0 A5000000 		.4byte	0xa5
+ 391 01d4 DF010000 		.4byte	0x1df
+ 392 01d8 10       		.uleb128 0x10
+ 393 01d9 B3000000 		.4byte	0xb3
+ 394 01dd FF       		.byte	0xff
+ 395 01de 00       		.byte	0
+ 396 01df 11       		.uleb128 0x11
+ 397 01e0 64010000 		.4byte	.LASF32
+ 398 01e4 07       		.byte	0x7
+ 399 01e5 9606     		.2byte	0x696
+ 400 01e7 EB010000 		.4byte	0x1eb
+ 401 01eb 12       		.uleb128 0x12
+ 402 01ec 8C000000 		.4byte	0x8c
+ 403 01f0 13       		.uleb128 0x13
+ 404 01f1 21020000 		.4byte	.LASF23
+ 405 01f5 21020000 		.4byte	.LASF23
+ 406 01f9 04       		.byte	0x4
+ 407 01fa 34       		.byte	0x34
+ 408 01fb 13       		.uleb128 0x13
+ 409 01fc 12010000 		.4byte	.LASF24
+ 410 0200 12010000 		.4byte	.LASF24
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 9
+
+
+ 411 0204 04       		.byte	0x4
+ 412 0205 D1       		.byte	0xd1
+ 413 0206 13       		.uleb128 0x13
+ 414 0207 AD010000 		.4byte	.LASF25
+ 415 020b AD010000 		.4byte	.LASF25
+ 416 020f 04       		.byte	0x4
+ 417 0210 3B       		.byte	0x3b
+ 418 0211 13       		.uleb128 0x13
+ 419 0212 15000000 		.4byte	.LASF26
+ 420 0216 15000000 		.4byte	.LASF26
+ 421 021a 05       		.byte	0x5
+ 422 021b FD       		.byte	0xfd
+ 423 021c 13       		.uleb128 0x13
+ 424 021d 31020000 		.4byte	.LASF27
+ 425 0221 31020000 		.4byte	.LASF27
+ 426 0225 06       		.byte	0x6
+ 427 0226 8B       		.byte	0x8b
+ 428 0227 13       		.uleb128 0x13
+ 429 0228 4A000000 		.4byte	.LASF28
+ 430 022c 4A000000 		.4byte	.LASF28
+ 431 0230 04       		.byte	0x4
+ 432 0231 39       		.byte	0x39
+ 433 0232 00       		.byte	0
+ 434              		.section	.debug_abbrev,"",%progbits
+ 435              	.Ldebug_abbrev0:
+ 436 0000 01       		.uleb128 0x1
+ 437 0001 11       		.uleb128 0x11
+ 438 0002 01       		.byte	0x1
+ 439 0003 25       		.uleb128 0x25
+ 440 0004 0E       		.uleb128 0xe
+ 441 0005 13       		.uleb128 0x13
+ 442 0006 0B       		.uleb128 0xb
+ 443 0007 03       		.uleb128 0x3
+ 444 0008 0E       		.uleb128 0xe
+ 445 0009 1B       		.uleb128 0x1b
+ 446 000a 0E       		.uleb128 0xe
+ 447 000b 55       		.uleb128 0x55
+ 448 000c 17       		.uleb128 0x17
+ 449 000d 11       		.uleb128 0x11
+ 450 000e 01       		.uleb128 0x1
+ 451 000f 10       		.uleb128 0x10
+ 452 0010 17       		.uleb128 0x17
+ 453 0011 00       		.byte	0
+ 454 0012 00       		.byte	0
+ 455 0013 02       		.uleb128 0x2
+ 456 0014 24       		.uleb128 0x24
+ 457 0015 00       		.byte	0
+ 458 0016 0B       		.uleb128 0xb
+ 459 0017 0B       		.uleb128 0xb
+ 460 0018 3E       		.uleb128 0x3e
+ 461 0019 0B       		.uleb128 0xb
+ 462 001a 03       		.uleb128 0x3
+ 463 001b 0E       		.uleb128 0xe
+ 464 001c 00       		.byte	0
+ 465 001d 00       		.byte	0
+ 466 001e 03       		.uleb128 0x3
+ 467 001f 16       		.uleb128 0x16
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 10
+
+
+ 468 0020 00       		.byte	0
+ 469 0021 03       		.uleb128 0x3
+ 470 0022 0E       		.uleb128 0xe
+ 471 0023 3A       		.uleb128 0x3a
+ 472 0024 0B       		.uleb128 0xb
+ 473 0025 3B       		.uleb128 0x3b
+ 474 0026 0B       		.uleb128 0xb
+ 475 0027 49       		.uleb128 0x49
+ 476 0028 13       		.uleb128 0x13
+ 477 0029 00       		.byte	0
+ 478 002a 00       		.byte	0
+ 479 002b 04       		.uleb128 0x4
+ 480 002c 24       		.uleb128 0x24
+ 481 002d 00       		.byte	0
+ 482 002e 0B       		.uleb128 0xb
+ 483 002f 0B       		.uleb128 0xb
+ 484 0030 3E       		.uleb128 0x3e
+ 485 0031 0B       		.uleb128 0xb
+ 486 0032 03       		.uleb128 0x3
+ 487 0033 08       		.uleb128 0x8
+ 488 0034 00       		.byte	0
+ 489 0035 00       		.byte	0
+ 490 0036 05       		.uleb128 0x5
+ 491 0037 2E       		.uleb128 0x2e
+ 492 0038 01       		.byte	0x1
+ 493 0039 3F       		.uleb128 0x3f
+ 494 003a 19       		.uleb128 0x19
+ 495 003b 03       		.uleb128 0x3
+ 496 003c 0E       		.uleb128 0xe
+ 497 003d 3A       		.uleb128 0x3a
+ 498 003e 0B       		.uleb128 0xb
+ 499 003f 3B       		.uleb128 0x3b
+ 500 0040 0B       		.uleb128 0xb
+ 501 0041 11       		.uleb128 0x11
+ 502 0042 01       		.uleb128 0x1
+ 503 0043 12       		.uleb128 0x12
+ 504 0044 06       		.uleb128 0x6
+ 505 0045 40       		.uleb128 0x40
+ 506 0046 18       		.uleb128 0x18
+ 507 0047 9742     		.uleb128 0x2117
+ 508 0049 19       		.uleb128 0x19
+ 509 004a 01       		.uleb128 0x1
+ 510 004b 13       		.uleb128 0x13
+ 511 004c 00       		.byte	0
+ 512 004d 00       		.byte	0
+ 513 004e 06       		.uleb128 0x6
+ 514 004f 898201   		.uleb128 0x4109
+ 515 0052 00       		.byte	0
+ 516 0053 11       		.uleb128 0x11
+ 517 0054 01       		.uleb128 0x1
+ 518 0055 31       		.uleb128 0x31
+ 519 0056 13       		.uleb128 0x13
+ 520 0057 00       		.byte	0
+ 521 0058 00       		.byte	0
+ 522 0059 07       		.uleb128 0x7
+ 523 005a 2E       		.uleb128 0x2e
+ 524 005b 01       		.byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 11
+
+
+ 525 005c 3F       		.uleb128 0x3f
+ 526 005d 19       		.uleb128 0x19
+ 527 005e 03       		.uleb128 0x3
+ 528 005f 0E       		.uleb128 0xe
+ 529 0060 3A       		.uleb128 0x3a
+ 530 0061 0B       		.uleb128 0xb
+ 531 0062 3B       		.uleb128 0x3b
+ 532 0063 0B       		.uleb128 0xb
+ 533 0064 11       		.uleb128 0x11
+ 534 0065 01       		.uleb128 0x1
+ 535 0066 12       		.uleb128 0x12
+ 536 0067 06       		.uleb128 0x6
+ 537 0068 40       		.uleb128 0x40
+ 538 0069 18       		.uleb128 0x18
+ 539 006a 9642     		.uleb128 0x2116
+ 540 006c 19       		.uleb128 0x19
+ 541 006d 01       		.uleb128 0x1
+ 542 006e 13       		.uleb128 0x13
+ 543 006f 00       		.byte	0
+ 544 0070 00       		.byte	0
+ 545 0071 08       		.uleb128 0x8
+ 546 0072 34       		.uleb128 0x34
+ 547 0073 00       		.byte	0
+ 548 0074 03       		.uleb128 0x3
+ 549 0075 0E       		.uleb128 0xe
+ 550 0076 3A       		.uleb128 0x3a
+ 551 0077 0B       		.uleb128 0xb
+ 552 0078 3B       		.uleb128 0x3b
+ 553 0079 0B       		.uleb128 0xb
+ 554 007a 49       		.uleb128 0x49
+ 555 007b 13       		.uleb128 0x13
+ 556 007c 02       		.uleb128 0x2
+ 557 007d 18       		.uleb128 0x18
+ 558 007e 00       		.byte	0
+ 559 007f 00       		.byte	0
+ 560 0080 09       		.uleb128 0x9
+ 561 0081 0B       		.uleb128 0xb
+ 562 0082 01       		.byte	0x1
+ 563 0083 11       		.uleb128 0x11
+ 564 0084 01       		.uleb128 0x1
+ 565 0085 12       		.uleb128 0x12
+ 566 0086 06       		.uleb128 0x6
+ 567 0087 01       		.uleb128 0x1
+ 568 0088 13       		.uleb128 0x13
+ 569 0089 00       		.byte	0
+ 570 008a 00       		.byte	0
+ 571 008b 0A       		.uleb128 0xa
+ 572 008c 34       		.uleb128 0x34
+ 573 008d 00       		.byte	0
+ 574 008e 03       		.uleb128 0x3
+ 575 008f 0E       		.uleb128 0xe
+ 576 0090 3A       		.uleb128 0x3a
+ 577 0091 0B       		.uleb128 0xb
+ 578 0092 3B       		.uleb128 0x3b
+ 579 0093 0B       		.uleb128 0xb
+ 580 0094 49       		.uleb128 0x49
+ 581 0095 13       		.uleb128 0x13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 12
+
+
+ 582 0096 02       		.uleb128 0x2
+ 583 0097 17       		.uleb128 0x17
+ 584 0098 00       		.byte	0
+ 585 0099 00       		.byte	0
+ 586 009a 0B       		.uleb128 0xb
+ 587 009b 34       		.uleb128 0x34
+ 588 009c 00       		.byte	0
+ 589 009d 03       		.uleb128 0x3
+ 590 009e 08       		.uleb128 0x8
+ 591 009f 3A       		.uleb128 0x3a
+ 592 00a0 0B       		.uleb128 0xb
+ 593 00a1 3B       		.uleb128 0x3b
+ 594 00a2 0B       		.uleb128 0xb
+ 595 00a3 49       		.uleb128 0x49
+ 596 00a4 13       		.uleb128 0x13
+ 597 00a5 02       		.uleb128 0x2
+ 598 00a6 17       		.uleb128 0x17
+ 599 00a7 00       		.byte	0
+ 600 00a8 00       		.byte	0
+ 601 00a9 0C       		.uleb128 0xc
+ 602 00aa 898201   		.uleb128 0x4109
+ 603 00ad 01       		.byte	0x1
+ 604 00ae 11       		.uleb128 0x11
+ 605 00af 01       		.uleb128 0x1
+ 606 00b0 31       		.uleb128 0x31
+ 607 00b1 13       		.uleb128 0x13
+ 608 00b2 01       		.uleb128 0x1
+ 609 00b3 13       		.uleb128 0x13
+ 610 00b4 00       		.byte	0
+ 611 00b5 00       		.byte	0
+ 612 00b6 0D       		.uleb128 0xd
+ 613 00b7 8A8201   		.uleb128 0x410a
+ 614 00ba 00       		.byte	0
+ 615 00bb 02       		.uleb128 0x2
+ 616 00bc 18       		.uleb128 0x18
+ 617 00bd 9142     		.uleb128 0x2111
+ 618 00bf 18       		.uleb128 0x18
+ 619 00c0 00       		.byte	0
+ 620 00c1 00       		.byte	0
+ 621 00c2 0E       		.uleb128 0xe
+ 622 00c3 898201   		.uleb128 0x4109
+ 623 00c6 01       		.byte	0x1
+ 624 00c7 11       		.uleb128 0x11
+ 625 00c8 01       		.uleb128 0x1
+ 626 00c9 31       		.uleb128 0x31
+ 627 00ca 13       		.uleb128 0x13
+ 628 00cb 00       		.byte	0
+ 629 00cc 00       		.byte	0
+ 630 00cd 0F       		.uleb128 0xf
+ 631 00ce 01       		.uleb128 0x1
+ 632 00cf 01       		.byte	0x1
+ 633 00d0 49       		.uleb128 0x49
+ 634 00d1 13       		.uleb128 0x13
+ 635 00d2 01       		.uleb128 0x1
+ 636 00d3 13       		.uleb128 0x13
+ 637 00d4 00       		.byte	0
+ 638 00d5 00       		.byte	0
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 13
+
+
+ 639 00d6 10       		.uleb128 0x10
+ 640 00d7 21       		.uleb128 0x21
+ 641 00d8 00       		.byte	0
+ 642 00d9 49       		.uleb128 0x49
+ 643 00da 13       		.uleb128 0x13
+ 644 00db 2F       		.uleb128 0x2f
+ 645 00dc 0B       		.uleb128 0xb
+ 646 00dd 00       		.byte	0
+ 647 00de 00       		.byte	0
+ 648 00df 11       		.uleb128 0x11
+ 649 00e0 34       		.uleb128 0x34
+ 650 00e1 00       		.byte	0
+ 651 00e2 03       		.uleb128 0x3
+ 652 00e3 0E       		.uleb128 0xe
+ 653 00e4 3A       		.uleb128 0x3a
+ 654 00e5 0B       		.uleb128 0xb
+ 655 00e6 3B       		.uleb128 0x3b
+ 656 00e7 05       		.uleb128 0x5
+ 657 00e8 49       		.uleb128 0x49
+ 658 00e9 13       		.uleb128 0x13
+ 659 00ea 3F       		.uleb128 0x3f
+ 660 00eb 19       		.uleb128 0x19
+ 661 00ec 3C       		.uleb128 0x3c
+ 662 00ed 19       		.uleb128 0x19
+ 663 00ee 00       		.byte	0
+ 664 00ef 00       		.byte	0
+ 665 00f0 12       		.uleb128 0x12
+ 666 00f1 35       		.uleb128 0x35
+ 667 00f2 00       		.byte	0
+ 668 00f3 49       		.uleb128 0x49
+ 669 00f4 13       		.uleb128 0x13
+ 670 00f5 00       		.byte	0
+ 671 00f6 00       		.byte	0
+ 672 00f7 13       		.uleb128 0x13
+ 673 00f8 2E       		.uleb128 0x2e
+ 674 00f9 00       		.byte	0
+ 675 00fa 3F       		.uleb128 0x3f
+ 676 00fb 19       		.uleb128 0x19
+ 677 00fc 3C       		.uleb128 0x3c
+ 678 00fd 19       		.uleb128 0x19
+ 679 00fe 6E       		.uleb128 0x6e
+ 680 00ff 0E       		.uleb128 0xe
+ 681 0100 03       		.uleb128 0x3
+ 682 0101 0E       		.uleb128 0xe
+ 683 0102 3A       		.uleb128 0x3a
+ 684 0103 0B       		.uleb128 0xb
+ 685 0104 3B       		.uleb128 0x3b
+ 686 0105 0B       		.uleb128 0xb
+ 687 0106 00       		.byte	0
+ 688 0107 00       		.byte	0
+ 689 0108 00       		.byte	0
+ 690              		.section	.debug_loc,"",%progbits
+ 691              	.Ldebug_loc0:
+ 692              	.LLST0:
+ 693 0000 14000000 		.4byte	.LVL4
+ 694 0004 60000000 		.4byte	.LVL13
+ 695 0008 0100     		.2byte	0x1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 14
+
+
+ 696 000a 54       		.byte	0x54
+ 697 000b 00000000 		.4byte	0
+ 698 000f 00000000 		.4byte	0
+ 699              	.LLST1:
+ 700 0013 46000000 		.4byte	.LVL10
+ 701 0017 49000000 		.4byte	.LVL11-1
+ 702 001b 0100     		.2byte	0x1
+ 703 001d 50       		.byte	0x50
+ 704 001e 00000000 		.4byte	0
+ 705 0022 00000000 		.4byte	0
+ 706              		.section	.debug_aranges,"",%progbits
+ 707 0000 24000000 		.4byte	0x24
+ 708 0004 0200     		.2byte	0x2
+ 709 0006 00000000 		.4byte	.Ldebug_info0
+ 710 000a 04       		.byte	0x4
+ 711 000b 00       		.byte	0
+ 712 000c 0000     		.2byte	0
+ 713 000e 0000     		.2byte	0
+ 714 0010 00000000 		.4byte	.LFB64
+ 715 0014 0C000000 		.4byte	.LFE64-.LFB64
+ 716 0018 00000000 		.4byte	.LFB65
+ 717 001c 80000000 		.4byte	.LFE65-.LFB65
+ 718 0020 00000000 		.4byte	0
+ 719 0024 00000000 		.4byte	0
+ 720              		.section	.debug_ranges,"",%progbits
+ 721              	.Ldebug_ranges0:
+ 722 0000 00000000 		.4byte	.LFB64
+ 723 0004 0C000000 		.4byte	.LFE64
+ 724 0008 00000000 		.4byte	.LFB65
+ 725 000c 80000000 		.4byte	.LFE65
+ 726 0010 00000000 		.4byte	0
+ 727 0014 00000000 		.4byte	0
+ 728              		.section	.debug_line,"",%progbits
+ 729              	.Ldebug_line0:
+ 730 0000 FA010000 		.section	.debug_str,"MS",%progbits,1
+ 730      0200CC01 
+ 730      00000201 
+ 730      FB0E0D00 
+ 730      01010101 
+ 731              	.LASF20:
+ 732 0000 75617274 		.ascii	"uartBuffer\000"
+ 732      42756666 
+ 732      657200
+ 733              	.LASF5:
+ 734 000b 5F5F696E 		.ascii	"__int32_t\000"
+ 734      7433325F 
+ 734      7400
+ 735              	.LASF26:
+ 736 0015 736E7072 		.ascii	"snprintf\000"
+ 736      696E7466 
+ 736      00
+ 737              	.LASF3:
+ 738 001e 73686F72 		.ascii	"short unsigned int\000"
+ 738      7420756E 
+ 738      7369676E 
+ 738      65642069 
+ 738      6E7400
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 15
+
+
+ 739              	.LASF19:
+ 740 0031 4144435F 		.ascii	"ADC_Measure\000"
+ 740      4D656173 
+ 740      75726500 
+ 741              	.LASF14:
+ 742 003d 646F7562 		.ascii	"double\000"
+ 742      6C6500
+ 743              	.LASF13:
+ 744 0044 666C6F61 		.ascii	"float\000"
+ 744      7400
+ 745              	.LASF28:
+ 746 004a 4144435F 		.ascii	"ADC_SAR_1_IsEndConversion\000"
+ 746      5341525F 
+ 746      315F4973 
+ 746      456E6443 
+ 746      6F6E7665 
+ 747              	.LASF1:
+ 748 0064 756E7369 		.ascii	"unsigned char\000"
+ 748      676E6564 
+ 748      20636861 
+ 748      7200
+ 749              	.LASF29:
+ 750 0072 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 750      43313120 
+ 750      352E342E 
+ 750      31203230 
+ 750      31363036 
+ 751 00a5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 751      20726576 
+ 751      6973696F 
+ 751      6E203233 
+ 751      37373135 
+ 752 00d8 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 752      66756E63 
+ 752      74696F6E 
+ 752      2D736563 
+ 752      74696F6E 
+ 753              	.LASF7:
+ 754 0100 6C6F6E67 		.ascii	"long unsigned int\000"
+ 754      20756E73 
+ 754      69676E65 
+ 754      6420696E 
+ 754      7400
+ 755              	.LASF24:
+ 756 0112 4144435F 		.ascii	"ADC_SAR_1_StartConvert\000"
+ 756      5341525F 
+ 756      315F5374 
+ 756      61727443 
+ 756      6F6E7665 
+ 757              	.LASF31:
+ 758 0129 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\kgSensor\\Scale.cydsn\000"
+ 758      73657273 
+ 758      5C53696D 
+ 758      6F6E5C44 
+ 758      65736B74 
+ 759              	.LASF30:
+ 760 0155 4144432E 		.ascii	"ADC.c\000"
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 16
+
+
+ 760      6300
+ 761              	.LASF18:
+ 762 015b 4144435F 		.ascii	"ADC_init\000"
+ 762      696E6974 
+ 762      00
+ 763              	.LASF32:
+ 764 0164 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 764      52784275 
+ 764      66666572 
+ 764      00
+ 765              	.LASF10:
+ 766 0171 756E7369 		.ascii	"unsigned int\000"
+ 766      676E6564 
+ 766      20696E74 
+ 766      00
+ 767              	.LASF9:
+ 768 017e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 768      206C6F6E 
+ 768      6720756E 
+ 768      7369676E 
+ 768      65642069 
+ 769              	.LASF22:
+ 770 0195 72657375 		.ascii	"result\000"
+ 770      6C7400
+ 771              	.LASF12:
+ 772 019c 696E7433 		.ascii	"int32_t\000"
+ 772      325F7400 
+ 773              	.LASF17:
+ 774 01a4 73697A65 		.ascii	"sizetype\000"
+ 774      74797065 
+ 774      00
+ 775              	.LASF25:
+ 776 01ad 4144435F 		.ascii	"ADC_SAR_1_GetResult16\000"
+ 776      5341525F 
+ 776      315F4765 
+ 776      74526573 
+ 776      756C7431 
+ 777              	.LASF8:
+ 778 01c3 6C6F6E67 		.ascii	"long long int\000"
+ 778      206C6F6E 
+ 778      6720696E 
+ 778      7400
+ 779              	.LASF15:
+ 780 01d1 63686172 		.ascii	"char\000"
+ 780      00
+ 781              	.LASF2:
+ 782 01d6 73686F72 		.ascii	"short int\000"
+ 782      7420696E 
+ 782      7400
+ 783              	.LASF4:
+ 784 01e0 5F5F7569 		.ascii	"__uint16_t\000"
+ 784      6E743136 
+ 784      5F7400
+ 785              	.LASF11:
+ 786 01eb 75696E74 		.ascii	"uint16_t\000"
+ 786      31365F74 
+ 786      00
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 17
+
+
+ 787              	.LASF6:
+ 788 01f4 6C6F6E67 		.ascii	"long int\000"
+ 788      20696E74 
+ 788      00
+ 789              	.LASF21:
+ 790 01fd 75617274 		.ascii	"uartBuffer2\000"
+ 790      42756666 
+ 790      65723200 
+ 791              	.LASF16:
+ 792 0209 6C6F6E67 		.ascii	"long double\000"
+ 792      20646F75 
+ 792      626C6500 
+ 793              	.LASF0:
+ 794 0215 7369676E 		.ascii	"signed char\000"
+ 794      65642063 
+ 794      68617200 
+ 795              	.LASF23:
+ 796 0221 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 796      5341525F 
+ 796      315F5374 
+ 796      61727400 
+ 797              	.LASF27:
+ 798 0231 55415254 		.ascii	"UART_1_PutString\000"
+ 798      5F315F50 
+ 798      75745374 
+ 798      72696E67 
+ 798      00
+ 799              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
