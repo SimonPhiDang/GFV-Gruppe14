@@ -1,0 +1,6 @@
+C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\Scale.cyprj|2ba59866-d4ec-494a-bb2d-a55bddfec717
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|5584fe8c-2e1b-4e78-bcad-bc9bff53faf6
+C:\Users\Simon\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|a4aedb17-7644-46b7-bdb1-a1e5e4d4b034
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|35173989-aca9-4af1-b87b-81d9a64fe9a5
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|f7bc8571-9ac3-495c-904d-4bdaed8bda31
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|e7ea0f72-c4f1-477c-a0aa-56708409b251
