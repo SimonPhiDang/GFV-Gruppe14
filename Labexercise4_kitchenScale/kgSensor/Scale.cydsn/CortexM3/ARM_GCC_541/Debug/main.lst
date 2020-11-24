@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
   28:main.c        ****     UART_1_PutString("Scale application started\r\n");
   29:main.c        **** 
   30:main.c        ****     for(;;)
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 2
 
 
   31:main.c        ****     {
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
   62 001a 10BD     		pop	{r4, pc}
   63              		.cfi_endproc
   64              	.LFE65:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 3
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 3
 
 
   65              		.size	ISR_UART_rx_handler, .-ISR_UART_rx_handler
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  111              	.LVL11:
  112 0022 F9E7     		b	.L6
  113              	.L9:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 4
 
 
  114              		.align	2
@@ -235,10 +235,10 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  158 000b 01       		.uleb128 0x1
  159 000c 88000000 		.4byte	.LASF31
  160 0010 0C       		.byte	0xc
- 161 0011 1D020000 		.4byte	.LASF32
- 162 0015 61010000 		.4byte	.LASF33
+ 161 0011 44020000 		.4byte	.LASF32
+ 162 0015 D2010000 		.4byte	.LASF33
  163 0019 00000000 		.4byte	.Ldebug_ranges0+0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 5
 
 
  164 001d 00000000 		.4byte	0
@@ -246,7 +246,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  166 0025 02       		.uleb128 0x2
  167 0026 01       		.byte	0x1
  168 0027 06       		.byte	0x6
- 169 0028 48020000 		.4byte	.LASF0
+ 169 0028 6F020000 		.4byte	.LASF0
  170 002c 03       		.uleb128 0x3
  171 002d 21000000 		.4byte	.LASF4
  172 0031 02       		.byte	0x2
@@ -259,7 +259,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  179 003e 02       		.uleb128 0x2
  180 003f 02       		.byte	0x2
  181 0040 05       		.byte	0x5
- 182 0041 29020000 		.4byte	.LASF2
+ 182 0041 50020000 		.4byte	.LASF2
  183 0045 02       		.uleb128 0x2
  184 0046 02       		.byte	0x2
  185 0047 07       		.byte	0x7
@@ -272,7 +272,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  192 0057 02       		.uleb128 0x2
  193 0058 04       		.byte	0x4
  194 0059 05       		.byte	0x5
- 195 005a 33020000 		.4byte	.LASF6
+ 195 005a 5A020000 		.4byte	.LASF6
  196 005e 02       		.uleb128 0x2
  197 005f 04       		.byte	0x4
  198 0060 07       		.byte	0x7
@@ -280,11 +280,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  200 0065 02       		.uleb128 0x2
  201 0066 08       		.byte	0x8
  202 0067 05       		.byte	0x5
- 203 0068 0F020000 		.4byte	.LASF8
+ 203 0068 36020000 		.4byte	.LASF8
  204 006c 02       		.uleb128 0x2
  205 006d 08       		.byte	0x8
  206 006e 07       		.byte	0x7
- 207 006f C8010000 		.4byte	.LASF9
+ 207 006f 9C010000 		.4byte	.LASF9
  208 0073 04       		.uleb128 0x4
  209 0074 04       		.byte	0x4
  210 0075 05       		.byte	0x5
@@ -292,17 +292,17 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  212 007a 02       		.uleb128 0x2
  213 007b 04       		.byte	0x4
  214 007c 07       		.byte	0x7
- 215 007d BB010000 		.4byte	.LASF10
+ 215 007d 8F010000 		.4byte	.LASF10
  216 0081 03       		.uleb128 0x3
- 217 0082 DF010000 		.4byte	.LASF11
+ 217 0082 B3010000 		.4byte	.LASF11
  218 0086 03       		.byte	0x3
  219 0087 18       		.byte	0x18
  220 0088 2C000000 		.4byte	0x2c
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 6
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 6
 
 
  221 008c 03       		.uleb128 0x3
- 222 008d FE010000 		.4byte	.LASF12
+ 222 008d 25020000 		.4byte	.LASF12
  223 0091 03       		.byte	0x3
  224 0092 2C       		.byte	0x2c
  225 0093 4C000000 		.4byte	0x4c
@@ -317,15 +317,15 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  234 00a5 02       		.uleb128 0x2
  235 00a6 01       		.byte	0x1
  236 00a7 08       		.byte	0x8
- 237 00a8 24020000 		.4byte	.LASF15
+ 237 00a8 4B020000 		.4byte	.LASF15
  238 00ac 02       		.uleb128 0x2
  239 00ad 08       		.byte	0x8
  240 00ae 04       		.byte	0x4
- 241 00af 3C020000 		.4byte	.LASF16
+ 241 00af 63020000 		.4byte	.LASF16
  242 00b3 02       		.uleb128 0x2
  243 00b4 04       		.byte	0x4
  244 00b5 07       		.byte	0x7
- 245 00b6 06020000 		.4byte	.LASF17
+ 245 00b6 2D020000 		.4byte	.LASF17
  246 00ba 05       		.uleb128 0x5
  247 00bb 16010000 		.4byte	.LASF20
  248 00bf 01       		.byte	0x1
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  275 0104 12000000 		.4byte	.LVL3
  276 0108 C9010000 		.4byte	0x1c9
  277 010c 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 7
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 7
 
 
  278 010d 08       		.uleb128 0x8
@@ -366,7 +366,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  280 0112 D4010000 		.4byte	0x1d4
  281 0116 00       		.byte	0
  282 0117 09       		.uleb128 0x9
- 283 0118 A9010000 		.4byte	.LASF34
+ 283 0118 8A010000 		.4byte	.LASF34
  284 011c 01       		.byte	0x1
  285 011d 13       		.byte	0x13
  286 011e 73000000 		.4byte	0x73
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  332 0188 00       		.byte	0
  333 0189 00       		.byte	0
  334 018a 05       		.uleb128 0x5
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 8
 
 
  335 018b 4E010000 		.4byte	.LASF21
@@ -438,7 +438,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  349 01ab 50       		.byte	0x50
  350 01ac 00       		.byte	0
  351 01ad 0E       		.uleb128 0xe
- 352 01ae AE010000 		.4byte	.LASF35
+ 352 01ae 61010000 		.4byte	.LASF35
  353 01b2 08       		.byte	0x8
  354 01b3 9606     		.2byte	0x696
  355 01b5 B9010000 		.4byte	0x1b9
@@ -450,13 +450,13 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  361 01c7 04       		.byte	0x4
  362 01c8 6F       		.byte	0x6f
  363 01c9 10       		.uleb128 0x10
- 364 01ca 8D010000 		.4byte	.LASF23
- 365 01ce 8D010000 		.4byte	.LASF23
+ 364 01ca 6E010000 		.4byte	.LASF23
+ 365 01ce 6E010000 		.4byte	.LASF23
  366 01d2 04       		.byte	0x4
  367 01d3 88       		.byte	0x88
  368 01d4 10       		.uleb128 0x10
- 369 01d5 E7010000 		.4byte	.LASF24
- 370 01d9 E7010000 		.4byte	.LASF24
+ 369 01d5 BB010000 		.4byte	.LASF24
+ 370 01d9 BB010000 		.4byte	.LASF24
  371 01dd 04       		.byte	0x4
  372 01de 73       		.byte	0x73
  373 01df 10       		.uleb128 0x10
@@ -470,15 +470,15 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  381 01f3 04       		.byte	0x4
  382 01f4 54       		.byte	0x54
  383 01f5 10       		.uleb128 0x10
- 384 01f6 A0010000 		.4byte	.LASF27
- 385 01fa A0010000 		.4byte	.LASF27
+ 384 01f6 81010000 		.4byte	.LASF27
+ 385 01fa 81010000 		.4byte	.LASF27
  386 01fe 06       		.byte	0x6
  387 01ff 0E       		.byte	0xe
  388 0200 10       		.uleb128 0x10
- 389 0201 54020000 		.4byte	.LASF28
- 390 0205 54020000 		.4byte	.LASF28
+ 389 0201 7B020000 		.4byte	.LASF28
+ 390 0205 7B020000 		.4byte	.LASF28
  391 0209 04       		.byte	0x4
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 9
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 9
 
 
  392 020a 8B       		.byte	0x8b
@@ -488,8 +488,8 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  396 0214 06       		.byte	0x6
  397 0215 12       		.byte	0x12
  398 0216 10       		.uleb128 0x10
- 399 0217 65020000 		.4byte	.LASF30
- 400 021b 65020000 		.4byte	.LASF30
+ 399 0217 8C020000 		.4byte	.LASF30
+ 400 021b 8C020000 		.4byte	.LASF30
  401 021f 07       		.byte	0x7
  402 0220 76       		.byte	0x76
  403 0221 00       		.byte	0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  446 0028 13       		.uleb128 0x13
  447 0029 00       		.byte	0
  448 002a 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 10
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 10
 
 
  449 002b 04       		.uleb128 0x4
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  503 0062 11       		.uleb128 0x11
  504 0063 01       		.uleb128 0x1
  505 0064 12       		.uleb128 0x12
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 11
 
 
  506 0065 06       		.uleb128 0x6
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  560 00a1 0B       		.uleb128 0xb
  561 00a2 8A8201   		.uleb128 0x410a
  562 00a5 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 12
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 12
 
 
  563 00a6 02       		.uleb128 0x2
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  617 00df 10       		.uleb128 0x10
  618 00e0 2E       		.uleb128 0x2e
  619 00e1 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 13
 
 
  620 00e2 3F       		.uleb128 0x3f
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  674 0004 1C000000 		.4byte	.LFE65
  675 0008 00000000 		.4byte	.LFB64
  676 000c 2C000000 		.4byte	.LFE64
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 14
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 14
 
 
  677 0010 00000000 		.4byte	.LFB66
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  703      00
  704              	.LASF1:
  705 007a 756E7369 		.ascii	"unsigned char\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 15
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 15
 
 
  705      676E6564 
@@ -884,97 +884,102 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 1
  717      74655265 
  717      63656976 
  717      656400
- 718              	.LASF33:
- 719 0161 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\kgSensor\\Scale.cydsn\000"
- 719      73657273 
- 719      5C53696D 
- 719      6F6E5C44 
- 719      65736B74 
+ 718              	.LASF35:
+ 719 0161 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 719      52784275 
+ 719      66666572 
+ 719      00
  720              	.LASF23:
- 721 018d 55415254 		.ascii	"UART_1_WriteTxData\000"
+ 721 016e 55415254 		.ascii	"UART_1_WriteTxData\000"
  721      5F315F57 
  721      72697465 
  721      54784461 
  721      746100
  722              	.LASF27:
- 723 01a0 4144435F 		.ascii	"ADC_init\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 16
-
-
+ 723 0181 4144435F 		.ascii	"ADC_init\000"
  723      696E6974 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 16
+
+
  723      00
  724              	.LASF34:
- 725 01a9 6D61696E 		.ascii	"main\000"
+ 725 018a 6D61696E 		.ascii	"main\000"
  725      00
- 726              	.LASF35:
- 727 01ae 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 727      52784275 
- 727      66666572 
+ 726              	.LASF10:
+ 727 018f 756E7369 		.ascii	"unsigned int\000"
+ 727      676E6564 
+ 727      20696E74 
  727      00
- 728              	.LASF10:
- 729 01bb 756E7369 		.ascii	"unsigned int\000"
- 729      676E6564 
- 729      20696E74 
- 729      00
- 730              	.LASF9:
- 731 01c8 6C6F6E67 		.ascii	"long long unsigned int\000"
- 731      206C6F6E 
- 731      6720756E 
- 731      7369676E 
- 731      65642069 
- 732              	.LASF11:
- 733 01df 75696E74 		.ascii	"uint8_t\000"
- 733      385F7400 
- 734              	.LASF24:
- 735 01e7 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
- 735      5F315F47 
- 735      65745278 
- 735      42756666 
- 735      65725369 
- 736              	.LASF12:
- 737 01fe 696E7433 		.ascii	"int32_t\000"
- 737      325F7400 
- 738              	.LASF17:
- 739 0206 73697A65 		.ascii	"sizetype\000"
- 739      74797065 
- 739      00
- 740              	.LASF8:
- 741 020f 6C6F6E67 		.ascii	"long long int\000"
- 741      206C6F6E 
- 741      6720696E 
- 741      7400
- 742              	.LASF32:
- 743 021d 6D61696E 		.ascii	"main.c\000"
- 743      2E6300
- 744              	.LASF15:
- 745 0224 63686172 		.ascii	"char\000"
- 745      00
- 746              	.LASF2:
- 747 0229 73686F72 		.ascii	"short int\000"
- 747      7420696E 
- 747      7400
- 748              	.LASF6:
- 749 0233 6C6F6E67 		.ascii	"long int\000"
- 749      20696E74 
- 749      00
- 750              	.LASF16:
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccmHVP4g.s 			page 17
+ 728              	.LASF9:
+ 729 019c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 729      206C6F6E 
+ 729      6720756E 
+ 729      7369676E 
+ 729      65642069 
+ 730              	.LASF11:
+ 731 01b3 75696E74 		.ascii	"uint8_t\000"
+ 731      385F7400 
+ 732              	.LASF24:
+ 733 01bb 55415254 		.ascii	"UART_1_GetRxBufferSize\000"
+ 733      5F315F47 
+ 733      65745278 
+ 733      42756666 
+ 733      65725369 
+ 734              	.LASF33:
+ 735 01d2 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 735      73657273 
+ 735      5C53696D 
+ 735      6F6E5C44 
+ 735      65736B74 
+ 736 0200 65345F6B 		.ascii	"e4_kitchenScale\\kgSensor\\Scale.cydsn\000"
+ 736      69746368 
+ 736      656E5363 
+ 736      616C655C 
+ 736      6B675365 
+ 737              	.LASF12:
+ 738 0225 696E7433 		.ascii	"int32_t\000"
+ 738      325F7400 
+ 739              	.LASF17:
+ 740 022d 73697A65 		.ascii	"sizetype\000"
+ 740      74797065 
+ 740      00
+ 741              	.LASF8:
+ 742 0236 6C6F6E67 		.ascii	"long long int\000"
+ 742      206C6F6E 
+ 742      6720696E 
+ 742      7400
+ 743              	.LASF32:
+ 744 0244 6D61696E 		.ascii	"main.c\000"
+ 744      2E6300
+ 745              	.LASF15:
+ 746 024b 63686172 		.ascii	"char\000"
+ 746      00
+ 747              	.LASF2:
+ 748 0250 73686F72 		.ascii	"short int\000"
+ 748      7420696E 
+ 748      7400
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\cc5OAr1W.s 			page 17
 
 
- 751 023c 6C6F6E67 		.ascii	"long double\000"
- 751      20646F75 
- 751      626C6500 
- 752              	.LASF0:
- 753 0248 7369676E 		.ascii	"signed char\000"
- 753      65642063 
- 753      68617200 
- 754              	.LASF28:
- 755 0254 55415254 		.ascii	"UART_1_PutString\000"
- 755      5F315F50 
- 755      75745374 
- 755      72696E67 
- 755      00
- 756              	.LASF30:
- 757 0265 43794465 		.ascii	"CyDelay\000"
- 757      6C617900 
- 758              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 749              	.LASF6:
+ 750 025a 6C6F6E67 		.ascii	"long int\000"
+ 750      20696E74 
+ 750      00
+ 751              	.LASF16:
+ 752 0263 6C6F6E67 		.ascii	"long double\000"
+ 752      20646F75 
+ 752      626C6500 
+ 753              	.LASF0:
+ 754 026f 7369676E 		.ascii	"signed char\000"
+ 754      65642063 
+ 754      68617200 
+ 755              	.LASF28:
+ 756 027b 55415254 		.ascii	"UART_1_PutString\000"
+ 756      5F315F50 
+ 756      75745374 
+ 756      72696E67 
+ 756      00
+ 757              	.LASF30:
+ 758 028c 43794465 		.ascii	"CyDelay\000"
+ 758      6C617900 
+ 759              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

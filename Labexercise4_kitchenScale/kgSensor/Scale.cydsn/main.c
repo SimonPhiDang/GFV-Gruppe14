@@ -21,8 +21,8 @@ int main(void)
     CyGlobalIntEnable; /* Enable global interrupts. */
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-//    isr_uart_rx_StartEx(ISR_UART_rx_handler);
-//    UART_1_Start();
+    isr_uart_rx_StartEx(ISR_UART_rx_handler);
+    UART_1_Start();
     ADC_init();
     
     UART_1_PutString("Scale application started\r\n");

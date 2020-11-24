@@ -1436,37 +1436,37 @@ END GROUP
  .debug_frame   0x00001d50       0x5c c:/program files (x86)/cypress/psoc creator/4.3/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-reent.o)
  .debug_frame   0x00001dac       0x20 c:/program files (x86)/cypress/psoc creator/4.3/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-nano-msizer.o)
 
-.debug_str      0x00000000     0x1cfe
+.debug_str      0x00000000     0x1d51
  *(.debug_str)
- .debug_str     0x00000000      0x21d .\CortexM3\ARM_GCC_541\Debug\main.o
-                                0x26d (size before relaxing)
- .debug_str     0x0000021d       0x8f .\CortexM3\ARM_GCC_541\Debug\ADC.o
-                                0x242 (size before relaxing)
- .debug_str     0x000002ac      0x1b5 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_str     0x00000000      0x244 .\CortexM3\ARM_GCC_541\Debug\main.o
+                                0x294 (size before relaxing)
+ .debug_str     0x00000244       0x8f .\CortexM3\ARM_GCC_541\Debug\ADC.o
+                                0x269 (size before relaxing)
+ .debug_str     0x000002d3      0x1e1 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
                                 0x32e (size before relaxing)
- .debug_str     0x00000461       0x75 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_str     0x000004b4       0x75 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
                                 0x1ce (size before relaxing)
- .debug_str     0x000004d6      0x13f .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_str     0x00000529      0x13f .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
                                 0x2f4 (size before relaxing)
- .debug_str     0x00000615      0x2b8 .\CortexM3\ARM_GCC_541\Debug\Scale.a(UART_1.o)
+ .debug_str     0x00000668      0x2b8 .\CortexM3\ARM_GCC_541\Debug\Scale.a(UART_1.o)
                                 0x49d (size before relaxing)
- .debug_str     0x000008cd      0x13e .\CortexM3\ARM_GCC_541\Debug\Scale.a(isr_uart_rx.o)
+ .debug_str     0x00000920      0x13e .\CortexM3\ARM_GCC_541\Debug\Scale.a(isr_uart_rx.o)
                                 0x2e4 (size before relaxing)
- .debug_str     0x00000a0b      0x23c .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1.o)
+ .debug_str     0x00000a5e      0x23c .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1.o)
                                 0x4a7 (size before relaxing)
- .debug_str     0x00000c47       0x35 .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1_INT.o)
+ .debug_str     0x00000c9a       0x35 .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1_INT.o)
                                 0x185 (size before relaxing)
- .debug_str     0x00000c7c      0x19d .\CortexM3\ARM_GCC_541\Debug\Scale.a(UART_1_IntClock.o)
+ .debug_str     0x00000ccf      0x19d .\CortexM3\ARM_GCC_541\Debug\Scale.a(UART_1_IntClock.o)
                                 0x338 (size before relaxing)
- .debug_str     0x00000e19      0x16d .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1_theACLK.o)
+ .debug_str     0x00000e6c      0x16d .\CortexM3\ARM_GCC_541\Debug\Scale.a(ADC_SAR_1_theACLK.o)
                                 0x350 (size before relaxing)
- .debug_str     0x00000f86      0x7d7 .\CortexM3\ARM_GCC_541\Debug\Scale.a(CyLib.o)
+ .debug_str     0x00000fd9      0x7d7 .\CortexM3\ARM_GCC_541\Debug\Scale.a(CyLib.o)
                                 0xa31 (size before relaxing)
- .debug_str     0x0000175d      0x359 .\CortexM3\ARM_GCC_541\Debug\Scale.a(cyPm.o)
+ .debug_str     0x000017b0      0x359 .\CortexM3\ARM_GCC_541\Debug\Scale.a(cyPm.o)
                                 0x711 (size before relaxing)
- .debug_str     0x00001ab6      0x19c .\CortexM3\ARM_GCC_541\Debug\Scale.a(CyFlash.o)
+ .debug_str     0x00001b09      0x19c .\CortexM3\ARM_GCC_541\Debug\Scale.a(CyFlash.o)
                                 0x38b (size before relaxing)
- .debug_str     0x00001c52       0xac .\CortexM3\ARM_GCC_541\Debug\Scale.a(CySpc.o)
+ .debug_str     0x00001ca5       0xac .\CortexM3\ARM_GCC_541\Debug\Scale.a(CySpc.o)
                                 0x314 (size before relaxing)
 
 .debug_loc      0x00000000     0x20bf
@@ -1660,4 +1660,4 @@ END GROUP
 
 /DISCARD/
  *(.note.GNU-stack)
-OUTPUT(C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\CortexM3\ARM_GCC_541\Debug\Scale.elf elf32-littlearm)
+OUTPUT(C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\CortexM3\ARM_GCC_541\Debug\Scale.elf elf32-littlearm)

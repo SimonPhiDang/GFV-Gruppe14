@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
   37 0002 FFF7FEFF 		bl	ADC_SAR_1_Start
   38              	.LVL0:
   19:ADC.c         ****     ADC_SAR_1_StartConvert();
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 2
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 2
 
 
   39              		.loc 1 19 0
@@ -95,43 +95,42 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
   66              		.cfi_offset 14, -4
   67 0002 ADF5027D 		sub	sp, sp, #520
   68              		.cfi_def_cfa_offset 528
-  24:ADC.c         ****     char uartBuffer[256];
-  25:ADC.c         ****     char uartBuffer2[256];
+  24:ADC.c         ****       char uartBuffer[256];
+  25:ADC.c         ****       char uartBuffer2[256];  
   26:ADC.c         ****     
-  27:ADC.c         ****     
-  28:ADC.c         ****     if (ADC_SAR_1_IsEndConversion(ADC_SAR_1_WAIT_FOR_RESULT))
-  69              		.loc 1 28 0
+  27:ADC.c         ****     if (ADC_SAR_1_IsEndConversion(ADC_SAR_1_WAIT_FOR_RESULT))
+  69              		.loc 1 27 0
   70 0006 0020     		movs	r0, #0
   71 0008 FFF7FEFF 		bl	ADC_SAR_1_IsEndConversion
   72              	.LVL2:
   73 000c 40B3     		cbz	r0, .L3
   74              	.LBB2:
-  29:ADC.c         ****         {
-  30:ADC.c         ****             uint16_t result = ADC_SAR_1_GetResult16();
-  75              		.loc 1 30 0
+  28:ADC.c         ****         {
+  29:ADC.c         ****             uint16_t result = ADC_SAR_1_GetResult16();
+  75              		.loc 1 29 0
   76 000e FFF7FEFF 		bl	ADC_SAR_1_GetResult16
   77              	.LVL3:
   78 0012 84B2     		uxth	r4, r0
   79              	.LVL4:
-  31:ADC.c         ****             snprintf(uartBuffer, sizeof(uartBuffer), "ADC result: 0x%x \r\n", result);
-  80              		.loc 1 31 0
+  30:ADC.c         ****             snprintf(uartBuffer, sizeof(uartBuffer), "ADC result: 0x%x \r\n", result);
+  80              		.loc 1 30 0
   81 0014 2346     		mov	r3, r4
   82 0016 184A     		ldr	r2, .L6+16
   83 0018 4FF48071 		mov	r1, #256
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 3
-
-
   84 001c 42A8     		add	r0, sp, #264
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 3
+
+
   85 001e FFF7FEFF 		bl	snprintf
   86              	.LVL5:
-  32:ADC.c         ****             UART_1_PutString(uartBuffer);
-  87              		.loc 1 32 0
+  31:ADC.c         ****             UART_1_PutString(uartBuffer);
+  87              		.loc 1 31 0
   88 0022 42A8     		add	r0, sp, #264
   89 0024 FFF7FEFF 		bl	UART_1_PutString
   90              	.LVL6:
-  33:ADC.c         ****             
-  34:ADC.c         ****             float kg = 0.0005 * result - 0.0553;
-  91              		.loc 1 34 0
+  32:ADC.c         ****             
+  33:ADC.c         ****             float kg = 0.0005 * result - 0.0553;
+  91              		.loc 1 33 0
   92 0028 2046     		mov	r0, r4
   93 002a FFF7FEFF 		bl	__aeabi_i2d
   94              	.LVL7:
@@ -145,8 +144,8 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  102              	.LVL9:
  103 0042 FFF7FEFF 		bl	__aeabi_d2f
  104              	.LVL10:
-  35:ADC.c         ****             snprintf(uartBuffer2, sizeof(uartBuffer2), "Kg result: %f \r\n", kg);
- 105              		.loc 1 35 0
+  34:ADC.c         ****             snprintf(uartBuffer2, sizeof(uartBuffer2), "Kg result: %f \r\n", kg);
+ 105              		.loc 1 34 0
  106 0046 FFF7FEFF 		bl	__aeabi_f2d
  107              	.LVL11:
  108 004a CDE90001 		strd	r0, [sp]
@@ -155,13 +154,14 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  111 0054 02A8     		add	r0, sp, #8
  112 0056 FFF7FEFF 		bl	snprintf
  113              	.LVL12:
-  36:ADC.c         ****             UART_1_PutString(uartBuffer2); 
- 114              		.loc 1 36 0
+  35:ADC.c         ****             UART_1_PutString(uartBuffer2); 
+ 114              		.loc 1 35 0
  115 005a 02A8     		add	r0, sp, #8
  116 005c FFF7FEFF 		bl	UART_1_PutString
  117              	.LVL13:
  118              	.L3:
  119              	.LBE2:
+  36:ADC.c         ****             
   37:ADC.c         ****         }   
   38:ADC.c         **** }
  120              		.loc 1 38 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  131 0074 4850AC3F 		.word	1068257352
  132 0078 00000000 		.word	.LC0
  133 007c 14000000 		.word	.LC1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 4
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 4
 
 
  134              		.cfi_endproc
@@ -215,15 +215,15 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  157 000b 01       		.uleb128 0x1
  158 000c 72000000 		.4byte	.LASF29
  159 0010 0C       		.byte	0xc
- 160 0011 55010000 		.4byte	.LASF30
- 161 0015 29010000 		.4byte	.LASF31
+ 160 0011 36010000 		.4byte	.LASF30
+ 161 0015 70010000 		.4byte	.LASF31
  162 0019 00000000 		.4byte	.Ldebug_ranges0+0
  163 001d 00000000 		.4byte	0
  164 0021 00000000 		.4byte	.Ldebug_line0
  165 0025 02       		.uleb128 0x2
  166 0026 01       		.byte	0x1
  167 0027 06       		.byte	0x6
- 168 0028 15020000 		.4byte	.LASF0
+ 168 0028 3C020000 		.4byte	.LASF0
  169 002c 02       		.uleb128 0x2
  170 002d 01       		.byte	0x1
  171 002e 08       		.byte	0x8
@@ -231,14 +231,14 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  173 0033 02       		.uleb128 0x2
  174 0034 02       		.byte	0x2
  175 0035 05       		.byte	0x5
- 176 0036 D6010000 		.4byte	.LASF2
+ 176 0036 FD010000 		.4byte	.LASF2
  177 003a 03       		.uleb128 0x3
- 178 003b E0010000 		.4byte	.LASF4
+ 178 003b 07020000 		.4byte	.LASF4
  179 003f 02       		.byte	0x2
  180 0040 2B       		.byte	0x2b
  181 0041 45000000 		.4byte	0x45
  182 0045 02       		.uleb128 0x2
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 5
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 5
 
 
  183 0046 02       		.byte	0x2
@@ -252,7 +252,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  191 0057 02       		.uleb128 0x2
  192 0058 04       		.byte	0x4
  193 0059 05       		.byte	0x5
- 194 005a F4010000 		.4byte	.LASF6
+ 194 005a 1B020000 		.4byte	.LASF6
  195 005e 02       		.uleb128 0x2
  196 005f 04       		.byte	0x4
  197 0060 07       		.byte	0x7
@@ -260,11 +260,11 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  199 0065 02       		.uleb128 0x2
  200 0066 08       		.byte	0x8
  201 0067 05       		.byte	0x5
- 202 0068 C3010000 		.4byte	.LASF8
+ 202 0068 EA010000 		.4byte	.LASF8
  203 006c 02       		.uleb128 0x2
  204 006d 08       		.byte	0x8
  205 006e 07       		.byte	0x7
- 206 006f 7E010000 		.4byte	.LASF9
+ 206 006f 52010000 		.4byte	.LASF9
  207 0073 04       		.uleb128 0x4
  208 0074 04       		.byte	0x4
  209 0075 05       		.byte	0x5
@@ -272,14 +272,14 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  211 007a 02       		.uleb128 0x2
  212 007b 04       		.byte	0x4
  213 007c 07       		.byte	0x7
- 214 007d 71010000 		.4byte	.LASF10
+ 214 007d 45010000 		.4byte	.LASF10
  215 0081 03       		.uleb128 0x3
- 216 0082 EB010000 		.4byte	.LASF11
+ 216 0082 12020000 		.4byte	.LASF11
  217 0086 03       		.byte	0x3
  218 0087 24       		.byte	0x24
  219 0088 3A000000 		.4byte	0x3a
  220 008c 03       		.uleb128 0x3
- 221 008d 9C010000 		.4byte	.LASF12
+ 221 008d C3010000 		.4byte	.LASF12
  222 0091 03       		.byte	0x3
  223 0092 2C       		.byte	0x2c
  224 0093 4C000000 		.4byte	0x4c
@@ -294,20 +294,20 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  233 00a5 02       		.uleb128 0x2
  234 00a6 01       		.byte	0x1
  235 00a7 08       		.byte	0x8
- 236 00a8 D1010000 		.4byte	.LASF15
+ 236 00a8 F8010000 		.4byte	.LASF15
  237 00ac 02       		.uleb128 0x2
  238 00ad 08       		.byte	0x8
  239 00ae 04       		.byte	0x4
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 6
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 6
 
 
- 240 00af 09020000 		.4byte	.LASF16
+ 240 00af 30020000 		.4byte	.LASF16
  241 00b3 02       		.uleb128 0x2
  242 00b4 04       		.byte	0x4
  243 00b5 07       		.byte	0x7
- 244 00b6 A4010000 		.4byte	.LASF17
+ 244 00b6 CB010000 		.4byte	.LASF17
  245 00ba 05       		.uleb128 0x5
- 246 00bb 5B010000 		.4byte	.LASF18
+ 246 00bb 3C010000 		.4byte	.LASF18
  247 00bf 01       		.byte	0x1
  248 00c0 10       		.byte	0x10
  249 00c1 00000000 		.4byte	.LFB64
@@ -340,7 +340,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  276 0103 91       		.byte	0x91
  277 0104 F87D     		.sleb128 -264
  278 0106 08       		.uleb128 0x8
- 279 0107 FD010000 		.4byte	.LASF21
+ 279 0107 24020000 		.4byte	.LASF21
  280 010b 01       		.byte	0x1
  281 010c 19       		.byte	0x19
  282 010d CF010000 		.4byte	0x1cf
@@ -352,18 +352,18 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  288 011a 52000000 		.4byte	.LBE2-.LBB2
  289 011e BF010000 		.4byte	0x1bf
  290 0122 0A       		.uleb128 0xa
- 291 0123 95010000 		.4byte	.LASF22
+ 291 0123 69010000 		.4byte	.LASF22
  292 0127 01       		.byte	0x1
- 293 0128 1E       		.byte	0x1e
+ 293 0128 1D       		.byte	0x1d
  294 0129 81000000 		.4byte	0x81
  295 012d 00000000 		.4byte	.LLST0
  296 0131 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 7
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 7
 
 
  297 0132 6B6700   		.ascii	"kg\000"
  298 0135 01       		.byte	0x1
- 299 0136 22       		.byte	0x22
+ 299 0136 21       		.byte	0x21
  300 0137 97000000 		.4byte	0x97
  301 013b 13000000 		.4byte	.LLST1
  302 013f 06       		.uleb128 0x6
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  351 0197 50       		.byte	0x50
  352 0198 03       		.uleb128 0x3
  353 0199 91       		.byte	0x91
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 8
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 8
 
 
  354 019a F87B     		.sleb128 -520
@@ -464,28 +464,28 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  394 01dd FF       		.byte	0xff
  395 01de 00       		.byte	0
  396 01df 11       		.uleb128 0x11
- 397 01e0 64010000 		.4byte	.LASF32
+ 397 01e0 29010000 		.4byte	.LASF32
  398 01e4 07       		.byte	0x7
  399 01e5 9606     		.2byte	0x696
  400 01e7 EB010000 		.4byte	0x1eb
  401 01eb 12       		.uleb128 0x12
  402 01ec 8C000000 		.4byte	0x8c
  403 01f0 13       		.uleb128 0x13
- 404 01f1 21020000 		.4byte	.LASF23
- 405 01f5 21020000 		.4byte	.LASF23
+ 404 01f1 48020000 		.4byte	.LASF23
+ 405 01f5 48020000 		.4byte	.LASF23
  406 01f9 04       		.byte	0x4
  407 01fa 34       		.byte	0x34
  408 01fb 13       		.uleb128 0x13
  409 01fc 12010000 		.4byte	.LASF24
  410 0200 12010000 		.4byte	.LASF24
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 9
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 9
 
 
  411 0204 04       		.byte	0x4
  412 0205 D1       		.byte	0xd1
  413 0206 13       		.uleb128 0x13
- 414 0207 AD010000 		.4byte	.LASF25
- 415 020b AD010000 		.4byte	.LASF25
+ 414 0207 D4010000 		.4byte	.LASF25
+ 415 020b D4010000 		.4byte	.LASF25
  416 020f 04       		.byte	0x4
  417 0210 3B       		.byte	0x3b
  418 0211 13       		.uleb128 0x13
@@ -494,8 +494,8 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  421 021a 05       		.byte	0x5
  422 021b FD       		.byte	0xfd
  423 021c 13       		.uleb128 0x13
- 424 021d 31020000 		.4byte	.LASF27
- 425 0221 31020000 		.4byte	.LASF27
+ 424 021d 58020000 		.4byte	.LASF27
+ 425 0221 58020000 		.4byte	.LASF27
  426 0225 06       		.byte	0x6
  427 0226 8B       		.byte	0x8b
  428 0227 13       		.uleb128 0x13
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  465 001d 00       		.byte	0
  466 001e 03       		.uleb128 0x3
  467 001f 16       		.uleb128 0x16
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 10
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 10
 
 
  468 0020 00       		.byte	0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  522 0059 07       		.uleb128 0x7
  523 005a 2E       		.uleb128 0x2e
  524 005b 01       		.byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 11
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 11
 
 
  525 005c 3F       		.uleb128 0x3f
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  579 0093 0B       		.uleb128 0xb
  580 0094 49       		.uleb128 0x49
  581 0095 13       		.uleb128 0x13
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 12
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 12
 
 
  582 0096 02       		.uleb128 0x2
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  636 00d3 13       		.uleb128 0x13
  637 00d4 00       		.byte	0
  638 00d5 00       		.byte	0
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 13
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 13
 
 
  639 00d6 10       		.uleb128 0x10
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  693 0000 14000000 		.4byte	.LVL4
  694 0004 60000000 		.4byte	.LVL13
  695 0008 0100     		.2byte	0x1
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 14
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 14
 
 
  696 000a 54       		.byte	0x54
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  738      7369676E 
  738      65642069 
  738      6E7400
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 15
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 15
 
 
  739              	.LASF19:
@@ -890,102 +890,107 @@ ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 1
  756      315F5374 
  756      61727443 
  756      6F6E7665 
- 757              	.LASF31:
- 758 0129 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\kgSensor\\Scale.cydsn\000"
- 758      73657273 
- 758      5C53696D 
- 758      6F6E5C44 
- 758      65736B74 
+ 757              	.LASF32:
+ 758 0129 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 758      52784275 
+ 758      66666572 
+ 758      00
  759              	.LASF30:
- 760 0155 4144432E 		.ascii	"ADC.c\000"
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 16
-
-
+ 760 0136 4144432E 		.ascii	"ADC.c\000"
  760      6300
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 16
+
+
  761              	.LASF18:
- 762 015b 4144435F 		.ascii	"ADC_init\000"
+ 762 013c 4144435F 		.ascii	"ADC_init\000"
  762      696E6974 
  762      00
- 763              	.LASF32:
- 764 0164 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 764      52784275 
- 764      66666572 
+ 763              	.LASF10:
+ 764 0145 756E7369 		.ascii	"unsigned int\000"
+ 764      676E6564 
+ 764      20696E74 
  764      00
- 765              	.LASF10:
- 766 0171 756E7369 		.ascii	"unsigned int\000"
- 766      676E6564 
- 766      20696E74 
- 766      00
- 767              	.LASF9:
- 768 017e 6C6F6E67 		.ascii	"long long unsigned int\000"
- 768      206C6F6E 
- 768      6720756E 
- 768      7369676E 
- 768      65642069 
- 769              	.LASF22:
- 770 0195 72657375 		.ascii	"result\000"
- 770      6C7400
- 771              	.LASF12:
- 772 019c 696E7433 		.ascii	"int32_t\000"
- 772      325F7400 
- 773              	.LASF17:
- 774 01a4 73697A65 		.ascii	"sizetype\000"
- 774      74797065 
- 774      00
- 775              	.LASF25:
- 776 01ad 4144435F 		.ascii	"ADC_SAR_1_GetResult16\000"
- 776      5341525F 
- 776      315F4765 
- 776      74526573 
- 776      756C7431 
- 777              	.LASF8:
- 778 01c3 6C6F6E67 		.ascii	"long long int\000"
- 778      206C6F6E 
- 778      6720696E 
- 778      7400
- 779              	.LASF15:
- 780 01d1 63686172 		.ascii	"char\000"
- 780      00
- 781              	.LASF2:
- 782 01d6 73686F72 		.ascii	"short int\000"
- 782      7420696E 
- 782      7400
- 783              	.LASF4:
- 784 01e0 5F5F7569 		.ascii	"__uint16_t\000"
- 784      6E743136 
- 784      5F7400
- 785              	.LASF11:
- 786 01eb 75696E74 		.ascii	"uint16_t\000"
- 786      31365F74 
- 786      00
-ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccowUHay.s 			page 17
+ 765              	.LASF9:
+ 766 0152 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 766      206C6F6E 
+ 766      6720756E 
+ 766      7369676E 
+ 766      65642069 
+ 767              	.LASF22:
+ 768 0169 72657375 		.ascii	"result\000"
+ 768      6C7400
+ 769              	.LASF31:
+ 770 0170 433A5C55 		.ascii	"C:\\Users\\Simon\\Desktop\\GFV-Gruppe14\\Labexercis"
+ 770      73657273 
+ 770      5C53696D 
+ 770      6F6E5C44 
+ 770      65736B74 
+ 771 019e 65345F6B 		.ascii	"e4_kitchenScale\\kgSensor\\Scale.cydsn\000"
+ 771      69746368 
+ 771      656E5363 
+ 771      616C655C 
+ 771      6B675365 
+ 772              	.LASF12:
+ 773 01c3 696E7433 		.ascii	"int32_t\000"
+ 773      325F7400 
+ 774              	.LASF17:
+ 775 01cb 73697A65 		.ascii	"sizetype\000"
+ 775      74797065 
+ 775      00
+ 776              	.LASF25:
+ 777 01d4 4144435F 		.ascii	"ADC_SAR_1_GetResult16\000"
+ 777      5341525F 
+ 777      315F4765 
+ 777      74526573 
+ 777      756C7431 
+ 778              	.LASF8:
+ 779 01ea 6C6F6E67 		.ascii	"long long int\000"
+ 779      206C6F6E 
+ 779      6720696E 
+ 779      7400
+ 780              	.LASF15:
+ 781 01f8 63686172 		.ascii	"char\000"
+ 781      00
+ 782              	.LASF2:
+ 783 01fd 73686F72 		.ascii	"short int\000"
+ 783      7420696E 
+ 783      7400
+ 784              	.LASF4:
+ 785 0207 5F5F7569 		.ascii	"__uint16_t\000"
+ 785      6E743136 
+ARM GAS  C:\Users\Simon\AppData\Local\Temp\ccQY8bje.s 			page 17
 
 
- 787              	.LASF6:
- 788 01f4 6C6F6E67 		.ascii	"long int\000"
- 788      20696E74 
- 788      00
- 789              	.LASF21:
- 790 01fd 75617274 		.ascii	"uartBuffer2\000"
- 790      42756666 
- 790      65723200 
- 791              	.LASF16:
- 792 0209 6C6F6E67 		.ascii	"long double\000"
- 792      20646F75 
- 792      626C6500 
- 793              	.LASF0:
- 794 0215 7369676E 		.ascii	"signed char\000"
- 794      65642063 
- 794      68617200 
- 795              	.LASF23:
- 796 0221 4144435F 		.ascii	"ADC_SAR_1_Start\000"
- 796      5341525F 
- 796      315F5374 
- 796      61727400 
- 797              	.LASF27:
- 798 0231 55415254 		.ascii	"UART_1_PutString\000"
- 798      5F315F50 
- 798      75745374 
- 798      72696E67 
- 798      00
- 799              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 785      5F7400
+ 786              	.LASF11:
+ 787 0212 75696E74 		.ascii	"uint16_t\000"
+ 787      31365F74 
+ 787      00
+ 788              	.LASF6:
+ 789 021b 6C6F6E67 		.ascii	"long int\000"
+ 789      20696E74 
+ 789      00
+ 790              	.LASF21:
+ 791 0224 75617274 		.ascii	"uartBuffer2\000"
+ 791      42756666 
+ 791      65723200 
+ 792              	.LASF16:
+ 793 0230 6C6F6E67 		.ascii	"long double\000"
+ 793      20646F75 
+ 793      626C6500 
+ 794              	.LASF0:
+ 795 023c 7369676E 		.ascii	"signed char\000"
+ 795      65642063 
+ 795      68617200 
+ 796              	.LASF23:
+ 797 0248 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 797      5341525F 
+ 797      315F5374 
+ 797      61727400 
+ 798              	.LASF27:
+ 799 0258 55415254 		.ascii	"UART_1_PutString\000"
+ 799      5F315F50 
+ 799      75745374 
+ 799      72696E67 
+ 799      00
+ 800              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

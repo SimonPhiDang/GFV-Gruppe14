@@ -15,7 +15,7 @@ void ADC_init();
 
 // Måling af vægt
 
-float ADC_Measure();
+void ADC_Measure();
 
 
 /* [] END OF FILE */
