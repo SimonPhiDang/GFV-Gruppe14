@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Scale\Scale\Source Files\ADC.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Scale\Scale\Scale.cydwr\Pins">
 <ExpandedNodeIds>
 <v>Scale</v>
 <v>Scale\Scale</v>
@@ -210,12 +210,11 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\Scale.cydsn\Scale.cydwr" />
 <name v=".\Scale.cydsn\main.c" />
-<name v=".\Scale.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\Scale.cydsn\ADC.h" />
 <name v=".\Scale.cydsn\ADC.c" />
+<name v=".\Scale.cydsn\ADC.h" />
 <name v=".\Scale.cydsn\cyapicallbacks.h" />
+<name v=".\Scale.cydsn\Scale.cydwr" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -223,7 +222,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1059, 495" SelectedTabbedMdiWindow="2f3ffbba-b72c-40ba-8c54-7770d6afaff6"><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\Scale.cydwr" Guid="40b52105-f7ae-4ed0-ad9a-2a923ac2624c" /><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\main.c" Guid="c5a71dff-df97-4ddb-8f64-129467e3b9a2" /><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\TopDesign\TopDesign.cysch" Guid="2f3ffbba-b72c-40ba-8c54-7770d6afaff6" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\ADC.h" Guid="ee6b4096-98f2-41b4-a20e-fbf28c1af60f" /><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\ADC.c" Guid="7362c0e8-0eb4-411d-a2b9-c4e09edf66e7" /><DocumentWindow Key="C:\Users\Simon\Desktop\kgSensor\Scale.cydsn\cyapicallbacks.h" Guid="dd37b387-c638-4842-a314-0bdb3cef8f0b" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1274, 495" SelectedTabbedMdiWindow="d1a0420d-6a7c-41f9-8877-521c23eef2b1"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="489cf4f1-83bc-4b7f-9821-7beedcc27fe8" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\main.c" Guid="3fc7eab8-daa0-4a89-9230-bcff81cae28f" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\ADC.c" Guid="fc865c33-a70b-4b7e-b1d6-46b1383dca9a" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\ADC.h" Guid="e7a18e13-17e3-487f-8603-5b5b2aa449ae" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\cyapicallbacks.h" Guid="d1a0420d-6a7c-41f9-8877-521c23eef2b1" /><DocumentWindow Key="C:\Users\Simon\Desktop\GFV-Gruppe14\Labexercise4_kitchenScale\kgSensor\Scale.cydsn\Scale.cydwr" Guid="979b1009-2294-4a9b-9e28-92c80c6a304e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
